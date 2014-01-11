@@ -141,6 +141,7 @@ DEPENDENCIES
   capistrano (= 2.15.5)
   coffee-rails (~> 3.2.1)
   doorkeeper
+  jquery-rails
   pg
   rails (= 3.2.16)
   sass-rails (~> 3.2.3)

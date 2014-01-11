@@ -20,6 +20,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'jquery-rails'
 gem 'unicorn'
 gem 'capistrano', '2.15.5'
 gem 'doorkeeper'
