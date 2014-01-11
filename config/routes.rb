@@ -1,4 +1,7 @@
 AirMenuApi::Application.routes.draw do
+  use_doorkeeper
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
