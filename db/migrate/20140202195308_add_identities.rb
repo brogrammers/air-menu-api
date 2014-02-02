@@ -5,7 +5,7 @@ class AddIdentities < ActiveRecord::Migration
   		t.string :password
   		t.string :salt
   		t.string :email
-  		t.references :identifiable
+  		t.references :identifiable, polymorphic: true
 
   		t.timestamps
   	end

@@ -1,3 +1,7 @@
 class User < ActiveRecord::Base
-	has_one :identifiable, as: true
+	EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+
+	has_one :identity, as: :identifiable
+
+	validates :name, presence: true
 end

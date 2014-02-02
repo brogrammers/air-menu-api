@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(:version => 20140202200139) do
     t.string   "salt"
     t.string   "email"
     t.integer  "identifiable_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.string   "identifiable_type"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "oauth_access_grants", :force => true do |t|
