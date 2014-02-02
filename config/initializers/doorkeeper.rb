@@ -16,6 +16,10 @@ Doorkeeper.configure do
     # Admin.find_by_id(session[:admin_id]) || redirect_to(new_admin_session_url)
   end
 
+  resource_owner_from_credentials do
+    
+  end
+
   skip_authorization do |resource_owner, client|
     false
   end
