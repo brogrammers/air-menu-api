@@ -16,6 +16,12 @@ Doorkeeper.configure do
     # Admin.find_by_id(session[:admin_id]) || redirect_to(new_admin_session_url)
   end
 
+  resource_owner_from_credentials do |routes|
+    puts routes
+    identity = Identity.find_by_username(params[:username])
+    identity.identifiable if identity && identity.match_password(params[:password])
+  end
+
   skip_authorization do |resource_owner, client|
     false
   end
@@ -27,6 +33,9 @@ Doorkeeper.configure do
   client_credentials :from_params
   access_token_methods :from_bearer_authorization
   test_redirect_uri 'urn:ietf:wg:oauth:2.0:oob'
+
+  default_scopes  :public
+  optional_scopes :write, :update
 
   # If you want to restrict access to the web interface for adding oauth authorized applications, you need to declare the block below.
   # admin_authenticator do

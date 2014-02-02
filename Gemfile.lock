@@ -31,6 +31,7 @@ GEM
     apipie-rails (0.0.24)
       rails (>= 3.0.10)
     arel (3.0.3)
+    bcrypt-ruby (3.1.2)
     builder (3.0.4)
     capistrano (2.15.5)
       highline
@@ -138,6 +139,7 @@ PLATFORMS
 
 DEPENDENCIES
   apipie-rails
+  bcrypt-ruby
   capistrano (= 2.15.5)
   coffee-rails (~> 3.2.1)
   doorkeeper
