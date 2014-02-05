@@ -5,7 +5,7 @@ class Identity < ActiveRecord::Base
 
 	belongs_to :identifiable, polymorphic: true
 
-	validates :username, :password, :email, presence: true
+	validates :username, :salt, :email, presence: true
  	validates :email, uniqueness: true
  	validates :email, :format => { :with => EMAIL_REGEX }
 
@@ -19,7 +19,7 @@ class Identity < ActiveRecord::Base
  	private
 
  	def encrypt_password
- 		unless salt
+ 		if password and salt
  			self.salt = BCrypt::Engine.generate_salt
  			self.password = BCrypt::Engine.hash_secret(password, salt)
  		end

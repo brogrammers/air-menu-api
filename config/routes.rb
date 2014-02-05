@@ -1,5 +1,12 @@
 AirMenuApi::Application.routes.draw do
+  apipie
   use_doorkeeper
+
+  namespace :api do
+    namespace :v1 do
+      get '/me', :to => 'me#index'
+    end
+  end
 
 
   # The priority is based upon order of creation:
