@@ -12,6 +12,7 @@ namespace :postgresql do
 
   desc "Drop a database for this application."
   task :drop_database, roles: :db, only: {primary: true} do
+    run %Q{#{sudo} -u postgres psql -c "drop user #{postgresql_user};"}
     run %Q{#{sudo} -u postgres psql -c "drop database if exists #{postgresql_database};"}
   end
 
