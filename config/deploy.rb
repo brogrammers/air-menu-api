@@ -4,6 +4,7 @@ load "config/recipes/base"
 load "config/recipes/nginx"
 load "config/recipes/unicorn"
 load "config/recipes/postgres"
+load "config/recipes/rake"
 
 server 'air-menu.com', :web, :app, :db, primary: true
 

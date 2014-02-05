@@ -13,7 +13,7 @@ server {
   ssl_certificate      /etc/ssl/certs/stage.eventhub.com.crt;
   ssl_certificate_key  /etc/ssl/private/stage.eventhub.com.key;
 
- location ~* ^.+\.(jpg|jpeg|gif|png|ico|css|js|zip|tgz|gz|rar|bz2|pdf|txt|tar|wav|bmp|rtf|flv|swf|html|htm)$ {
+  location ~* ^.+\.(jpg|jpeg|gif|png|ico|css|js|zip|tgz|gz|rar|bz2|pdf|txt|tar|wav|bmp|rtf|flv|swf|html|htm)$ {
     root /home/rails-deploy/air-menu-api/current/public/;
     index index.html;
     expires max;
