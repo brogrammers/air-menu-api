@@ -10,7 +10,9 @@ class ApplicationController < ActionController::Base
   protected
 
   def find_current_user
-    @identity = Identity.find doorkeeper_token.resource_owner_id
-    @user = @identity.identifiable
+    if doorkeeper_token
+      @identity = Identity.find doorkeeper_token.resource_owner_id
+      @user = @identity.identifiable
+    end
   end
 end
