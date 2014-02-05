@@ -4,4 +4,4 @@ namespace :rake do
     run "cd #{current_path}; rake apipie:cache"
   end
 end
-after "deploy:assets:precompile", "rake:apipie:cache"
+after "deploy:assets:precompile", "rake:apipie"
