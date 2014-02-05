@@ -7,6 +7,12 @@
 # Ignore bundler config
 /.bundle
 
+# Ignore IDE settings
+/.idea
+
+# Ignore Assets folder
+/public/assets
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
