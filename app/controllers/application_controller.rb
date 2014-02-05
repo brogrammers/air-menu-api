@@ -15,4 +15,11 @@ class ApplicationController < ActionController::Base
       @user = @identity.identifiable
     end
   end
+
+  def doorkeeper_unauthorized_render_options
+    # TODO: need better ruling!
+    type = :json
+    type = :xml if request.headers['Accept'] =~ /application\/xml/
+    {type => {:error => {:messages => ['Unauthorized']}}}
+  end
 end
