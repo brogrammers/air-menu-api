@@ -10,6 +10,11 @@ namespace :postgresql do
     run %Q{#{sudo} -u postgres psql -c "create database #{postgresql_database} owner #{postgresql_user};"}
   end
 
+  desc "Drop a database for this application."
+  task :drop_database, roles: :db, only: {primary: true} do
+    run %Q{#{sudo} -u postgres psql -c "drop database if exists #{postgresql_database};"}
+  end
+
   desc "Generate the database.yml configuration file."
   task :setup, roles: :app do
     run "mkdir -p #{shared_path}/config"
