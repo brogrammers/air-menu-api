@@ -3,6 +3,7 @@ class AddCompanies < ActiveRecord::Migration
     create_table :companies do |t|
       t.string :name
       t.string :website
+      t.integer :user_id
 
       t.timestamps
     end

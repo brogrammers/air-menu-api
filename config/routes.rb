@@ -4,6 +4,7 @@ AirMenuApi::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :users
       get '/me', :to => 'me#index'
     end
   end

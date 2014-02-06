@@ -11,11 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140205154135) do
+ActiveRecord::Schema.define(:version => 20140206000048) do
+
+  create_table "addresses", :force => true do |t|
+    t.string   "address_1"
+    t.string   "address_2"
+    t.string   "city"
+    t.string   "county"
+    t.string   "state"
+    t.string   "country"
+    t.integer  "contactable_id"
+    t.string   "contactable_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "companies", :force => true do |t|
     t.string   "name"
     t.string   "website"
+    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -70,11 +84,30 @@ ActiveRecord::Schema.define(:version => 20140205154135) do
 
   add_index "oauth_applications", ["uid"], :name => "index_oauth_applications_on_uid", :unique => true
 
-  create_table "owners", :force => true do |t|
+  create_table "restaurants", :force => true do |t|
     t.string   "name"
+    t.boolean  "loyalty"
+    t.boolean  "remote_order"
+    t.float    "conversion_rate"
     t.integer  "company_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "staff_kinds", :force => true do |t|
+    t.string   "name"
+    t.integer  "restaurant_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "staff_members", :force => true do |t|
+    t.string   "name"
+    t.integer  "staff_kind_id"
+    t.integer  "group_id"
+    t.integer  "restaurant_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "users", :force => true do |t|
