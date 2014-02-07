@@ -33,8 +33,8 @@ Doorkeeper.configure do
   access_token_methods :from_bearer_authorization
   test_redirect_uri 'urn:ietf:wg:oauth:2.0:oob'
 
-  default_scopes  :public
-  optional_scopes :write, :update
+  default_scopes  :basic
+  optional_scopes :admin, :user, :create_company
 
   # If you want to restrict access to the web interface for adding oauth authorized applications, you need to declare the block below.
   # admin_authenticator do

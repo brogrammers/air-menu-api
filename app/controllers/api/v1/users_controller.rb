@@ -2,7 +2,8 @@ module Api
   module V1
     class UsersController < BaseController
 
-      doorkeeper_for :index
+      doorkeeper_for :index, :scopes => [:admin]
+      doorkeeper_for :show, :scopes => [:basic, :user]
 
       resource_description do
         name 'Users'
@@ -23,7 +24,7 @@ module Api
       end
 
       api :GET, '/users/:id', 'Get a users profile'
-      description 'Fetches a users profile.'
+      description 'Fetches a user profile.'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/users/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/users/show.xml")
