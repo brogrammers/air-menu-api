@@ -15,10 +15,6 @@ module Api
       api :GET, '/users', 'All the users in the system'
       description 'Fetches all the users in the system.'
       formats [:json, :xml]
-      param :scopes, Hash, :desc => "Scopes" do
-        param :username, String, :desc => "Username for login", :required => true
-      end
-      param :membership, ["standard","premium"], :desc => "User membership"
       example File.read("#{Rails.root}/public/docs/api/v1/users/index.json")
       example File.read("#{Rails.root}/public/docs/api/v1/users/index.xml")
       def index
@@ -54,9 +50,6 @@ module Api
       def create_user
         user = User.new
         user.name = params[:name]
-        user.username = params[:username]
-        user.new_password = params[:password]
-        user.email = params[:email]
         user.save!
         user
       end
