@@ -6,7 +6,7 @@ class Identity < ActiveRecord::Base
 	belongs_to :identifiable, polymorphic: true
 
 	validates :username, :email, presence: true
- 	validates :email, uniqueness: true
+ 	validates :username, :email, uniqueness: true
  	validates :email, :format => { :with => EMAIL_REGEX }
 
 	before_save :encrypt_password
