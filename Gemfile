@@ -15,7 +15,7 @@ end
 gem 'jquery-rails', '3.0.4'
 gem 'unicorn', '4.8.0'
 gem 'capistrano', '2.15.5'
-gem 'doorkeeper', '0.7.4'
+gem 'doorkeeper', '1.0.0'
 gem 'strong_parameters', '0.2.2'
 gem 'apipie-rails', '0.0.24'
 gem 'therubyracer', '0.12.0'
