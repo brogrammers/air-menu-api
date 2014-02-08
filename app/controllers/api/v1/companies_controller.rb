@@ -17,8 +17,8 @@ module Api
       api :GET, '/companies', 'All the companies in the system'
       description 'Fetches all the companies in the system.'
       formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/users/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/users/index.xml")
+      example File.read("#{Rails.root}/public/docs/api/v1/companies/index.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/companies/index.xml")
       def index
         @companies = Company.all
         respond_with @companies
@@ -27,8 +27,8 @@ module Api
       api :GET, '/companies/:id', 'Get a company profile'
       description 'Fetches a company profile.'
       formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/users/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/users/show.xml")
+      example File.read("#{Rails.root}/public/docs/api/v1/companies/show.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/companies/show.xml")
       def show
         @company = Company.find params[:id]
         respond_with @company
@@ -37,8 +37,16 @@ module Api
       api :POST, '/companies', 'Create a new company'
       description 'Creates a new company.'
       formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/users/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/users/show.xml")
+      param :name, String, :desc => "Companies name", :required => true
+      param :website, String, :desc => "Companies website", :required => true
+      param :address_1, String, :desc => "Companies address line 1", :required => true
+      param :address_2, String, :desc => "Companies address line 2", :required => true
+      param :city, String, :desc => "Companies city", :required => true
+      param :county, String, :desc => "Companies county", :required => true
+      param :state, String, :desc => "Companies state (only US)"
+      param :country, String, :desc => "Companies country", :required => true
+      example File.read("#{Rails.root}/public/docs/api/v1/companies/show.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/companies/show.xml")
       def create
         @company = create_company
         @user.company = @company
@@ -53,6 +61,7 @@ module Api
       def create_company
         company = Company.new
         company.name = params[:name]
+        company.website = params[:website]
         company.save!
         company
       end
