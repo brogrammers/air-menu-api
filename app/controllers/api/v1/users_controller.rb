@@ -36,6 +36,9 @@ module Api
       api :POST, '/users', 'Create a new user'
       description 'Creates a new user.'
       formats [:json, :xml]
+      param :name, String, :desc => "Users full name"
+      param :username, String, :desc => "Desired username"
+      param :password, String, :desc => "Desired password"
       example File.read("#{Rails.root}/public/docs/api/v1/users/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/users/show.xml")
       def create

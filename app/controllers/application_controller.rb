@@ -22,4 +22,11 @@ class ApplicationController < ActionController::Base
     type = :xml if request.headers['Accept'] =~ /application\/xml/
     {type => {:error => {:messages => ['Unauthorized']}}}
   end
+
+  def doorkeeper_forbidden_render_options
+    # TODO: need better ruling!
+    type = :json
+    type = :xml if request.headers['Accept'] =~ /application\/xml/
+    {type => {:error => {:messages => ['Forbidden']}}}
+  end
 end
