@@ -11,6 +11,10 @@ module Api
         path '/users'
         description 'The User endpoint is used for managing and creating new users inside the system' +
                     'A user is identifiable, which means it can be associated with some sort of credentials.'
+        error 401, 'Unauthorized, missing or invalid access token'
+        error 403, 'Forbidden, valid access token, but scope is missing'
+        error 404, 'Not Found, some resource could not be found'
+        error 500, 'Internal Server Error, Something went wrong!'
       end
 
       api :GET, '/users', 'All the users in the system'

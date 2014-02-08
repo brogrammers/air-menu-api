@@ -12,6 +12,10 @@ module Api
         path '/companies'
         description 'The Company endpoint lets you create new companies associated with the currently logged in user.' +
                         'A company can only be created iff the logged in entity is a user.'
+        error 401, 'Unauthorized, missing or invalid access token'
+        error 403, 'Forbidden, valid access token, but scope is missing'
+        error 404, 'Not Found, some resource could not be found'
+        error 500, 'Internal Server Error, Something went wrong!'
       end
 
       api :GET, '/companies', 'All the companies in the system'

@@ -9,6 +9,10 @@ module Api
         short_description 'Everything about the currently logged-in user'
         path '/me'
         description 'All around the currently logged-in user. Use this resource to interact with the currently logged-in users profile.'
+        error 401, 'Unauthorized, missing or invalid access token'
+        error 403, 'Forbidden, valid access token, but scope is missing'
+        error 404, 'Not Found, some resource could not be found'
+        error 500, 'Internal Server Error, Something went wrong!'
       end
 
       api :GET, '/me', 'Profile of the currently logged-in user'
