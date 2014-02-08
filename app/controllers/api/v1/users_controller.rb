@@ -14,7 +14,7 @@ module Api
       end
 
       api :GET, '/users', 'All the users in the system'
-      description 'Fetches all the users in the system.'
+      description 'Fetches all the users in the system. <b>Scopes:</b> admin'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/users/index.json")
       example File.read("#{Rails.root}/public/docs/api/v1/users/index.xml")
@@ -24,7 +24,7 @@ module Api
       end
 
       api :GET, '/users/:id', 'Get a users profile'
-      description 'Fetches a user profile.'
+      description 'Fetches a user profile. <b>Scopes:</b> basic user'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/users/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/users/show.xml")
@@ -34,7 +34,7 @@ module Api
       end
 
       api :POST, '/users', 'Create a new user'
-      description 'Creates a new user.'
+      description 'Creates a new user. No scopes or Access Token needed to perform this action <b>Scopes:</b> none'
       formats [:json, :xml]
       param :name, String, :desc => "Users full name", :required => true
       param :username, String, :desc => "Desired username", :required => true
