@@ -13,7 +13,12 @@ class ApplicationController < ActionController::Base
     if doorkeeper_token
       @identity = Identity.find doorkeeper_token.resource_owner_id
       @user = @identity.identifiable
+      @scopes = doorkeeper_token.scopes
     end
+  end
+
+  def scope_exists?(scope)
+    @scopes.exists? scope
   end
 
   def doorkeeper_unauthorized_render_options

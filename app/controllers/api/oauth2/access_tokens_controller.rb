@@ -1,6 +1,8 @@
 module Api
   module Oauth2
     class AccessTokensController < BaseController
+      class InvalidOAuthToken < StandardError; end
+
       include Doorkeeper::Helpers::Controller
 
       resource_description do
@@ -23,13 +25,26 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/oauth2/access_tokens/create.xml")
       def create
         response = strategy.authorize
+        if response.class == Doorkeeper::OAuth::ErrorResponse
+          raise InvalidOAuthToken
+        end
         @access_token = response.token
+        user.access_tokens << @access_token
+        @access_token.save!
         respond_with @access_token
       rescue Doorkeeper::Errors::DoorkeeperError => e
         handle_token_exception e
       end
 
       private
+
+      def user
+        @user ||= begin
+          identity = Identity.find_by_username(params[:username])
+          identity if identity && identity.match_password(params[:password])
+          identity.identifiable
+        end
+      end
 
       def strategy
         @strategy ||= server.token_request params[:grant_type]

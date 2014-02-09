@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140208233103) do
+ActiveRecord::Schema.define(:version => 20140209191921) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_1"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(:version => 20140208233103) do
     t.string   "password"
     t.string   "salt"
     t.string   "email"
+    t.boolean  "admin"
+    t.boolean  "developer"
     t.integer  "identifiable_id"
     t.string   "identifiable_type"
     t.datetime "created_at",        :null => false
@@ -76,6 +78,8 @@ ActiveRecord::Schema.define(:version => 20140208233103) do
     t.datetime "revoked_at"
     t.datetime "created_at",        :null => false
     t.string   "scopes"
+    t.integer  "owner_id"
+    t.string   "owner_type"
   end
 
   add_index "oauth_access_tokens", ["refresh_token"], :name => "index_oauth_access_tokens_on_refresh_token", :unique => true
@@ -83,14 +87,18 @@ ActiveRecord::Schema.define(:version => 20140208233103) do
   add_index "oauth_access_tokens", ["token"], :name => "index_oauth_access_tokens_on_token", :unique => true
 
   create_table "oauth_applications", :force => true do |t|
-    t.string   "name",                         :null => false
-    t.string   "uid",                          :null => false
-    t.string   "secret",                       :null => false
-    t.string   "redirect_uri", :limit => 2048, :null => false
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.string   "name",                                            :null => false
+    t.string   "uid",                                             :null => false
+    t.string   "secret",                                          :null => false
+    t.string   "redirect_uri", :limit => 2048,                    :null => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.boolean  "trusted",                      :default => false
   end
 
+  add_index "oauth_applications", ["owner_id", "owner_type"], :name => "index_oauth_applications_on_owner_id_and_owner_type"
   add_index "oauth_applications", ["uid"], :name => "index_oauth_applications_on_uid", :unique => true
 
   create_table "restaurants", :force => true do |t|

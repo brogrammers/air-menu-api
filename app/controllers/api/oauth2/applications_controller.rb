@@ -1,6 +1,10 @@
+require 'pp'
+
 module Api
   module Oauth2
     class ApplicationsController < BaseController
+
+      before_filter :get_applications, :only => [:index]
 
       doorkeeper_for :index, :show, :create, :scopes => [:developer]
 
@@ -17,7 +21,6 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/oauth2/applications/index.json")
       example File.read("#{Rails.root}/public/docs/api/oauth2/applications/index.xml")
       def index
-        @applications = Doorkeeper::Application.all
         respond_with @applications
       end
 
@@ -36,14 +39,31 @@ module Api
       formats [:json, :xml]
       param :name, String, :desc => 'Application name', :required => true
       param :redirect_uri, String, :desc => 'A redirection url', :required => true
+      param :trusted, [true, false], :desc => 'Trusted Application. Scope: admin'
       example File.read("#{Rails.root}/public/docs/api/oauth2/applications/show.json")
       example File.read("#{Rails.root}/public/docs/api/oauth2/applications/show.xml")
       def create
         @application = Doorkeeper::Application.new
         @application.name = params[:name]
         @application.redirect_uri = params[:redirect_uri]
+        if scope_exists? 'admin'
+          @application.trusted = params[:trusted] || false
+        else
+          @application.trusted = false
+        end
+        @user.applications << @application
         @application.save!
         respond_with @application
+      end
+
+      private
+
+      def get_applications
+        @applications = Set.new
+        if scope_exists? 'admin'
+          @applications.merge Doorkeeper::Application.where(:trusted => true)
+        end
+        @applications.merge @user.applications
       end
     end
   end

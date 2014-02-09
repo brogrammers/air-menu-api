@@ -5,6 +5,8 @@ class AddIdentities < ActiveRecord::Migration
   		t.string :password
   		t.string :salt
   		t.string :email
+      t.boolean :admin
+      t.boolean :developer
   		t.references :identifiable, polymorphic: true
 
   		t.timestamps

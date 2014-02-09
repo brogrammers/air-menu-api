@@ -20,8 +20,13 @@ Doorkeeper.configure do
   end
 
   resource_owner_from_credentials do |routes|
+    client = Doorkeeper::Application.authenticate(params[:client_id], params[:client_secret])
     identity = Identity.find_by_username(params[:username])
-    identity if identity && identity.match_password(params[:password])
+    if client && identity && client.trusted && identity.match_password(params[:password])
+      identity
+    else
+      nil
+    end
   end
 
   skip_authorization do |resource_owner, client|
