@@ -5,6 +5,7 @@ namespace :db do
   task :fill => :environment do
     fill_scopes
     fill_oauth_applications
+    fill_users
   end
 
 end
