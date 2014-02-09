@@ -1,8 +1,16 @@
 AirMenuApi::Application.routes.draw do
   apipie
-  use_doorkeeper
+
+
 
   namespace :api do
+    use_doorkeeper do
+      skip_controllers :authorizations, :tokens, :applications, :authorized_applications
+    end
+    namespace :oauth2 do
+      resources :applications
+      resources :access_tokens
+    end
     namespace :v1 do
       resources :users
       resources :companies
