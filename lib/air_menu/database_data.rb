@@ -24,6 +24,13 @@ USERS = [
         :meta => {
             :identity => 1
         }
+    },
+    {
+        :name => 'Gary Plum',
+        :meta => {
+            :identity => 2,
+            :company => 1
+        }
     }
 ]
 
@@ -41,6 +48,13 @@ IDENTITIES = [
         :email => 'robertmadman@gmail.com',
         :admin => true,
         :developer => true
+    },
+    {
+        :username => 'gary',
+        :password => 'davinci',
+        :email => 'gary@thechurch.ie',
+        :admin => false,
+        :developer => false
     }
 ]
 
@@ -52,6 +66,14 @@ COMPANIES = [
             :user => 0,
             :address => 0
         }
+    },
+    {
+        :name => 'The Church',
+        :website => 'http://thechurch.ie',
+        :meta => {
+            :user => 2,
+            :address => 1
+        }
     }
 ]
 
@@ -62,6 +84,33 @@ ADDRESSES = [
         :city => 'Dublin',
         :county => 'Dublin',
         :country => 'Ireland'
+    },
+    {
+        :address_1 => 'Junction of Mary St',
+        :address_2 => 'Jervis St',
+        :city => 'Dublin',
+        :county => 'Dublin',
+        :country => 'Ireland'
+    },
+    {
+        :address_1 => 'Junction of Mary St',
+        :address_2 => 'Jervis St',
+        :city => 'Dublin',
+        :county => 'Dublin',
+        :country => 'Ireland'
+    }
+]
+
+RESTAURANTS = [
+    {
+        :name => 'The Church',
+        :loyalty => false,
+        :remote_order => false,
+        :conversion_rate => 0.0,
+        :meta => {
+            :company => 1,
+            :address => 2
+        }
     }
 ]
 
@@ -101,6 +150,31 @@ def fill_users
         company = create_single_company company_index
         user.company = company
         company.save!
+      end
+    end
+  end
+end
+
+def fill_restaurants
+  RESTAURANTS.each_with_index do |serialized_restaurant, index|
+    restaurant = Restaurant.new
+    restaurant.name = serialized_restaurant[:name]
+    restaurant.loyalty = serialized_restaurant[:loyalty]
+    restaurant.remote_order = serialized_restaurant[:remote_order]
+    restaurant.conversion_rate = serialized_restaurant[:conversion_rate]
+    restaurant.save!
+    if serialized_restaurant[:meta]
+      if serialized_restaurant[:meta][:company]
+        company_index = serialized_restaurant[:meta][:company]
+        company = create_single_company company_index
+        company.restaurants << restaurant
+        restaurant.save!
+      end
+      if serialized_restaurant[:meta][:address]
+        address_index = serialized_restaurant[:meta][:address]
+        address = create_single_address address_index
+        restaurant.address = address
+        address.save!
       end
     end
   end

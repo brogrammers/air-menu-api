@@ -6,6 +6,7 @@ namespace :db do
     fill_scopes
     fill_oauth_applications
     fill_users
+    fill_restaurants
   end
 
 end
