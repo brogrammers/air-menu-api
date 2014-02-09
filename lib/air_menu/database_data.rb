@@ -1,17 +1,29 @@
 APPLICATIONS = [
     {
         :name => 'iOS Restaurant',
-        :redirect_uri => 'http://localhost/'
+        :redirect_uri => 'http://localhost/',
+        :trusted => true
     },
     {
         :name => 'iOS Customer',
-        :redirect_uri => 'http://localhost/'
+        :redirect_uri => 'http://localhost/',
+        :trusted => true
     }
 ]
 
 USERS = [
     {
-        :name => 'Max Hoffmann'
+        :name => 'Max Hoffmann',
+        :meta => {
+            :identity => 0,
+            :company => 0
+        }
+    },
+    {
+        :name => 'Robert Lis',
+        :meta => {
+            :identity => 1
+        }
     }
 ]
 
@@ -19,14 +31,27 @@ IDENTITIES = [
     {
         :username => 'tsov',
         :password => 'davinci',
-        :email => 'tsov@me.com'
+        :email => 'tsov@me.com',
+        :admin => true,
+        :developer => true
+    },
+    {
+        :username => 'rob',
+        :password => 'password123',
+        :email => 'robertmadman@gmail.com',
+        :admin => true,
+        :developer => true
     }
 ]
 
 COMPANIES = [
     {
         :name => 'Brogrammers',
-        :website => 'http://brogrammers.info'
+        :website => 'http://brogrammers.info',
+        :meta => {
+            :user => 0,
+            :address => 0
+        }
     }
 ]
 
@@ -54,36 +79,80 @@ def fill_oauth_applications
     application = Doorkeeper::Application.new
     application.name = serialized_application[:name]
     application.redirect_uri = serialized_application[:redirect_uri]
+    application.trusted = serialized_application[:trusted]
     application.save!
   end
 end
 
 def fill_users
-  identities = create_identities
-  companies = create_companies
-  addresses = create_addresses
   USERS.each_with_index do |serialized_user, index|
     user = User.new
     user.name = serialized_user[:name]
     user.save!
-    user.identity = identities[index]
-    user.company = companies[index]
-    identities[index].save!
-    companies[index].save!
-    user.company.address = addresses[index]
-    addresses[index].save!
+    if serialized_user[:meta]
+      if serialized_user[:meta][:identity]
+        identity_index = serialized_user[:meta][:identity]
+        identity = create_single_identity identity_index
+        user.identity = identity
+        identity.save!
+      end
+      if serialized_user[:meta][:company]
+        company_index = serialized_user[:meta][:company]
+        company = create_single_company company_index
+        user.company = company
+        company.save!
+      end
+    end
   end
+end
+
+
+def create_single_identity(index)
+  serialized_identity = IDENTITIES[index]
+  identity = Identity.new
+  identity.username = serialized_identity[:username]
+  identity.new_password = serialized_identity[:password]
+  identity.email = serialized_identity[:email]
+  identity.admin = !!serialized_identity[:admin]
+  identity.developer = !!serialized_identity[:developer]
+  identity.save!
+  identity
+end
+
+def create_single_company(index)
+  serialized_company = COMPANIES[index]
+  company = Company.new
+  company.name = serialized_company[:name]
+  company.website = serialized_company[:website]
+  company.save!
+  if serialized_company[:meta]
+    if serialized_company[:meta][:address]
+      address_index = serialized_company[:meta][:address]
+      address = create_single_address address_index
+      company.address = address
+      address.save!
+    end
+  end
+  company
+end
+
+def create_single_address(index)
+  serialized_address = ADDRESSES[index]
+  address = Address.new
+  address.address_1 = serialized_address[:address_1]
+  address.address_2 = serialized_address[:address_2]
+  address.city = serialized_address[:city]
+  address.county = serialized_address[:county]
+  address.country = serialized_address[:country]
+  address.save!
+  address
 end
 
 
 def create_identities
   identities = []
-  IDENTITIES.each do |serialized_identity|
-    identity = Identity.new
-    identity.username = serialized_identity[:username]
-    identity.new_password = serialized_identity[:password]
-    identity.email = serialized_identity[:email]
-    identity.save!
+  IDENTITIES.each_with_index do |serialized_identity, index|
+    identity = create_single_identity index
     identities << identity
   end
   identities
@@ -91,11 +160,8 @@ end
 
 def create_companies
   companies = []
-  COMPANIES.each do |serialized_company|
-    company = Company.new
-    company.name = serialized_company[:name]
-    company.website = serialized_company[:website]
-    company.save!
+  COMPANIES.each_with_index do |serialized_company, index|
+    company = create_single_company index
     companies << company
   end
   companies
@@ -103,14 +169,8 @@ end
 
 def create_addresses
   addresses = []
-  ADDRESSES.each do |serialized_address|
-    address = Address.new
-    address.address_1 = serialized_address[:address_1]
-    address.address_2 = serialized_address[:address_2]
-    address.city = serialized_address[:city]
-    address.county = serialized_address[:county]
-    address.country = serialized_address[:country]
-    address.save!
+  ADDRESSES.each_with_index do |serialized_address, index|
+    address = create_single_address index
     addresses << address
   end
   addresses
