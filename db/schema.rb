@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140206000048) do
+ActiveRecord::Schema.define(:version => 20140208233103) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_1"
@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(:version => 20140206000048) do
     t.string   "identifiable_type"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+  end
+
+  create_table "locations", :force => true do |t|
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "findable_id"
+    t.string   "findable_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "oauth_access_grants", :force => true do |t|
@@ -92,6 +101,17 @@ ActiveRecord::Schema.define(:version => 20140206000048) do
     t.integer  "company_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "scopes", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "scopes_staff_kinds", :force => true do |t|
+    t.integer "staff_kind_id"
+    t.integer "scope_id"
   end
 
   create_table "staff_kinds", :force => true do |t|
