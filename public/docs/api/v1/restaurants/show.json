@@ -1,0 +1,18 @@
+{
+    "restaurant": {
+        "id": 1,
+        "name": "My Restaurant",
+        "loyalty": false,
+        "remote_order": false,
+        "conversion_rate": 0,
+        "address": {
+            "id": 2,
+            "address_1": "Apartment 6347",
+            "address_2": "Hello STreet",
+            "city": "Dublin",
+            "county": "Dublin",
+            "state": null,
+            "country": "Ireland"
+        }
+    }
+}

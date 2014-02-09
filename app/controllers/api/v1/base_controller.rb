@@ -9,6 +9,55 @@ module Api
         api_base_url '/api/v1'
       end
 
+      protected
+
+      def create_company
+        company = Company.new
+        company.name = params[:name]
+        company.website = params[:website]
+        company.save!
+        company
+      end
+
+      def create_address
+        address = Address.new
+        address.address_1 = params[:address_1]
+        address.address_2 = params[:address_2]
+        address.city = params[:city]
+        address.county = params[:county]
+        address.state = params[:state]
+        address.country = params[:country]
+        address.save!
+        address
+      end
+
+      def create_restaurant
+        restaurant = Restaurant.new
+        restaurant.name = params[:name]
+        restaurant.loyalty = false
+        restaurant.remote_order = false
+        restaurant.conversion_rate = 0.0
+        restaurant.company_id = params[:company_id]
+        restaurant.save!
+        restaurant
+      end
+
+      def create_user
+        user = User.new
+        user.name = params[:name]
+        user.save!
+        user
+      end
+
+      def create_identity
+        identity = Identity.new
+        identity.username = params[:username]
+        identity.new_password = params[:password]
+        identity.email = params[:email]
+        identity.save!
+        identity
+      end
+
     end
   end
 end

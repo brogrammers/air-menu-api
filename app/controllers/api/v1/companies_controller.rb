@@ -60,28 +60,6 @@ module Api
         respond_with @user
       end
 
-      private
-
-      def create_company
-        company = Company.new
-        company.name = params[:name]
-        company.website = params[:website]
-        company.save!
-        company
-      end
-
-      def create_address
-        address = Address.new
-        address.address_1 = params[:address_1]
-        address.address_2 = params[:address_2]
-        address.city = params[:city]
-        address.county = params[:county]
-        address.state = params[:state]
-        address.country = params[:country]
-        address.save!
-        address
-      end
-
     end
   end
 end

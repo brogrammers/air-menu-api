@@ -53,24 +53,6 @@ module Api
         respond_with @user
       end
 
-      private
-
-      def create_user
-        user = User.new
-        user.name = params[:name]
-        user.save!
-        user
-      end
-
-      def create_identity
-        identity = Identity.new
-        identity.username = params[:username]
-        identity.new_password = params[:password]
-        identity.email = params[:email]
-        identity.save!
-        identity
-      end
-
     end
   end
 end

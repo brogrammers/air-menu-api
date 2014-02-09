@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<restaurant>
+  <id type="integer">1</id>
+  <name>My Restaurant</name>
+  <loyalty type="boolean">false</loyalty>
+  <remote-order type="boolean">false</remote-order>
+  <conversion-rate type="float">0.0</conversion-rate>
+  <address>
+    <id type="integer">2</id>
+    <address-1>Apartment 6347</address-1>
+    <address-2>Hello STreet</address-2>
+    <city>Dublin</city>
+    <county>Dublin</county>
+    <state nil="true"/>
+    <country>Ireland</country>
+  </address>
+</restaurant>
