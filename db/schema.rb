@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140209191921) do
+ActiveRecord::Schema.define(:version => 20140211005839) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_1"
@@ -52,6 +52,32 @@ ActiveRecord::Schema.define(:version => 20140209191921) do
     t.float    "longitude"
     t.integer  "findable_id"
     t.string   "findable_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "menu_items", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.float    "price"
+    t.string   "currency"
+    t.integer  "menu_section_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "menu_sections", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "menu_id"
+    t.integer  "staff_kind_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "menus", :force => true do |t|
+    t.string   "name"
+    t.integer  "restaurant_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
@@ -109,6 +135,7 @@ ActiveRecord::Schema.define(:version => 20140209191921) do
     t.integer  "company_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.integer  "active_menu_id"
   end
 
   create_table "scopes", :force => true do |t|
