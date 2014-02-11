@@ -1,0 +1,9 @@
+{
+    "menu_sections": [
+        {
+            "id": 1,
+            "name": "Foods",
+            "description": "main dishes"
+        }
+    ]
+}

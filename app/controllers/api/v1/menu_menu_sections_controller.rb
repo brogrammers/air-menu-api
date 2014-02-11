@@ -19,8 +19,8 @@ module Api
       api :GET, '/menus/:id/menu_sections', 'All the menu sections in a menu'
       description 'Fetches all the menu sections in a menu. <b>Scopes:</b> user'
       formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.xml")
+      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/index.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/index.xml")
       def index
         @menu = Menu.find params[:menu_id]
         respond_with @menu.menu_sections
@@ -31,8 +31,8 @@ module Api
       formats [:json, :xml]
       param :name, String, :desc => 'Name of Menu Section', :required => true
       param :description, String, :desc => 'Description of Menu Section', :required => true
-      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.xml")
+      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/show.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/show.xml")
       def create
         @menu = Menu.find params[:menu_id]
         @menu_section = MenuSection.new

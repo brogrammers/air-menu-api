@@ -20,8 +20,8 @@ module Api
       api :GET, '/restaurants/:id/menus', 'All the menus of a restaurant'
       description 'Fetches all the menus in the system. <b>Scopes:</b> owner get_menus'
       formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.xml")
+      example File.read("#{Rails.root}/public/docs/api/v1/menus/index.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/menus/index.xml")
       def index
         @restaurant = Restaurant.find params[:restaurant_id]
         respond_with @restaurant.menus
@@ -32,8 +32,8 @@ module Api
       formats [:json, :xml]
       param :name, String, :desc => 'Menu name', :required => true
       param :active, String, :desc => 'Make menu active. Scope: owner add_active_menus'
-      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.xml")
+      example File.read("#{Rails.root}/public/docs/api/v1/menus/create.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/menus/create.xml")
       def create
         @restaurant = Restaurant.find params[:restaurant_id]
         @menu = Menu.new

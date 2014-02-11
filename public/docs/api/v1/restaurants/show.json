@@ -1,18 +1,19 @@
 {
     "restaurant": {
-        "id": 1,
-        "name": "My Restaurant",
+        "id": 2,
+        "name": "The Church 2",
         "loyalty": false,
         "remote_order": false,
         "conversion_rate": 0,
         "address": {
-            "id": 2,
-            "address_1": "Apartment 6347",
-            "address_2": "Hello STreet",
+            "id": 5,
+            "address_1": "blah",
+            "address_2": "blah",
             "city": "Dublin",
             "county": "Dublin",
             "state": null,
             "country": "Ireland"
-        }
+        },
+        "menu": null
     }
 }

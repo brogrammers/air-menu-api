@@ -20,8 +20,8 @@ module Api
       api :GET, '/menus', 'All the menus in the system'
       description 'Fetches all the menus in the system. <b>Scopes:</b> admin'
       formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.xml")
+      example File.read("#{Rails.root}/public/docs/api/v1/menus/index.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/menus/index.xml")
       def index
         @menus = Menu.all
         respond_with @menus
@@ -30,8 +30,8 @@ module Api
       api :GET, '/menus/:id', 'Get a menu in the system'
       description 'Fetches all the menus in the system. <b>Scopes:</b> basic user'
       formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.xml")
+      example File.read("#{Rails.root}/public/docs/api/v1/menus/show.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/menus/show.xml")
       def show
         @menu = Menu.find params[:id]
         respond_with @menu
