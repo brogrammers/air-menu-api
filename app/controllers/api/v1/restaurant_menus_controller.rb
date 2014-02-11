@@ -6,7 +6,7 @@ module Api
       doorkeeper_for :create, :scopes => [:owner, :add_menus, :add_active_menus]
 
       resource_description do
-        name 'Restaurant Menus'
+        name 'Restaurants > Menus'
         short_description 'All about menus of restaurants'
         path '/restaurants/:id/menus'
         description 'The Restaurant Menus endpoint lets you create new menus for a restaurant.' +

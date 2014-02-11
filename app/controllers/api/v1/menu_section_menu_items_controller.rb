@@ -6,7 +6,7 @@ module Api
       doorkeeper_for :create, :scopes => [:owner, :add_menus, :add_active_menus]
 
       resource_description do
-        name 'Menu Section Menu Items'
+        name 'Menu Sections > Menu Items'
         short_description 'All about menu items within menu sections'
         path '/menu_sections/:id/menu_items'
         description 'The Menu Section Menu Items endpoint lets you create new menu items for a menu section.'

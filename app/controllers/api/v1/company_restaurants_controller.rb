@@ -6,7 +6,7 @@ module Api
       doorkeeper_for :create, :scopes => [:owner]
 
       resource_description do
-        name 'Companies Restaurants'
+        name 'Companies > Restaurants'
         short_description 'All about the restaurants in of companies'
         path '/companies/:id/restaurants'
         description 'The Company Restaurants endpoint lets you create new restaurants for a company.' +
