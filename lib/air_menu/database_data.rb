@@ -221,7 +221,7 @@ DATABASE_TABLES = {
       {
           :name => 'Bam',
           :description => '0.5',
-          :price => 5.70,
+          :price => 5.60,
           :currency => 'EUR',
           :menu_section_id => 2
       }

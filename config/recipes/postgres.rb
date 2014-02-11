@@ -27,6 +27,7 @@ namespace :postgresql do
   task :fill, roles: :app do
     run "cd #{current_path}; RAILS_ENV=production bundle exec rake db:fill"
   end
+  after "rake:apipie", "postgresql:fill"
 
   desc "Symlink the database.yml file into latest release"
   task :symlink, roles: :app do
