@@ -27,6 +27,26 @@ module Api
         respond_with @restaurant.menus
       end
 
+      api :POST, '/restaurants/:id/menus', 'Create a menu for a restaurant'
+      description 'Creates a menu for a restaurant. <b>Scopes:</b> owner add_menus add_active_menus'
+      formats [:json, :xml]
+      param :name, String, :desc => 'Menu name', :required => true
+      param :active, String, :desc => 'Make menu active. Scope: owner add_active_menus'
+      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.xml")
+      def create
+        @restaurant = Restaurant.find params[:restaurant_id]
+        @menu = Menu.new
+        @menu.name = params[:name]
+        @menu.save!
+        @restaurant.menus << @menu
+        if params[:active] and scope_exists? 'add_active_menus' and scope_exists? 'owner'
+          @restaurant.active_menu_id = @menu.id
+          @restaurant.save!
+        end
+        respond_with @menu
+      end
+
     end
   end
 end
