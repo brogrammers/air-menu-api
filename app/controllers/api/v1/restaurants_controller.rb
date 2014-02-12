@@ -2,6 +2,8 @@ module Api
   module V1
     class RestaurantsController < BaseController
 
+      before_filter :set_restaurant, :only => [:show]
+
       doorkeeper_for :index, :scopes => [:user]
       doorkeeper_for :show, :scopes => [:user]
 
@@ -33,8 +35,15 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/show.xml")
       def show
-        @restaurant = Restaurant.find params[:id]
         respond_with @restaurant
+      end
+
+      private
+
+      def set_restaurant
+        @restaurant = Restaurant.find params[:id]
+      rescue ActiveRecord::RecordNotFound
+        render_model_not_found 'Restaurant'
       end
 
     end

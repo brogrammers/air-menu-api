@@ -157,7 +157,7 @@ DATABASE_TABLES = {
           :loyalty => false,
           :remote_order => false,
           :conversion_rate => 0.0,
-          :company_id => 1,
+          :company_id => 2,
           :active_menu_id => 1
       }
   ],
@@ -165,6 +165,10 @@ DATABASE_TABLES = {
   :menu => [
       {
           :name => 'Main Menu',
+          :restaurant_id => 1
+      },
+      {
+          :name => 'Alternative Menu',
           :restaurant_id => 1
       }
   ],
@@ -179,6 +183,11 @@ DATABASE_TABLES = {
           :name => 'Alcoholic Drinks',
           :description => 'Our list of Wines, Beers & Spirits',
           :menu_id => 1
+      },
+      {
+          :name => 'Some Menu Section',
+          :description => 'blah',
+          :menu_id => 2
       }
   ],
 
@@ -224,6 +233,13 @@ DATABASE_TABLES = {
           :price => 5.60,
           :currency => 'EUR',
           :menu_section_id => 2
+      },
+      {
+          :name => 'Bam',
+          :description => '0.5',
+          :price => 5.60,
+          :currency => 'EUR',
+          :menu_section_id => 3
       }
   ],
 

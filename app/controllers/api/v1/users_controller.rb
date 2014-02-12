@@ -2,6 +2,8 @@ module Api
   module V1
     class UsersController < BaseController
 
+      before_filter :set_user, :only => [:show]
+
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:basic, :user]
 
@@ -33,7 +35,6 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/users/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/users/show.xml")
       def show
-        @user = User.find params[:id]
         respond_with @user
       end
 
@@ -51,6 +52,14 @@ module Api
         @user.identity = @identity
         @identity.save!
         respond_with @user
+      end
+
+      private
+
+      def set_user
+        @user = User.find params[:id]
+      rescue ActiveRecord::RecordNotFound
+        render_model_not_found 'User'
       end
 
     end

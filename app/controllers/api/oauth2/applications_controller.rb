@@ -1,5 +1,3 @@
-require 'pp'
-
 module Api
   module Oauth2
     class ApplicationsController < BaseController

@@ -2,6 +2,9 @@ module Api
   module V1
     class MenuItemsController < BaseController
 
+      before_filter :set_menu_item, :only => [:show]
+      before_filter :check_active_menu_item, :only => [:show]
+
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:basic, :user]
 
@@ -32,8 +35,19 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/menu_items/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menu_items/show.xml")
       def show
-        @menu_item = MenuItem.find params[:id]
         respond_with @menu_item
+      end
+
+      private
+
+      def set_menu_item
+        @menu_item = MenuItem.find params[:id]
+      rescue ActiveRecord::RecordNotFound
+        render_model_not_found 'Menu Item'
+      end
+
+      def check_active_menu_item
+        render_model_not_found 'Menu Item' if !@menu_item.active? and !@user.owns @menu_item and !scope_exists? 'admin'
       end
 
     end

@@ -2,6 +2,9 @@ module Api
   module V1
     class RestaurantMenusController < BaseController
 
+      before_filter :set_restaurant, :only => [:index, :create]
+      before_filter :check_ownership, :only => [:index, :create]
+
       doorkeeper_for :index, :scopes => [:owner, :get_menus]
       doorkeeper_for :create, :scopes => [:owner, :add_menus, :add_active_menus]
 
@@ -23,7 +26,6 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/menus/index.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menus/index.xml")
       def index
-        @restaurant = Restaurant.find params[:restaurant_id]
         respond_with @restaurant.menus
       end
 
@@ -35,7 +37,6 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/menus/create.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menus/create.xml")
       def create
-        @restaurant = Restaurant.find params[:restaurant_id]
         @menu = Menu.new
         @menu.name = params[:name]
         @menu.save!
@@ -45,6 +46,18 @@ module Api
           @restaurant.save!
         end
         respond_with @menu
+      end
+
+      private
+
+      def set_restaurant
+        @restaurant = Restaurant.find params[:restaurant_id]
+      rescue ActiveRecord::RecordNotFound
+        render_model_not_found 'Restaurant'
+      end
+
+      def check_ownership
+        render_model_not_found 'Restaurant' unless @user.owns @restaurant
       end
 
     end

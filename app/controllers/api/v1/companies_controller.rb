@@ -2,9 +2,12 @@ module Api
   module V1
     class CompaniesController < BaseController
 
+      before_filter :set_company, :only => [:show]
+      before_filter :check_company_exists, :only => [:create]
+
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:user]
-      doorkeeper_for :create, :scopes => [:user, :create_company]
+      doorkeeper_for :create, :scopes => [:user]
 
       resource_description do
         name 'Companies'
@@ -34,12 +37,11 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/companies/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/companies/show.xml")
       def show
-        @company = Company.find params[:id]
         respond_with @company
       end
 
       api :POST, '/companies', 'Create a new company'
-      description 'Creates a new company. <b>Scopes:</b> user create_company'
+      description 'Creates a new company. <b>Scopes:</b> user'
       formats [:json, :xml]
       param :name, String, :desc => "Companies name", :required => true
       param :website, String, :desc => "Companies website", :required => true
@@ -58,6 +60,18 @@ module Api
         @company.address = create_address
         @company.address.save!
         respond_with @user
+      end
+
+      private
+
+      def set_company
+        @company = Company.find params[:id]
+      rescue ActiveRecord::RecordNotFound
+        render_model_not_found 'Company'
+      end
+
+      def check_company_exists
+        render_forbidden if @user.company
       end
 
     end

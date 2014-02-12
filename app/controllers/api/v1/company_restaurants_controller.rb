@@ -2,6 +2,9 @@ module Api
   module V1
     class CompanyRestaurantsController < BaseController
 
+      before_filter :set_company, :only => [:index, :create]
+      before_filter :check_ownership, :only => [:create]
+
       doorkeeper_for :index, :scopes => [:user]
       doorkeeper_for :create, :scopes => [:owner]
 
@@ -23,7 +26,7 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.json")
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.xml")
       def index
-        @restaurants = Restaurant.where :company_id => params[:company_id]
+        @restaurants = @company.restaurants
         respond_with @restaurants
       end
 
@@ -44,7 +47,21 @@ module Api
         @address = create_address
         @restaurant.address = @address
         @address.save!
+        @company.restaurants << @restaurant
+        @restaurant.save!
         respond_with @restaurant
+      end
+
+      private
+
+      def set_company
+        @company = Company.find params[:company_id]
+      rescue ActiveRecord::RecordNotFound
+        render_model_not_found 'Company'
+      end
+
+      def check_ownership
+        render_forbidden if !@user.owns @company and !scope_exists? 'admin'
       end
 
     end

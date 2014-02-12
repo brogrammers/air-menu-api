@@ -2,6 +2,10 @@ module Api
   module V1
     class MenuSectionMenuItemsController < BaseController
 
+      before_filter :set_menu_section, :only => [:index, :create]
+      before_filter :check_active_menu_section, :only => [:index]
+      before_filter :check_ownership, :only => [:create]
+
       doorkeeper_for :index, :scopes => [:user]
       doorkeeper_for :create, :scopes => [:owner, :add_menus, :add_active_menus]
 
@@ -22,7 +26,6 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/menu_items/index.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menu_items/index.xml")
       def index
-        @menu_section = MenuSection.find params[:menu_section_id]
         respond_with @menu_section.menu_items
       end
 
@@ -32,7 +35,6 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/menu_items/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menu_items/show.xml")
       def create
-        @menu_section = MenuSection.find params[:menu_section_id]
         @menu_item = MenuItem.new
         @menu_item.name = params[:name]
         @menu_item.description = params[:description]
@@ -42,6 +44,23 @@ module Api
         @menu_section.menu_items << @menu_item
         @menu_item.save!
         respond_with @menu_item
+      end
+
+      private
+
+      def set_menu_section
+        @menu_section = MenuSection.find params[:menu_section_id]
+      rescue ActiveRecord::RecordNotFound
+        render_model_not_found 'Menu Section'
+      end
+
+      def check_active_menu_section
+        render_model_not_found 'Menu Section' if !@menu_section.active? and !@user.owns @menu_section and !scope_exists? 'admin'
+      end
+
+      def check_ownership
+        render_forbidden if @menu_section.active? and !@user.owns @menu_section and !scope_exists? 'admin'
+        check_active_menu_section
       end
 
     end
