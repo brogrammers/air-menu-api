@@ -60,7 +60,7 @@ module AirMenuApi
     config.assets.version = '1.0'
 
     config.after_initialize do |app|
-      app.routes.append{ match '*a', :to => 'api/v1/base#render_not_found' }
+      app.routes.append{ match '*a', :to => 'api/v1/base#render_route_not_found' }
     end
   end
 end

@@ -9,7 +9,7 @@ module Api
         api_base_url '/api/v1'
       end
 
-      def render_not_found
+      def render_route_not_found
         render @format => {:error => {:messages => ['Route not found']}}, :status => :not_found
       end
 
