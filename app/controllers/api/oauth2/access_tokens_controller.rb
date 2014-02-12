@@ -15,7 +15,7 @@ module Api
       api :POST, '/access_tokens', 'Create a new OAuth Access Token'
       description 'Creates an OAuth 2.0 access token. This action does not require an access token. <b>Scopes:</b> none'
       formats [:json, :xml]
-      param :grant_type, ['password', 'credentials'], :desc => 'How to create an access token', :required => true
+      param :grant_type, ['password'], :desc => 'How to create an access token', :required => true
       param :username, String, :desc => 'The username', :required => true
       param :password, String, :desc => 'The password', :required => true
       param :client_id, String, :desc => 'The OAuth application client_id', :required => true

@@ -4,5 +4,5 @@
   <refresh-token>53b9af00b500c1aa3a6e88df93172395caed305b5f4d9c7568f4c1c03f85af3a</refresh-token>
   <token-type>bearer</token-type>
   <expires-in-seconds type="integer">172800</expires-in-seconds>
-  <scopes type="Doorkeeper::OAuth::Scopes">basic user admin create_company</scopes>
+  <scopes type="Doorkeeper::OAuth::Scopes">basic user</scopes>
 </access-token>

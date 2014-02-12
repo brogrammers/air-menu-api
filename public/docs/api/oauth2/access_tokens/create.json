@@ -6,9 +6,7 @@
         "expires_in_seconds": 172800,
         "scopes": [
             "basic",
-            "user",
-            "admin",
-            "create_company"
+            "user"
         ]
     }
 }
