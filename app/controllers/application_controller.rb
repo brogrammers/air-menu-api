@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_filter :find_current_user
+  before_filter :determine_format
 
   respond_to :json, :xml
 
@@ -17,21 +18,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def determine_format
+    @format = :json
+    @format = :xml if request.headers['Accept'] == /application\/xml/
+  end
+
   def scope_exists?(scope)
     @scopes.exists? scope
   end
 
-  def doorkeeper_unauthorized_render_options
-    # TODO: need better ruling!
-    type = :json
-    type = :xml if request.headers['Accept'] =~ /application\/xml/
-    {type => {:error => {:messages => ['Unauthorized']}}}
+  def doorkeeper_unauthorized_render_options(error)
+    {@format => {:error => {:messages => ['Unauthorized']}}}
   end
 
-  def doorkeeper_forbidden_render_options
-    # TODO: need better ruling!
-    type = :json
-    type = :xml if request.headers['Accept'] =~ /application\/xml/
-    {type => {:error => {:messages => ['Forbidden']}}}
+  def doorkeeper_forbidden_render_options(error)
+    {@format => {:error => {:messages => ['Forbidden']}}}
   end
 end

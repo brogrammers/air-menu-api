@@ -11,8 +11,8 @@ module Doorkeeper
             unless valid_token && valid_scopes
               @error = OAuth::InvalidTokenResponse.from_access_token(doorkeeper_token)
               headers.merge!(@error.headers.reject {|k, v| ['Content-Type'].include? k })
-              render_options = doorkeeper_forbidden_render_options unless valid_scopes
-              render_options = doorkeeper_unauthorized_render_options unless valid_token
+              render_options = doorkeeper_forbidden_render_options @error unless valid_scopes
+              render_options = doorkeeper_unauthorized_render_options @error unless valid_token
 
               if render_options.nil? || render_options.empty?
                 head :forbidden unless valid_scopes
@@ -27,7 +27,11 @@ module Doorkeeper
           end
         end
 
-        def doorkeeper_forbidden_render_options
+        def doorkeeper_forbidden_render_options(error)
+          nil
+        end
+
+        def doorkeeper_unauthorized_render_options(error)
           nil
         end
       end
