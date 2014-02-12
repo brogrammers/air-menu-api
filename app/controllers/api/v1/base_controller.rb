@@ -9,6 +9,10 @@ module Api
         api_base_url '/api/v1'
       end
 
+      def render_not_found
+        render @format => {:error => {:messages => ['Route not found']}}, :status => :not_found
+      end
+
       protected
 
       def create_company
