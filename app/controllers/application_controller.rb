@@ -27,6 +27,14 @@ class ApplicationController < ActionController::Base
     @scopes.exists? scope
   end
 
+  def admin?
+    scope_exists? 'admin'
+  end
+
+  def render_oauth_error(error)
+    render @format => error, :status => :bad_request
+  end
+
   def doorkeeper_unauthorized_render_options(error)
     {@format => {:error => {:messages => ['Unauthorized']}}}
   end

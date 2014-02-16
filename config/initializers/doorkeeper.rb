@@ -44,6 +44,8 @@ Doorkeeper.configure do
   default_scopes  :basic
   optional_scopes :admin, :user, :developer, :owner, :get_menus, :add_menus, :add_active_menus
 
+  realm 'AirMenu'
+
   # If you want to restrict access to the web interface for adding oauth authorized applications, you need to declare the block below.
   # admin_authenticator do
   #   # Put your admin authentication logic here.
