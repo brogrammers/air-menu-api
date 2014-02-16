@@ -2,8 +2,10 @@
 <me>
   <id type="integer">1</id>
   <name>Max Hoffmann</name>
+  <type>Owner</type>
   <identity>
     <username>tsov</username>
     <email>tsov@me.com</email>
   </identity>
+  <scopes type="Doorkeeper::OAuth::Scopes">basic user</scopes>
 </me>
