@@ -1,0 +1,14 @@
+=== OAuth 2.0 Documentation
+
+This API lets you get all your created OAuth applications and create new ones.
+At the moment we only support authentication through credentials for trusted OAuth applications.
+Read more about it in the POST /access_tokens route description.
+
+=== Scopes:
+- basic
+- user
+- developer
+- owner
+- get_menus
+- add_menus
+- add_active_menus

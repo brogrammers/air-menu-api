@@ -1,0 +1,22 @@
+=== API v1
+
+This API lets you interact with the system in multiple roles, as a normal user, as an owner, as a staff member
+or as an admin.
+
+Each entity has its own rights and can only interact with a part of the system.
+
+The currently logged in user can operate within its bounds, depending on what scopes are associated with the
+current access token in use
+
+=== Getting Started
+
+To start, an access token is required, as the whole system depends on the OAuth 2.0 protocol and can only work through it.
+Check out the oauth2[link:oauth2] docs on how to acquire an access token.
+
+Once an access token has been acquired include it in every request to the API, by adding it to the authorization header
+like this:
+
+  Authorization: Bearer 6a44f23504a905b17aa1bdc2682524f48cefcf24e70fb17b8bd...
+
+Now you should be able to perform API calls. Make sure that the acquired access token has the correct scopes to be able to
+invoke cerain routes.
