@@ -9,16 +9,16 @@ module Api
       end
 
       def render_route_not_found
-        render @format => {:error => {:messages => ['Route not found']}}, :status => :not_found
+        render @format => {:error => {:messages => ['route_not_found']}}, :status => :not_found
       end
 
       def render_model_not_found(model_name = nil)
         model_name = model_name ? model_name : 'Model'
-        render @format => {:error => {:messages => ["#{model_name} not found"]}}, :status => :not_found
+        render @format => {:error => {:messages => ["#{model_name.downcase}_not_found"]}}, :status => :not_found
       end
 
       def render_forbidden(error = nil)
-        render @format => {:error => {:messages => ['Forbidden']}}, :status => :forbidden
+        render @format => {:error => {:messages => ['forbidden']}}, :status => :forbidden
       end
 
       rescue_from ActiveRecord::RecordNotFound do |exception|

@@ -36,10 +36,10 @@ class ApplicationController < ActionController::Base
   end
 
   def doorkeeper_unauthorized_render_options(error)
-    {@format => {:error => {:messages => ['Unauthorized']}}}
+    {@format => {:error => {:messages => ['unauthorized']}}}
   end
 
   def doorkeeper_forbidden_render_options(error)
-    {@format => {:error => {:messages => ['Forbidden']}}}
+    {@format => {:error => {:messages => ['route_not_found']}}, :status => :not_found}
   end
 end

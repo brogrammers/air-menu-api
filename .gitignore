@@ -19,3 +19,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore Node Modules
+node_modules/
+node_modules/*
