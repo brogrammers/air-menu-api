@@ -4,15 +4,15 @@ upstream air-menu-api {
 
 server {
   listen 443;
-  server_name stage.air-menu.com;
+  server_name stage-api.air-menu.com;
   root <%= current_path %>/public;
 
-  access_log /var/log/nginx/stage.air-menu.com.access.log;
-  error_log  /var/log/nginx/stage.air-menu.com.error.log;
+  access_log /var/log/nginx/stage-api.air-menu.com.access.log;
+  error_log  /var/log/nginx/stage-api.air-menu.com.error.log;
 
   ssl on;
-  ssl_certificate      /etc/ssl/certs/stage.eventhub.com.crt;
-  ssl_certificate_key  /etc/ssl/private/stage.eventhub.com.key;
+  ssl_certificate      /etc/ssl/certs/stage-api.air-menu.com.crt;
+  ssl_certificate_key  /etc/ssl/private/stage-api.air-menu.com.key;
 
   location ^~ /assets/ {
     gzip_static on;
