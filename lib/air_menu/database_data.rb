@@ -147,7 +147,7 @@ DATABASE_TABLES = {
           :county => 'Dublin',
           :country => 'Ireland',
           :contactable_id => 1,
-          :contactable_type => 'Restaurnant'
+          :contactable_type => 'Restaurant'
       }
   ],
 
