@@ -20,7 +20,7 @@ module Api
       end
 
       api :GET, '/restaurants', 'All the restaurants in the system'
-      description 'Fetches all the restaurants in the system. <b>Scopes:</b> user'
+      description 'Fetches all the restaurants in the system. ||user||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.json")
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.xml")
@@ -30,7 +30,7 @@ module Api
       end
 
       api :GET, '/restaurants/:id', 'Get a Restaurant profile'
-      description 'Fetches a restaurant profile. <b>Scopes:</b> user'
+      description 'Fetches a restaurant profile. ||user||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/show.xml")

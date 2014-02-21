@@ -16,7 +16,7 @@ module Api
       end
 
       api :GET, '/me', 'Profile of the currently logged-in user'
-      description 'Fetches the profile of the currently logged-in user, based on the OAuth Access Token provided. <b>Scopes:</b> basic'
+      description 'Fetches the profile of the currently logged-in user, based on the OAuth Access Token provided. ||basic||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/me/index.json")
       example File.read("#{Rails.root}/public/docs/api/v1/me/index.xml")

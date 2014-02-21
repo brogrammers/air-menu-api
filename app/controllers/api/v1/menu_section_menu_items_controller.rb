@@ -21,7 +21,7 @@ module Api
       end
 
       api :GET, '/menu_sections/:id/menu_items', 'All the menu items within a menu section'
-      description 'Fetches all the menu items within a menu section. <b>Scopes:</b> user'
+      description 'Fetches all the menu items within a menu section. ||user||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/menu_items/index.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menu_items/index.xml")
@@ -30,7 +30,7 @@ module Api
       end
 
       api :POST, '/menu_sections/:id/menu_items', 'Create menu items within a menu section'
-      description 'Creates a menu item within a menu section. <b>Scopes:</b> owner add_menus add_active_menus'
+      description 'Creates a menu item within a menu section. ||owner add_menus add_active_menus||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/menu_items/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menu_items/show.xml")

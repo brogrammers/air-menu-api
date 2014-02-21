@@ -12,3 +12,4 @@ Read more about it in the POST /access_tokens route description.
 - get_menus
 - add_menus
 - add_active_menus
+- trusted

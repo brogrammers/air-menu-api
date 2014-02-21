@@ -21,7 +21,7 @@ module Api
       end
 
       api :GET, '/restaurants/:id/menus', 'All the menus of a restaurant'
-      description 'Fetches all the menus in the system. <b>Scopes:</b> owner get_menus'
+      description 'Fetches all the menus in the system. ||owner get_menus||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/menus/index.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menus/index.xml")
@@ -30,7 +30,7 @@ module Api
       end
 
       api :POST, '/restaurants/:id/menus', 'Create a menu for a restaurant'
-      description 'Creates a menu for a restaurant. <b>Scopes:</b> owner add_menus add_active_menus'
+      description 'Creates a menu for a restaurant. ||owner add_menus add_active_menus||'
       formats [:json, :xml]
       param :name, String, :desc => 'Menu name', :required => true
       param :active, String, :desc => 'Make menu active. Scope: owner add_active_menus'

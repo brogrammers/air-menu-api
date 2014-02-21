@@ -20,7 +20,7 @@ module Api
       end
 
       api :GET, '/menu_sections', 'All the menu sections in the system'
-      description 'Fetches all the menus in the system. <b>Scopes:</b> admin'
+      description 'Fetches all the menus in the system. ||admin||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/index.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/index.xml")
@@ -30,7 +30,7 @@ module Api
       end
 
       api :GET, '/menu_sections/:id', 'Get a menu in the system'
-      description 'Fetches a menu section in the system. <b>Scopes:</b> basic user'
+      description 'Fetches a menu section in the system. ||basic user||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/show.xml")

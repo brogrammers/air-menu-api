@@ -14,7 +14,7 @@ module Api
       end
 
       api :GET, '/applications', 'Get all OAuth applications'
-      description 'Fetches all the OAuth applications. <b>Scopes:</b> developer'
+      description 'Fetches all the OAuth applications. ||developer||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/oauth2/applications/index.json")
       example File.read("#{Rails.root}/public/docs/api/oauth2/applications/index.xml")
@@ -23,7 +23,7 @@ module Api
       end
 
       api :GET, '/applications/:id', 'Get a certain application'
-      description 'Fetches an OAuth application. This will specify the client id & secret. <b>Scopes:</b> developer'
+      description 'Fetches an OAuth application. This will specify the client id & secret. ||developer||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/oauth2/applications/show.json")
       example File.read("#{Rails.root}/public/docs/api/oauth2/applications/show.xml")
@@ -33,11 +33,11 @@ module Api
       end
 
       api :POST, '/applications/:id', 'Create a new OAuth Application'
-      description 'Creates an OAuth 2.0 application. <b>Scopes:</b> developer'
+      description 'Creates an OAuth 2.0 application. ||developer||'
       formats [:json, :xml]
       param :name, String, :desc => 'Application name', :required => true
       param :redirect_uri, String, :desc => 'A redirection url', :required => true
-      param :trusted, [true, false], :desc => 'Trusted Application. Scope: admin'
+      param :trusted, [true, false], :desc => 'Trusted Application. ||admin||'
       example File.read("#{Rails.root}/public/docs/api/oauth2/applications/show.json")
       example File.read("#{Rails.root}/public/docs/api/oauth2/applications/show.xml")
       def create

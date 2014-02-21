@@ -21,7 +21,7 @@ module Api
       end
 
       api :GET, '/companies/:id/restaurants', 'All the restaurants of a company'
-      description 'Fetches all the restaurants in the system. <b>Scopes:</b> user'
+      description 'Fetches all the restaurants in the system. ||user||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.json")
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.xml")
@@ -31,7 +31,7 @@ module Api
       end
 
       api :POST, '/companies/:id/restaurants', 'Create a new restaurant'
-      description 'Creates a new company. Only owners can create new restaurants. <b>Scopes:</b> owner'
+      description 'Creates a new company. Only owners can create new restaurants. ||owner||'
       formats [:json, :xml]
       param :name, String, :desc => "Restaurant Name", :required => true
       param :address_1, String, :desc => "Restaurants address line 1", :required => true

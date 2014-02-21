@@ -22,7 +22,7 @@ module Api
       end
 
       api :GET, '/companies', 'All the companies in the system'
-      description 'Fetches all the companies in the system. <b>Scopes:</b> admin'
+      description 'Fetches all the companies in the system. ||admin||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/companies/index.json")
       example File.read("#{Rails.root}/public/docs/api/v1/companies/index.xml")
@@ -32,7 +32,7 @@ module Api
       end
 
       api :GET, '/companies/:id', 'Get a company profile'
-      description 'Fetches a company profile. <b>Scopes:</b> user'
+      description 'Fetches a company profile. ||user||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/companies/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/companies/show.xml")
@@ -41,7 +41,7 @@ module Api
       end
 
       api :POST, '/companies', 'Create a new company'
-      description 'Creates a new company. <b>Scopes:</b> user'
+      description 'Creates a new company. ||user||'
       formats [:json, :xml]
       param :name, String, :desc => "Companies name", :required => true
       param :website, String, :desc => "Companies website", :required => true
