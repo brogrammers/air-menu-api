@@ -1,0 +1,19 @@
+{
+    "order": {
+        "id": 4,
+        "prepared": false,
+        "served": false,
+        "start": null,
+        "end_prepared": null,
+        "end_served": null,
+        "user": {
+            "id": 3,
+            "name": "Gary Plum",
+            "type": "Owner"
+        },
+        "restaurant": {
+            "id": 1,
+            "name": "The Church"
+        }
+    }
+}

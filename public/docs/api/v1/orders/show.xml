@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order>
+  <id type="integer">2</id>
+  <prepared type="boolean">false</prepared>
+  <served type="boolean">false</served>
+  <start nil="true"/>
+  <end-prepared nil="true"/>
+  <end-served nil="true"/>
+  <user>
+    <id type="integer">3</id>
+    <name>Gary Plum</name>
+    <type>Owner</type>
+  </user>
+  <restaurant>
+    <id type="integer">1</id>
+    <name>The Church</name>
+  </restaurant>
+</order>

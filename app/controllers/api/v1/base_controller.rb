@@ -74,6 +74,16 @@ module Api
         identity
       end
 
+      def create_order(restaurant)
+        order = Order.new
+        order.user = @user
+        order.restaurant = restaurant
+        order.prepared = false
+        order.served = false
+        order.save!
+        order
+      end
+
     end
   end
 end

@@ -42,7 +42,7 @@ Doorkeeper.configure do
   test_redirect_uri 'urn:ietf:wg:oauth:2.0:oob'
 
   default_scopes  :basic
-  optional_scopes :admin, :user, :developer, :owner, :get_menus, :add_menus, :add_active_menus
+  optional_scopes :admin, :user, :developer, :owner, :get_menus, :add_menus, :add_active_menus, :get_current_orders, :add_orders, :update_orders
 
   realm 'AirMenu'
 

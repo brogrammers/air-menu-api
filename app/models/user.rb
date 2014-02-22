@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 	has_one :identity, :as => :identifiable
   has_one :location, :as => :findable
   has_one :company
+  has_many :orders
   has_many :applications, :class_name => 'Doorkeeper::Application', :as => :owner
   has_many :access_tokens, :class_name => 'Doorkeeper::AccessToken', :as => :owner
 
@@ -13,11 +14,20 @@ class User < ActiveRecord::Base
     return owns_menu object if object.class == Menu
     return owns_menu_section object if object.class == MenuSection
     return owns_menu_item object if object.class == MenuItem
+    return owns_order object if object.class == Order
     false
   end
 
   def type
     self.company ? 'Owner' : 'User'
+  end
+
+  def max_orders
+    type == 'Owner' ? 20 : 1
+  end
+
+  def current_orders
+    Order.where(:end_served => nil, :user_id => self.id)
   end
 
   private
@@ -43,5 +53,12 @@ class User < ActiveRecord::Base
 
   def owns_menu_item(menu_item)
     owns_menu_section menu_item.menu_section
+  end
+
+  def owns_order(order)
+    self.orders.each do |owned_order|
+      return true if owned_order.id == order.id
+    end
+    false
   end
 end
