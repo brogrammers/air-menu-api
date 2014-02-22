@@ -61,7 +61,7 @@ module Api
       end
 
       def check_ownership
-        render_model_not_found 'Order' if @user.owns @order
+        render_model_not_found 'Order' if !@user.owns @order and !scope_exists? 'admin'
       end
 
       def update_order
