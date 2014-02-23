@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140221211322) do
+ActiveRecord::Schema.define(:version => 20140222133721) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_1"
@@ -126,6 +126,16 @@ ActiveRecord::Schema.define(:version => 20140221211322) do
 
   add_index "oauth_applications", ["owner_id", "owner_type"], :name => "index_oauth_applications_on_owner_id_and_owner_type"
   add_index "oauth_applications", ["uid"], :name => "index_oauth_applications_on_uid", :unique => true
+
+  create_table "order_items", :force => true do |t|
+    t.string   "comment"
+    t.integer  "count"
+    t.boolean  "served"
+    t.integer  "order_id"
+    t.integer  "menu_item_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "orders", :force => true do |t|
     t.integer  "user_id"

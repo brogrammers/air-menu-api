@@ -1,0 +1,20 @@
+{
+    "order_item": {
+        "id": 1,
+        "comment": "medium please!",
+        "count": 0,
+        "served": false,
+        "order": {
+            "id": 2,
+            "prepared": false,
+            "served": false
+        },
+        "menu_item": {
+            "id": 1,
+            "name": "Beef Burger",
+            "description": "Beef Burger with a small side salad.",
+            "price": 12.9,
+            "currency": "EUR"
+        }
+    }
+}

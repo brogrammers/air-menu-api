@@ -8,6 +8,8 @@ class AddOrders < ActiveRecord::Migration
       t.timestamp :start
       t.timestamp :end_prepared
       t.timestamp :end_served
+
+      t.timestamps
     end
   end
 end

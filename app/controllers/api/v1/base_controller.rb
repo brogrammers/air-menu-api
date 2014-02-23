@@ -84,6 +84,17 @@ module Api
         order
       end
 
+      def create_order_item(order, menu_item)
+        order_item = OrderItem.new
+        order_item.comment = params[:comment]
+        order_item.order = order
+        order_item.menu_item = menu_item
+        order_item.count = params[:count].to_i
+        order_item.served = false
+        order_item.save!
+        order_item
+      end
+
     end
   end
 end

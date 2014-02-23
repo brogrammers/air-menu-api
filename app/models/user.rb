@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
     return owns_menu_section object if object.class == MenuSection
     return owns_menu_item object if object.class == MenuItem
     return owns_order object if object.class == Order
+    return owns_order_item object if object.class == OrderItem
     false
   end
 
@@ -60,5 +61,9 @@ class User < ActiveRecord::Base
       return true if owned_order.id == order.id
     end
     false
+  end
+
+  def owns_order_item(order_item)
+    owns_order order_item.order
   end
 end

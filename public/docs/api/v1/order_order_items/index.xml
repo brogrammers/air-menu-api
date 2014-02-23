@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order-items type="array">
+  <order-item>
+    <id type="integer">2</id>
+    <comment>medium please!</comment>
+    <count type="integer">0</count>
+    <served type="boolean">false</served>
+    <order>
+      <id type="integer">2</id>
+      <prepared type="boolean">false</prepared>
+      <served type="boolean">false</served>
+    </order>
+    <menu-item>
+      <id type="integer">1</id>
+      <name>Beef Burger</name>
+      <description>Beef Burger with a small side salad.</description>
+      <price type="float">12.9</price>
+      <currency>EUR</currency>
+    </menu-item>
+  </order-item>
+</order-items>

@@ -6,8 +6,8 @@ module Api
       before_filter :check_ownership, :only => [:show, :update]
 
       doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:user, :owner, :get_orders]
-      doorkeeper_for :update, :scopes => [:owner, :update_orders]
+      doorkeeper_for :show, :scopes => [:admin, :user, :owner, :get_orders]
+      doorkeeper_for :update, :scopes => [:admin, :owner, :update_orders]
 
       resource_description do
         name 'Orders'
@@ -32,7 +32,7 @@ module Api
       end
 
       api :GET, '/orders/:id', 'Get an order in the system'
-      description 'Fetches an order in the system. ||user owner get_orders||'
+      description 'Fetches an order in the system. ||admin user owner get_orders||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/orders/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/orders/show.xml")
@@ -41,7 +41,7 @@ module Api
       end
 
       api :PUT, '/orders/:id', 'Update an order in the system'
-      description 'Updates an order in the system. ||owner update_orders||'
+      description 'Updates an order in the system. ||admin owner update_orders||'
       formats [:json, :xml]
       param :prepared, [true, false], :desc => 'Set as prepared. This action is irreversible.'
       param :active, [true, false], :desc => 'Set as served. This action is irreversible.'

@@ -1,0 +1,20 @@
+{
+    "order_item": {
+        "id": 3,
+        "comment": "Some Note",
+        "count": 0,
+        "served": false,
+        "order": {
+            "id": 2,
+            "prepared": false,
+            "served": false
+        },
+        "menu_item": {
+            "id": 2,
+            "name": "Corona",
+            "description": "0.5",
+            "price": 5.7,
+            "currency": "EUR"
+        }
+    }
+}

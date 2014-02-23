@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order-item>
+  <id type="integer">3</id>
+  <comment>Some Note</comment>
+  <count type="integer">0</count>
+  <served type="boolean">false</served>
+  <order>
+    <id type="integer">2</id>
+    <prepared type="boolean">false</prepared>
+    <served type="boolean">false</served>
+  </order>
+  <menu-item>
+    <id type="integer">2</id>
+    <name>Corona</name>
+    <description>0.5</description>
+    <price type="float">5.7</price>
+    <currency>EUR</currency>
+  </menu-item>
+</order-item>

@@ -14,7 +14,11 @@ AirMenuApi::Application.routes.draw do
     namespace :v1 do
       resources :users, :only => [:index, :show, :create]
       resources :menu_items, :only => [:index, :show]
-      resources :orders, :only => [:index, :show, :update]
+      resources :order_items, :only => [:index, :show, :update]
+
+      resources :orders, :only => [:index, :show, :update] do
+        resources :order_items, :controller => 'order_order_items', :only => [:index, :create]
+      end
 
       resources :menu_sections, :only => [:index, :show] do
         resources :menu_items, :controller => 'menu_section_menu_items', :only => [:index, :create]
