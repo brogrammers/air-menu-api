@@ -7,9 +7,23 @@
             "username": "tsov",
             "email": "tsov@me.com"
         },
+        "order": {
+            "id": 5,
+            "prepared": false,
+            "served": false,
+            "start": null,
+            "end_prepared": null,
+            "end_served": null,
+            "restaurant": {
+                "id": 1,
+                "name": "The Church"
+            },
+            "order_items": []
+        },
         "scopes": [
             "basic",
-            "user"
+            "user",
+            "admin"
         ]
     }
 }

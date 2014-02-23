@@ -3,6 +3,7 @@ module Api
     class RestaurantOrdersController < BaseController
 
       before_filter :set_restaurant, :only => [:index, :create]
+      before_filter :check_can_make_order, :only => [:create]
       before_filter :check_ownership, :only => [:index]
 
       doorkeeper_for :index, :scopes => [:owner, :get_current_orders]
@@ -51,7 +52,11 @@ module Api
       def check_ownership
         # TODO: Add StaffMember check, if it owns restaurant for CREATE too, once StaffMembers exist!!
         # different treatment required for normal user than from StaffMember
-        render_forbidden unless @user.owns @restaurant
+        render_forbidden if !@user.owns @restaurant and !scope_exists? 'admin'
+      end
+
+      def check_can_make_order
+        render_forbidden if !@user.owns @restaurant and !@user.can_order?
       end
 
     end

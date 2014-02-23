@@ -24,11 +24,19 @@ class User < ActiveRecord::Base
   end
 
   def max_orders
-    type == 'Owner' ? 20 : 1
+    1
   end
 
   def current_orders
     Order.where(:end_served => nil, :user_id => self.id)
+  end
+
+  def can_order?
+    current_orders.size < max_orders
+  end
+
+  def has_current_orders?
+    current_orders.size > 0
   end
 
   private

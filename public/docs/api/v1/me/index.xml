@@ -7,5 +7,18 @@
     <username>tsov</username>
     <email>tsov@me.com</email>
   </identity>
-  <scopes type="Doorkeeper::OAuth::Scopes">basic user</scopes>
+  <order>
+    <id type="integer">5</id>
+    <prepared type="boolean">false</prepared>
+    <served type="boolean">false</served>
+    <start nil="true"/>
+    <end-prepared nil="true"/>
+    <end-served nil="true"/>
+    <restaurant>
+      <id type="integer">1</id>
+      <name>The Church</name>
+    </restaurant>
+    <order-items type="array"/>
+  </order>
+  <scopes type="Doorkeeper::OAuth::Scopes">basic user admin</scopes>
 </me>
