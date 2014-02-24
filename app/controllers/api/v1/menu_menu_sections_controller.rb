@@ -3,8 +3,8 @@ module Api
     class MenuMenuSectionsController < BaseController
 
       before_filter :set_menu, :only => [:index, :create]
-      before_filter :check_active_menu, :only => [:index]
       before_filter :check_ownership, :only => [:create]
+      before_filter :check_active_menu, :only => [:index, :create]
 
       doorkeeper_for :index, :scopes => [:user]
       doorkeeper_for :create, :scopes => [:owner, :add_menus, :add_active_menus]
@@ -59,8 +59,7 @@ module Api
       end
 
       def check_ownership
-        render_forbidden if @menu.active? and !@user.owns @menu and !scope_exists? 'admin'
-        check_active_menu
+        render_forbidden 'ownership_failure' if @menu.active? and !@user.owns @menu and !scope_exists? 'admin'
       end
     end
   end

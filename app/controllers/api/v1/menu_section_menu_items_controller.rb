@@ -3,8 +3,8 @@ module Api
     class MenuSectionMenuItemsController < BaseController
 
       before_filter :set_menu_section, :only => [:index, :create]
-      before_filter :check_active_menu_section, :only => [:index]
       before_filter :check_ownership, :only => [:create]
+      before_filter :check_active_menu_section, :only => [:index, :create]
 
       doorkeeper_for :index, :scopes => [:user]
       doorkeeper_for :create, :scopes => [:owner, :add_menus, :add_active_menus]
@@ -51,16 +51,15 @@ module Api
       def set_menu_section
         @menu_section = MenuSection.find params[:menu_section_id]
       rescue ActiveRecord::RecordNotFound
-        render_model_not_found 'Menu Section'
+        render_model_not_found 'MenuSection'
       end
 
       def check_active_menu_section
-        render_model_not_found 'Menu Section' if !@menu_section.active? and !@user.owns @menu_section and !scope_exists? 'admin'
+        render_model_not_found 'MenuSection' if !@menu_section.active? and !@user.owns @menu_section and !scope_exists? 'admin'
       end
 
       def check_ownership
-        render_forbidden if @menu_section.active? and !@user.owns @menu_section and !scope_exists? 'admin'
-        check_active_menu_section
+        render_forbidden 'ownership_failure' if @menu_section.active? and !@user.owns @menu_section and !scope_exists? 'admin'
       end
 
     end

@@ -57,7 +57,7 @@ module Api
       end
 
       def check_ownership
-        render_model_not_found 'Restaurant' unless @user.owns @restaurant
+        render_forbidden 'Restaurant' unless @user.owns @restaurant and !scope_exists? 'admin'
       end
 
     end

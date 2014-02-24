@@ -63,6 +63,10 @@ module Api
         render_model_not_found 'OrderItem' if !@user.owns @order_item and !scope_exists? 'admin'
       end
 
+      def check_editable
+        render_forbidden 'not_editable' if @user.owns @order_item and @user.type == 'User' and !scope_exists? 'admin'
+      end
+
       def update_order_item
         @order_item.comment = params[:comment] || @order_item.comment
         if params[:served] and !@order_item.served

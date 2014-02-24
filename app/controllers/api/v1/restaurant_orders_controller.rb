@@ -52,11 +52,11 @@ module Api
       def check_ownership
         # TODO: Add StaffMember check, if it owns restaurant for CREATE too, once StaffMembers exist!!
         # different treatment required for normal user than from StaffMember
-        render_forbidden if !@user.owns @restaurant and !scope_exists? 'admin'
+        render_forbidden 'ownership_failure' if !@user.owns @restaurant and !scope_exists? 'admin'
       end
 
       def check_can_make_order
-        render_forbidden if !@user.owns @restaurant and !@user.can_order?
+        render_forbidden 'too_many_orders' if !@user.owns @restaurant and !@user.can_order? and !scope_exists? 'admin'
       end
 
     end

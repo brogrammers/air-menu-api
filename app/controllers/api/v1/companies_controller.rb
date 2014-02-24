@@ -18,6 +18,7 @@ module Api
         error 401, 'Unauthorized, missing or invalid access token'
         error 403, 'Forbidden, valid access token, but scope is missing'
         error 404, 'Not Found, some resource could not be found'
+        error 409, 'Conflict, some action can\'t be performed due to a conflict'
         error 500, 'Internal Server Error, Something went wrong!'
       end
 
@@ -71,7 +72,7 @@ module Api
       end
 
       def check_company_exists
-        render_forbidden if @user.company
+        render_conflict 'already_owns_company' if @user.company
       end
 
     end

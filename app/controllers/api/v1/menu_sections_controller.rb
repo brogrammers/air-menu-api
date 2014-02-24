@@ -43,11 +43,11 @@ module Api
       def set_menu_section
         @menu_section = MenuSection.find params[:id]
       rescue ActiveRecord::RecordNotFound
-        render_model_not_found 'Menu Section'
+        render_model_not_found 'MenuSection'
       end
 
       def check_active_menu_section
-        render_model_not_found 'Menu Section' if !@menu_section.active? and !@user.owns @menu_section and !scope_exists? 'admin'
+        render_model_not_found 'MenuSection' if !@menu_section.active? and !@user.owns @menu_section and !scope_exists? 'admin'
       end
 
     end

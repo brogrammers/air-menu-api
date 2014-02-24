@@ -43,11 +43,11 @@ module Api
       def set_menu_item
         @menu_item = MenuItem.find params[:id]
       rescue ActiveRecord::RecordNotFound
-        render_model_not_found 'Menu Item'
+        render_model_not_found 'MenuItem'
       end
 
       def check_active_menu_item
-        render_model_not_found 'Menu Item' if !@menu_item.active? and !@user.owns @menu_item and !scope_exists? 'admin'
+        render_model_not_found 'MenuItem' if !@menu_item.active? and !@user.owns @menu_item and !scope_exists? 'admin'
       end
 
     end

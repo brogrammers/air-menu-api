@@ -63,7 +63,7 @@ module Api
       end
 
       def check_ownership
-        render_forbidden if !@user.owns @order and !scope_exists? 'admin'
+        render_forbidden 'ownership_failure' if !@user.owns @order and !scope_exists? 'admin'
       end
 
     end
