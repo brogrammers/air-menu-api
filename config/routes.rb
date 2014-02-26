@@ -15,6 +15,7 @@ AirMenuApi::Application.routes.draw do
       resources :users, :only => [:index, :show, :create]
       resources :menu_items, :only => [:index, :show]
       resources :order_items, :only => [:index, :show, :update]
+      resources :staff_kinds, :only => [:index, :show]
 
       resources :orders, :only => [:index, :show, :update] do
         resources :order_items, :controller => 'order_order_items', :only => [:index, :create]
@@ -35,6 +36,7 @@ AirMenuApi::Application.routes.draw do
       resources :restaurants, :only => [:index, :show] do
         resources :menus, :controller => 'restaurant_menus', :only => [:index, :create]
         resources :orders, :controller => 'restaurant_orders', :only => [:index, :create]
+        resources :staff_kinds, :controller => 'restaurant_staff_kinds', :only => [:index, :create]
       end
 
       get '/me', :to => 'me#index'

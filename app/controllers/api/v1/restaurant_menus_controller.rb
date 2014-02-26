@@ -33,7 +33,7 @@ module Api
       description 'Creates a menu for a restaurant. ||owner add_menus add_active_menus||'
       formats [:json, :xml]
       param :name, String, :desc => 'Menu name', :required => true
-      param :active, String, :desc => 'Make menu active. ||owner add_menus add_active_menus||'
+      param :active, String, :desc => 'Make menu active. ||owner add_active_menus||'
       example File.read("#{Rails.root}/public/docs/api/v1/menus/create.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menus/create.xml")
       def create

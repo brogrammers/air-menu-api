@@ -101,6 +101,14 @@ module Api
         order_item
       end
 
+      def create_staff_kind(restaurant)
+        staff_kind = StaffKind.new
+        staff_kind.name = params[:name]
+        staff_kind.restaurant = restaurant
+        staff_kind.save!
+        staff_kind
+      end
+
     end
   end
 end

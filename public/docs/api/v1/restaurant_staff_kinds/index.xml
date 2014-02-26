@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<staff-kinds type="array">
+  <staff-kind>
+    <id type="integer">1</id>
+    <name>Manager</name>
+    <scopes type="array"/>
+  </staff-kind>
+  <staff-kind>
+    <id type="integer">2</id>
+    <name>Bar Staff</name>
+    <scopes type="array"/>
+  </staff-kind>
+</staff-kinds>
