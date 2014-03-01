@@ -76,6 +76,8 @@ module Api
         identity.username = params[:username]
         identity.new_password = params[:password]
         identity.email = params[:email]
+        identity.admin = false
+        identity.developer = false
         identity.save!
         identity
       end
@@ -107,6 +109,18 @@ module Api
         staff_kind.restaurant = restaurant
         staff_kind.save!
         staff_kind
+      end
+
+      def create_staff_member(restaurant, staff_kind)
+        staff_member = StaffMember.new
+        staff_member.name = params[:name]
+        staff_member.restaurant = restaurant
+        staff_member.staff_kind = staff_kind
+        identity = create_identity
+        staff_member.identity = identity
+        staff_member.save!
+        identity.save!
+        staff_member
       end
 
     end

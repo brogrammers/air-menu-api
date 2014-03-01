@@ -10,4 +10,8 @@ class Restaurant < ActiveRecord::Base
   def current_orders
     Order.where(:end_served => nil, :restaurant_id => self.id)
   end
+
+  def active_menu
+    @active_menu ||= Menu.find(self.active_menu_id) rescue nil
+  end
 end

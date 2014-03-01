@@ -7,5 +7,5 @@ node :address do |restaurant|
 end
 
 node :menu do |restaurant|
-    partial('api/v1/restaurants/_menu', :object => Menu.find(restaurant.active_menu_id)) if restaurant.active_menu_id
+    partial('api/v1/restaurants/_menu', :object => restaurant.active_menu) if restaurant.active_menu
 end

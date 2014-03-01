@@ -145,6 +145,8 @@ ActiveRecord::Schema.define(:version => 20140222133721) do
     t.datetime "start"
     t.datetime "end_prepared"
     t.datetime "end_served"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "restaurants", :force => true do |t|
@@ -165,8 +167,10 @@ ActiveRecord::Schema.define(:version => 20140222133721) do
   end
 
   create_table "scopes_staff_kinds", :force => true do |t|
-    t.integer "staff_kind_id"
-    t.integer "scope_id"
+    t.integer  "staff_kind_id"
+    t.integer  "scope_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "staff_kinds", :force => true do |t|

@@ -105,6 +105,13 @@ DATABASE_TABLES = {
           :developer => false,
           :identifiable_id => 3,
           :identifiable_type => 'User'
+      },
+      {
+          :username => 'fritz',
+          :new_password => 'davinci',
+          :email => 'fritz@thechurch.ie',
+          :identifiable_id => 1,
+          :identifiable_type => 'StaffMember'
       }
   ],
 
@@ -159,6 +166,21 @@ DATABASE_TABLES = {
           :conversion_rate => 0.0,
           :company_id => 2,
           :active_menu_id => 1
+      }
+  ],
+
+  :staff_member => [
+      {
+          :name => 'Fritz Blah',
+          :staff_kind_id => 1,
+          :restaurant_id => 1
+      }
+  ],
+
+  :staff_kind => [
+      {
+          :name => 'Manager',
+          :restaurant_id => 1
       }
   ],
 

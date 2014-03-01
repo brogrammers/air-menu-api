@@ -6,6 +6,7 @@ module Api
       before_filter :check_ownership, :only => [:show]
 
       doorkeeper_for :index, :scopes => [:admin]
+      doorkeeper_for :show, :scopes => [:owner, :get_staff_kinds]
 
       resource_description do
         name 'Staff Kinds'
