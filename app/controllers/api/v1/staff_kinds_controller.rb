@@ -6,7 +6,7 @@ module Api
       before_filter :check_ownership, :only => [:show]
 
       doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:owner, :get_staff_kinds]
+      doorkeeper_for :show, :scopes => [:admin, :owner, :get_staff_kinds]
 
       resource_description do
         name 'Staff Kinds'
@@ -31,7 +31,7 @@ module Api
       end
 
       api :GET, '/staff_kinds/:id', 'Get a staff kind in the system'
-      description 'Gets a staff kind in the system. ||owner get_staff_kinds||'
+      description 'Gets a staff kind in the system. ||admin owner get_staff_kinds||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/staff_kinds/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/staff_kinds/show.xml")
@@ -48,7 +48,7 @@ module Api
       end
 
       def check_ownership
-        render_model_not_found 'StaffKind' if !@user.owns @staff_kind.restaurant and !scope_exists? 'admin'
+        render_model_not_found 'StaffKind' if not_admin_and?(!@user.owns(@staff_kind.restaurant))
       end
 
     end

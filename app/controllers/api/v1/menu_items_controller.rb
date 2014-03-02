@@ -6,7 +6,7 @@ module Api
       before_filter :check_active_menu_item, :only => [:show]
 
       doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:basic, :user]
+      doorkeeper_for :show, :scopes => [:admin, :basic, :user]
 
       resource_description do
         name 'Menu Items'
@@ -30,7 +30,7 @@ module Api
       end
 
       api :GET, '/menu_items/:id', 'Get a menu item in the system'
-      description 'Fetches a menu item in the system. ||basic user||'
+      description 'Fetches a menu item in the system. ||admin basic user||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/menu_items/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menu_items/show.xml")
@@ -47,7 +47,7 @@ module Api
       end
 
       def check_active_menu_item
-        render_model_not_found 'MenuItem' if !@menu_item.active? and !@user.owns @menu_item and !scope_exists? 'admin'
+        render_model_not_found 'MenuItem' if not_admin_and?(!@menu_item.active? && !@user.owns(@menu_item))
       end
 
     end

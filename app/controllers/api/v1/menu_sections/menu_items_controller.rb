@@ -7,8 +7,8 @@ module Api
         before_filter :check_ownership, :only => [:create]
         before_filter :check_active_menu_section, :only => [:index, :create]
 
-        doorkeeper_for :index, :scopes => [:user]
-        doorkeeper_for :create, :scopes => [:owner, :add_menus, :add_active_menus]
+        doorkeeper_for :index, :scopes => [:admin, :user]
+        doorkeeper_for :create, :scopes => [:admin, :owner, :add_menus, :add_active_menus]
 
         resource_description do
           name 'Menu Sections > Menu Items'
@@ -22,7 +22,7 @@ module Api
         end
 
         api :GET, '/menu_sections/:id/menu_items', 'All the menu items within a menu section'
-        description 'Fetches all the menu items within a menu section. ||user||'
+        description 'Fetches all the menu items within a menu section. ||admin user||'
         formats [:json, :xml]
         example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/index.json")
         example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/index.xml")
@@ -31,7 +31,7 @@ module Api
         end
 
         api :POST, '/menu_sections/:id/menu_items', 'Create menu items within a menu section'
-        description 'Creates a menu item within a menu section. ||owner add_menus add_active_menus||'
+        description 'Creates a menu item within a menu section. ||admin owner add_menus add_active_menus||'
         formats [:json, :xml]
         example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/create.json")
         example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/create.xml")
@@ -56,11 +56,11 @@ module Api
         end
 
         def check_active_menu_section
-          render_model_not_found 'MenuSection' if !@menu_section.active? and !@user.owns @menu_section and !scope_exists? 'admin'
+          render_model_not_found 'MenuSection' if not_admin_and?(!@menu_section.active? && !@user.owns(@menu_section))
         end
 
         def check_ownership
-          render_forbidden 'ownership_failure' if @menu_section.active? and !@user.owns @menu_section and !scope_exists? 'admin'
+          render_forbidden 'ownership_failure' if not_admin_and?(@menu_section.active? && !@user.owns(@menu_section))
         end
 
       end

@@ -31,6 +31,14 @@ class ApplicationController < ActionController::Base
     scope_exists? 'admin'
   end
 
+  def admin_and?(condition)
+    admin? and condition
+  end
+
+  def not_admin_and?(condition)
+    !admin? and condition
+  end
+
   def render_oauth_error(error)
     render @format => error, :status => :bad_request
   end

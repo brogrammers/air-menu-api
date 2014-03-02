@@ -6,8 +6,8 @@ module Api
         before_filter :set_company, :only => [:index, :create]
         before_filter :check_ownership, :only => [:create]
 
-        doorkeeper_for :index, :scopes => [:user]
-        doorkeeper_for :create, :scopes => [:owner]
+        doorkeeper_for :index, :scopes => [:admin, :user]
+        doorkeeper_for :create, :scopes => [:admin, :owner]
 
         resource_description do
           name 'Companies > Restaurants'
@@ -22,7 +22,7 @@ module Api
         end
 
         api :GET, '/companies/:id/restaurants', 'All the restaurants of a company'
-        description 'Fetches all the restaurants in the system. ||user||'
+        description 'Fetches all the restaurants in the system. ||admin user||'
         formats [:json, :xml]
         example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/index.json")
         example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/index.xml")
@@ -32,7 +32,7 @@ module Api
         end
 
         api :POST, '/companies/:id/restaurants', 'Create a new restaurant'
-        description 'Creates a new company. Only owners can create new restaurants. ||owner||'
+        description 'Creates a new company. Only owners can create new restaurants. ||admin owner||'
         formats [:json, :xml]
         param :name, String, :desc => "Restaurant Name", :required => true
         param :address_1, String, :desc => "Restaurants address line 1", :required => true
@@ -62,7 +62,7 @@ module Api
         end
 
         def check_ownership
-          render_forbidden 'ownership_failure' if !@user.owns @company and !scope_exists? 'admin'
+          render_forbidden 'ownership_failure' if not_admin_and?(!@user.owns(@company))
         end
 
       end

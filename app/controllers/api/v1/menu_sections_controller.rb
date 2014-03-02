@@ -6,7 +6,7 @@ module Api
       before_filter :check_active_menu_section, :only => [:show]
 
       doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:basic, :user]
+      doorkeeper_for :show, :scopes => [:admin, :basic, :user]
 
       resource_description do
         name 'Menu Sections'
@@ -30,7 +30,7 @@ module Api
       end
 
       api :GET, '/menu_sections/:id', 'Get a menu in the system'
-      description 'Fetches a menu section in the system. ||basic user||'
+      description 'Fetches a menu section in the system. ||admin basic user||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/show.xml")
@@ -47,7 +47,7 @@ module Api
       end
 
       def check_active_menu_section
-        render_model_not_found 'MenuSection' if !@menu_section.active? and !@user.owns @menu_section and !scope_exists? 'admin'
+        render_model_not_found 'MenuSection' if not_admin_and?(!@menu_section.active? && !@user.owns(@menu_section))
       end
 
     end

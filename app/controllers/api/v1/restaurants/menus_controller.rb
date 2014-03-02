@@ -6,8 +6,8 @@ module Api
         before_filter :set_restaurant, :only => [:index, :create]
         before_filter :check_ownership, :only => [:index, :create]
 
-        doorkeeper_for :index, :scopes => [:owner, :get_menus]
-        doorkeeper_for :create, :scopes => [:owner, :add_menus, :add_active_menus]
+        doorkeeper_for :index, :scopes => [:admin, :owner, :get_menus]
+        doorkeeper_for :create, :scopes => [:admin, :owner, :add_menus, :add_active_menus]
 
         resource_description do
           name 'Restaurants > Menus'
@@ -22,7 +22,7 @@ module Api
         end
 
         api :GET, '/restaurants/:id/menus', 'All the menus of a restaurant'
-        description 'Fetches all the menus in the system. ||owner get_menus||'
+        description 'Fetches all the menus in the system. ||admin owner get_menus||'
         formats [:json, :xml]
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/menus/index.json")
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/menus/index.xml")
@@ -31,7 +31,7 @@ module Api
         end
 
         api :POST, '/restaurants/:id/menus', 'Create a menu for a restaurant'
-        description 'Creates a menu for a restaurant. ||owner add_menus add_active_menus||'
+        description 'Creates a menu for a restaurant. ||admin owner add_menus add_active_menus||'
         formats [:json, :xml]
         param :name, String, :desc => 'Menu name', :required => true
         param :active, String, :desc => 'Make menu active. ||owner add_active_menus||'
@@ -58,7 +58,7 @@ module Api
         end
 
         def check_ownership
-          render_forbidden 'Restaurant' unless @user.owns @restaurant and !scope_exists? 'admin'
+          render_forbidden 'Restaurant' if not_admin_and?(!@user.owns(@restaurant))
         end
 
       end

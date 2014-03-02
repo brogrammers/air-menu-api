@@ -31,7 +31,7 @@ module Api
       end
 
       api :GET, '/staff_members/:id', 'Get a staff member in the system'
-      description 'Gets a staff member in the system. ||owner get_staff_members||'
+      description 'Gets a staff member in the system. ||admin owner get_staff_members||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/staff_kinds/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/staff_kinds/show.xml")
@@ -48,7 +48,7 @@ module Api
       end
 
       def check_ownership
-        render_model_not_found 'StaffMember' if !@user.owns @staff_member.restaurant and !scope_exists? 'admin'
+        render_model_not_found 'StaffMember' if not_admin_and?(!@user.owns(@staff_member.restaurant))
       end
 
     end

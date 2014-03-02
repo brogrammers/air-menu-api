@@ -60,11 +60,11 @@ module Api
         end
 
         def check_active_menu_item
-          render_model_not_found 'MenuItem' if !@menu_item.active? and !@user.owns @menu_item and !scope_exists? 'admin'
+          render_model_not_found 'MenuItem' if not_admin_and?(!@menu_item.active? && !@user.owns(@menu_item))
         end
 
         def check_ownership
-          render_forbidden 'ownership_failure' if !@user.owns @order and !scope_exists? 'admin'
+          render_forbidden 'ownership_failure' if not_admin_and?(!@user.owns(@order))
         end
 
       end

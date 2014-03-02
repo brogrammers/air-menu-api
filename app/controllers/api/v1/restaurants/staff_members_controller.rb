@@ -7,8 +7,8 @@ module Api
         before_filter :set_staff_kind, :only => [:create]
         before_filter :check_ownership, :only => [:index, :create]
 
-        doorkeeper_for :index, :scopes => [:owner, :get_staff_members]
-        doorkeeper_for :create, :scopes => [:owner, :create_staff_members]
+        doorkeeper_for :index, :scopes => [:admin, :owner, :get_staff_members]
+        doorkeeper_for :create, :scopes => [:admin, :owner, :create_staff_members]
 
         resource_description do
           name 'Restaurants > Staff Members'
@@ -23,7 +23,7 @@ module Api
         end
 
         api :GET, '/restaurants/:id/staff_members', 'All the staff members of a restaurant'
-        description 'Fetches all the staff members of a restaurant. ||owner get_staff_members||'
+        description 'Fetches all the staff members of a restaurant. ||admin owner get_staff_members||'
         formats [:json, :xml]
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_members/index.json")
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_members/index.xml")
@@ -33,7 +33,7 @@ module Api
         end
 
         api :POST, '/restaurants/:id/staff_members', 'Create a staff member for a restaurant'
-        description 'Creates a staff member for a restaurant. ||owner create_staff_members||'
+        description 'Creates a staff member for a restaurant. ||admin owner create_staff_members||'
         formats [:json, :xml]
         param :name, String, 'Staff Member name', :required => true
         param :username, String, 'Staff Member username', :required => true
@@ -62,7 +62,7 @@ module Api
         end
 
         def check_ownership
-          render_forbidden 'ownership_failure' if !@user.owns @restaurant and !scope_exists? 'admin'
+          render_forbidden 'ownership_failure' if not_admin_and?(!@user.owns(@restaurant))
         end
 
       end

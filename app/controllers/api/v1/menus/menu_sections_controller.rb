@@ -7,8 +7,8 @@ module Api
         before_filter :check_ownership, :only => [:create]
         before_filter :check_active_menu, :only => [:index, :create]
 
-        doorkeeper_for :index, :scopes => [:user]
-        doorkeeper_for :create, :scopes => [:owner, :add_menus, :add_active_menus]
+        doorkeeper_for :index, :scopes => [:admin, :user]
+        doorkeeper_for :create, :scopes => [:admin, :owner, :add_menus, :add_active_menus]
 
         resource_description do
           name 'Menus > Menu Sections'
@@ -22,7 +22,7 @@ module Api
         end
 
         api :GET, '/menus/:id/menu_sections', 'All the menu sections in a menu'
-        description 'Fetches all the menu sections in a menu. ||user||'
+        description 'Fetches all the menu sections in a menu. ||admin user||'
         formats [:json, :xml]
         example File.read("#{Rails.root}/public/docs/api/v1/menus/menu_sections/index.json")
         example File.read("#{Rails.root}/public/docs/api/v1/menus/menu_sections/index.xml")
@@ -31,7 +31,7 @@ module Api
         end
 
         api :POST, '/menus/:id/menu_sections', 'Create a menu sections for a menu'
-        description 'Creates a menu section for a menu. ||owner add_menus add_active_menus||'
+        description 'Creates a menu section for a menu. ||admin owner add_menus add_active_menus||'
         formats [:json, :xml]
         param :name, String, :desc => 'Name of Menu Section', :required => true
         param :description, String, :desc => 'Description of Menu Section', :required => true
@@ -56,11 +56,11 @@ module Api
         end
 
         def check_active_menu
-          render_model_not_found 'Menu' if !@menu.active? and !@user.owns @menu and !scope_exists? 'admin'
+          render_model_not_found 'Menu' if not_admin_and?(!@menu.active? && !@user.owns(@menu))
         end
 
         def check_ownership
-          render_forbidden 'ownership_failure' if @menu.active? and !@user.owns @menu and !scope_exists? 'admin'
+          render_forbidden 'ownership_failure' if not_admin_and?(@menu.active? && !@user.owns(@menu))
         end
 
       end

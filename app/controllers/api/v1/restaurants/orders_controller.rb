@@ -7,8 +7,8 @@ module Api
         before_filter :check_can_make_order, :only => [:create]
         before_filter :check_ownership, :only => [:index]
 
-        doorkeeper_for :index, :scopes => [:owner, :get_current_orders]
-        doorkeeper_for :create, :scopes => [:user, :owner, :add_orders]
+        doorkeeper_for :index, :scopes => [:admin, :owner, :get_current_orders]
+        doorkeeper_for :create, :scopes => [:admin, :user, :owner, :add_orders]
 
         resource_description do
           name 'Restaurants > Orders'
@@ -23,7 +23,7 @@ module Api
         end
 
         api :GET, '/restaurants/:id/orders', 'All the current orders of a restaurant'
-        description 'Fetches all the current orders in of a restaurant. ||owner get_current_orders||'
+        description 'Fetches all the current orders in of a restaurant. ||admin owner get_current_orders||'
         formats [:json, :xml]
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/orders/index.json")
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/orders/index.xml")
@@ -33,7 +33,7 @@ module Api
         end
 
         api :POST, '/restaurants/:id/orders', 'Create an order for a restaurant'
-        description 'Creates an order for a restaurant. ||user owner add_orders||'
+        description 'Creates an order for a restaurant. ||admin user owner add_orders||'
         formats [:json, :xml]
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/orders/create.json")
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/orders/create.xml")
@@ -53,11 +53,11 @@ module Api
         def check_ownership
           # TODO: Add StaffMember check, if it owns restaurant for CREATE too, once StaffMembers exist!!
           # different treatment required for normal user than from StaffMember
-          render_forbidden 'ownership_failure' if !@user.owns @restaurant and !scope_exists? 'admin'
+          render_forbidden 'ownership_failure' if not_admin_and?(!@user.owns @restaurant)
         end
 
         def check_can_make_order
-          render_forbidden 'too_many_orders' if !@user.owns @restaurant and !@user.can_order? and !scope_exists? 'admin'
+          render_forbidden 'too_many_orders' if not_admin_and?(!@user.owns(@restaurant) && !@user.can_order?)
         end
 
       end
