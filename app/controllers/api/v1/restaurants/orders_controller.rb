@@ -25,8 +25,8 @@ module Api
         api :GET, '/restaurants/:id/orders', 'All the current orders of a restaurant'
         description 'Fetches all the current orders in of a restaurant. ||owner get_current_orders||'
         formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurant_orders/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurant_orders/index.xml")
+        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/orders/index.json")
+        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/orders/index.xml")
         def index
           @orders = @restaurant.current_orders
           respond_with @orders
@@ -35,8 +35,8 @@ module Api
         api :POST, '/restaurants/:id/orders', 'Create an order for a restaurant'
         description 'Creates an order for a restaurant. ||user owner add_orders||'
         formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurant_orders/create.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurant_orders/create.xml")
+        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/orders/create.json")
+        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/orders/create.xml")
         def create
           @order = create_order @restaurant
           respond_with @order

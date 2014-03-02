@@ -24,8 +24,8 @@ module Api
         api :GET, '/menu_sections/:id/menu_items', 'All the menu items within a menu section'
         description 'Fetches all the menu items within a menu section. ||user||'
         formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/menu_items/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/menu_items/index.xml")
+        example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/index.json")
+        example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/index.xml")
         def index
           respond_with @menu_section.menu_items
         end
@@ -33,8 +33,8 @@ module Api
         api :POST, '/menu_sections/:id/menu_items', 'Create menu items within a menu section'
         description 'Creates a menu item within a menu section. ||owner add_menus add_active_menus||'
         formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/menu_items/show.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/menu_items/show.xml")
+        example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/create.json")
+        example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/create.xml")
         def create
           @menu_item = MenuItem.new
           @menu_item.name = params[:name]

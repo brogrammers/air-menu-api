@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menus type="array">
+  <menu>
+    <id type="integer">1</id>
+    <name>menu</name>
+  </menu>
+  <menu>
+    <id type="integer">2</id>
+    <name>new menu</name>
+  </menu>
+  <menu>
+    <id type="integer">3</id>
+    <name>another new menu</name>
+  </menu>
+</menus>

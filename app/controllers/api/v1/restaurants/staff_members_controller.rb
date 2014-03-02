@@ -25,8 +25,8 @@ module Api
         api :GET, '/restaurants/:id/staff_members', 'All the staff members of a restaurant'
         description 'Fetches all the staff members of a restaurant. ||owner get_staff_members||'
         formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurant_staff_members/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurant_staff_members/index.xml")
+        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_members/index.json")
+        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_members/index.xml")
         def index
           @staff_members = @restaurant.staff_members
           respond_with @staff_members
@@ -40,8 +40,8 @@ module Api
         param :password, String, 'Staff Member password', :required => true
         param :email, String, 'Staff Member email', :required => true
         param :staff_kind_id, String, 'Staff Members staff kind id', :required => true
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurant_staff_members/create.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurant_staff_members/create.xml")
+        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_members/create.json")
+        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_members/create.xml")
         def create
           @staff_member = create_staff_member @restaurant, @staff_kind
           respond_with @staff_member

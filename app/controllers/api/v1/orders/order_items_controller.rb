@@ -26,8 +26,8 @@ module Api
         api :GET, '/orders/:id/order_items', 'All the order items of an order'
         description 'Fetches all the order items in of an order. ||admin user owner get_current_orders||'
         formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/order_order_items/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/order_order_items/index.xml")
+        example File.read("#{Rails.root}/public/docs/api/v1/orders/order_items/index.json")
+        example File.read("#{Rails.root}/public/docs/api/v1/orders/order_items/index.xml")
         def index
           @order_items = @order.order_items
           respond_with @order_items
@@ -38,8 +38,8 @@ module Api
         formats [:json, :xml]
         param :comment, String, :desc => 'Set a comment on the order item'
         param :count, Integer, :desc => 'Set how many times you want to order the menu item'
-        example File.read("#{Rails.root}/public/docs/api/v1/order_order_items/create.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/order_order_items/create.xml")
+        example File.read("#{Rails.root}/public/docs/api/v1/orders/order_items/create.json")
+        example File.read("#{Rails.root}/public/docs/api/v1/orders/order_items/create.xml")
         def create
           @order_item = create_order_item @order, @menu_item
           respond_with @order_item

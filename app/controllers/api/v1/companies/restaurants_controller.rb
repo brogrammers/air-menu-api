@@ -24,8 +24,8 @@ module Api
         api :GET, '/companies/:id/restaurants', 'All the restaurants of a company'
         description 'Fetches all the restaurants in the system. ||user||'
         formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.xml")
+        example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/index.json")
+        example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/index.xml")
         def index
           @restaurants = @company.restaurants
           respond_with @restaurants
@@ -41,8 +41,8 @@ module Api
         param :county, String, :desc => "Restaurants county", :required => true
         param :state, String, :desc => "Restaurants state (only US)"
         param :country, String, :desc => "Restaurants country", :required => true
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/show.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/show.xml")
+        example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/create.json")
+        example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/create.xml")
         def create
           @restaurant = create_restaurant
           @address = create_address

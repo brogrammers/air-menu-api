@@ -24,8 +24,8 @@ module Api
         api :GET, '/restaurants/:id/staff_kinds', 'All the staff kinds of a restaurant'
         description 'Fetches all the staff kinds of a restaurant. ||owner get_staff_kinds||'
         formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurant_staff_kinds/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurant_staff_kinds/index.xml")
+        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_kinds/index.json")
+        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_kinds/index.xml")
         def index
           @staff_kinds = @restaurant.staff_kinds
           respond_with @staff_kinds
@@ -35,8 +35,8 @@ module Api
         description 'Creates a staff kind for a restaurant. ||owner create_staff_kinds||'
         formats [:json, :xml]
         param :name, String, :desc => 'Staff kind name', :required => true
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurant_staff_kinds/create.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurant_staff_kinds/create.xml")
+        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_kinds/create.json")
+        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_kinds/create.xml")
         def create
           @staff_kind = create_staff_kind @restaurant
           respond_with @staff_kind
