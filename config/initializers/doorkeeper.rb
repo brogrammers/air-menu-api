@@ -1,6 +1,3 @@
-require Rails.root + 'lib/doorkeeper/doorkeeper_for'
-require Rails.root + 'lib/doorkeeper/helpers/filter'
-
 Doorkeeper.configure do
   # Change the ORM that doorkeeper will use.
   # Currently supported options are :active_record, :mongoid2, :mongoid3, :mongo_mapper
@@ -42,7 +39,16 @@ Doorkeeper.configure do
   test_redirect_uri 'urn:ietf:wg:oauth:2.0:oob'
 
   default_scopes  :basic
-  optional_scopes :admin, :user, :developer, :owner, :get_menus, :add_menus, :add_active_menus, :get_current_orders, :add_orders, :update_orders
+  optional_scopes :admin,
+                  :user,
+                  :developer,
+                  :owner,
+                  :get_menus,
+                  :add_menus,
+                  :add_active_menus,
+                  :get_current_orders,
+                  :add_orders,
+                  :update_orders
 
   realm 'AirMenu'
 
