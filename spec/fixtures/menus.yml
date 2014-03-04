@@ -1,0 +1,14 @@
+active_menu:
+  id: 1
+  name: Active Menu
+  restaurant_id: 1
+
+inactive_menu:
+  id: 2
+  name: Inactive Menu
+  restaurant_id: 1
+
+active_menu_alt_restaurant:
+  id: 3
+  name: Active Menu
+  restaurant_id: 2

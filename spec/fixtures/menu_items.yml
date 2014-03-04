@@ -1,0 +1,15 @@
+active_menu_item:
+  id: 1
+  name: Menu Item
+  description: description
+  price: 8.30
+  currency: EUR
+  menu_section_id: 1
+
+inactive_menu_item:
+  id: 2
+  name: Menu Item
+  description: description
+  price: 9.00
+  currency: EUR
+  menu_section_id: 2

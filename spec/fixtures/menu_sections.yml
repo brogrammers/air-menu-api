@@ -1,0 +1,11 @@
+active_menu_section:
+  id: 1
+  name: Menu Section
+  description: description
+  menu_id: 1
+
+inactive_menu_section:
+  id: 2
+  name: Menu Section
+  description: description
+  menu_id: 2

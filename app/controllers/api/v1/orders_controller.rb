@@ -4,6 +4,7 @@ module Api
 
       before_filter :set_order, :only => [:show, :update]
       before_filter :check_ownership, :only => [:show, :update]
+      before_filter :check_editable, :only => [:update]
 
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :user, :owner, :get_orders]
@@ -62,6 +63,10 @@ module Api
 
       def check_ownership
         render_model_not_found 'Order' if not_admin_and?(!@user.owns(@order))
+      end
+
+      def check_editable
+        render_forbidden 'not_editable' if not_admin_and?(@user.owns(@order) && @user.type == 'User')
       end
 
       def update_order

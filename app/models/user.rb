@@ -42,10 +42,12 @@ class User < ActiveRecord::Base
   private
 
   def owns_company(company)
+    return false unless self.company
     self.company.id == company.id
   end
 
   def owns_restaurant(restaurant)
+    return false unless self.company
     self.company.restaurants.each do |owned_restaurant|
       return true if owned_restaurant.id == restaurant.id
     end
@@ -68,6 +70,9 @@ class User < ActiveRecord::Base
     self.orders.each do |owned_order|
       return true if owned_order.id == order.id
     end
+    self.company.restaurants.each do |owned_restaurant|
+      return true if owned_restaurant.id == order.restaurant.id
+    end if self.company
     false
   end
 

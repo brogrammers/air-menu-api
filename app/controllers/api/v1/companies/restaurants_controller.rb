@@ -44,13 +44,8 @@ module Api
         example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/create.json")
         example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/create.xml")
         def create
-          @restaurant = create_restaurant
-          @address = create_address
-          @restaurant.address = @address
-          @address.save!
-          @company.restaurants << @restaurant
-          @restaurant.save!
-          respond_with @restaurant
+          @restaurant = create_restaurant @company
+          respond_with @restaurant, :status => :created
         end
 
         private

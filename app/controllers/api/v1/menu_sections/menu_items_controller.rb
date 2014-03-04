@@ -4,8 +4,8 @@ module Api
       class MenuItemsController < BaseController
 
         before_filter :set_menu_section, :only => [:index, :create]
-        before_filter :check_ownership, :only => [:create]
         before_filter :check_active_menu_section, :only => [:index, :create]
+        before_filter :check_ownership, :only => [:create]
 
         doorkeeper_for :index, :scopes => [:admin, :user]
         doorkeeper_for :create, :scopes => [:admin, :owner, :add_menus, :add_active_menus]
@@ -44,7 +44,7 @@ module Api
           @menu_item.menu_section = @menu_section
           @menu_section.menu_items << @menu_item
           @menu_item.save!
-          respond_with @menu_item
+          respond_with @menu_item, :status => :created
         end
 
         private

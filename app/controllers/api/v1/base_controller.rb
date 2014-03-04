@@ -37,6 +37,8 @@ module Api
         company = Company.new
         company.name = params[:name]
         company.website = params[:website]
+        company.address = create_address
+        @user.company = company
         company.save!
         company
       end
@@ -53,14 +55,16 @@ module Api
         address
       end
 
-      def create_restaurant
+      def create_restaurant(company)
         restaurant = Restaurant.new
+        restaurant.address = create_address
         restaurant.name = params[:name]
         restaurant.loyalty = false
         restaurant.remote_order = false
         restaurant.conversion_rate = 0.0
-        restaurant.company_id = params[:company_id]
+        restaurant.company = company
         restaurant.save!
+        restaurant.address.save!
         restaurant
       end
 

@@ -12,7 +12,7 @@ module Api
         name 'Menu Items'
         short_description 'All about menu items in the system'
         path '/menu_items'
-        description 'The Menu Menu Sections endpoint lets you create new menu sections for a menu.'
+        description 'The Menu Menu Items endpoint lets you inspect menu items in the system.'
         error 401, 'Unauthorized, missing or invalid access token'
         error 403, 'Forbidden, valid access token, but scope is missing'
         error 404, 'Not Found, some resource could not be found'

@@ -1,0 +1,11 @@
+one:
+  id: 1
+  name: Brogrammers
+  website: http://brogrammers.info
+  user_id: 2
+
+two:
+  id: 2
+  name: Guy Company
+  website: http://guy.com
+  user_id: 3

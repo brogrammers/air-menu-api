@@ -1,0 +1,26 @@
+one:
+  id: 1
+  username: tsov
+  email: tsov@me.com
+  identifiable_id: 1
+  identifiable_type: User
+  admin: true
+  developer: true
+
+two:
+  id: 2
+  username: rob
+  email: rob@rob.com
+  identifiable_id: 2
+  identifiable_type: User
+  admin: true
+  developer: true
+
+three:
+  id: 3
+  username: guy
+  email: guy@guy.guy
+  identifiable_id: 3
+  identifiable_type: User
+  admin: false
+  developer: false

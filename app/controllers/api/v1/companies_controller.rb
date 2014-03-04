@@ -56,11 +56,7 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/companies/show.xml")
       def create
         @company = create_company
-        @user.company = @company
-        @company.save!
-        @company.address = create_address
-        @company.address.save!
-        respond_with @user
+        respond_with @company, :status => :created
       end
 
       private

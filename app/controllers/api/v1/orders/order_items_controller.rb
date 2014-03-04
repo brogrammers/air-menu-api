@@ -42,7 +42,7 @@ module Api
         example File.read("#{Rails.root}/public/docs/api/v1/orders/order_items/create.xml")
         def create
           @order_item = create_order_item @order, @menu_item
-          respond_with @order_item
+          respond_with @order_item, :status => :created
         end
 
         private
@@ -64,7 +64,7 @@ module Api
         end
 
         def check_ownership
-          render_forbidden 'ownership_failure' if not_admin_and?(!@user.owns(@order))
+          render_model_not_found 'Order' if not_admin_and?(!@user.owns(@order))
         end
 
       end

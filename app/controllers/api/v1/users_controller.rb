@@ -52,7 +52,7 @@ module Api
         @identity = create_identity
         @user.identity = @identity
         @identity.save!
-        respond_with @user
+        respond_with @user, :status => :created
       end
 
       private

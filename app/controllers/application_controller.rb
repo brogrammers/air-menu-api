@@ -48,6 +48,6 @@ class ApplicationController < ActionController::Base
   end
 
   def doorkeeper_forbidden_render_options(error)
-    {@format => {:error => {:code => 'route_not_found'}}, :status => :not_found}
+    {@format => {:error => {:code => 'invalid_scope'}}}
   end
 end

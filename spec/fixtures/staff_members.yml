@@ -1,0 +1,5 @@
+one:
+  id: 1
+  staff_kind_id: 1
+  name: Staff Member
+  restaurant_id: 1

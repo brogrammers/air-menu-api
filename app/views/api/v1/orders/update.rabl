@@ -1,3 +1,3 @@
 object @order => :order
 
-extends "api/v1/restaurant_orders/show"
+extends "api/v1/restaurants/orders/show"

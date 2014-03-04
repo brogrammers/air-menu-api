@@ -44,7 +44,7 @@ module Api
           @menu.menu_sections << @menu_section
           @menu_section.menu = @menu
           @menu_section.save!
-          respond_with @menu_section
+          respond_with @menu_section, :status => :created
         end
 
         private
