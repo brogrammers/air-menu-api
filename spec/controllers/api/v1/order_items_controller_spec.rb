@@ -12,7 +12,8 @@ describe Api::V1::OrderItemsController do
            :users,
            :orders,
            :staff_kinds,
-           :staff_members
+           :staff_members,
+           :order_items
 
   before :each do
     controller.stub(:doorkeeper_token) { token }
@@ -98,7 +99,7 @@ describe Api::V1::OrderItemsController do
 
         describe 'owning the order item' do
 
-          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user'] }
+          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user', 'owner'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
           before :each do
@@ -114,7 +115,7 @@ describe Api::V1::OrderItemsController do
         end
 
         describe 'not owning the order item' do
-          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user'] }
+          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user', 'owner'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => user_scope, :revoked? => false, :expired? => false }
 
           before :each do
@@ -206,7 +207,7 @@ describe Api::V1::OrderItemsController do
 
         describe 'owning the order item' do
 
-          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
+          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user', 'owner'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
 
@@ -244,7 +245,7 @@ describe Api::V1::OrderItemsController do
         end
 
         describe 'not owning the order item' do
-          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user'] }
+          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user', 'owner'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => user_scope, :revoked? => false, :expired? => false }
 
           before :each do
