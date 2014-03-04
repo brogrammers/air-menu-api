@@ -1,5 +1,0 @@
-== AirMenu API
-
-This is a 4th Year Project repository.
-
-More info coming!
