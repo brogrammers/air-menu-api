@@ -51,5 +51,4 @@ Doorkeeper.configure do
                   :update_orders
 
   realm 'AirMenu'
-
 end
