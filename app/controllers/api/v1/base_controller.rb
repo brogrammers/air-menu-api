@@ -127,6 +127,14 @@ module Api
         staff_member
       end
 
+      def create_group(restaurant)
+        group = Group.new
+        group.restaurant = restaurant
+        group.name = params[:name]
+        group.save!
+        group
+      end
+
     end
   end
 end

@@ -3,6 +3,7 @@ class Restaurant < ActiveRecord::Base
   has_many :orders
   has_many :staff_kinds
   has_many :staff_members
+  has_many :groups
   has_one :address, :as => :contactable
   has_one :location, :as => :findable
   belongs_to :company

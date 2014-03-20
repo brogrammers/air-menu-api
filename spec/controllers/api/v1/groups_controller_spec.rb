@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V1::StaffKindsController do
+describe Api::V1::GroupsController do
   render_views
   fixtures :addresses,
            :companies,
@@ -12,7 +12,8 @@ describe Api::V1::StaffKindsController do
            :users,
            :orders,
            :staff_kinds,
-           :staff_members
+           :staff_members,
+           :groups
 
   before :each do
     controller.stub(:doorkeeper_token) { token }
@@ -57,7 +58,7 @@ describe Api::V1::StaffKindsController do
 
   describe 'GET #show' do
 
-    describe 'on existing staff kind' do
+    describe 'on existing group' do
 
       describe 'as a user' do
 
@@ -68,18 +69,23 @@ describe Api::V1::StaffKindsController do
           get :show, :id => 1
         end
 
-        it 'should respond with a HTTP 404 status code' do
-          expect(response).to be_not_found
-          expect(response.status).to eq(404)
+        it 'should respond with a HTTP 403 status code' do
+          expect(response).to be_forbidden
+          expect(response.status).to eq(403)
+        end
+
+        it 'should return a forbidden error message' do
+          body = JSON.parse(response.body) rescue { }
+          expect(body['error']['code']).to eq('invalid_scope')
         end
 
       end
 
       describe 'as an owner' do
 
-        describe 'owning the staff kind' do
+        describe 'owning the group' do
 
-          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user', 'owner'] }
+          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
           before :each do
@@ -94,8 +100,8 @@ describe Api::V1::StaffKindsController do
 
         end
 
-        describe 'not owning the staff kind' do
-          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user', 'owner'] }
+        describe 'not owning the group' do
+          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => user_scope, :revoked? => false, :expired? => false }
 
           before :each do
@@ -113,22 +119,26 @@ describe Api::V1::StaffKindsController do
 
     end
 
-    describe 'on missing staff kind' do
+    describe 'on missing group' do
 
-      let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user'] }
-      let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
+      describe 'as an owner' do
 
-      it 'should respond with a HTTP 404 status code' do
-        get :show, :id => 9999
-        expect(response).to be_not_found
-        expect(response.status).to eq(404)
-      end
+        let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
+        let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
-      it 'should return a model not found error message' do
-        get :show, :id => 9999
-        body = JSON.parse(response.body) rescue { }
-        expect(body['error']['code']).to eq('model_not_found')
-        expect(body['error']['model']).to eq('StaffKind')
+        it 'should respond with a HTTP 404 status code' do
+          get :show, :id => 9999
+          expect(response).to be_not_found
+          expect(response.status).to eq(404)
+        end
+
+        it 'should return a model not found error message' do
+          get :show, :id => 9999
+          body = JSON.parse(response.body) rescue { }
+          expect(body['error']['code']).to eq('model_not_found')
+          expect(body['error']['model']).to eq('Group')
+        end
+
       end
 
     end
