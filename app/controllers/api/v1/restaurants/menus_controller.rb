@@ -46,7 +46,7 @@ module Api
             @restaurant.active_menu_id = @menu.id
             @restaurant.save!
           end
-          respond_with @menu
+          respond_with @menu, :status => :created
         end
 
         private
@@ -58,7 +58,7 @@ module Api
         end
 
         def check_ownership
-          render_forbidden 'Restaurant' if not_admin_and?(!@user.owns(@restaurant))
+          render_forbidden 'ownership_failure' if not_admin_and?(!@user.owns(@restaurant))
         end
 
       end

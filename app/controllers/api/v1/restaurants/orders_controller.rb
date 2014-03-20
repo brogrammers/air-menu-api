@@ -39,7 +39,7 @@ module Api
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/orders/create.xml")
         def create
           @order = create_order @restaurant
-          respond_with @order
+          respond_with @order, :status => :created
         end
 
         private

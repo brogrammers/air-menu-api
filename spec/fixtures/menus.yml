@@ -12,3 +12,8 @@ active_menu_alt_restaurant:
   id: 3
   name: Active Menu
   restaurant_id: 2
+
+active_menu_other_alt_restaurant:
+  id: 4
+  name: Active Menu
+  restaurant_id: 3

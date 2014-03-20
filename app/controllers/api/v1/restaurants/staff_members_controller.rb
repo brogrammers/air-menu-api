@@ -3,12 +3,12 @@ module Api
     module Restaurants
       class StaffMembersController < BaseController
 
+        doorkeeper_for :index, :scopes => [:admin, :owner, :get_staff_members]
+        doorkeeper_for :create, :scopes => [:admin, :owner, :create_staff_members]
+
         before_filter :set_restaurant, :only => [:index, :create]
         before_filter :set_staff_kind, :only => [:create]
         before_filter :check_ownership, :only => [:index, :create]
-
-        doorkeeper_for :index, :scopes => [:admin, :owner, :get_staff_members]
-        doorkeeper_for :create, :scopes => [:admin, :owner, :create_staff_members]
 
         resource_description do
           name 'Restaurants > Staff Members'
@@ -44,7 +44,7 @@ module Api
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_members/create.xml")
         def create
           @staff_member = create_staff_member @restaurant, @staff_kind
-          respond_with @staff_member
+          respond_with @staff_member, :status => :created
         end
 
         private

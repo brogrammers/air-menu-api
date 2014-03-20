@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V1::Restaurants::MenusController do
+describe Api::V1::Restaurants::StaffKindsController do
   render_views
   fixtures :addresses,
            :companies,
@@ -29,7 +29,7 @@ describe Api::V1::Restaurants::MenusController do
 
       describe 'as a user' do
 
-        let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope }
+        let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
 
         before :each do
           get :index, :restaurant_id => 1
@@ -42,8 +42,7 @@ describe Api::V1::Restaurants::MenusController do
 
         it 'should return a forbidden error message' do
           body = JSON.parse(response.body) rescue { }
-          expect(body['error']['code']).to eq('forbidden')
-          expect(body['error']['message']).to eq('ownership_failure')
+          expect(body['error']['code']).to eq('invalid_scope')
         end
 
       end
@@ -56,7 +55,7 @@ describe Api::V1::Restaurants::MenusController do
 
         describe 'owning the restaurant' do
 
-          let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope }
+          let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope, :revoked? => false, :expired? => false }
 
           it 'should respond with a HTTP 200 status code' do
             expect(response).to be_success
@@ -67,7 +66,7 @@ describe Api::V1::Restaurants::MenusController do
 
         describe 'not owning the restaurant' do
 
-          let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => owner_scope }
+          let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => owner_scope, :revoked? => false, :expired? => false }
 
           it 'should respond with a HTTP 403 status code' do
             expect(response).to be_forbidden
@@ -111,13 +110,13 @@ describe Api::V1::Restaurants::MenusController do
 
     describe 'on existing restaurant' do
 
-      before :each do
-        post :create, :restaurant_id => 1, :name => 'test'
-      end
-
       describe 'as a user' do
 
         let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
+
+        before :each do
+          post :create, :restaurant_id => 1
+        end
 
         it 'should respond with a HTTP 403 status code' do
           expect(response).to be_forbidden
@@ -126,13 +125,16 @@ describe Api::V1::Restaurants::MenusController do
 
         it 'should return a forbidden error message' do
           body = JSON.parse(response.body) rescue { }
-          expect(body['error']['code']).to eq('forbidden')
-          expect(body['error']['message']).to eq('ownership_failure')
+          expect(body['error']['code']).to eq('invalid_scope')
         end
 
       end
 
       describe 'as an owner' do
+
+        before :each do
+          post :create, :restaurant_id => 1
+        end
 
         describe 'owning the restaurant' do
 
@@ -160,6 +162,25 @@ describe Api::V1::Restaurants::MenusController do
             expect(body['error']['message']).to eq('ownership_failure')
           end
 
+        end
+
+      end
+
+    end
+
+    describe 'on missing restaurant' do
+
+      before :each do
+        post :create, :restaurant_id => 9999
+      end
+
+      describe 'as an owner' do
+
+        let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope }
+
+        it 'should respond with a HTTP 404 status code' do
+          expect(response).to be_not_found
+          expect(response.status).to eq(404)
         end
 
       end

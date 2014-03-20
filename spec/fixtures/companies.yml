@@ -9,3 +9,9 @@ two:
   name: Guy Company
   website: http://guy.com
   user_id: 3
+
+three:
+  id: 3
+  name: Some Company
+  website: http://ok.com
+  user_id: 4

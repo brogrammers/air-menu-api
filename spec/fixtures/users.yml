@@ -1,11 +1,19 @@
-one:
+normal_user:
   id: 1
   name: Max Hoffmann
 
-two:
+company_owner:
   id: 2
   name: Robert Lis
 
-three:
+company_owner_with_order:
   id: 3
   name: Some Guy
+
+company_owner_with_many_orders:
+  id: 4
+  name: Test user
+
+normal_user_without_orders:
+  id: 5
+  name: Some user

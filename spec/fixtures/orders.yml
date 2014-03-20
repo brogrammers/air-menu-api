@@ -5,3 +5,27 @@ one:
   served: false
   restaurant_id: 1
   start: <%= DateTime.now %>
+
+two:
+  id: 2
+  user_id: 3
+  prepared: false
+  served: false
+  restaurant_id: 2
+  start: <%= DateTime.now %>
+
+three:
+  id: 3
+  user_id: 4
+  prepared: false
+  served: false
+  restaurant_id: 3
+  start: <%= DateTime.now %>
+
+four:
+  id: 4
+  user_id: 4
+  prepared: false
+  served: false
+  restaurant_id: 3
+  start: <%= DateTime.now %>
