@@ -42,3 +42,12 @@ five:
   identifiable_type: User
   admin: false
   developer: false
+
+staff_member:
+  id: 6
+  username: staff_member
+  email: staff@staff.com
+  identifiable_id: 1
+  identifiable_type: StaffMember
+  admin: false
+  developer: false

@@ -15,7 +15,7 @@ node :order do |user|
 end
 
 node :company do |user|
-  partial('api/v1/me/_company', :object => user.company)
+  partial('api/v1/me/_company', :object => user.company) if user.company
 end
 
 node :scopes do |user|

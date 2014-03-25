@@ -53,5 +53,17 @@ describe Api::V1::MeController do
 
     end
 
+    describe 'as an staff member' do
+
+      let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => ['user', 'basic'] }
+
+      it 'should return the proper type in the response body' do
+        get :index
+        body = JSON.parse(response.body) rescue { }
+        expect(body['me']['type']).to eq('StaffMember')
+      end
+
+    end
+
   end
 end
