@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_filter :find_current_user
   before_filter :determine_format
+  before_filter :determine_phone
 
   respond_to :json, :xml
 
@@ -21,6 +22,20 @@ class ApplicationController < ActionController::Base
   def determine_format
     @format = :json
     @format = :xml if request.headers['Accept'] == /application\/xml/
+  end
+
+  def determine_phone
+    if device? and @user
+      device = Device.authenticate(request.headers["X-Device-UUID"], @user)
+      if device
+        device.token = request.headers["X-Device-Token"]
+        device.save! if device.changed?
+      end
+    end
+  end
+
+  def device?
+    request.headers["X-Device-UUID"] and request.headers["X-Device-Token"]
   end
 
   def scope_exists?(scope)
