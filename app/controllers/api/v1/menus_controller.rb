@@ -2,11 +2,11 @@ module Api
   module V1
     class MenusController < BaseController
 
-      before_filter :set_menu, :only => [:show]
-      before_filter :check_active_menu, :only => [:show]
-
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :basic, :user]
+
+      before_filter :set_menu, :only => [:show]
+      before_filter :check_active_menu, :only => [:show]
 
       resource_description do
         name 'Menus'

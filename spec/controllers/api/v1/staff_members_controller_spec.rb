@@ -68,9 +68,14 @@ describe Api::V1::StaffMembersController do
           get :show, :id => 1
         end
 
-        it 'should respond with a HTTP 200 status code' do
-          expect(response).to be_not_found
-          expect(response.status).to eq(404)
+        it 'should respond with a HTTP 403 status code' do
+          expect(response).to be_forbidden
+          expect(response.status).to eq(403)
+        end
+
+        it 'should return a forbidden error message' do
+          body = JSON.parse(response.body) rescue { }
+          expect(body['error']['code']).to eq('invalid_scope')
         end
 
       end
@@ -115,8 +120,8 @@ describe Api::V1::StaffMembersController do
 
     describe 'on missing staff member' do
 
-      let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user'] }
-      let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
+      let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
+      let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
       it 'should respond with a HTTP 404 status code' do
         get :show, :id => 9999

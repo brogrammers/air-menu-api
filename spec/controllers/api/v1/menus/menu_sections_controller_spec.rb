@@ -153,10 +153,9 @@ describe Api::V1::Menus::MenuSectionsController do
             expect(response.status).to eq(403)
           end
 
-          it 'should return a model not found error message' do
+          it 'should return a forbidden error message' do
             body = JSON.parse(response.body) rescue { }
-            expect(body['error']['code']).to eq('forbidden')
-            expect(body['error']['message']).to eq('ownership_failure')
+            expect(body['error']['code']).to eq('invalid_scope')
           end
 
         end
@@ -170,15 +169,14 @@ describe Api::V1::Menus::MenuSectionsController do
             post :create, :menu_id => 2, :name => 'name'
           end
 
-          it 'should respond with a HTTP 404 status code' do
-            expect(response).to be_not_found
-            expect(response.status).to eq(404)
+          it 'should respond with a HTTP 403 status code' do
+            expect(response).to be_forbidden
+            expect(response.status).to eq(403)
           end
 
-          it 'should return a model not found error message' do
+          it 'should return a forbidden error message' do
             body = JSON.parse(response.body) rescue { }
-            expect(body['error']['code']).to eq('model_not_found')
-            expect(body['error']['model']).to eq('Menu')
+            expect(body['error']['code']).to eq('invalid_scope')
           end
 
         end
@@ -263,8 +261,8 @@ describe Api::V1::Menus::MenuSectionsController do
 
     describe 'on missing menu' do
 
-      let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user'] }
-      let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
+      let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user', 'owner'] }
+      let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
       it 'should respond with a HTTP 404 status code' do
         post :create, :menu_id => 9999

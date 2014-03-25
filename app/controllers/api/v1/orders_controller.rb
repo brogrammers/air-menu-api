@@ -2,13 +2,13 @@ module Api
   module V1
     class OrdersController < BaseController
 
-      before_filter :set_order, :only => [:show, :update]
-      before_filter :check_ownership, :only => [:show, :update]
-      before_filter :update_order, :only => [:update]
-
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :user, :owner, :get_orders]
       doorkeeper_for :update, :scopes => [:admin, :user, :owner, :update_orders]
+
+      before_filter :set_order, :only => [:show, :update]
+      before_filter :check_ownership, :only => [:show, :update]
+      before_filter :update_order, :only => [:update]
 
       resource_description do
         name 'Orders'

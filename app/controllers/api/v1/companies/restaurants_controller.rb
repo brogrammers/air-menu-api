@@ -3,11 +3,11 @@ module Api
     module Companies
       class RestaurantsController < BaseController
 
-        before_filter :set_company, :only => [:index, :create]
-        before_filter :check_ownership, :only => [:create]
-
         doorkeeper_for :index, :scopes => [:admin, :user]
         doorkeeper_for :create, :scopes => [:admin, :owner]
+
+        before_filter :set_company, :only => [:index, :create]
+        before_filter :check_ownership, :only => [:create]
 
         resource_description do
           name 'Companies > Restaurants'

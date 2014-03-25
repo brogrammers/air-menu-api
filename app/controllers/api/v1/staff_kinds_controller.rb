@@ -2,11 +2,11 @@ module Api
   module V1
     class StaffKindsController < BaseController
 
-      before_filter :set_staff_kind, :only => [:show]
-      before_filter :check_ownership, :only => [:show]
-
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :owner, :get_staff_kinds]
+
+      before_filter :set_staff_kind, :only => [:show]
+      before_filter :check_ownership, :only => [:show]
 
       resource_description do
         name 'Staff Kinds'

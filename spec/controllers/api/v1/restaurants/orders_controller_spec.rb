@@ -29,7 +29,7 @@ describe Api::V1::Restaurants::OrdersController do
 
       describe 'as a user' do
 
-        let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope }
+        let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
 
         before :each do
           get :index, :restaurant_id => 1
@@ -42,8 +42,7 @@ describe Api::V1::Restaurants::OrdersController do
 
         it 'should return a forbidden error message' do
           body = JSON.parse(response.body) rescue { }
-          expect(body['error']['code']).to eq('forbidden')
-          expect(body['error']['message']).to eq('ownership_failure')
+          expect(body['error']['code']).to eq('invalid_scope')
         end
 
       end
@@ -56,7 +55,7 @@ describe Api::V1::Restaurants::OrdersController do
 
         describe 'owning the restaurant' do
 
-          let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope }
+          let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope, :revoked? => false, :expired? => false }
 
           it 'should respond with a HTTP 200 status code' do
             expect(response).to be_success
@@ -67,7 +66,7 @@ describe Api::V1::Restaurants::OrdersController do
 
         describe 'not owning the restaurant' do
 
-          let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => owner_scope }
+          let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => owner_scope, :revoked? => false, :expired? => false }
 
           it 'should respond with a HTTP 403 status code' do
             expect(response).to be_forbidden
@@ -94,7 +93,7 @@ describe Api::V1::Restaurants::OrdersController do
 
       describe 'as an owner' do
 
-        let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope }
+        let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope, :revoked? => false, :expired? => false }
 
         it 'should respond with a HTTP 404 status code' do
           expect(response).to be_not_found

@@ -3,13 +3,13 @@ module Api
     module Orders
       class OrderItemsController < BaseController
 
+        doorkeeper_for :index, :scopes => [:admin, :user, :owner, :get_current_orders]
+        doorkeeper_for :create, :scopes => [:admin, :user, :owner, :add_orders]
+
         before_filter :set_order, :only => [:index, :create]
         before_filter :set_menu_item, :only => [:create]
         before_filter :check_active_menu_item, :only => [:create]
         before_filter :check_ownership, :only => [:index, :create]
-
-        doorkeeper_for :index, :scopes => [:admin, :user, :owner, :get_current_orders]
-        doorkeeper_for :create, :scopes => [:admin, :user, :owner, :add_orders]
 
         resource_description do
           name 'Orders > Order Items'

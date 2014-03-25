@@ -3,12 +3,12 @@ module Api
     module Restaurants
       class OrdersController < BaseController
 
+        doorkeeper_for :index, :scopes => [:admin, :owner, :get_current_orders]
+        doorkeeper_for :create, :scopes => [:admin, :user, :owner, :add_orders]
+
         before_filter :set_restaurant, :only => [:index, :create]
         before_filter :check_can_make_order, :only => [:create]
         before_filter :check_ownership, :only => [:index]
-
-        doorkeeper_for :index, :scopes => [:admin, :owner, :get_current_orders]
-        doorkeeper_for :create, :scopes => [:admin, :user, :owner, :add_orders]
 
         resource_description do
           name 'Restaurants > Orders'

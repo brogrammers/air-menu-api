@@ -2,11 +2,11 @@ module Api
   module V1
     class UsersController < BaseController
 
-      before_filter :set_user, :only => [:show]
-
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :basic, :user]
       doorkeeper_for :create, :scopes => [:trusted]
+
+      before_filter :set_user, :only => [:show]
 
       resource_description do
         name 'Users'

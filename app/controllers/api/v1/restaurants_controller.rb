@@ -2,10 +2,10 @@ module Api
   module V1
     class RestaurantsController < BaseController
 
-      before_filter :set_restaurant, :only => [:show]
-
       doorkeeper_for :index, :scopes => [:admin, :user]
       doorkeeper_for :show, :scopes => [:admin, :user]
+
+      before_filter :set_restaurant, :only => [:show]
 
       resource_description do
         name 'Restaurants'

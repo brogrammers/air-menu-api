@@ -3,12 +3,12 @@ module Api
     module Menus
       class MenuSectionsController < BaseController
 
+        doorkeeper_for :index, :scopes => [:admin, :user]
+        doorkeeper_for :create, :scopes => [:admin, :owner, :add_menus, :add_active_menus]
+
         before_filter :set_menu, :only => [:index, :create]
         before_filter :check_ownership, :only => [:create]
         before_filter :check_active_menu, :only => [:index, :create]
-
-        doorkeeper_for :index, :scopes => [:admin, :user]
-        doorkeeper_for :create, :scopes => [:admin, :owner, :add_menus, :add_active_menus]
 
         resource_description do
           name 'Menus > Menu Sections'

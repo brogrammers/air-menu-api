@@ -2,11 +2,11 @@ module Api
   module V1
     class StaffMembersController < BaseController
 
-      before_filter :set_staff_member, :only => [:show]
-      before_filter :check_ownership, :only => [:show]
-
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :owner, :get_staff_members]
+
+      before_filter :set_staff_member, :only => [:show]
+      before_filter :check_ownership, :only => [:show]
 
       resource_description do
         name 'Staff Members'

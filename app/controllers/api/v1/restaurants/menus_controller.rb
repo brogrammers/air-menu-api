@@ -3,11 +3,11 @@ module Api
     module Restaurants
       class MenusController < BaseController
 
-        before_filter :set_restaurant, :only => [:index, :create]
-        before_filter :check_ownership, :only => [:index, :create]
-
         doorkeeper_for :index, :scopes => [:admin, :owner, :get_menus]
         doorkeeper_for :create, :scopes => [:admin, :owner, :add_menus, :add_active_menus]
+
+        before_filter :set_restaurant, :only => [:index, :create]
+        before_filter :check_ownership, :only => [:index, :create]
 
         resource_description do
           name 'Restaurants > Menus'

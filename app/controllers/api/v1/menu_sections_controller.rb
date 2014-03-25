@@ -2,11 +2,11 @@ module Api
   module V1
     class MenuSectionsController < BaseController
 
-      before_filter :set_menu_section, :only => [:show]
-      before_filter :check_active_menu_section, :only => [:show]
-
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :basic, :user]
+
+      before_filter :set_menu_section, :only => [:show]
+      before_filter :check_active_menu_section, :only => [:show]
 
       resource_description do
         name 'Menu Sections'

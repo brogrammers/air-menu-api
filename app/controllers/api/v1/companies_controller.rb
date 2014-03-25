@@ -2,12 +2,12 @@ module Api
   module V1
     class CompaniesController < BaseController
 
-      before_filter :set_company, :only => [:show]
-      before_filter :check_company_exists, :only => [:create]
-
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:user]
       doorkeeper_for :create, :scopes => [:user]
+
+      before_filter :set_company, :only => [:show]
+      before_filter :check_company_exists, :only => [:create]
 
       resource_description do
         name 'Companies'

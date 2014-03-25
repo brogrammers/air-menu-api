@@ -23,7 +23,7 @@ describe Api::V1::CompaniesController do
 
     describe 'with admin scope' do
 
-      let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => ['admin'] }
+      let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => ['admin'], :revoked? => false, :expired? => false }
 
       it 'should respond with a HTTP 200 status code' do
         get :index
@@ -57,7 +57,7 @@ describe Api::V1::CompaniesController do
 
   describe 'GET #show' do
 
-    let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => ['user'] }
+    let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => ['user'], :revoked? => false, :expired? => false }
 
     describe 'on existing company' do
 
@@ -92,7 +92,7 @@ describe Api::V1::CompaniesController do
 
     describe 'as an user' do
 
-      let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => ['user'] }
+      let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => ['user'], :revoked? => false, :expired? => false }
 
       before :each do
         post :create, :name => 'name', :website => 'http://test.com', :address_1 => 'a1', :address_2 => 'a2', :city => 'city', :county => 'county', :country => 'IE'
@@ -119,7 +119,7 @@ describe Api::V1::CompaniesController do
 
     describe 'as an owner' do
 
-      let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => ['owner'] }
+      let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => ['user', 'owner'], :revoked? => false, :expired? => false }
 
       before :each do
         post :create, :name => 'name', :website => 'http://test.com', :address_1 => 'a1', :address_2 => 'a2', :city => 'city', :county => 'county', :country => 'IE'
