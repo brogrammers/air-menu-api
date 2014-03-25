@@ -40,6 +40,7 @@ Doorkeeper.configure do
 
   default_scopes  :basic
   optional_scopes :admin,
+                  :trusted,
                   :user,
                   :developer,
                   :owner,
@@ -48,7 +49,16 @@ Doorkeeper.configure do
                   :add_active_menus,
                   :get_current_orders,
                   :add_orders,
-                  :update_orders
+                  :update_orders,
+                  :get_groups,
+                  :create_groups,
+                  :get_devices,
+                  :create_devices,
+                  :get_staff_kinds,
+                  :create_staff_kinds,
+                  :get_staff_members,
+                  :create_staff_members,
 
-  realm 'AirMenu'
+
+  realm 'AirMenuApi'
 end
