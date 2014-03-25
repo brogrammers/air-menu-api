@@ -9,11 +9,10 @@
   </identity>
   <order>
     <id type="integer">5</id>
-    <prepared type="boolean">false</prepared>
-    <served type="boolean">false</served>
-    <start nil="true"/>
-    <end-prepared nil="true"/>
-    <end-served nil="true"/>
+    <state type="symbol">new</state>
+    <approved-time nil="true"/>
+    <served-time nil="true"/>
+    <cancelled-time nil="true"/>
     <restaurant>
       <id type="integer">1</id>
       <name>The Church</name>
