@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 	has_one :identity, :as => :identifiable
   has_one :location, :as => :findable
+  has_many :devices, :as => :notifiable
   has_one :company
   has_many :orders
   has_many :applications, :class_name => 'Doorkeeper::Application', :as => :owner
