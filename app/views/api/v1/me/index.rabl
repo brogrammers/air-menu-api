@@ -14,6 +14,10 @@ node :order do |user|
     partial('api/v1/me/_order', :object => user.current_orders.first)
 end
 
+node :company do |user|
+  partial('api/v1/me/_company', :object => user.company)
+end
+
 node :scopes do |user|
     @scopes
 end
