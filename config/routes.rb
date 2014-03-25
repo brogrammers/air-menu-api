@@ -47,7 +47,10 @@ AirMenuApi::Application.routes.draw do
         resources :devices, :controller => 'restaurants/devices', :only => [:index, :create]
       end
 
-      get '/me', :to => 'me#index'
+      resources :me, :only => [:index]
+      namespace :me do
+        resources :devices, :controller => 'devices', :only => [:index, :create]
+      end
     end
 
   end

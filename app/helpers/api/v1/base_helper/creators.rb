@@ -104,13 +104,13 @@ module Api
           group
         end
 
-        def create_device(restaurant)
+        def create_device(notifiable)
           device = Device.new
           device.name = params[:name]
           device.uuid = params[:uuid]
           device.token = params[:token]
           device.platform = params[:platform]
-          restaurant.devices << device
+          notifiable.devices << device
           device.save!
           device
         end
