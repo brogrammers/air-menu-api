@@ -1,6 +1,6 @@
 object @order => :order
 
-attributes :id, :prepared, :served, :start, :end_prepared, :end_served
+attributes :id, :state, :approved_time, :served_time, :cancelled_time
 
 node :user do |order|
     partial('api/v1/restaurants/orders/_user', :object => order.user)

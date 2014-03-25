@@ -22,6 +22,10 @@ module Api
         render @format => {:error => {:code => 'forbidden', :message => error_message}}, :status => :forbidden
       end
 
+      def render_bad_request(error = nil)
+        render @format => {:error => {:code => 'parameters', :parameters => error || []}}, :status => :bad_request
+      end
+
       def render_conflict(error = nil)
         error_message = error || 'unknown'
         render @format => {:error => {:code => 'conflict', :message => error_message}}, :status => :conflict
@@ -29,6 +33,14 @@ module Api
 
       rescue_from ActiveRecord::RecordNotFound do |exception|
         render_model_not_found
+      end
+
+      rescue_from Order::StateError do |exception|
+        render_conflict 'order_error'
+      end
+
+      rescue_from OrderItem::StateError do |exception|
+        render_conflict 'order_item_error'
       end
 
       protected
@@ -90,8 +102,7 @@ module Api
         order = Order.new
         order.user = @user
         order.restaurant = restaurant
-        order.prepared = false
-        order.served = false
+        order.state = :new
         order.save!
         order
       end
@@ -102,7 +113,7 @@ module Api
         order_item.order = order
         order_item.menu_item = menu_item
         order_item.count = params[:count].to_i
-        order_item.served = false
+        order_item.state = :new
         order_item.save!
         order_item
       end

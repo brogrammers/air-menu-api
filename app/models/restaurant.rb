@@ -9,7 +9,7 @@ class Restaurant < ActiveRecord::Base
   belongs_to :company
 
   def current_orders
-    Order.where(:end_served => nil, :restaurant_id => self.id)
+    Order.where(:served_time => nil, :restaurant_id => self.id)
   end
 
   def active_menu

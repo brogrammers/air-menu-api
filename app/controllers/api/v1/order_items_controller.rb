@@ -2,13 +2,13 @@ module Api
   module V1
     class OrderItemsController < BaseController
 
-      before_filter :set_order_item, :only => [:show, :update]
-      before_filter :check_ownership, :only => [:show, :update]
-      before_filter :check_editable, :only => [:update]
-
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :create, :scopes => [:admin, :user, :owner, :get_current_orders]
       doorkeeper_for :update, :scopes => [:admin, :owner, :update_orders]
+
+      before_filter :set_order_item, :only => [:show, :update]
+      before_filter :check_ownership, :only => [:show, :update]
+      before_filter :update_order_item, :only => [:update]
 
       resource_description do
         name 'Order Items'
@@ -44,11 +44,10 @@ module Api
       api :PUT, '/order_items/:id', 'Update an order item in the system'
       description 'Updates an order item in the system. ||admin owner update_orders||'
       formats [:json, :xml]
-      param :served, [true, false], :desc => 'Set the order item to be served. This action is irreversible.'
+      param :state, ['approved', 'declined', 'start_prepare', 'end_prepare', 'served'], :desc => 'Set the new state for the order item.'
       example File.read("#{Rails.root}/public/docs/api/v1/order_items/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/order_items/show.xml")
       def update
-        update_order_item
         respond_with @order_item
       end
 
@@ -64,19 +63,10 @@ module Api
         render_model_not_found 'OrderItem' if not_admin_and?(!@user.owns(@order_item))
       end
 
-      def check_editable
-        render_forbidden 'not_editable' if not_admin_and?(@user.owns(@order_item) && @user.type == 'User')
-      end
-
       def update_order_item
-        @order_item.comment = params[:comment] || @order_item.comment
-        if params[:served] and !@order_item.served
-          @order_item.served = params[:served]
-        end
-        if params[:count] and @order_item.count and params[:count].to_i > @order_item.count.to_i
-          @order_item.count = params[:count]
-        end
-        @order_item.save!
+        @order_item.send "#{params[:state]}!".to_sym
+      rescue NoMethodError
+        render_bad_request [ 'state' ]
       end
 
     end

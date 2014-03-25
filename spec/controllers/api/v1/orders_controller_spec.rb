@@ -166,23 +166,30 @@ describe Api::V1::OrdersController do
           let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
 
-          before :each do
-            put :update, :id => 1
+            describe 'when order is new' do
+
+              ['open', 'cancelled'].each do |state|
+
+                describe "and set to #{state}" do
+
+                  it 'should respond with a HTTP 200 status code' do
+                    put :update, :id => 1, :state => state
+                    expect(response.status).to eq(200)
+                  end
+
+                  it 'should return a conflict error message' do
+                    put :update, :id => 1, :state => state
+                    body = JSON.parse(response.body) rescue { }
+                    expect(body['order']['state']).to eq(state)
+                  end
+
+                end
+
+              end
+
+            end
+
           end
-
-
-          it 'should respond with a HTTP 403 status code' do
-            expect(response).to be_forbidden
-            expect(response.status).to eq(403)
-          end
-
-          it 'should return a forbidden error message' do
-            body = JSON.parse(response.body) rescue { }
-            expect(body['error']['code']).to eq('forbidden')
-            expect(body['error']['message']).to eq('not_editable')
-          end
-
-        end
 
         describe 'not owning the order' do
           let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user'] }
@@ -208,41 +215,30 @@ describe Api::V1::OrdersController do
           let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
+          describe 'when order is open' do
 
-          it 'should respond with a HTTP 200 status code' do
-            put :update, :id => 1
-            expect(response).to be_success
-            expect(response.status).to eq(200)
-          end
+            ['cancelled'].each do |state|
 
-          it 'should change the order to prepared' do
-            put :update, :id => 1, :prepared => true
-            body = JSON.parse(response.body) rescue { }
-            expect(body['order']['prepared']).to be_true
-          end
+              describe "and set to #{state}" do
 
-          it 'should change the order to served' do
-            put :update, :id => 1, :prepared => true
-            put :update, :id => 1, :served => true
-            body = JSON.parse(response.body) rescue { }
-            expect(body['order']['prepared']).to eq(true)
-          end
+                before :each do
+                  put :update, :id => 1, :state => state
+                end
 
-          it 'should not change the order to be served if order has not been prepared' do
-            put :update, :id => 1, :served => true, :prepared => false
-            body = JSON.parse(response.body) rescue { }
-            expect(body['order']['prepared']).to eq(false)
-            expect(body['order']['served']).to eq(false)
-          end
+                it 'should respond with a HTTP 200 status code' do
+                  expect(response).to be_success
+                  expect(response.status).to eq(200)
+                end
 
-          it 'should not be able to reverse actions' do
-            put :update, :id => 1, :prepared => true
-            put :update, :id => 1, :served => true
-            put :update, :id => 1, :prepared => false
-            put :update, :id => 1, :served => false
-            body = JSON.parse(response.body) rescue { }
-            expect(body['order']['prepared']).to eq(true)
-            expect(body['order']['served']).to eq(true)
+                it "should change to #{state}" do
+                  body = JSON.parse(response.body) rescue { }
+                  expect(body['order']['state']).to eq(state)
+                end
+
+              end
+
+            end
+
           end
 
         end

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <order>
   <id type="integer">3</id>
-  <prepared type="boolean">false</prepared>
-  <served type="boolean">false</served>
-  <start nil="true"/>
-  <end-prepared nil="true"/>
-  <end-served nil="true"/>
+  <state type="symbol">new</state>
+  <approved-time nil="true"/>
+  <served-time nil="true"/>
+  <cancelled-time nil="true"/>
   <user>
     <id type="integer">3</id>
     <name>Gary Plum</name>

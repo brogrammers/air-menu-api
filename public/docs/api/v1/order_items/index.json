@@ -2,13 +2,16 @@
     "order_items": [
         {
             "id": 1,
-            "comment": "medium please!",
-            "count": 0,
-            "served": false,
+            "comment": "Comment",
+            "count": 1,
+            "state": "new",
+            "approved_time": null,
+            "declined_time": null,
+            "start_prepare_time": null,
+            "end_prepare_time": null,
+            "served_time": null,
             "order": {
-                "id": 2,
-                "prepared": false,
-                "served": false
+                "id": 1
             },
             "menu_item": {
                 "id": 1,
@@ -20,55 +23,22 @@
         },
         {
             "id": 2,
-            "comment": "medium please!",
-            "count": 0,
-            "served": false,
+            "comment": "Comment",
+            "count": 1,
+            "state": "new",
+            "approved_time": null,
+            "declined_time": null,
+            "start_prepare_time": null,
+            "end_prepare_time": null,
+            "served_time": null,
             "order": {
-                "id": 2,
-                "prepared": false,
-                "served": false
+                "id": 1
             },
             "menu_item": {
                 "id": 1,
                 "name": "Beef Burger",
                 "description": "Beef Burger with a small side salad.",
                 "price": 12.9,
-                "currency": "EUR"
-            }
-        },
-        {
-            "id": 3,
-            "comment": "Some Note",
-            "count": 0,
-            "served": false,
-            "order": {
-                "id": 2,
-                "prepared": false,
-                "served": false
-            },
-            "menu_item": {
-                "id": 2,
-                "name": "Corona",
-                "description": "0.5",
-                "price": 5.7,
-                "currency": "EUR"
-            }
-        },
-        {
-            "id": 4,
-            "comment": "Some Note",
-            "count": 0,
-            "served": false,
-            "order": {
-                "id": 2,
-                "prepared": false,
-                "served": false
-            },
-            "menu_item": {
-                "id": 2,
-                "name": "Corona",
-                "description": "0.5",
-                "price": 5.7,
                 "currency": "EUR"
             }
         }

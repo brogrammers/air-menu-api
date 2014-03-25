@@ -1,73 +1,19 @@
 {
     "order": {
-        "id": 2,
-        "prepared": false,
-        "served": false,
-        "start": null,
-        "end_prepared": null,
-        "end_served": null,
+        "id": 1,
+        "state": "new",
+        "approved_time": null,
+        "served_time": null,
+        "cancelled_time": null,
         "user": {
-            "id": 3,
-            "name": "Gary Plum",
+            "id": 1,
+            "name": "Max Hoffmann",
             "type": "Owner"
         },
         "restaurant": {
             "id": 1,
             "name": "The Church"
         },
-        "order_items": [
-            {
-                "id": 1,
-                "comment": "medium please!",
-                "count": 1,
-                "served": true,
-                "menu_item": {
-                    "id": 1,
-                    "name": "Beef Burger",
-                    "description": "Beef Burger with a small side salad.",
-                    "price": 12.9,
-                    "currency": "EUR"
-                }
-            },
-            {
-                "id": 2,
-                "comment": "medium please!",
-                "count": 0,
-                "served": false,
-                "menu_item": {
-                    "id": 1,
-                    "name": "Beef Burger",
-                    "description": "Beef Burger with a small side salad.",
-                    "price": 12.9,
-                    "currency": "EUR"
-                }
-            },
-            {
-                "id": 3,
-                "comment": "Some Note",
-                "count": 0,
-                "served": false,
-                "menu_item": {
-                    "id": 2,
-                    "name": "Corona",
-                    "description": "0.5",
-                    "price": 5.7,
-                    "currency": "EUR"
-                }
-            },
-            {
-                "id": 4,
-                "comment": "Some Note",
-                "count": 0,
-                "served": false,
-                "menu_item": {
-                    "id": 2,
-                    "name": "Corona",
-                    "description": "0.5",
-                    "price": 5.7,
-                    "currency": "EUR"
-                }
-            }
-        ]
+        "order_item": []
     }
 }

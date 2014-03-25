@@ -1,72 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <order>
-  <id type="integer">2</id>
-  <prepared type="boolean">false</prepared>
-  <served type="boolean">false</served>
-  <start nil="true"/>
-  <end-prepared nil="true"/>
-  <end-served nil="true"/>
+  <id type="integer">1</id>
+  <state type="symbol">new</state>
+  <approved-time nil="true"/>
+  <served-time nil="true"/>
+  <cancelled-time nil="true"/>
   <user>
-    <id type="integer">3</id>
-    <name>Gary Plum</name>
+    <id type="integer">1</id>
+    <name>Max Hoffmann</name>
     <type>Owner</type>
   </user>
   <restaurant>
     <id type="integer">1</id>
     <name>The Church</name>
   </restaurant>
-  <order-items type="array">
-    <order-item>
-      <id type="integer">1</id>
-      <comment>medium please!</comment>
-      <count type="integer">1</count>
-      <served type="boolean">true</served>
-      <menu-item>
-        <id type="integer">1</id>
-        <name>Beef Burger</name>
-        <description>Beef Burger with a small side salad.</description>
-        <price type="float">12.9</price>
-        <currency>EUR</currency>
-      </menu-item>
-    </order-item>
-    <order-item>
-      <id type="integer">2</id>
-      <comment>medium please!</comment>
-      <count type="integer">0</count>
-      <served type="boolean">false</served>
-      <menu-item>
-        <id type="integer">1</id>
-        <name>Beef Burger</name>
-        <description>Beef Burger with a small side salad.</description>
-        <price type="float">12.9</price>
-        <currency>EUR</currency>
-      </menu-item>
-    </order-item>
-    <order-item>
-      <id type="integer">3</id>
-      <comment>Some Note</comment>
-      <count type="integer">0</count>
-      <served type="boolean">false</served>
-      <menu-item>
-        <id type="integer">2</id>
-        <name>Corona</name>
-        <description>0.5</description>
-        <price type="float">5.7</price>
-        <currency>EUR</currency>
-      </menu-item>
-    </order-item>
-    <order-item>
-      <id type="integer">4</id>
-      <comment>Some Note</comment>
-      <count type="integer">0</count>
-      <served type="boolean">false</served>
-      <menu-item>
-        <id type="integer">2</id>
-        <name>Corona</name>
-        <description>0.5</description>
-        <price type="float">5.7</price>
-        <currency>EUR</currency>
-      </menu-item>
-    </order-item>
-  </order-items>
+  <order-item type="array"/>
 </order>

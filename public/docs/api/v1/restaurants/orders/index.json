@@ -1,15 +1,14 @@
 {
     "orders": [
         {
-            "id": 2,
-            "prepared": false,
-            "served": false,
-            "start": null,
-            "end_prepared": null,
-            "end_served": null,
+            "id": 1,
+            "state": "new",
+            "approved_time": null,
+            "served_time": null,
+            "cancelled_time": null,
             "user": {
-                "id": 3,
-                "name": "Gary Plum",
+                "id": 1,
+                "name": "Max Hoffmann",
                 "type": "Owner"
             },
             "restaurant": {

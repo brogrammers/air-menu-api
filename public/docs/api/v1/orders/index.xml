@@ -1,37 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <orders type="array">
   <order>
-    <id type="integer">2</id>
-    <prepared type="boolean">false</prepared>
-    <served type="boolean">false</served>
-    <start nil="true"/>
-    <end-prepared nil="true"/>
-    <end-served nil="true"/>
+    <id type="integer">1</id>
+    <state type="symbol">new</state>
+    <approved-time nil="true"/>
+    <served-time nil="true"/>
+    <cancelled-time nil="true"/>
     <user>
-      <id type="integer">3</id>
-      <name>Gary Plum</name>
+      <id type="integer">1</id>
+      <name>Max Hoffmann</name>
       <type>Owner</type>
     </user>
     <restaurant>
       <id type="integer">1</id>
       <name>The Church</name>
     </restaurant>
-  </order>
-  <order>
-    <id type="integer">3</id>
-    <prepared type="boolean">false</prepared>
-    <served type="boolean">false</served>
-    <start nil="true"/>
-    <end-prepared nil="true"/>
-    <end-served nil="true"/>
-    <user>
-      <id type="integer">3</id>
-      <name>Gary Plum</name>
-      <type>Owner</type>
-    </user>
-    <restaurant>
-      <id type="integer">1</id>
-      <name>The Church</name>
-    </restaurant>
+    <order-item type="array"/>
   </order>
 </orders>

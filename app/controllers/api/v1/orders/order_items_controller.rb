@@ -38,6 +38,7 @@ module Api
         formats [:json, :xml]
         param :comment, String, :desc => 'Set a comment on the order item'
         param :count, Integer, :desc => 'Set how many times you want to order the menu item'
+        param :menu_item_id, Integer, :desc => 'Set menu item'
         example File.read("#{Rails.root}/public/docs/api/v1/orders/order_items/create.json")
         example File.read("#{Rails.root}/public/docs/api/v1/orders/order_items/create.xml")
         def create

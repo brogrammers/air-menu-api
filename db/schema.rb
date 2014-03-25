@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140320152734) do
+ActiveRecord::Schema.define(:version => 20140321180803) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_1"
@@ -135,23 +135,27 @@ ActiveRecord::Schema.define(:version => 20140320152734) do
   create_table "order_items", :force => true do |t|
     t.string   "comment"
     t.integer  "count"
-    t.boolean  "served"
     t.integer  "order_id"
     t.integer  "menu_item_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "state_cd"
+    t.datetime "approved_time"
+    t.datetime "declined_time"
+    t.datetime "start_prepare_time"
+    t.datetime "end_prepare_time"
+    t.datetime "served_time"
   end
 
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
     t.integer  "restaurant_id"
-    t.boolean  "prepared"
-    t.boolean  "served"
-    t.datetime "start"
-    t.datetime "end_prepared"
-    t.datetime "end_served"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "state_cd"
+    t.datetime "approved_time"
+    t.datetime "served_time"
+    t.datetime "cancelled_time"
   end
 
   create_table "restaurants", :force => true do |t|

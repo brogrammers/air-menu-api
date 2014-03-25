@@ -1,11 +1,10 @@
 {
     "order": {
-        "id": 4,
-        "prepared": false,
-        "served": false,
-        "start": null,
-        "end_prepared": null,
-        "end_served": null,
+        "id": 2,
+        "state": "new",
+        "approved_time": null,
+        "served_time": null,
+        "cancelled_time": null,
         "user": {
             "id": 3,
             "name": "Gary Plum",

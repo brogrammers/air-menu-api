@@ -1,31 +1,32 @@
 one:
   id: 1
   user_id: 1
-  prepared: false
-  served: false
   restaurant_id: 1
-  start: <%= DateTime.now %>
+  state_cd: 0
 
 two:
   id: 2
   user_id: 3
-  prepared: false
-  served: false
   restaurant_id: 2
-  start: <%= DateTime.now %>
 
 three:
   id: 3
   user_id: 4
-  prepared: false
-  served: false
   restaurant_id: 3
-  start: <%= DateTime.now %>
 
 four:
   id: 4
   user_id: 4
-  prepared: false
-  served: false
   restaurant_id: 3
-  start: <%= DateTime.now %>
+
+open_order:
+  id: 5
+  user_id: 2
+  restaurant_id: 1
+  state_cd: 1
+
+approved_order:
+  id: 6
+  user_id: 2
+  restaurant_id: 1
+  state_cd: 2
