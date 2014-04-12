@@ -9,6 +9,7 @@ module Api
         before_filter :set_menu, :only => [:index, :create]
         before_filter :check_ownership, :only => [:create]
         before_filter :check_active_menu, :only => [:index, :create]
+        before_filter :set_staff_kind, :only => [:create]
 
         resource_description do
           name 'Menus > Menu Sections'
@@ -35,6 +36,7 @@ module Api
         formats [:json, :xml]
         param :name, String, :desc => 'Name of Menu Section', :required => true
         param :description, String, :desc => 'Description of Menu Section', :required => true
+        param :staff_kind_id, String, :desc => 'Staff Kind handling this menu section', :required => true
         example File.read("#{Rails.root}/public/docs/api/v1/menus/menu_sections/create.json")
         example File.read("#{Rails.root}/public/docs/api/v1/menus/menu_sections/create.xml")
         def create
@@ -55,12 +57,18 @@ module Api
           render_model_not_found 'Menu'
         end
 
-        def check_active_menu
-          render_model_not_found 'Menu' if not_admin_and?(!@menu.active? && !@user.owns(@menu))
+        def set_staff_kind
+          @staff_kind = StaffKind.find params[:staff_kind_id]
+        rescue ActiveRecord::RecordNotFound
+          render_model_not_found 'StaffKind'
         end
 
         def check_ownership
           render_forbidden 'ownership_failure' if not_admin_and?(@menu.active? && !@user.owns(@menu))
+        end
+
+        def check_active_menu
+          render_model_not_found 'Menu' if not_admin_and?(!@menu.active? && !@user.owns(@menu))
         end
 
       end

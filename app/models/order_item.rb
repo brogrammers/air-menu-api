@@ -3,6 +3,7 @@ class OrderItem < ActiveRecord::Base
 
   belongs_to :order
   belongs_to :menu_item
+  belongs_to :staff_member
 
   after_initialize :set_state
 
@@ -10,6 +11,15 @@ class OrderItem < ActiveRecord::Base
     unless self.state.nil?
       current_state = "OrderItem::#{self.state.to_s.camelcase}State".constantize
       @state_delegate = current_state.new self
+    end
+  end
+
+  def assign!
+    self.menu_item.menu_section.staff_kind.staff_members.each do |staff_member|
+      if staff_member.staff_kind.accept_order_items
+        staff_member.order_items << self
+        return
+      end
     end
   end
 

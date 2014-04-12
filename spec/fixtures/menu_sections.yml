@@ -1,11 +1,20 @@
-active_menu_section:
+active_menu_section_one:
   id: 1
   name: Menu Section
   description: description
   menu_id: 1
+  staff_kind_id: 3
 
 inactive_menu_section:
   id: 2
   name: Menu Section
   description: description
   menu_id: 2
+  staff_kind_id: 3
+
+active_menu_section_two:
+  id: 3
+  name: Menu Section
+  description: description
+  menu_id: 1
+  staff_kind_id: 3

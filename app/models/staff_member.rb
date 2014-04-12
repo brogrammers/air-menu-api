@@ -4,6 +4,8 @@ class StaffMember < ActiveRecord::Base
   belongs_to :staff_kind
   belongs_to :group
   has_many :access_tokens, :class_name => 'Doorkeeper::AccessToken', :as => :owner
+  has_many :orders
+  has_many :order_items
 
   def type
     'StaffMember'

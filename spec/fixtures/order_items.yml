@@ -77,3 +77,11 @@ approved_order_end_prepare_item:
   menu_item_id: 1
   count: 1
   state_cd: 4
+
+new_to_be_assigned_order_item:
+  id: 11
+  comment: Comment
+  order_id: 7
+  menu_item_id: 1
+  count: 1
+  state_cd: 0

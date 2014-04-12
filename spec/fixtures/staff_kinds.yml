@@ -1,4 +1,27 @@
-one:
+manager:
   id: 1
   name: Manager
   restaurant_id: 1
+  accept_orders: 0
+  accept_order_items: 0
+
+waitress:
+  id: 2
+  name: Waitress
+  restaurant_id: 1
+  accept_orders: 1
+  accept_order_items: 0
+
+kitchen:
+  id: 3
+  name: Kitchen
+  restaurant_id: 1
+  accept_orders: 0
+  accept_order_items: 1
+
+bar:
+  id: 4
+  name: Bar
+  restaurant_id: 1
+  accept_orders: 0
+  accept_order_items: 1

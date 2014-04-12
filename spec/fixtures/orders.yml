@@ -30,3 +30,9 @@ approved_order:
   user_id: 2
   restaurant_id: 1
   state_cd: 2
+
+new_to_be_assigned_order:
+  id: 7
+  user_id: 1
+  restaurant_id: 1
+  state_cd: 0

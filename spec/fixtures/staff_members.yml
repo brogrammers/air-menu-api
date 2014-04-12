@@ -1,5 +1,23 @@
 one:
   id: 1
   staff_kind_id: 1
-  name: Staff Member
+  name: Manager
+  restaurant_id: 1
+
+two:
+  id: 2
+  staff_kind_id: 2
+  name: Waitress
+  restaurant_id: 1
+
+three:
+  id: 3
+  staff_kind_id: 3
+  name: Kitchen
+  restaurant_id: 1
+
+four:
+  id: 4
+  staff_kind_id: 4
+  name: Bar
   restaurant_id: 1

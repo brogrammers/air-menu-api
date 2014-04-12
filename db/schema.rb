@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140325024814) do
+ActiveRecord::Schema.define(:version => 20140325100454) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_1"
@@ -156,17 +156,19 @@ ActiveRecord::Schema.define(:version => 20140325024814) do
     t.datetime "start_prepare_time"
     t.datetime "end_prepare_time"
     t.datetime "served_time"
+    t.integer  "staff_member_id"
   end
 
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
     t.integer  "restaurant_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.integer  "state_cd"
     t.datetime "approved_time"
     t.datetime "served_time"
     t.datetime "cancelled_time"
+    t.integer  "staff_member_id"
   end
 
   create_table "restaurants", :force => true do |t|
@@ -196,8 +198,10 @@ ActiveRecord::Schema.define(:version => 20140325024814) do
   create_table "staff_kinds", :force => true do |t|
     t.string   "name"
     t.integer  "restaurant_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.boolean  "accept_orders"
+    t.boolean  "accept_order_items"
   end
 
   create_table "staff_members", :force => true do |t|

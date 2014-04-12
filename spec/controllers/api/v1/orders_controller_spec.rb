@@ -11,6 +11,7 @@ describe Api::V1::OrdersController do
            :restaurants,
            :users,
            :orders,
+           :order_items,
            :staff_kinds,
            :staff_members
 
@@ -183,6 +184,28 @@ describe Api::V1::OrdersController do
                     expect(body['order']['state']).to eq(state)
                   end
 
+                end
+
+              end
+
+              describe 'and set to open' do
+
+                before :each do
+                  put :update, :id => 7, :state => 'open'
+                end
+
+                it 'should assign the order to a staff member' do
+                  body = JSON.parse(response.body) rescue { }
+                  order = Order.find body['order']['id']
+                  expect(order.staff_member).not_to be_false
+                end
+
+                it 'should assign the order items to staff members' do
+                  body = JSON.parse(response.body) rescue { }
+                  order = Order.find body['order']['id']
+                  order.order_items.each do |order_item|
+                    expect(order_item.staff_member).not_to be_false
+                  end
                 end
 
               end

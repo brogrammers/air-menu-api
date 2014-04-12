@@ -13,3 +13,11 @@ inactive_menu_item:
   price: 9.00
   currency: EUR
   menu_section_id: 2
+
+active_menu_item_two:
+  id: 3
+  name: Menu Item
+  description: description
+  price: 9.00
+  currency: EUR
+  menu_section_id: 3
