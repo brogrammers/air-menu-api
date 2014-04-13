@@ -95,6 +95,48 @@ describe Api::V1::Orders::OrderItemsController do
 
       end
 
+      describe 'as a staff member' do
+
+        describe 'owning the order' do
+
+          let(:get_current_orders) { Doorkeeper::OAuth::Scopes.from_array ['get_current_orders'] }
+          let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => get_current_orders }
+
+          before :each do
+            get :index, :order_id => 1
+          end
+
+          it 'should respond with a HTTP 200 status code' do
+            expect(response).to be_success
+            expect(response.status).to eq(200)
+          end
+
+        end
+
+        describe 'not owning the order' do
+
+          let(:get_current_orders) { Doorkeeper::OAuth::Scopes.from_array ['get_current_orders'] }
+          let(:token) { double :accessible? => true, :resource_owner_id => 10, :scopes => get_current_orders }
+
+          before :each do
+            get :index, :order_id => 1
+          end
+
+          it 'should respond with a HTTP 404 status code' do
+            expect(response).to be_not_found
+            expect(response.status).to eq(404)
+          end
+
+          it 'should return a model not found error message' do
+            body = JSON.parse(response.body) rescue { }
+            expect(body['error']['code']).to eq('model_not_found')
+            expect(body['error']['model']).to eq('Order')
+          end
+
+        end
+
+      end
+
     end
 
     describe 'on missing order' do
@@ -217,6 +259,80 @@ describe Api::V1::Orders::OrderItemsController do
 
             let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
             let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => user_scope, :revoked? => false, :expired? => false }
+
+            before :each do
+              post :create, :order_id => 1, :comment => 'comment', :count => 1, :menu_item_id => 1
+            end
+
+            it 'should respond with a HTTP 404 status code' do
+              expect(response).to be_not_found
+              expect(response.status).to eq(404)
+            end
+
+            it 'should return a model not found error message' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['error']['code']).to eq('model_not_found')
+              expect(body['error']['model']).to eq('Order')
+            end
+
+          end
+
+        end
+
+      end
+
+      describe 'as a staff member' do
+
+        describe 'owning the menu' do
+
+          let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['add_orders'] }
+          let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
+
+          before :each do
+            post :create, :order_id => 1, :comment => 'comment', :count => 1, :menu_item_id => 1
+          end
+
+          it 'should respond with a HTTP 201 status code' do
+            expect(response).to be_success
+            expect(response.status).to eq(201)
+          end
+
+          it 'should create a new order item object' do
+            body = JSON.parse(response.body) rescue { }
+            order_item = OrderItem.find(body['order_item']['id']) rescue nil
+            expect(order_item).not_to be_nil
+          end
+
+        end
+
+        describe 'not owning the menu' do
+
+          describe 'on an active menu' do
+
+            let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['add_orders'] }
+            let(:token) { double :accessible? => true, :resource_owner_id => 10, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
+
+            before :each do
+              post :create, :order_id => 1, :comment => 'comment', :count => 1, :menu_item_id => 1
+            end
+
+            it 'should respond with a HTTP 404 status code' do
+              expect(response).to be_not_found
+              expect(response.status).to eq(404)
+            end
+
+            it 'should return a model not found error message' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['error']['code']).to eq('model_not_found')
+              expect(body['error']['model']).to eq('Order')
+            end
+
+          end
+
+          describe 'on an inactive menu' do
+
+            let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['add_orders'] }
+            let(:token) { double :accessible? => true, :resource_owner_id => 10, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
 
             before :each do
               post :create, :order_id => 1, :comment => 'comment', :count => 1, :menu_item_id => 1

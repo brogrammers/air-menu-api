@@ -159,6 +159,80 @@ describe Api::V1::MenuItemsController do
 
       end
 
+      describe 'as a staff member' do
+
+        describe 'owning the menu item' do
+          let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['basic'] }
+          let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
+
+          describe 'on an active menu item' do
+
+            before :each do
+              get :show, :id => 1
+            end
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+          end
+
+          describe 'on an inactive menu item' do
+
+            before :each do
+              get :show, :id => 2
+            end
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+          end
+
+        end
+
+        describe 'not owning the menu item' do
+          let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['basic'] }
+          let(:token) { double :accessible? => true, :resource_owner_id => 10, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
+
+          describe 'on an active menu item' do
+
+            before :each do
+              get :show, :id => 1
+            end
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+          end
+
+          describe 'on an inactive menu item' do
+
+            before :each do
+              get :show, :id => 2
+            end
+
+            it 'should respond with a HTTP 404 status code' do
+              expect(response).to be_not_found
+              expect(response.status).to eq(404)
+            end
+
+            it 'should return a model not found error message' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['error']['code']).to eq('model_not_found')
+              expect(body['error']['model']).to eq('MenuItem')
+            end
+
+          end
+
+        end
+
+      end
+
     end
 
     describe 'on missing menu item' do

@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   end
 
   def current_orders
-    Order.where(:served_time => nil, :user_id => self.id)
+    Order.where("state_cd != 4 AND user_id = #{self.id}")
   end
 
   def can_order?

@@ -22,6 +22,7 @@ describe Api::V1::Restaurants::GroupsController do
   let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user'] }
   let(:admin_scope) { Doorkeeper::OAuth::Scopes.from_array ['admin'] }
   let(:owner_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
+  let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['get_groups', 'create_groups'] }
   let(:group_parameters) { {:name => 'group'} }
 
   describe 'GET #index' do
@@ -68,6 +69,42 @@ describe Api::V1::Restaurants::GroupsController do
         describe 'not owning the restaurant' do
 
           let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => owner_scope, :revoked? => false, :expired? => false }
+
+          it 'should respond with a HTTP 403 status code' do
+            expect(response).to be_forbidden
+            expect(response.status).to eq(403)
+          end
+
+          it 'should return a forbidden error message' do
+            body = JSON.parse(response.body) rescue { }
+            expect(body['error']['code']).to eq('forbidden')
+            expect(body['error']['message']).to eq('ownership_failure')
+          end
+
+        end
+
+      end
+
+      describe 'as a staff member' do
+
+        before :each do
+          get :index, :restaurant_id => 1
+        end
+
+        describe 'owning the restaurant' do
+
+          let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
+
+          it 'should respond with a HTTP 200 status code' do
+            expect(response).to be_success
+            expect(response.status).to eq(200)
+          end
+
+        end
+
+        describe 'not owning the restaurant' do
+
+          let(:token) { double :accessible? => true, :resource_owner_id => 10, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
 
           it 'should respond with a HTTP 403 status code' do
             expect(response).to be_forbidden
@@ -151,6 +188,42 @@ describe Api::V1::Restaurants::GroupsController do
         describe 'not owning the restaurant' do
 
           let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => owner_scope, :revoked? => false, :expired? => false }
+
+          it 'should respond with a HTTP 403 status code' do
+            expect(response).to be_forbidden
+            expect(response.status).to eq(403)
+          end
+
+          it 'should return a forbidden error message' do
+            body = JSON.parse(response.body) rescue { }
+            expect(body['error']['code']).to eq('forbidden')
+            expect(body['error']['message']).to eq('ownership_failure')
+          end
+
+        end
+
+      end
+
+      describe 'as a staff member' do
+
+        before :each do
+          post :create, group_parameters.merge(:restaurant_id => 1)
+        end
+
+        describe 'owning the restaurant' do
+
+          let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
+
+          it 'should respond with a HTTP 201 status code' do
+            expect(response).to be_success
+            expect(response.status).to eq(201)
+          end
+
+        end
+
+        describe 'not owning the restaurant' do
+
+          let(:token) { double :accessible? => true, :resource_owner_id => 10, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
 
           it 'should respond with a HTTP 403 status code' do
             expect(response).to be_forbidden

@@ -25,3 +25,10 @@ bar:
   restaurant_id: 1
   accept_orders: 0
   accept_order_items: 1
+
+kitchen_alternative:
+  id: 5
+  name: Bar
+  restaurant_id: 2
+  accept_orders: 1
+  accept_order_items: 1

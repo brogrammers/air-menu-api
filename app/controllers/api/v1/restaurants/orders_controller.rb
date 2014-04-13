@@ -50,14 +50,13 @@ module Api
           render_model_not_found 'Restaurant'
         end
 
-        def check_ownership
-          # TODO: Add StaffMember check, if it owns restaurant for CREATE too, once StaffMembers exist!!
-          # different treatment required for normal user than from StaffMember
-          render_forbidden 'ownership_failure' if not_admin_and?(!@user.owns(@restaurant))
+        def check_can_make_order
+          render_forbidden 'different_restaurant' if @user.class == StaffMember && !@user.owns(@restaurant)
+          render_forbidden 'too_many_orders' if not_admin_and?(!@user.owns(@restaurant) && !@user.can_order?)
         end
 
-        def check_can_make_order
-          render_forbidden 'too_many_orders' if not_admin_and?(!@user.owns(@restaurant) && !@user.can_order?)
+        def check_ownership
+          render_forbidden 'ownership_failure' if not_admin_and?(!@user.owns(@restaurant))
         end
 
       end

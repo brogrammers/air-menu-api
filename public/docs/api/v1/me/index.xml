@@ -8,18 +8,20 @@
     <username>tsov</username>
     <email>tsov@me.com</email>
   </identity>
-  <order>
-    <id type="integer">5</id>
-    <state type="symbol">new</state>
-    <approved-time nil="true"/>
-    <served-time nil="true"/>
-    <cancelled-time nil="true"/>
-    <restaurant>
-      <id type="integer">1</id>
-      <name>The Church</name>
-    </restaurant>
-    <order-items type="array"/>
-  </order>
+  <current-orders>
+    <order>
+      <id type="integer">5</id>
+      <state type="symbol">new</state>
+      <approved-time nil="true"/>
+      <served-time nil="true"/>
+      <cancelled-time nil="true"/>
+      <restaurant>
+        <id type="integer">1</id>
+        <name>The Church</name>
+      </restaurant>
+      <order-items type="array"/>
+    </order>
+  </current-orders>
   <company>
     <id type="integer">1</id>
     <name>Brogrammers</name>

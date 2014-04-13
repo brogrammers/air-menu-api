@@ -117,6 +117,38 @@ describe Api::V1::GroupsController do
 
       end
 
+      describe 'as a staff member' do
+
+        describe 'owning the group' do
+
+          before :each do
+            get :show, :id => 1
+          end
+
+          describe 'with correct scope' do
+            let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['get_groups'] }
+            let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+          end
+
+          describe 'with missing scope' do
+            let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array [] }
+            let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
+
+            it 'should respond with a HTTP 403 status code' do
+              expect(response).to be_forbidden
+              expect(response.status).to eq(403)
+            end
+          end
+
+        end
+
+      end
+
     end
 
     describe 'on missing group' do

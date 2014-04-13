@@ -10,6 +10,6 @@ node :restaurant do |order|
     partial('api/v1/orders/_restaurant', :object => order.restaurant)
 end
 
-node :order_item do |order|
+node :order_items do |order|
     partial('api/v1/orders/_order_item', :object => order.order_items)
 end

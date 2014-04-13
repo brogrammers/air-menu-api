@@ -3,7 +3,7 @@ module Api
     module MenuSections
       class MenuItemsController < BaseController
 
-        doorkeeper_for :index, :scopes => [:admin, :user]
+        doorkeeper_for :index, :scopes => [:admin, :user, :basic]
         doorkeeper_for :create, :scopes => [:admin, :owner, :add_menus, :add_active_menus]
 
         before_filter :set_menu_section, :only => [:index, :create]
@@ -22,7 +22,7 @@ module Api
         end
 
         api :GET, '/menu_sections/:id/menu_items', 'All the menu items within a menu section'
-        description 'Fetches all the menu items within a menu section. ||admin user||'
+        description 'Fetches all the menu items within a menu section. ||admin user basic||'
         formats [:json, :xml]
         example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/index.json")
         example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/index.xml")
@@ -33,6 +33,10 @@ module Api
         api :POST, '/menu_sections/:id/menu_items', 'Create menu items within a menu section'
         description 'Creates a menu item within a menu section. ||admin owner add_menus add_active_menus||'
         formats [:json, :xml]
+        param :name, String, :desc => 'Name of Menu Item', :required => true
+        param :description, String, :desc => 'Description of Menu Item', :required => true
+        param :price, Float, :desc => 'Price of Menu Item', :required => true
+        param :currency, ['EUR'], :desc => 'Currency of Menu Item', :required => true
         example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/create.json")
         example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/create.xml")
         def create

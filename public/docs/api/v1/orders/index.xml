@@ -15,6 +15,6 @@
       <id type="integer">1</id>
       <name>The Church</name>
     </restaurant>
-    <order-item type="array"/>
+    <order-items type="array"/>
   </order>
 </orders>

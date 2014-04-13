@@ -21,3 +21,9 @@ four:
   staff_kind_id: 4
   name: Bar
   restaurant_id: 1
+
+five:
+  id: 5
+  staff_kind_id: 5
+  name: Some Staff Member
+  restaurant_id: 2

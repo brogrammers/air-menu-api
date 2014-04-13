@@ -3,6 +3,7 @@ one:
   user_id: 1
   restaurant_id: 1
   state_cd: 0
+  staff_member_id: 2
 
 two:
   id: 2

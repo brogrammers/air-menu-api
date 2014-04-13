@@ -3,7 +3,7 @@ module Api
     module Menus
       class MenuSectionsController < BaseController
 
-        doorkeeper_for :index, :scopes => [:admin, :user]
+        doorkeeper_for :index, :scopes => [:admin, :user, :basic]
         doorkeeper_for :create, :scopes => [:admin, :owner, :add_menus, :add_active_menus]
 
         before_filter :set_menu, :only => [:index, :create]
@@ -23,7 +23,7 @@ module Api
         end
 
         api :GET, '/menus/:id/menu_sections', 'All the menu sections in a menu'
-        description 'Fetches all the menu sections in a menu. ||admin user||'
+        description 'Fetches all the menu sections in a menu. ||admin user basic||'
         formats [:json, :xml]
         example File.read("#{Rails.root}/public/docs/api/v1/menus/menu_sections/index.json")
         example File.read("#{Rails.root}/public/docs/api/v1/menus/menu_sections/index.xml")
