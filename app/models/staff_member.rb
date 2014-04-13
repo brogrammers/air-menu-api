@@ -1,6 +1,7 @@
 class StaffMember < ActiveRecord::Base
   has_one :identity, :as => :identifiable
   has_many :notifications, :as => :remindable
+  has_many :devices, :as => :notifiable
   belongs_to :restaurant
   belongs_to :staff_kind
   belongs_to :group
@@ -19,6 +20,14 @@ class StaffMember < ActiveRecord::Base
 
   def company
     nil
+  end
+
+  def unread
+    Notification.where(:remindable_id => self.id, :read => false)
+  end
+
+  def unread_count
+    unread.count
   end
 
 end

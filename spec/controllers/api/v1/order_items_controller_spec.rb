@@ -13,7 +13,8 @@ describe Api::V1::OrderItemsController do
            :orders,
            :staff_kinds,
            :staff_members,
-           :order_items
+           :order_items,
+           :devices
 
   before :each do
     controller.stub(:doorkeeper_token) { token }

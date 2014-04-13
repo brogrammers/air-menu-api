@@ -1,0 +1,7 @@
+one:
+  id: 1
+  uuid: blah
+  token: blah
+  platform: ios
+  notifiable_id: 1
+  notifiable_type: User

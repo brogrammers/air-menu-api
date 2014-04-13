@@ -39,7 +39,7 @@ class OrderItem < ActiveRecord::Base
 
   def end_prepare!
     @state_delegate.end_prepare!
-    # TODO: notify staff member
+    AirMenu::NotificationDispatcher.new(self.staff_member, :order_item_prepared).dispatch
   end
 
   def served!

@@ -1,3 +1,5 @@
+require Rails.root + 'lib/air_menu'
+
 class Order < ActiveRecord::Base
   include State
 
@@ -25,32 +27,33 @@ class Order < ActiveRecord::Base
   end
 
   def declined!
-    # TODO: Notify user! Should stay in open state
+    AirMenu::NotificationDispatcher.new(self.user, :declined_order).dispatch
   end
 
   def cancelled!
     @state_delegate.cancelled!
+    AirMenu::NotificationDispatcher.new(self.user, :cancelled_time).dispatch
   end
 
   def approved!
     @state_delegate.approved!
-    # TODO: Notify user
+    AirMenu::NotificationDispatcher.new(self.user, :approved_order).dispatch
   end
 
   def served!
     @state_delegate.served!
-    # TODO: Notify user
+    AirMenu::NotificationDispatcher.new(self.user, :served_order).dispatch
   end
 
   def paid!
     @state_delegate.paid!
-    # TODO: Notify staff member
+    AirMenu::NotificationDispatcher.new(self.user, :successful_payment).dispatch
   end
 
   def open!
     @state_delegate.open!
     distribute_order
-    # TODO: Notify staff member
+    AirMenu::NotificationDispatcher.new(self.staff_member, :new_order).dispatch
   end
 
   def distribute_order
