@@ -1,7 +1,10 @@
 class User < ActiveRecord::Base
 	has_one :identity, :as => :identifiable
   has_one :location, :as => :findable
+  has_many :devices, :as => :notifiable
+  has_many :notifications, :as => :remindable
   has_one :company
+  has_many :orders
   has_many :applications, :class_name => 'Doorkeeper::Application', :as => :owner
   has_many :access_tokens, :class_name => 'Doorkeeper::AccessToken', :as => :owner
 
@@ -13,6 +16,9 @@ class User < ActiveRecord::Base
     return owns_menu object if object.class == Menu
     return owns_menu_section object if object.class == MenuSection
     return owns_menu_item object if object.class == MenuItem
+    return owns_order object if object.class == Order
+    return owns_order_item object if object.class == OrderItem
+    return owns_notification object if object.class == Notification
     false
   end
 
@@ -20,13 +26,39 @@ class User < ActiveRecord::Base
     self.company ? 'Owner' : 'User'
   end
 
+  def max_orders
+    1
+  end
+
+  def current_orders
+    Order.where("state_cd != 4 AND user_id = #{self.id}")
+  end
+
+  def can_order?
+    current_orders.size < max_orders
+  end
+
+  def has_current_orders?
+    current_orders.size > 0
+  end
+
+  def unread
+    Notification.where(:remindable_id => self.id, :read => false)
+  end
+
+  def unread_count
+    unread.count
+  end
+
   private
 
   def owns_company(company)
+    return false unless self.company
     self.company.id == company.id
   end
 
   def owns_restaurant(restaurant)
+    return false unless self.company
     self.company.restaurants.each do |owned_restaurant|
       return true if owned_restaurant.id == restaurant.id
     end
@@ -43,5 +75,23 @@ class User < ActiveRecord::Base
 
   def owns_menu_item(menu_item)
     owns_menu_section menu_item.menu_section
+  end
+
+  def owns_order(order)
+    self.orders.each do |owned_order|
+      return true if owned_order.id == order.id
+    end
+    self.company.restaurants.each do |owned_restaurant|
+      return true if owned_restaurant.id == order.restaurant.id
+    end if self.company
+    false
+  end
+
+  def owns_order_item(order_item)
+    owns_order order_item.order
+  end
+
+  def owns_notification(notification)
+    notification.remindable_id == self.id
   end
 end

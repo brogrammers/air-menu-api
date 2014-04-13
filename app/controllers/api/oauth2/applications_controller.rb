@@ -2,9 +2,9 @@ module Api
   module Oauth2
     class ApplicationsController < BaseController
 
-      before_filter :get_applications, :only => [:index]
-
       doorkeeper_for :index, :show, :create, :scopes => [:developer]
+
+      before_filter :get_applications, :only => [:index]
 
       resource_description do
         name 'OAuth Applications'

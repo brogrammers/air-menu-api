@@ -1,0 +1,11 @@
+{
+    "devices": [
+        {
+            "id": 1,
+            "name": "First Phone",
+            "uuid": "some_uuid",
+            "token": "some_token",
+            "platform": "ios"
+        }
+    ]
+}

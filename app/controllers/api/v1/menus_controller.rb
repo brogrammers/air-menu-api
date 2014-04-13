@@ -2,19 +2,18 @@ module Api
   module V1
     class MenusController < BaseController
 
+      doorkeeper_for :index, :scopes => [:admin]
+      doorkeeper_for :show, :scopes => [:admin, :basic, :user]
+
       before_filter :set_menu, :only => [:show]
       before_filter :check_active_menu, :only => [:show]
-
-
-      doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:basic, :user]
 
       resource_description do
         name 'Menus'
         short_description 'All about menus in the system'
         path '/menus'
-        description 'The Restaurant endpoint lets you create new menus for a restaurant.' +
-                        'Only an owner can create restaurants.'
+        description 'The Menu endpoint lets you create new menus for a restaurant.' +
+                        'Only an owner or a staff member with the appropriate scope can create restaurants.'
         error 401, 'Unauthorized, missing or invalid access token'
         error 403, 'Forbidden, valid access token, but scope is missing'
         error 404, 'Not Found, some resource could not be found'
@@ -32,7 +31,7 @@ module Api
       end
 
       api :GET, '/menus/:id', 'Get a menu in the system'
-      description 'Fetches all the menus in the system. ||basic user||'
+      description 'Fetches all the menus in the system. ||admin basic user||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/menus/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menus/show.xml")
@@ -49,7 +48,7 @@ module Api
       end
 
       def check_active_menu
-        render_model_not_found 'Menu' if !@menu.active? and !@user.owns @menu and !scope_exists? 'admin'
+        render_model_not_found 'Menu' if not_admin_and?(!@menu.active? && !@user.owns(@menu))
       end
 
     end

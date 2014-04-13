@@ -1,0 +1,21 @@
+{
+    "orders": [
+        {
+            "id": 1,
+            "state": "new",
+            "approved_time": null,
+            "served_time": null,
+            "cancelled_time": null,
+            "user": {
+                "id": 1,
+                "name": "Max Hoffmann",
+                "type": "Owner"
+            },
+            "restaurant": {
+                "id": 1,
+                "name": "The Church"
+            },
+            "order_items": []
+        }
+    ]
+}

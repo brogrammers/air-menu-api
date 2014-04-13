@@ -1,0 +1,16 @@
+{
+    "menus": [
+        {
+            "id": 1,
+            "name": "menu"
+        },
+        {
+            "id": 2,
+            "name": "new menu"
+        },
+        {
+            "id": 3,
+            "name": "another new menu"
+        }
+    ]
+}
