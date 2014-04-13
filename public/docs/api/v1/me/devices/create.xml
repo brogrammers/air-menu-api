@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<device>
+  <id type="integer">1</id>
+  <name>First Phone</name>
+  <uuid>some_uuid</uuid>
+  <token>some_token</token>
+  <platform>ios</platform>
+</device>

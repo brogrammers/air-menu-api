@@ -1,0 +1,5 @@
+one:
+  id: 1
+  content: blah
+  remindable_id: 1
+  remindable_type: User

@@ -1,0 +1,18 @@
+{
+    "order": {
+        "id": 2,
+        "state": "new",
+        "approved_time": null,
+        "served_time": null,
+        "cancelled_time": null,
+        "user": {
+            "id": 3,
+            "name": "Gary Plum",
+            "type": "Owner"
+        },
+        "restaurant": {
+            "id": 1,
+            "name": "The Church"
+        }
+    }
+}

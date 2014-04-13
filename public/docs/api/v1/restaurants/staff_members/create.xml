@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<staff-member>
+  <id type="integer">3</id>
+  <name>Vincent Trouble</name>
+  <identity>
+    <username>vincent</username>
+    <email>vincent@thechurch.ie</email>
+  </identity>
+  <staff-kind>
+    <id type="integer">1</id>
+    <name>Manager</name>
+  </staff-kind>
+</staff-member>

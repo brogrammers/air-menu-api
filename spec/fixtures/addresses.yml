@@ -1,0 +1,39 @@
+one:
+  id: 1
+  address_1: a1
+  address_2: a2
+  city: city
+  county: county
+  country: IE
+  contactable_id: 1
+  contactable_type: Company
+
+two:
+  id: 2
+  address_1: a1
+  address_2: a2
+  city: city
+  county: county
+  country: IE
+  contactable_id: 1
+  contactable_type: Restaurant
+
+three:
+  id: 3
+  address_1: a1
+  address_2: a2
+  city: city
+  county: county
+  country: IE
+  contactable_id: 2
+  contactable_type: Company
+
+four:
+  id: 4
+  address_1: a1
+  address_2: a2
+  city: city
+  county: county
+  country: IE
+  contactable_id: 2
+  contactable_type: Restaurant

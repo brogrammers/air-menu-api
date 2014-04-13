@@ -1,0 +1,9 @@
+{
+    "menu_item": {
+        "id": 1,
+        "name": "blah",
+        "description": "blah",
+        "price": 4.32,
+        "currency": "EUR"
+    }
+}

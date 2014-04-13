@@ -105,6 +105,13 @@ DATABASE_TABLES = {
           :developer => false,
           :identifiable_id => 3,
           :identifiable_type => 'User'
+      },
+      {
+          :username => 'fritz',
+          :new_password => 'davinci',
+          :email => 'fritz@thechurch.ie',
+          :identifiable_id => 1,
+          :identifiable_type => 'StaffMember'
       }
   ],
 
@@ -158,7 +165,22 @@ DATABASE_TABLES = {
           :remote_order => false,
           :conversion_rate => 0.0,
           :company_id => 2,
-          :active_menu_id => 1
+          :active_menu_id => 3
+      }
+  ],
+
+  :staff_member => [
+      {
+          :name => 'Fritz Blah',
+          :staff_kind_id => 1,
+          :restaurant_id => 1
+      }
+  ],
+
+  :staff_kind => [
+      {
+          :name => 'Manager',
+          :restaurant_id => 1
       }
   ],
 
@@ -169,6 +191,10 @@ DATABASE_TABLES = {
       },
       {
           :name => 'Alternative Menu',
+          :restaurant_id => 1
+      },
+      {
+          :name => 'Main Menu',
           :restaurant_id => 1
       }
   ],
@@ -188,6 +214,16 @@ DATABASE_TABLES = {
           :name => 'Some Menu Section',
           :description => 'blah',
           :menu_id => 2
+      },
+      {
+          :name => 'Peri Peri Chicken',
+          :description => 'Our signature dish. Chicken marinated for at least 24 hours in PERi-PERi sauce and flame-grilled to order. PERi-PERi chicken for purists.',
+          :menu_id => 3
+      },
+      {
+          :name => 'Platter to share',
+          :description => '',
+          :menu_id => 3
       }
   ],
 
@@ -240,6 +276,69 @@ DATABASE_TABLES = {
           :price => 5.60,
           :currency => 'EUR',
           :menu_section_id => 3
+      },
+      {
+          :name => 'Chicken Butterfly',
+          :description => 'Succulent chicken breasts in crispy skin. No bones about it - pure class!',
+          :price => 10.25,
+          :currency => 'EUR',
+          :menu_section_id => 4
+      },
+      {
+          :name => '1/4 Chicken Breast',
+          :description => '',
+          :price => 7.20,
+          :currency => 'EUR',
+          :menu_section_id => 4
+      },
+      {
+          :name => '1/4 Chicken Leg',
+          :description => '',
+          :price => 7.20,
+          :currency => 'EUR',
+          :menu_section_id => 4
+      },
+      {
+          :name => '1/2 Chicken',
+          :description => '',
+          :price => 9.95,
+          :currency => 'EUR',
+          :menu_section_id => 4
+      },
+      {
+          :name => '5 Chicken Wings',
+          :description => '',
+          :price => 8.40,
+          :currency => 'EUR',
+          :menu_section_id => 4
+      },
+      {
+          :name => 'Wing Platter',
+          :description => 'For 2-3 people to share. 10 Chicken Wings + 2 Large or 4 Reg Sides',
+          :price => 16.80,
+          :currency => 'EUR',
+          :menu_section_id => 5
+      },
+      {
+          :name => 'Full Platter',
+          :description => 'For 2-3 people to share. Whole Chicken + 2 Large or 4 Reg Sides',
+          :price => 19.85,
+          :currency => 'EUR',
+          :menu_section_id => 5
+      },
+      {
+          :name => 'Meal Platter',
+          :description => 'For 2 people to share. Whole Chicken + 1 Large or 2 Reg Sides + 2 Bottomless Soft Drinks',
+          :price => 19.85,
+          :currency => 'EUR',
+          :menu_section_id => 5
+      },
+      {
+          :name => 'Jumbo Platter',
+          :description => 'For 4-6 people to share. 2 Whole Chickens + 5 Large Sides',
+          :price => 43.50,
+          :currency => 'EUR',
+          :menu_section_id => 5
       }
   ],
 

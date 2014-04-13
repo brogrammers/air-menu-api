@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<staff-member>
+  <id type="integer">1</id>
+  <name>Fritz Blah</name>
+  <identity>
+    <username>fritz</username>
+    <email>fritz@thechurch.ie</email>
+  </identity>
+  <staff-kind>
+    <id type="integer">1</id>
+    <name>Manager</name>
+  </staff-kind>
+  <restaurant>
+    <id type="integer">1</id>
+    <name>The Church</name>
+  </restaurant>
+</staff-member>
