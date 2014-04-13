@@ -1,0 +1,87 @@
+new_order_item:
+  id: 1
+  comment: Comment
+  order_id: 1
+  menu_item_id: 1
+  count: 1
+  state_cd: 0
+
+approved_order_item:
+  id: 2
+  comment: Comment
+  order_id: 1
+  menu_item_id: 1
+  count: 1
+  state_cd: 1
+
+declined_order_item:
+  id: 3
+  comment: Comment
+  order_id: 1
+  menu_item_id: 1
+  count: 1
+  state_cd: 2
+
+start_prepare_order_item:
+  id: 4
+  comment: Comment
+  order_id: 1
+  menu_item_id: 1
+  count: 1
+  state_cd: 3
+
+end_prepare_order_item:
+  id: 5
+  comment: Comment
+  order_id: 1
+  menu_item_id: 1
+  count: 1
+  state_cd: 4
+
+served_order_item:
+  id: 6
+  comment: Comment
+  order_id: 1
+  menu_item_id: 1
+  count: 1
+  state_cd: 5
+
+open_order_approved_item:
+  id: 7
+  comment: Comment
+  order_id: 5
+  menu_item_id: 1
+  count: 1
+  state_cd: 1
+
+open_order_new_item:
+  id: 8
+  comment: Comment
+  order_id: 5
+  menu_item_id: 1
+  count: 1
+  state_cd: 0
+
+approved_order_served_item:
+  id: 9
+  comment: Comment
+  order_id: 6
+  menu_item_id: 1
+  count: 1
+  state_cd: 5
+
+approved_order_end_prepare_item:
+  id: 10
+  comment: Comment
+  order_id: 6
+  menu_item_id: 1
+  count: 1
+  state_cd: 4
+
+new_to_be_assigned_order_item:
+  id: 11
+  comment: Comment
+  order_id: 7
+  menu_item_id: 1
+  count: 1
+  state_cd: 0

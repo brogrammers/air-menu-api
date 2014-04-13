@@ -1,0 +1,18 @@
+{
+    "staff_member": {
+        "id": 1,
+        "name": "Fritz Blah",
+        "identity": {
+            "username": "fritz",
+            "email": "fritz@thechurch.ie"
+        },
+        "staff_kind": {
+            "id": 1,
+            "name": "Manager"
+        },
+        "restaurant": {
+            "id": 1,
+            "name": "The Church"
+        }
+    }
+}

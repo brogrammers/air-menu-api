@@ -62,5 +62,7 @@ module AirMenuApi
     config.after_initialize do |app|
       app.routes.append{ match '*a', :to => 'api/v1/base#render_route_not_found' }
     end
+
+    config.i18n.enforce_available_locales = false
   end
 end

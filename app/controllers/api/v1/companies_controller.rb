@@ -2,12 +2,12 @@ module Api
   module V1
     class CompaniesController < BaseController
 
-      before_filter :set_company, :only => [:show]
-      before_filter :check_company_exists, :only => [:create]
-
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:user]
       doorkeeper_for :create, :scopes => [:user]
+
+      before_filter :set_company, :only => [:show]
+      before_filter :check_company_exists, :only => [:create]
 
       resource_description do
         name 'Companies'
@@ -18,6 +18,7 @@ module Api
         error 401, 'Unauthorized, missing or invalid access token'
         error 403, 'Forbidden, valid access token, but scope is missing'
         error 404, 'Not Found, some resource could not be found'
+        error 409, 'Conflict, some action can\'t be performed due to a conflict'
         error 500, 'Internal Server Error, Something went wrong!'
       end
 
@@ -55,11 +56,7 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/companies/show.xml")
       def create
         @company = create_company
-        @user.company = @company
-        @company.save!
-        @company.address = create_address
-        @company.address.save!
-        respond_with @user
+        respond_with @company, :status => :created
       end
 
       private
@@ -71,7 +68,7 @@ module Api
       end
 
       def check_company_exists
-        render_forbidden if @user.company
+        render_conflict 'already_owns_company' if @user.company
       end
 
     end

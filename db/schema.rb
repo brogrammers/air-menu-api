@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140211005839) do
+ActiveRecord::Schema.define(:version => 20140412213929) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_1"
@@ -32,6 +32,22 @@ ActiveRecord::Schema.define(:version => 20140211005839) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "devices", :force => true do |t|
+    t.string   "name"
+    t.string   "uuid"
+    t.string   "token"
+    t.string   "platform"
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "groups", :force => true do |t|
+    t.string  "name"
+    t.integer "restaurant_id"
   end
 
   create_table "identities", :force => true do |t|
@@ -82,6 +98,16 @@ ActiveRecord::Schema.define(:version => 20140211005839) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "notifications", :force => true do |t|
+    t.string   "content"
+    t.boolean  "read"
+    t.integer  "remindable_id"
+    t.integer  "remindable_type"
+    t.string   "payload"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "oauth_access_grants", :force => true do |t|
     t.integer  "resource_owner_id",                 :null => false
     t.integer  "application_id",                    :null => false
@@ -127,6 +153,34 @@ ActiveRecord::Schema.define(:version => 20140211005839) do
   add_index "oauth_applications", ["owner_id", "owner_type"], :name => "index_oauth_applications_on_owner_id_and_owner_type"
   add_index "oauth_applications", ["uid"], :name => "index_oauth_applications_on_uid", :unique => true
 
+  create_table "order_items", :force => true do |t|
+    t.string   "comment"
+    t.integer  "count"
+    t.integer  "order_id"
+    t.integer  "menu_item_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "state_cd"
+    t.datetime "approved_time"
+    t.datetime "declined_time"
+    t.datetime "start_prepare_time"
+    t.datetime "end_prepare_time"
+    t.datetime "served_time"
+    t.integer  "staff_member_id"
+  end
+
+  create_table "orders", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "restaurant_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "state_cd"
+    t.datetime "approved_time"
+    t.datetime "served_time"
+    t.datetime "cancelled_time"
+    t.integer  "staff_member_id"
+  end
+
   create_table "restaurants", :force => true do |t|
     t.string   "name"
     t.boolean  "loyalty"
@@ -145,15 +199,19 @@ ActiveRecord::Schema.define(:version => 20140211005839) do
   end
 
   create_table "scopes_staff_kinds", :force => true do |t|
-    t.integer "staff_kind_id"
-    t.integer "scope_id"
+    t.integer  "staff_kind_id"
+    t.integer  "scope_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "staff_kinds", :force => true do |t|
     t.string   "name"
     t.integer  "restaurant_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.boolean  "accept_orders"
+    t.boolean  "accept_order_items"
   end
 
   create_table "staff_members", :force => true do |t|

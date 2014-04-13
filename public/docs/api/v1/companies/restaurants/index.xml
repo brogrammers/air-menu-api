@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<restaurants type="array">
+  <restaurant>
+    <id type="integer">1</id>
+    <name>The Church</name>
+    <loyalty type="boolean">false</loyalty>
+    <remote-order type="boolean">false</remote-order>
+    <conversion-rate type="float">0.0</conversion-rate>
+    <address>
+      <id type="integer">3</id>
+      <address-1>Junction of Mary St</address-1>
+      <address-2>Jervis St</address-2>
+      <city>Dublin</city>
+      <county>Dublin</county>
+      <state nil="true"/>
+      <country>Ireland</country>
+    </address>
+    <menu>
+      <id type="integer">1</id>
+      <name>Main Menu</name>
+    </menu>
+  </restaurant>
+</restaurants>

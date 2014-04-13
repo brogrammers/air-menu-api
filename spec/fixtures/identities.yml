@@ -1,0 +1,89 @@
+one:
+  id: 1
+  username: tsov
+  email: tsov@me.com
+  identifiable_id: 1
+  identifiable_type: User
+  admin: true
+  developer: true
+
+two:
+  id: 2
+  username: rob
+  email: rob@rob.com
+  identifiable_id: 2
+  identifiable_type: User
+  admin: true
+  developer: true
+
+three:
+  id: 3
+  username: guy
+  email: guy@guy.guy
+  identifiable_id: 3
+  identifiable_type: User
+  admin: false
+  developer: false
+
+four:
+  id: 4
+  username: test
+  email: test@test.test
+  identifiable_id: 4
+  identifiable_type: User
+  admin: false
+  developer: false
+
+five:
+  id: 5
+  username: test2
+  email: test2@test.test
+  identifiable_id: 5
+  identifiable_type: User
+  admin: false
+  developer: false
+
+staff_member_manager:
+  id: 6
+  username: staff_member1
+  email: staff1@staff.com
+  identifiable_id: 1
+  identifiable_type: StaffMember
+  admin: false
+  developer: false
+
+staff_member_waitress:
+  id: 7
+  username: staff_member2
+  email: staff2@staff.com
+  identifiable_id: 2
+  identifiable_type: StaffMember
+  admin: false
+  developer: false
+
+staff_member_kitchen:
+  id: 8
+  username: staff_member3
+  email: staff3@staff.com
+  identifiable_id: 3
+  identifiable_type: StaffMember
+  admin: false
+  developer: false
+
+staff_member_bar:
+  id: 9
+  username: staff_member4
+  email: staff4@staff.com
+  identifiable_id: 4
+  identifiable_type: StaffMember
+  admin: false
+  developer: false
+
+staff_member_alternative_restaurant:
+  id: 10
+  username: staff_member45
+  email: staff5@staff.com
+  identifiable_id: 5
+  identifiable_type: StaffMember
+  admin: false
+  developer: false

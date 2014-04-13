@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<staff-members type="array">
+  <staff-member>
+    <id type="integer">1</id>
+    <name>Fritz Blah</name>
+  </staff-member>
+</staff-members>

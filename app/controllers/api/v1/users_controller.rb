@@ -2,10 +2,11 @@ module Api
   module V1
     class UsersController < BaseController
 
-      before_filter :set_user, :only => [:show]
-
       doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:basic, :user]
+      doorkeeper_for :show, :scopes => [:admin, :basic, :user]
+      doorkeeper_for :create, :scopes => [:trusted]
+
+      before_filter :set_user, :only => [:show]
 
       resource_description do
         name 'Users'
@@ -30,7 +31,7 @@ module Api
       end
 
       api :GET, '/users/:id', 'Get a users profile'
-      description 'Fetches a user profile. ||basic user||'
+      description 'Fetches a user profile. ||admin basic user||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/users/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/users/show.xml")
@@ -51,7 +52,7 @@ module Api
         @identity = create_identity
         @user.identity = @identity
         @identity.save!
-        respond_with @user
+        respond_with @user, :status => :created
       end
 
       private

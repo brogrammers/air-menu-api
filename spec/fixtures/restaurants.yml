@@ -1,0 +1,26 @@
+one:
+  id: 1
+  name: Restaurant
+  loyalty: false
+  remote_order: false
+  conversion_rate: 0.0
+  company_id: 1
+  active_menu_id: 1
+
+two:
+  id: 2
+  name: Restaurant
+  loyalty: false
+  remote_order: false
+  conversion_rate: 0.0
+  company_id: 2
+  active_menu_id: 3
+
+three:
+  id: 3
+  name: Restaurant
+  loyalty: false
+  remote_order: false
+  conversion_rate: 0.0
+  company_id: 3
+  active_menu_id: 3
