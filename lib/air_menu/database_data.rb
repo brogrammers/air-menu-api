@@ -68,13 +68,16 @@ DATABASE_TABLES = {
 
   :user => [
       {
-          :name => 'Max Hoffmann'
+          :name => 'Max Hoffmann',
+          :phone => '+353832343234'
       },
       {
-          :name => 'Robert Lis'
+          :name => 'Robert Lis',
+          :phone => '+353833754543'
       },
       {
-          :name => 'Gary Plum'
+          :name => 'Gary Plum',
+          :phone => '+353876485875'
       }
   ],
 

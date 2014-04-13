@@ -45,6 +45,7 @@ module Api
       param :name, String, :desc => "Users full name", :required => true
       param :username, String, :desc => "Desired username", :required => true
       param :password, String, :desc => "Desired password", :required => true
+      param :phone, String, :desc => "Phone number", :required => true
       example File.read("#{Rails.root}/public/docs/api/v1/users/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/users/show.xml")
       def create

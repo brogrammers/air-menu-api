@@ -41,6 +41,7 @@ module Api
         def create_user
           user = User.new
           user.name = params[:name]
+          user.phone = params[:phone]
           user.save!
           user
         end

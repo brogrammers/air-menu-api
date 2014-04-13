@@ -95,7 +95,7 @@ describe Api::V1::UsersController do
       let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => ['trusted'] }
 
       before :each do
-        post :create, :name => 'name', :username => 'username', :password => 'password', :email => 'email@email.com'
+        post :create, :name => 'name', :username => 'username', :password => 'password', :email => 'email@email.com', :phone => '+353832345623'
       end
 
       it 'should respond with a HTTP 201 status code' do
@@ -113,6 +113,12 @@ describe Api::V1::UsersController do
         body = JSON.parse(response.body) rescue { }
         identity = User.find(body['user']['id']).identity rescue nil
         expect(identity).not_to be_nil
+      end
+
+      it 'should include phone attribute' do
+        body = JSON.parse(response.body) rescue { }
+        user = User.find(body['user']['id']) rescue nil
+        expect(user.phone).to eq('+353832345623')
       end
 
     end
