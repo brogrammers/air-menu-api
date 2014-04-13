@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+  <id type="integer">3</id>
+  <name>another new menu</name>
+  <menu-sections type="array">
+    <menu-section>
+      <id type="integer">1</id>
+      <name>Foods</name>
+      <description>main dishes</description>
+      <menu-items type="array">
+        <menu-item>
+          <id type="integer">1</id>
+          <name>blah</name>
+          <description>blah</description>
+          <price type="float">4.32</price>
+          <currency>EUR</currency>
+        </menu-item>
+      </menu-items>
+    </menu-section>
+  </menu-sections>
+</menu>

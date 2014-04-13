@@ -2,10 +2,10 @@ module Api
   module V1
     class RestaurantsController < BaseController
 
-      before_filter :set_restaurant, :only => [:show]
+      doorkeeper_for :index, :scopes => [:admin, :user]
+      doorkeeper_for :show, :scopes => [:admin, :user]
 
-      doorkeeper_for :index, :scopes => [:user]
-      doorkeeper_for :show, :scopes => [:user]
+      before_filter :set_restaurant, :only => [:show]
 
       resource_description do
         name 'Restaurants'
@@ -20,7 +20,7 @@ module Api
       end
 
       api :GET, '/restaurants', 'All the restaurants in the system'
-      description 'Fetches all the restaurants in the system. ||user||'
+      description 'Fetches all the restaurants in the system. ||admin user||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.json")
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.xml")
@@ -30,7 +30,7 @@ module Api
       end
 
       api :GET, '/restaurants/:id', 'Get a Restaurant profile'
-      description 'Fetches a restaurant profile. ||user||'
+      description 'Fetches a restaurant profile. ||admin user||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/show.xml")
