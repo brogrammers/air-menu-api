@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 	has_one :identity, :as => :identifiable
   has_one :location, :as => :findable
   has_many :devices, :as => :notifiable
+  has_many :notifications, :as => :remindable
   has_one :company
   has_many :orders
   has_many :applications, :class_name => 'Doorkeeper::Application', :as => :owner
@@ -17,6 +18,7 @@ class User < ActiveRecord::Base
     return owns_menu_item object if object.class == MenuItem
     return owns_order object if object.class == Order
     return owns_order_item object if object.class == OrderItem
+    return owns_notification object if object.class == Notification
     false
   end
 
@@ -38,6 +40,14 @@ class User < ActiveRecord::Base
 
   def has_current_orders?
     current_orders.size > 0
+  end
+
+  def unread
+    Notification.where(:remindable_id => self.id, :read => false)
+  end
+
+  def unread_count
+    unread.count
   end
 
   private
@@ -79,5 +89,9 @@ class User < ActiveRecord::Base
 
   def owns_order_item(order_item)
     owns_order order_item.order
+  end
+
+  def owns_notification(notification)
+    notification.remindable_id == self.id
   end
 end

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notification>
+  <id type="integer">1</id>
+  <content>Some Notification</content>
+  <read type="boolean">true</read>
+  <payload nil="true"/>
+  <created-at type="datetime">2014-04-12T23:24:53Z</created-at>
+</notification>

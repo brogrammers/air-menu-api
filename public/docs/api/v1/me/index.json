@@ -2,6 +2,7 @@
     "me": {
         "id": 1,
         "name": "Max Hoffmann",
+        "unread_count": 1,
         "type": "Owner",
         "identity": {
             "username": "tsov",
@@ -17,12 +18,27 @@
                 "id": 1,
                 "name": "The Church"
             },
-            "order_items": []
-        },
-        "scopes": [
-            "basic",
-            "user",
-            "admin"
-        ]
+            "order_items": [],
+            "company": {
+                "id": 1,
+                "name": "Brogrammers",
+                "user_id": 1,
+                "address": {
+                    "id": 1,
+                    "address_1": "SomeOffice House 45",
+                    "address_2": "Business Campus",
+                    "city": "Dublin",
+                    "county": "Dublin",
+                    "state": null,
+                    "country": "Ireland"
+                }
+            },
+            "scopes": [
+                "user",
+                "basic",
+                "owner",
+                "admin"
+            ]
+        }
     }
 }

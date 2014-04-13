@@ -17,6 +17,7 @@ AirMenuApi::Application.routes.draw do
       resources :order_items, :only => [:index, :show, :update]
       resources :staff_kinds, :only => [:index, :show]
       resources :staff_members, :only => [:index, :show]
+      resources :notifications, :only => [:update]
 
       resources :groups, :only => [:index, :show] do
         resources :staff_members, :controller => 'groups/staff_members', :only => [:index, :create]
@@ -50,6 +51,7 @@ AirMenuApi::Application.routes.draw do
       resources :me, :only => [:index]
       namespace :me do
         resources :devices, :controller => 'devices', :only => [:index, :create]
+        resources :notifications, :controller => 'notifications', :only => [:index]
       end
     end
 

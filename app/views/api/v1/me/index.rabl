@@ -1,6 +1,6 @@
 object @user => :me
 
-attributes :id, :name
+attributes :id, :name, :unread_count
 
 node :type do |user|
     user.type

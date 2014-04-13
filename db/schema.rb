@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140325100454) do
+ActiveRecord::Schema.define(:version => 20140412213929) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_1"
@@ -96,6 +96,16 @@ ActiveRecord::Schema.define(:version => 20140325100454) do
     t.integer  "restaurant_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "notifications", :force => true do |t|
+    t.string   "content"
+    t.boolean  "read"
+    t.integer  "remindable_id"
+    t.integer  "remindable_type"
+    t.string   "payload"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "oauth_access_grants", :force => true do |t|

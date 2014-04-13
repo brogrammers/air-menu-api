@@ -2,6 +2,7 @@
 <me>
   <id type="integer">1</id>
   <name>Max Hoffmann</name>
+  <unread-count type="integer">1</unread-count>
   <type>Owner</type>
   <identity>
     <username>tsov</username>
@@ -19,5 +20,19 @@
     </restaurant>
     <order-items type="array"/>
   </order>
-  <scopes type="Doorkeeper::OAuth::Scopes">basic user admin</scopes>
+  <company>
+    <id type="integer">1</id>
+    <name>Brogrammers</name>
+    <user-id type="integer">1</user-id>
+    <address>
+      <id type="integer">1</id>
+      <address-1>SomeOffice House 45</address-1>
+      <address-2>Business Campus</address-2>
+      <city>Dublin</city>
+      <county>Dublin</county>
+      <state nil="true"/>
+      <country>Ireland</country>
+    </address>
+  </company>
+  <scopes type="Doorkeeper::OAuth::Scopes">user basic owner admin</scopes>
 </me>
