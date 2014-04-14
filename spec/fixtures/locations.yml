@@ -1,0 +1,6 @@
+one:
+  id: 1
+  latitude: 3
+  longitude: 3
+  findable_id: 1
+  findable_type: User

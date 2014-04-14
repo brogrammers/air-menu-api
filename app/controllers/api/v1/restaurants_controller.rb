@@ -20,12 +20,19 @@ module Api
       end
 
       api :GET, '/restaurants', 'All the restaurants in the system'
-      description 'Fetches all the restaurants in the system. ||admin user||'
+      description 'Fetches all the restaurants in the system by location. ||admin user||'
       formats [:json, :xml]
+      param :latitude, String, :desc => "Latitude", :required => true
+      param :longitude, String, :desc => "Longitude", :required => true
+      param :offset, String, :desc => "Offset", :required => true
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.json")
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/index.xml")
       def index
-        @restaurants = Restaurant.all
+        @locations = Location.all_within(params[:latitude].to_f||0, params[:longitude].to_f||0, params[:offset].to_f||0)
+        @restaurants = []
+        @locations.each do |location|
+          @restaurants <<(location.findable) if location.findable.class == Restaurant
+        end
         respond_with @restaurants
       end
 

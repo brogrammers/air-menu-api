@@ -41,10 +41,13 @@ module Api
         param :county, String, :desc => "Restaurants county", :required => true
         param :state, String, :desc => "Restaurants state (only US)"
         param :country, String, :desc => "Restaurants country", :required => true
+        param :latitude, Float, :desc => "Restaurants latitude", :required => true
+        param :longitude, Float, :desc => "Restaurants longitude", :required => true
         example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/create.json")
         example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/create.xml")
         def create
           @restaurant = create_restaurant @company
+          Apipie::ApipiesController
           respond_with @restaurant, :status => :created
         end
 

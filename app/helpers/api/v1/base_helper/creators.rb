@@ -33,8 +33,10 @@ module Api
           restaurant.remote_order = false
           restaurant.conversion_rate = 0.0
           restaurant.company = company
+          restaurant.location = create_location
           restaurant.save!
           restaurant.address.save!
+          restaurant.location.save!
           restaurant
         end
 
@@ -115,6 +117,14 @@ module Api
           notifiable.devices << device
           device.save!
           device
+        end
+
+        def create_location
+          location = Location.new
+          location.latitude = params[:latitude]
+          location.longitude = params[:longitude]
+          location.save!
+          location
         end
 
       end
