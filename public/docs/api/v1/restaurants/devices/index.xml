@@ -2,9 +2,16 @@
 <devices type="array">
   <device>
     <id type="integer">1</id>
-    <name>First Phone</name>
-    <uuid>some_uuid</uuid>
-    <token>some_token</token>
+    <name nil="true"/>
+    <uuid>99713c381122899b2fe064e66a4a5200c9c2ca15</uuid>
+    <token>bc710230d1c0738921bbadce81000d9ccc0babcad877d0b7555820e230568cbb</token>
     <platform>ios</platform>
+  </device>
+  <device>
+    <id type="integer">2</id>
+    <name nil="true"/>
+    <uuid nil="true"/>
+    <token>bc710230d1c0738921bbadce81000d9ccc0babcad877d0b7555820e230568cbb</token>
+    <platform nil="true"/>
   </device>
 </devices>

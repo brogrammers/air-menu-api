@@ -5,7 +5,7 @@ module Api
 
       resource_description do
         api_version 'v1'
-        app_info File.read("#{Rails.root}/public/docs/api/v1/desc.txt")
+        app_info File.read("#{Rails.root}/doc/v1.txt")
         api_base_url '/api/v1'
       end
 

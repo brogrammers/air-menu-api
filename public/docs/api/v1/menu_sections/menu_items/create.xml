@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu-item>
   <id type="integer">1</id>
-  <name>blah</name>
-  <description>blah</description>
-  <price type="float">4.32</price>
+  <name>Beef Burger</name>
+  <description>Beef Burger with a small side salad.</description>
+  <price type="float">12.9</price>
   <currency>EUR</currency>
 </menu-item>

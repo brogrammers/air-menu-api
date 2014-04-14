@@ -2,14 +2,14 @@
 <menus type="array">
   <menu>
     <id type="integer">1</id>
-    <name>menu</name>
+    <name>Main Menu</name>
   </menu>
   <menu>
     <id type="integer">2</id>
-    <name>new menu</name>
+    <name>Alternative Menu</name>
   </menu>
   <menu>
     <id type="integer">3</id>
-    <name>another new menu</name>
+    <name>Main Menu</name>
   </menu>
 </menus>

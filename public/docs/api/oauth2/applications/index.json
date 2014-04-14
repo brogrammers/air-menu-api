@@ -1,18 +1,18 @@
 {
-    "oauth_applications": [
-        {
-            "id": 1,
-            "name": "iOS Restaurant",
-            "redirect_uri": "http://localhost/",
-            "client_id": "0b919b759ed990fd87b29add9325fa61e7d0582c01014330e888a10bea6777a2",
-            "client_secret": "edd9b6a6e591f3b7da4bb8c236b844af6391c7b7f75208d19790e3eda6658b8c"
-        },
-        {
-            "id": 2,
-            "name": "iOS Customer",
-            "redirect_uri": "http://localhost/",
-            "client_id": "5f9cdd6afc62efd88f5165dfddb39aa260145ebb1bc380472cf31cfadfbf862f",
-            "client_secret": "f6e0c526381ef4c5f8bdee27b9f3c1557e50ac4f92f7a0c6adca869bb9ea3139"
-        }
-    ]
+  "oauth_applications": [
+    {
+      "id": 1,
+      "name": "iOS Restaurant",
+      "redirect_uri": "http://localhost/",
+      "client_id": "bd1834c10d23603759410e730be7257d8c26794633cdf498612fc2b4ae2f893a",
+      "client_secret": "dbc393bd89c60765018fec9fb444b78f7b4d0e209a3193209ac72b6fddb254c6"
+    },
+    {
+      "id": 2,
+      "name": "iOS Customer",
+      "redirect_uri": "http://localhost/",
+      "client_id": "70773f6c93139e47c134f28b098232063900b73ae562ce3ba2f7ae964465ef21",
+      "client_secret": "e8be0103c954b8e8a10ad69365645da621588a14487ca8b85358ca4eae1a378f"
+    }
+  ]
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu-section>
   <id type="integer">1</id>
-  <name>Foods</name>
-  <description>main dishes</description>
+  <name>Main Foods</name>
+  <description>All our main dishes</description>
 </menu-section>

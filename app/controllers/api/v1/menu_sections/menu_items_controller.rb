@@ -27,7 +27,8 @@ module Api
         example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/index.json")
         example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/index.xml")
         def index
-          respond_with @menu_section.menu_items
+          @menu_items = @menu_section.menu_items
+          respond_with @menu_items
         end
 
         api :POST, '/menu_sections/:id/menu_items', 'Create menu items within a menu section'

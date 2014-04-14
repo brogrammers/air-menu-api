@@ -1,7 +1,7 @@
 {
-    "menu_section": {
-        "id": 1,
-        "name": "Foods",
-        "description": "main dishes"
-    }
+  "menu_section": {
+    "id": 1,
+    "name": "Main Foods",
+    "description": "All our main dishes"
+  }
 }

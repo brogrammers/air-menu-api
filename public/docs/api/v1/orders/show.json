@@ -1,19 +1,38 @@
 {
-    "order": {
+  "order": {
+    "id": 1,
+    "state": "new",
+    "approved_time": null,
+    "served_time": null,
+    "cancelled_time": null,
+    "user": {
+      "id": 5,
+      "name": "Denis McKenna",
+      "type": "User"
+    },
+    "restaurant": {
+      "id": 1,
+      "name": "The Church"
+    },
+    "order_items": [
+      {
         "id": 1,
+        "comment": null,
+        "count": 1,
         "state": "new",
         "approved_time": null,
+        "declined_time": null,
+        "start_prepare_time": null,
+        "end_prepare_time": null,
         "served_time": null,
-        "cancelled_time": null,
-        "user": {
-            "id": 1,
-            "name": "Max Hoffmann",
-            "type": "Owner"
-        },
-        "restaurant": {
-            "id": 1,
-            "name": "The Church"
-        },
-        "order_items": []
-    }
+        "menu_item": {
+          "id": 10,
+          "name": "1/4 Chicken Leg",
+          "description": "",
+          "price": 7.2,
+          "currency": "EUR"
+        }
+      }
+    ]
+  }
 }

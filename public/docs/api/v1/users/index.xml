@@ -8,4 +8,20 @@
       <email>tsov@me.com</email>
     </identity>
   </user>
+  <user>
+    <id type="integer">2</id>
+    <name>Robert Lis</name>
+    <identity>
+      <username>rob</username>
+      <email>robertmadman@gmail.com</email>
+    </identity>
+  </user>
+  <user>
+    <id type="integer">3</id>
+    <name>Gary Plum</name>
+    <identity>
+      <username>gary</username>
+      <email>gary@thechurch.ie</email>
+    </identity>
+  </user>
 </users>

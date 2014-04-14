@@ -1,36 +1,55 @@
 {
-    "staff_members": [
-        {
-            "id": 1,
-            "name": "Fritz Blah",
-            "identity": {
-                "username": "fritz",
-                "email": "fritz@thechurch.ie"
-            },
-            "staff_kind": {
-                "id": 1,
-                "name": "Manager"
-            },
-            "restaurant": {
-                "id": 1,
-                "name": "The Church"
-            }
-        },
-        {
-            "id": 2,
-            "name": "Emma Blah",
-            "identity": {
-                "username": "emma",
-                "email": "emma@thechurch.ie"
-            },
-            "staff_kind": {
-                "id": 1,
-                "name": "Manager"
-            },
-            "restaurant": {
-                "id": 1,
-                "name": "The Church"
-            }
-        }
-    ]
+  "staff_members": [
+    {
+      "id": 1,
+      "name": "Fritz Blah",
+      "identity": {
+        "username": "fritz",
+        "email": "fritz@thechurch.ie"
+      },
+      "staff_kind": {
+        "id": 1,
+        "name": "Manager"
+      },
+      "restaurant": {
+        "id": 1,
+        "name": "The Church"
+      },
+      "device": null
+    },
+    {
+      "id": 2,
+      "name": "Emma Blah",
+      "identity": {
+        "username": "emma",
+        "email": "emma@mckenna.ie"
+      },
+      "staff_kind": {
+        "id": 2,
+        "name": "Waitress"
+      },
+      "restaurant": {
+        "id": 1,
+        "name": "The Church"
+      },
+      "device": null
+    },
+    {
+      "id": 3,
+      "name": "Patrick Blah",
+      "identity": {
+        "username": "patrick",
+        "email": "patrick@mckenna.ie"
+      },
+      "staff_kind": {
+        "id": 3,
+        "name": "Kitchen Staff"
+      },
+      "restaurant": {
+        "id": 1,
+        "name": "The Church"
+      },
+      "device": null
+    }
+  ]
 }

@@ -2,7 +2,7 @@
 <order-items type="array">
   <order-item>
     <id type="integer">1</id>
-    <comment>Comment</comment>
+    <comment nil="true"/>
     <count type="integer">1</count>
     <state type="symbol">new</state>
     <approved-time nil="true"/>
@@ -18,35 +18,10 @@
       <cancelled-time nil="true"/>
     </order>
     <menu-item>
-      <id type="integer">1</id>
-      <name>Beef Burger</name>
-      <description>Beef Burger with a small side salad.</description>
-      <price type="float">12.9</price>
-      <currency>EUR</currency>
-    </menu-item>
-  </order-item>
-  <order-item>
-    <id type="integer">2</id>
-    <comment>Comment</comment>
-    <count type="integer">1</count>
-    <state type="symbol">new</state>
-    <approved-time nil="true"/>
-    <declined-time nil="true"/>
-    <start-prepare-time nil="true"/>
-    <end-prepare-time nil="true"/>
-    <served-time nil="true"/>
-    <order>
-      <id type="integer">1</id>
-      <state type="symbol">new</state>
-      <approved-time nil="true"/>
-      <served-time nil="true"/>
-      <cancelled-time nil="true"/>
-    </order>
-    <menu-item>
-      <id type="integer">1</id>
-      <name>Beef Burger</name>
-      <description>Beef Burger with a small side salad.</description>
-      <price type="float">12.9</price>
+      <id type="integer">10</id>
+      <name>1/4 Chicken Leg</name>
+      <description></description>
+      <price type="float">7.2</price>
       <currency>EUR</currency>
     </menu-item>
   </order-item>

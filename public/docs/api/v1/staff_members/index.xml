@@ -15,21 +15,40 @@
       <id type="integer">1</id>
       <name>The Church</name>
     </restaurant>
+    <device nil="true"/>
   </staff-member>
   <staff-member>
     <id type="integer">2</id>
     <name>Emma Blah</name>
     <identity>
       <username>emma</username>
-      <email>emma@thechurch.ie</email>
+      <email>emma@mckenna.ie</email>
     </identity>
     <staff-kind>
-      <id type="integer">1</id>
-      <name>Manager</name>
+      <id type="integer">2</id>
+      <name>Waitress</name>
     </staff-kind>
     <restaurant>
       <id type="integer">1</id>
       <name>The Church</name>
     </restaurant>
+    <device nil="true"/>
+  </staff-member>
+  <staff-member>
+    <id type="integer">3</id>
+    <name>Patrick Blah</name>
+    <identity>
+      <username>patrick</username>
+      <email>patrick@mckenna.ie</email>
+    </identity>
+    <staff-kind>
+      <id type="integer">3</id>
+      <name>Kitchen Staff</name>
+    </staff-kind>
+    <restaurant>
+      <id type="integer">1</id>
+      <name>The Church</name>
+    </restaurant>
+    <device nil="true"/>
   </staff-member>
 </staff-members>

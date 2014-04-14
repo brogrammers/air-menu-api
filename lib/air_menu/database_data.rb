@@ -78,6 +78,14 @@ DATABASE_TABLES = {
       {
           :name => 'Gary Plum',
           :phone => '+353876485875'
+      },
+      {
+          :name => 'Martin Scum',
+          :phone => '+353863423875'
+      },
+      {
+          :name => 'Denis McKenna',
+          :phone => '+35385435645'
       }
   ],
 
@@ -115,6 +123,55 @@ DATABASE_TABLES = {
           :email => 'fritz@thechurch.ie',
           :identifiable_id => 1,
           :identifiable_type => 'StaffMember'
+      },
+      {
+          :username => 'martin',
+          :new_password => 'davinci',
+          :email => 'martin@scum.ie',
+          :identifiable_id => 4,
+          :identifiable_type => 'User'
+      },
+      {
+          :username => 'denis',
+          :new_password => 'davinci',
+          :email => 'denis@mckenna.ie',
+          :identifiable_id => 5,
+          :identifiable_type => 'User'
+      },
+      {
+          :username => 'emma',
+          :new_password => 'davinci',
+          :email => 'emma@mckenna.ie',
+          :identifiable_id => 2,
+          :identifiable_type => 'StaffMember'
+      },
+      {
+          :username => 'patrick',
+          :new_password => 'davinci',
+          :email => 'patrick@mckenna.ie',
+          :identifiable_id => 3,
+          :identifiable_type => 'StaffMember'
+      },
+      {
+          :username => 'hugo',
+          :new_password => 'davinci',
+          :email => 'hugo@mckenna.ie',
+          :identifiable_id => 4,
+          :identifiable_type => 'StaffMember'
+      },
+      {
+          :username => 'ted',
+          :new_password => 'davinci',
+          :email => 'ted@mckenna.ie',
+          :identifiable_id => 5,
+          :identifiable_type => 'StaffMember'
+      },
+      {
+          :username => 'sarah',
+          :new_password => 'davinci',
+          :email => 'sarah@mckenna.ie',
+          :identifiable_id => 6,
+          :identifiable_type => 'StaffMember'
       }
   ],
 
@@ -128,6 +185,11 @@ DATABASE_TABLES = {
           :name => 'The Church',
           :website => 'http://thechurch.ie',
           :user_id => 3
+      },
+      {
+          :name => 'Nandos',
+          :website => 'http://nandos.co.uk',
+          :user_id => 4
       }
   ],
 
@@ -158,6 +220,15 @@ DATABASE_TABLES = {
           :country => 'Ireland',
           :contactable_id => 1,
           :contactable_type => 'Restaurant'
+      },
+      {
+          :address_1 => 'Junction of Mary St',
+          :address_2 => 'Jervis St',
+          :city => 'Dublin',
+          :county => 'Dublin',
+          :country => 'Ireland',
+          :contactable_id => 3,
+          :contactable_type => 'Company'
       }
   ],
 
@@ -169,6 +240,14 @@ DATABASE_TABLES = {
           :conversion_rate => 0.0,
           :company_id => 2,
           :active_menu_id => 3
+      },
+      {
+          :name => 'Nandos',
+          :loyalty => false,
+          :remote_order => false,
+          :conversion_rate => 0.0,
+          :company_id => 3,
+          :active_menu_id => nil
       }
   ],
 
@@ -177,6 +256,31 @@ DATABASE_TABLES = {
           :name => 'Fritz Blah',
           :staff_kind_id => 1,
           :restaurant_id => 1
+      },
+      {
+          :name => 'Emma Blah',
+          :staff_kind_id => 2,
+          :restaurant_id => 1
+      },
+      {
+          :name => 'Patrick Blah',
+          :staff_kind_id => 3,
+          :restaurant_id => 1
+      },
+      {
+          :name => 'Hugo Blah',
+          :staff_kind_id => 4,
+          :restaurant_id => 1
+      },
+      {
+          :name => 'Ted Blah',
+          :staff_kind_id => 5,
+          :restaurant_id => 2
+      },
+      {
+          :name => 'Sarah Blah',
+          :staff_kind_id => 6,
+          :restaurant_id => 2
       }
   ],
 
@@ -184,6 +288,30 @@ DATABASE_TABLES = {
       {
           :name => 'Manager',
           :restaurant_id => 1
+      },
+      {
+          :name => 'Waitress',
+          :restaurant_id => 1
+      },
+      {
+          :name => 'Kitchen Staff',
+          :restaurant_id => 1
+      },
+      {
+          :name => 'Bar Staff',
+          :restaurant_id => 1
+      },
+      {
+          :name => 'Manager',
+          :restaurant_id => 2
+      },
+      {
+          :name => 'Waitress',
+          :restaurant_id => 2
+      },
+      {
+          :name => 'Kitchen',
+          :restaurant_id => 2
       }
   ],
 
@@ -342,6 +470,23 @@ DATABASE_TABLES = {
           :price => 43.50,
           :currency => 'EUR',
           :menu_section_id => 5
+      }
+  ],
+
+  :order => [
+      {
+          :user_id => 5,
+          :state_cd => 0,
+          :restaurant_id => 1
+      }
+  ],
+
+  :order_item => [
+      {
+          :order_id => 1,
+          :menu_item_id => 10,
+          :count => 1,
+          :state_cd => 0
       }
   ],
 

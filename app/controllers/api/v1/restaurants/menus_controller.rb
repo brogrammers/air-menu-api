@@ -27,7 +27,8 @@ module Api
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/menus/index.json")
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/menus/index.xml")
         def index
-          respond_with @restaurant.menus
+          @menus = @restaurant.menus
+          respond_with @menus
         end
 
         api :POST, '/restaurants/:id/menus', 'Create a menu for a restaurant'

@@ -3,11 +3,28 @@
   <staff-kind>
     <id type="integer">1</id>
     <name>Manager</name>
+    <restaurant>
+      <id type="integer">1</id>
+      <name>The Church</name>
+    </restaurant>
     <scopes type="array"/>
   </staff-kind>
   <staff-kind>
     <id type="integer">2</id>
-    <name>Bar Staff</name>
+    <name>Waitress</name>
+    <restaurant>
+      <id type="integer">1</id>
+      <name>The Church</name>
+    </restaurant>
+    <scopes type="array"/>
+  </staff-kind>
+  <staff-kind>
+    <id type="integer">3</id>
+    <name>Kitchen Staff</name>
+    <restaurant>
+      <id type="integer">1</id>
+      <name>The Church</name>
+    </restaurant>
     <scopes type="array"/>
   </staff-kind>
 </staff-kinds>

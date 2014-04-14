@@ -1,7 +1,9 @@
 {
+  "notification": {
     "id": 1,
-    "content": "Some Notification",
+    "content": "Hello !!",
     "read": true,
     "payload": null,
     "created_at": "2014-04-12T23:24:53Z"
+  }
 }

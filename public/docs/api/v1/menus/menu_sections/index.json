@@ -1,9 +1,19 @@
 {
-    "menu_sections": [
-        {
-            "id": 1,
-            "name": "Foods",
-            "description": "main dishes"
-        }
-    ]
+  "menu_sections": [
+    {
+      "id": 1,
+      "name": "Main Foods",
+      "description": "All our main dishes"
+    },
+    {
+      "id": 2,
+      "name": "Alcoholic Drinks",
+      "description": "Our list of Wines, Beers & Spirits"
+    },
+    {
+      "id": 3,
+      "name": "Some Menu Section",
+      "description": "blah"
+    }
+  ]
 }

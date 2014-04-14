@@ -1,16 +1,16 @@
 {
-    "menus": [
-        {
-            "id": 1,
-            "name": "menu"
-        },
-        {
-            "id": 2,
-            "name": "new menu"
-        },
-        {
-            "id": 3,
-            "name": "another new menu"
-        }
-    ]
+  "menus": [
+    {
+      "id": 1,
+      "name": "Main Menu"
+    },
+    {
+      "id": 2,
+      "name": "Alternative Menu"
+    },
+    {
+      "id": 3,
+      "name": "Main Menu"
+    }
+  ]
 }

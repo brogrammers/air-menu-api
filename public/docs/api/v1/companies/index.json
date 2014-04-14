@@ -1,18 +1,46 @@
 {
-    "companies": [
-        {
-            "id": 1,
-            "name": "Some Company",
-            "user_id": 1,
-            "address": {
-                "id": 1,
-                "address_1": "Apartment 131",
-                "address_2": "35 Mountjoy Square",
-                "city": "Dublin",
-                "county": "Dublin",
-                "state": null,
-                "country": "Ireland"
-            }
-        }
-    ]
+  "companies": [
+    {
+      "id": 1,
+      "name": "Brogrammers",
+      "user_id": 1,
+      "address": {
+        "id": 1,
+        "address_1": "SomeOffice House 45",
+        "address_2": "Business Campus",
+        "city": "Dublin",
+        "county": "Dublin",
+        "state": null,
+        "country": "Ireland"
+      }
+    },
+    {
+      "id": 2,
+      "name": "The Church",
+      "user_id": 3,
+      "address": {
+        "id": 2,
+        "address_1": "Junction of Mary St",
+        "address_2": "Jervis St",
+        "city": "Dublin",
+        "county": "Dublin",
+        "state": null,
+        "country": "Ireland"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Nandos",
+      "user_id": 4,
+      "address": {
+        "id": 4,
+        "address_1": "Junction of Mary St",
+        "address_2": "Jervis St",
+        "city": "Dublin",
+        "county": "Dublin",
+        "state": null,
+        "country": "Ireland"
+      }
+    }
+  ]
 }

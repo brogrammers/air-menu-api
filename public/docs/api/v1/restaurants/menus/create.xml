@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
-  <id type="integer">3</id>
-  <name>another new menu</name>
-  <menu-sections type="array"/>
+  <id type="integer">1</id>
+  <name>Main Menu</name>
 </menu>

@@ -1,20 +1,20 @@
 {
-    "orders": [
-        {
-            "id": 1,
-            "state": "new",
-            "approved_time": null,
-            "served_time": null,
-            "cancelled_time": null,
-            "user": {
-                "id": 1,
-                "name": "Max Hoffmann",
-                "type": "Owner"
-            },
-            "restaurant": {
-                "id": 1,
-                "name": "The Church"
-            }
-        }
-    ]
+  "orders": [
+    {
+      "id": 1,
+      "state": "new",
+      "approved_time": null,
+      "served_time": null,
+      "cancelled_time": null,
+      "user": {
+        "id": 5,
+        "name": "Denis McKenna",
+        "type": "User"
+      },
+      "restaurant": {
+        "id": 1,
+        "name": "The Church"
+      }
+    }
+  ]
 }

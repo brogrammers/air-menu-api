@@ -1,12 +1,28 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "name": "Max Hoffmann",
-            "identity": {
-                "username": "tsov",
-                "email": "tsov@me.com"
-            }
-        }
-    ]
+  "users": [
+    {
+      "id": 1,
+      "name": "Max Hoffmann",
+      "identity": {
+        "username": "tsov",
+        "email": "tsov@me.com"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Robert Lis",
+      "identity": {
+        "username": "rob",
+        "email": "robertmadman@gmail.com"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Gary Plum",
+      "identity": {
+        "username": "gary",
+        "email": "gary@thechurch.ie"
+      }
+    }
+  ]
 }

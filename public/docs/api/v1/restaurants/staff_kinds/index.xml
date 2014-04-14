@@ -7,7 +7,12 @@
   </staff-kind>
   <staff-kind>
     <id type="integer">2</id>
-    <name>Bar Staff</name>
+    <name>Waitress</name>
+    <scopes type="array"/>
+  </staff-kind>
+  <staff-kind>
+    <id type="integer">3</id>
+    <name>Kitchen Staff</name>
     <scopes type="array"/>
   </staff-kind>
 </staff-kinds>

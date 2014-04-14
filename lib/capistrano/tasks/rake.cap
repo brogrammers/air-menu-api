@@ -2,9 +2,9 @@ namespace :rake_stuff do
   desc 'Generate cache to avoid production dependencies on markup languages'
   task :apipie do
     on roles(:all) do
+      execute "cd #{release_path}; RAILS_ENV=production bundle exec rake apipie:generate_examples"
       execute "cd #{release_path}; RAILS_ENV=production bundle exec rake apipie:cache"
       execute "cd #{release_path}; RAILS_ENV=production bundle exec rake apipie:static"
     end
   end
-  after 'deploy:compile_assets', 'rake_stuff:apipie'
 end

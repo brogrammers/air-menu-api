@@ -1,47 +1,33 @@
 {
-    "me": {
+  "me": {
+    "id": 1,
+    "name": "Max Hoffmann",
+    "unread_count": 12,
+    "phone": "+353832343234",
+    "type": "Owner",
+    "identity": {
+      "username": "tsov",
+      "email": "tsov@me.com"
+    },
+    "current_orders": [
+
+    ],
+    "company": {
+      "id": 1,
+      "name": "Brogrammers",
+      "user_id": 1,
+      "address": {
         "id": 1,
-        "name": "Max Hoffmann",
-        "unread_count": 1,
-        "phone": "+353832343234",
-        "type": "Owner",
-        "identity": {
-            "username": "tsov",
-            "email": "tsov@me.com"
-        },
-        "current_orders": [
-            {
-                "id": 5,
-                "state": "new",
-                "approved_time": null,
-                "served_time": null,
-                "cancelled_time": null,
-                "restaurant": {
-                    "id": 1,
-                    "name": "The Church"
-                },
-                "order_items": []
-            }
-        ],
-        "company": {
-            "id": 1,
-            "name": "Brogrammers",
-            "user_id": 1,
-            "address": {
-                "id": 1,
-                "address_1": "SomeOffice House 45",
-                "address_2": "Business Campus",
-                "city": "Dublin",
-                "county": "Dublin",
-                "state": null,
-                "country": "Ireland"
-            }
-        },
-        "scopes": [
-            "user",
-            "basic",
-            "owner",
-            "admin"
-        ]
-    }
+        "address_1": "SomeOffice House 45",
+        "address_2": "Business Campus",
+        "city": "Dublin",
+        "county": "Dublin",
+        "state": null,
+        "country": "Ireland"
+      }
+    },
+    "scopes": [
+      "trusted"
+    ]
+  }
 }

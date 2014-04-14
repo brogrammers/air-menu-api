@@ -7,14 +7,13 @@
     <served-time nil="true"/>
     <cancelled-time nil="true"/>
     <user>
-      <id type="integer">1</id>
-      <name>Max Hoffmann</name>
-      <type>Owner</type>
+      <id type="integer">5</id>
+      <name>Denis McKenna</name>
+      <type>User</type>
     </user>
     <restaurant>
       <id type="integer">1</id>
       <name>The Church</name>
     </restaurant>
-    <order-items type="array"/>
   </order>
 </orders>

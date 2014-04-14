@@ -2,12 +2,40 @@
 <companies type="array">
   <company>
     <id type="integer">1</id>
-    <name>Some Company</name>
+    <name>Brogrammers</name>
     <user-id type="integer">1</user-id>
     <address>
       <id type="integer">1</id>
-      <address-1>Apartment 131</address-1>
-      <address-2>35 Mountjoy Square</address-2>
+      <address-1>SomeOffice House 45</address-1>
+      <address-2>Business Campus</address-2>
+      <city>Dublin</city>
+      <county>Dublin</county>
+      <state nil="true"/>
+      <country>Ireland</country>
+    </address>
+  </company>
+  <company>
+    <id type="integer">2</id>
+    <name>The Church</name>
+    <user-id type="integer">3</user-id>
+    <address>
+      <id type="integer">2</id>
+      <address-1>Junction of Mary St</address-1>
+      <address-2>Jervis St</address-2>
+      <city>Dublin</city>
+      <county>Dublin</county>
+      <state nil="true"/>
+      <country>Ireland</country>
+    </address>
+  </company>
+  <company>
+    <id type="integer">3</id>
+    <name>Nandos</name>
+    <user-id type="integer">4</user-id>
+    <address>
+      <id type="integer">4</id>
+      <address-1>Junction of Mary St</address-1>
+      <address-2>Jervis St</address-2>
       <city>Dublin</city>
       <county>Dublin</county>
       <state nil="true"/>

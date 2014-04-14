@@ -1,8 +1,19 @@
 {
-    "staff_members": [
-        {
-            "id": 1,
-            "name": "Fritz Blah"
-        }
-    ]
+  "staff_members": [
+    {
+      "id": 1,
+      "name": "Fritz Blah",
+      "device": null
+    },
+    {
+      "id": 2,
+      "name": "Emma Blah",
+      "device": null
+    },
+    {
+      "id": 3,
+      "name": "Patrick Blah",
+      "device": null
+    }
+  ]
 }
