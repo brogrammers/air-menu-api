@@ -12,10 +12,10 @@ set -e
 
 # Feel free to change any of the following variables for your app:
 TIMEOUT=${TIMEOUT-60}
-APP_ROOT=<%= current_path %>
-PID=<%= unicorn_pid %>
-CMD="cd <%= current_path %>; APN_CERT=/etc/ssl/certs/ios_push_aps_development.pem bundle exec unicorn -D -c <%= unicorn_config %> -E production"
-AS_USER=<%= unicorn_user %>
+APP_ROOT=<%= fetch(:deploy_to) %>/current
+PID=<%= fetch(:unicorn_pid) %>
+CMD="cd <%= fetch(:deploy_to) %>/current; APN_CERT=/etc/ssl/certs/ios_push_aps_development.pem bundle exec unicorn -D -c <%= fetch(:unicorn_config) %> -E production"
+AS_USER=rails-deploy
 set -u
 
 OLD_PIN="$PID.oldbin"

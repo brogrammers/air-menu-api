@@ -1,24 +1,50 @@
-require 'bundler/capistrano'
-
-load "config/recipes/base"
-load "config/recipes/nginx"
-load "config/recipes/unicorn"
-load "config/recipes/postgres"
-load "config/recipes/rake"
-
-server 'air-menu.com', :web, :app, :db, primary: true
+# config valid only for Capistrano 3.1
+lock '3.1.0'
 
 set :application, 'air-menu-api'
+set :repo_url, "git@github.com:brogrammers/#{fetch(:application)}.git"
+set :deploy_user, 'rails-deploy'
 set :user, 'rails-deploy'
-set :deploy_to, "/home/#{user}/#{application}"
-set :deploy_via, :remote_cache
+
+set :config, {
+    :nginx => 'nginx.conf',
+    :init => 'init.sh',
+    :unicorn => 'unicorn.rb',
+    :postgres => 'postgres.yml'
+}
+
+# Default branch is :master
+# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+
+# Default deploy_to directory is /var/www/my_app
+
+# Default value for :scm is :git
+set :scm, :git
+
+# Default value for :format is :pretty
+# set :format, :pretty
+
+# Default value for :log_level is :debug
+set :log_level, :debug
+
+# Default value for :pty is false
+set :pty, true
 set :use_sudo, false
 
-set :scm, 'git'
-set :repository, "git@github.com:brogrammers/#{application}.git"
-set :branch, "master"
+# Default value for :linked_files is []
+# set :linked_files, %w{config/database.yml}
 
-default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
+# Default value for linked_dirs is []
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-after "deploy", "deploy:cleanup"
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+# Default value for keep_releases is 5
+set :keep_releases, 5
+
+namespace :deploy do
+
+
+
+end

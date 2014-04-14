@@ -1,0 +1,47 @@
+set :postgresql_host, 'localhost'
+set :postgresql_user, 'airmenu'
+set :postgresql_password, YAML.load_file('config/secrets.yml')['postgres_password']
+set :postgresql_database, 'airmenu'
+namespace :postgresql do
+  desc 'Create a database and user for this application.'
+  task :create_database do
+    on roles(:all) do
+      sudo "-u postgres psql -c \"create user #{fetch(:postgresql_user)} with password '#{fetch(:postgresql_password)}';\""
+      sudo "-u postgres psql -c \"create database #{fetch(:postgresql_database)} owner #{fetch(:postgresql_user)};\""
+    end
+  end
+
+  desc 'Drop a database for this application.'
+  task :drop_database do
+    on roles(:all) do
+      sudo "-u postgres psql -c \"drop database if exists #{fetch(:postgresql_database)};\""
+      sudo "-u postgres psql -c \"drop user #{fetch(:postgresql_user)};\""
+    end
+  end
+
+  desc 'Generate the database.yml configuration file.'
+  task :setup do
+    on roles(:all) do
+      config = fetch(:config)[:postgres]
+      smart_template config
+    end
+  end
+  after 'deploy:setup', 'postgresql:setup'
+
+  desc 'Fill Database with base data'
+  task :fill do
+    on roles(:all) do
+      execute "cd #{release_path}; RAILS_ENV=production bundle exec rake db:fill"
+    end
+  end
+  after 'deploy:migrate', 'postgresql:fill'
+
+  desc 'Symlink the database.yml file into latest release'
+  task :symlink do
+    on roles(:all) do
+      execute "rm #{release_path}/config/database.yml"
+      execute "cp #{fetch(:deploy_to)}/shared/config/postgres.yml #{release_path}/config/database.yml"
+    end
+  end
+  before 'deploy:compile_assets', 'postgresql:symlink'
+end

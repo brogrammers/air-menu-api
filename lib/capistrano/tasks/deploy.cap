@@ -1,0 +1,8 @@
+namespace :deploy do
+  desc "Setup deployment"
+  task :setup do
+    on roles(:all) do
+      execute :mkdir, "-p #{shared_path}/config"
+    end
+  end
+end

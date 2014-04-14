@@ -1,0 +1,8 @@
+working_directory "<%= fetch(:unicorn_dir) %>"
+pid "<%= fetch(:unicorn_pid) %>"
+stderr_path "<%= fetch(:unicorn_log) %>"
+stdout_path "<%= fetch(:unicorn_log) %>"
+
+worker_processes <%= fetch(:unicorn_workers) %>
+listen "/tmp/unicorn.<%= fetch(:full_app_name) %>.sock"
+timeout 30

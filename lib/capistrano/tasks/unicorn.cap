@@ -1,0 +1,30 @@
+namespace :unicorn do
+  desc 'Setup Unicorn initializer and app configuration'
+  task :setup do
+    set :unicorn_user, fetch(:deploy_user)
+    set :unicorn_dir, "#{fetch(:deploy_to)}/current"
+    set :unicorn_pid, "#{fetch(:deploy_to)}/current/tmp/pids/unicorn.pid"
+    set :unicorn_config, "#{fetch(:deploy_to)}/shared/config/unicorn.rb"
+    set :unicorn_log, "#{fetch(:deploy_to)}/shared/log/unicorn.log"
+    set :unicorn_workers, fetch(:workers)
+    on roles(:all) do
+      [fetch(:config)[:unicorn], fetch(:config)[:init]].each do |config|
+        smart_template config
+      end
+      execute :chmod, "+x #{fetch(:deploy_to)}/shared/config/#{fetch(:config)[:init]}"
+      sudo "mv #{fetch(:deploy_to)}/shared/config/#{fetch(:config)[:init]} /etc/init.d/#{fetch(:full_app_name)}"
+      sudo "update-rc.d -f #{fetch(:full_app_name)} defaults"
+    end
+  end
+  after 'deploy:setup', 'unicorn:setup'
+
+  %w[start stop restart].each do |command|
+    desc "#{command} unicorn"
+    task command do
+      on roles(:all) do
+        sudo "service #{fetch(:full_app_name)} #{command}"
+      end
+    end
+  end
+  after 'deploy:finished', 'unicorn:restart'
+end
