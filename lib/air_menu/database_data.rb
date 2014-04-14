@@ -255,12 +255,15 @@ DATABASE_TABLES = {
       {
           :name => 'Fritz Blah',
           :staff_kind_id => 1,
-          :restaurant_id => 1
+          :restaurant_id => 1,
+          :device_id => 1
       },
       {
           :name => 'Emma Blah',
           :staff_kind_id => 2,
-          :restaurant_id => 1
+          :restaurant_id => 1,
+          :device_id => 2,
+          :group_id => 1
       },
       {
           :name => 'Patrick Blah',
@@ -312,6 +315,13 @@ DATABASE_TABLES = {
       {
           :name => 'Kitchen',
           :restaurant_id => 2
+      }
+  ],
+
+  :group => [
+      {
+          :name => 'Waiters',
+          :restaurant_id => 1
       }
   ],
 
@@ -487,6 +497,25 @@ DATABASE_TABLES = {
           :menu_item_id => 10,
           :count => 1,
           :state_cd => 0
+      }
+  ],
+
+  :device => [
+      {
+          :name => 'Waiter Phone',
+          :uuid => 'iw47b8gr376wefbr8764grb78wg94n8r7ngesdfw',
+          :token => 'ysidf85sad76f2oq3gr6we84732423892b34234',
+          :platform => 'ios',
+          :notifiable_id => 1,
+          :notifiable_type => 'Restaurant'
+      },
+      {
+          :name => 'Bar Phone',
+          :uuid => 'iw47b8gr376wefbr8764grb78wg94n8r7ngesdfw',
+          :token => 'ysidf85sad76f2oq3gr6we84732423892b34234',
+          :platform => 'ios',
+          :notifiable_id => 1,
+          :notifiable_type => 'Restaurant'
       }
   ],
 

@@ -1,5 +1,8 @@
 {
   "groups": [
-
+    {
+      "id": 1,
+      "name": "Waiters"
+    }
   ]
 }

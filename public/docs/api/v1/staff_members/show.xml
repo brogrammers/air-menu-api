@@ -14,5 +14,11 @@
     <id type="integer">1</id>
     <name>The Church</name>
   </restaurant>
-  <device nil="true"/>
+  <device>
+    <id type="integer">1</id>
+    <uuid>iw47b8gr376wefbr8764grb78wg94n8r7ngesdfw</uuid>
+    <token>ysidf85sad76f2oq3gr6we84732423892b34234</token>
+    <platform>ios</platform>
+  </device>
+  <group nil="true"/>
 </staff-member>

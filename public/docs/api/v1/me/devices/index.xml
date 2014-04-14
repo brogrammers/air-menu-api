@@ -2,16 +2,16 @@
 <devices type="array">
   <device>
     <id type="integer">1</id>
-    <name nil="true"/>
-    <uuid>99713c381122899b2fe064e66a4a5200c9c2ca15</uuid>
-    <token>bc710230d1c0738921bbadce81000d9ccc0babcad877d0b7555820e230568cbb</token>
+    <name>Waiter Phone</name>
+    <uuid>iw47b8gr376wefbr8764grb78wg94n8r7ngesdfw</uuid>
+    <token>ysidf85sad76f2oq3gr6we84732423892b34234</token>
     <platform>ios</platform>
   </device>
   <device>
     <id type="integer">2</id>
-    <name nil="true"/>
-    <uuid nil="true"/>
-    <token>bc710230d1c0738921bbadce81000d9ccc0babcad877d0b7555820e230568cbb</token>
-    <platform nil="true"/>
+    <name>Bar Phone</name>
+    <uuid>iw47b8gr376wefbr8764grb78wg94n8r7ngesdfw</uuid>
+    <token>ysidf85sad76f2oq3gr6we84732423892b34234</token>
+    <platform>ios</platform>
   </device>
 </devices>

@@ -3,6 +3,6 @@
   <token>63d1ebd19ebc0b952009f4e155d3bfb404612e3c2b36fc034a30924787ec93af</token>
   <refresh-token>e96f304cef585d81eff35d34501bdf25b035c94dc8f325412a9fc23a184dbb65</refresh-token>
   <token-type>bearer</token-type>
-  <expires-in-seconds type="integer">5382</expires-in-seconds>
+  <expires-in-seconds type="integer">3026</expires-in-seconds>
   <scopes type="Doorkeeper::OAuth::Scopes">user basic owner admin</scopes>
 </access-token>

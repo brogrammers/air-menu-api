@@ -1,7 +1,7 @@
 class StaffMember < ActiveRecord::Base
   has_one :identity, :as => :identifiable
   has_many :notifications, :as => :remindable
-  has_many :devices, :as => :notifiable
+  belongs_to :device
   belongs_to :restaurant
   belongs_to :staff_kind
   belongs_to :group

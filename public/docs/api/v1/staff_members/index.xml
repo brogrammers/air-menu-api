@@ -15,7 +15,13 @@
       <id type="integer">1</id>
       <name>The Church</name>
     </restaurant>
-    <device nil="true"/>
+    <device>
+      <id type="integer">1</id>
+      <uuid>iw47b8gr376wefbr8764grb78wg94n8r7ngesdfw</uuid>
+      <token>ysidf85sad76f2oq3gr6we84732423892b34234</token>
+      <platform>ios</platform>
+    </device>
+    <group nil="true"/>
   </staff-member>
   <staff-member>
     <id type="integer">2</id>
@@ -32,7 +38,16 @@
       <id type="integer">1</id>
       <name>The Church</name>
     </restaurant>
-    <device nil="true"/>
+    <device>
+      <id type="integer">2</id>
+      <uuid>iw47b8gr376wefbr8764grb78wg94n8r7ngesdfw</uuid>
+      <token>ysidf85sad76f2oq3gr6we84732423892b34234</token>
+      <platform>ios</platform>
+    </device>
+    <group>
+      <id type="integer">1</id>
+      <name>Waiters</name>
+    </group>
   </staff-member>
   <staff-member>
     <id type="integer">3</id>
@@ -50,5 +65,6 @@
       <name>The Church</name>
     </restaurant>
     <device nil="true"/>
+    <group nil="true"/>
   </staff-member>
 </staff-members>

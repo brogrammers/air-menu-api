@@ -33,9 +33,11 @@ module Api
       api :GET, '/staff_members/:id', 'Get a staff member in the system'
       description 'Gets a staff member in the system. ||admin owner get_staff_members||'
       formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/staff_kinds/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/staff_kinds/show.xml")
+      example File.read("#{Rails.root}/public/docs/api/v1/staff_members/show.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/staff_members/show.xml")
       def show
+        puts @staff_member.device
+        puts @staff_member.device.class
         respond_with @staff_member
       end
 

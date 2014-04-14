@@ -2,17 +2,17 @@
   "devices": [
     {
       "id": 1,
-      "name": null,
-      "uuid": "99713c381122899b2fe064e66a4a5200c9c2ca15",
-      "token": "bc710230d1c0738921bbadce81000d9ccc0babcad877d0b7555820e230568cbb",
+      "name": "Waiter Phone",
+      "uuid": "iw47b8gr376wefbr8764grb78wg94n8r7ngesdfw",
+      "token": "ysidf85sad76f2oq3gr6we84732423892b34234",
       "platform": "ios"
     },
     {
       "id": 2,
-      "name": null,
-      "uuid": null,
-      "token": "bc710230d1c0738921bbadce81000d9ccc0babcad877d0b7555820e230568cbb",
-      "platform": null
+      "name": "Bar Phone",
+      "uuid": "iw47b8gr376wefbr8764grb78wg94n8r7ngesdfw",
+      "token": "ysidf85sad76f2oq3gr6we84732423892b34234",
+      "platform": "ios"
     }
   ]
 }

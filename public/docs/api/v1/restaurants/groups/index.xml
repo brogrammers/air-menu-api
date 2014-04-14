@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<groups type="array"/>
+<groups type="array">
+  <group>
+    <id type="integer">1</id>
+    <name>Waiters</name>
+  </group>
+</groups>

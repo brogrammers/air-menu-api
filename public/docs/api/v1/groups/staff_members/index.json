@@ -3,12 +3,22 @@
     {
       "id": 1,
       "name": "Fritz Blah",
-      "device": null
+      "device": {
+        "id": 1,
+        "uuid": "iw47b8gr376wefbr8764grb78wg94n8r7ngesdfw",
+        "token": "ysidf85sad76f2oq3gr6we84732423892b34234",
+        "platform": "ios"
+      }
     },
     {
       "id": 2,
       "name": "Emma Blah",
-      "device": null
+      "device": {
+        "id": 2,
+        "uuid": "iw47b8gr376wefbr8764grb78wg94n8r7ngesdfw",
+        "token": "ysidf85sad76f2oq3gr6we84732423892b34234",
+        "platform": "ios"
+      }
     },
     {
       "id": 3,
