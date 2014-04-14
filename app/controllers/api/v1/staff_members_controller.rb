@@ -36,8 +36,6 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/staff_members/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/staff_members/show.xml")
       def show
-        puts @staff_member.device
-        puts @staff_member.device.class
         respond_with @staff_member
       end
 

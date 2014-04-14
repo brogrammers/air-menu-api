@@ -4,6 +4,7 @@ require 'json'
 namespace :apipie do
   desc "Generate example responses"
   task :generate_examples => :environment do
+    FileUtils.rm_rf('public/docs')
     Dir.glob('app/views/**/*').each do |file|
       match = file.match(/(create|index|show|update|destroy)/)
       if match
