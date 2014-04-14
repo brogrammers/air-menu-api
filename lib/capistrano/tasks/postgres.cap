@@ -1,13 +1,11 @@
 set :postgresql_host, 'localhost'
-set :postgresql_user, 'airmenu'
 set :postgresql_password, YAML.load_file('config/secrets.yml')['postgres_password'] rescue ''
-set :postgresql_database, 'airmenu'
 namespace :postgresql do
   desc 'Create a database and user for this application.'
   task :create_database do
     on roles(:all) do
-      sudo "-u postgres psql -c \"create user #{fetch(:postgresql_user)} with password '#{fetch(:postgresql_password)}';\""
-      sudo "-u postgres psql -c \"create database #{fetch(:postgresql_database)} owner #{fetch(:postgresql_user)};\""
+      sudo "-u postgres psql -c \"create user #{fetch(:postgresql_database)} with password '#{fetch(:postgresql_password)}';\""
+      sudo "-u postgres psql -c \"create database #{fetch(:postgresql_database)} owner #{fetch(:postgresql_database)};\""
     end
   end
 
@@ -15,7 +13,7 @@ namespace :postgresql do
   task :drop_database do
     on roles(:all) do
       sudo "-u postgres psql -c \"drop database if exists #{fetch(:postgresql_database)};\""
-      sudo "-u postgres psql -c \"drop user #{fetch(:postgresql_user)};\""
+      sudo "-u postgres psql -c \"drop user if exists #{fetch(:postgresql_database)};\""
     end
   end
 

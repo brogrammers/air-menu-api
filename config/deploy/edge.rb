@@ -44,6 +44,8 @@ set :deploy_to, "/home/#{fetch(:deploy_user)}/#{fetch(:application)}/#{fetch(:en
 set :full_app_name, "#{fetch(:application)}_#{fetch(:env_name)}"
 set :rails_env, :production
 
+set :postgresql_database, "airmenu_#{fetch(:env_name)}"
+
 set(:symlinks, {
     :nginx => {
         source: "nginx.conf",
