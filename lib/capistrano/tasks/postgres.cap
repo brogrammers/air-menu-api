@@ -1,6 +1,6 @@
 set :postgresql_host, 'localhost'
 set :postgresql_user, 'airmenu'
-set :postgresql_password, YAML.load_file('config/secrets.yml')['postgres_password']
+set :postgresql_password, YAML.load_file('config/secrets.yml')['postgres_password'] rescue ''
 set :postgresql_database, 'airmenu'
 namespace :postgresql do
   desc 'Create a database and user for this application.'
@@ -26,7 +26,6 @@ namespace :postgresql do
       smart_template config
     end
   end
-  after 'deploy:setup', 'postgresql:setup'
 
   desc 'Fill Database with base data'
   task :fill do
@@ -34,7 +33,6 @@ namespace :postgresql do
       execute "cd #{release_path}; RAILS_ENV=production bundle exec rake db:fill"
     end
   end
-  after 'deploy:migrate', 'postgresql:fill'
 
   desc 'Symlink the database.yml file into latest release'
   task :symlink do
@@ -43,5 +41,4 @@ namespace :postgresql do
       execute "cp #{fetch(:deploy_to)}/shared/config/postgres.yml #{release_path}/config/database.yml"
     end
   end
-  before 'deploy:compile_assets', 'postgresql:symlink'
 end

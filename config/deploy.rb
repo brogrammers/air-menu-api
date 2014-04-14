@@ -48,3 +48,11 @@ namespace :deploy do
 
 
 end
+
+after 'nginx:setup', 'nginx:restart'
+after 'deploy:setup', 'nginx:setup'
+after 'deploy:finished', 'unicorn:restart'
+after 'deploy:setup', 'unicorn:setup'
+after 'deploy:setup', 'postgresql:setup'
+after 'deploy:migrate', 'postgresql:fill'
+before 'deploy:compile_assets', 'postgresql:symlink'

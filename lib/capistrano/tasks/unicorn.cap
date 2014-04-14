@@ -16,7 +16,6 @@ namespace :unicorn do
       sudo "update-rc.d -f #{fetch(:full_app_name)} defaults"
     end
   end
-  after 'deploy:setup', 'unicorn:setup'
 
   %w[start stop restart].each do |command|
     desc "#{command} unicorn"
@@ -26,5 +25,4 @@ namespace :unicorn do
       end
     end
   end
-  after 'deploy:finished', 'unicorn:restart'
 end

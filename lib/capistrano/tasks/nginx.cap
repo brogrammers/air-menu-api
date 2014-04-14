@@ -8,7 +8,6 @@ namespace :nginx do
       sudo "ln -nfs #{shared_path}/config/#{symlink[:source]} #{sub_strings(symlink[:link])}"
     end
   end
-  after 'deploy:setup', 'nginx:setup'
 
   %w[start stop restart].each do |command|
     desc "#{command} unicorn"
@@ -18,5 +17,4 @@ namespace :nginx do
       end
     end
   end
-  after 'nginx:setup', 'nginx:restart'
 end
