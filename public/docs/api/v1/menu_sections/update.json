@@ -1,0 +1,11 @@
+{
+  "menu_section": {
+    "id": 1,
+    "name": "Main Foods",
+    "description": "All our main dishes",
+    "staff_kind": {
+      "id": 2,
+      "name": "Waitress"
+    }
+  }
+}
