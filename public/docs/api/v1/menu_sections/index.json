@@ -3,17 +3,23 @@
     {
       "id": 1,
       "name": "Main Foods",
-      "description": "All our main dishes"
+      "description": "All our main dishes",
+      "staff_kind": {
+        "id": 2,
+        "name": "Waitress"
+      }
     },
     {
       "id": 2,
       "name": "Alcoholic Drinks",
-      "description": "Our list of Wines, Beers & Spirits"
+      "description": "Our list of Wines, Beers & Spirits",
+      "staff_kind": null
     },
     {
       "id": 3,
       "name": "Some Menu Section",
-      "description": "blah"
+      "description": "blah",
+      "staff_kind": null
     }
   ]
 }

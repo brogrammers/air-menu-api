@@ -344,7 +344,8 @@ DATABASE_TABLES = {
       {
           :name => 'Main Foods',
           :description => 'All our main dishes',
-          :menu_id => 1
+          :menu_id => 1,
+          :staff_kind_id => 2
       },
       {
           :name => 'Alcoholic Drinks',

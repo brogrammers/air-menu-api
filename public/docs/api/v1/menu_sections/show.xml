@@ -3,4 +3,8 @@
   <id type="integer">1</id>
   <name>Main Foods</name>
   <description>All our main dishes</description>
+  <staff-kind>
+    <id type="integer">2</id>
+    <name>Waitress</name>
+  </staff-kind>
 </menu-section>
