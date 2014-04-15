@@ -48,6 +48,7 @@ Doorkeeper.configure do
                   :add_menus,
                   :add_active_menus,
                   :update_menus,
+                  :delete_menus,
                   :get_current_orders,
                   :add_orders,
                   :update_orders,

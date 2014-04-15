@@ -363,7 +363,7 @@ describe Api::V1::MenuItemsController do
 
           end
 
-          describe 'on an active menu item' do
+          describe 'on an inactive menu item' do
 
             before :each do
               put :update, :id => 2, :name => 'new name', :description => 'new description', :price => 23.14, :currency => 'EUR', :staff_kind_id => 1
@@ -392,6 +392,146 @@ describe Api::V1::MenuItemsController do
 
           before :each do
             put :update, :id => 1, :name => 'new name', :description => 'new description', :price => 23.14, :currency => 'EUR', :staff_kind_id => 1
+          end
+
+          it 'should respond with a HTTP 404 status code' do
+            expect(response).to be_not_found
+            expect(response.status).to eq(404)
+          end
+
+          it 'should changed the menu item attributes' do
+            body = JSON.parse(response.body) rescue { }
+            expect(body['error']['code']).to eq('model_not_found')
+            expect(body['error']['model']).to eq('MenuItem')
+          end
+
+        end
+
+      end
+
+    end
+
+  end
+
+  describe 'DELETE #destroy' do
+
+    describe 'on existing menu item' do
+
+      describe 'as an owner' do
+        let(:owner_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
+
+        describe 'owning the menu item' do
+          let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope, :revoked? => false, :expired? => false }
+
+          describe 'on an active menu item' do
+
+            before :each do
+              delete :destroy, :id => 1
+            end
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+            it 'should delete the menu item' do
+              body = JSON.parse(response.body) rescue { }
+              expect { MenuItem.find body['menu_item']['id'] }.to raise_error
+            end
+
+          end
+
+          describe 'on an inactive menu item' do
+
+            before :each do
+              delete :destroy, :id => 2
+            end
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+            it 'should delete the menu item' do
+              body = JSON.parse(response.body) rescue { }
+              expect { MenuItem.find body['menu_item']['id'] }.to raise_error
+            end
+
+          end
+
+        end
+
+        describe 'not owning the menu item' do
+          let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => owner_scope, :revoked? => false, :expired? => false }
+
+          before :each do
+            delete :destroy, :id => 1
+          end
+
+          it 'should respond with a HTTP 404 status code' do
+            expect(response).to be_not_found
+            expect(response.status).to eq(404)
+          end
+
+          it 'should changed the menu items attributes' do
+            body = JSON.parse(response.body) rescue { }
+            expect(body['error']['code']).to eq('model_not_found')
+            expect(body['error']['model']).to eq('MenuItem')
+          end
+
+        end
+
+      end
+
+      describe 'as a staff member' do
+        let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['delete_menus'] }
+
+        describe 'owning the menu item' do
+          let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
+
+          describe 'on an active menu item' do
+
+            before :each do
+              delete :destroy, :id => 1
+            end
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+            it 'should delete the menu item' do
+              body = JSON.parse(response.body) rescue { }
+              expect { MenuItem.find body['menu_item']['id'] }.to raise_error
+            end
+
+          end
+
+          describe 'on an inactive menu item' do
+
+            before :each do
+              delete :destroy, :id => 2
+            end
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+            it 'should delete the menu item' do
+              body = JSON.parse(response.body) rescue { }
+              expect { MenuItem.find body['menu_item']['id'] }.to raise_error
+            end
+
+          end
+
+        end
+
+        describe 'not owning the menu item' do
+          let(:token) { double :accessible? => true, :resource_owner_id => 10, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
+
+          before :each do
+            delete :destroy, :id => 1
           end
 
           it 'should respond with a HTTP 404 status code' do

@@ -6,10 +6,10 @@ module Api
       doorkeeper_for :show, :scopes => [:admin, :basic, :user]
       doorkeeper_for :update, :scopes => [:admin, :owner, :update_menus]
 
-      before_filter :set_menu_item, :only => [:show, :update]
+      before_filter :set_menu_item, :only => [:show, :update, :destroy]
       before_filter :set_staff_kind, :only => [:update]
-      before_filter :check_ownership, :only => [:update]
-      before_filter :check_active_menu_item, :only => [:show, :update]
+      before_filter :check_ownership, :only => [:update, :destroy]
+      before_filter :check_active_menu_item, :only => [:show, :update, :destroy]
 
       resource_description do
         name 'Menu Items'
@@ -42,7 +42,7 @@ module Api
       end
 
       api :PUT, '/menu_items/:id', 'Update a menu item in the system'
-      description 'Updates a menu item in the system. ||admin basic user||'
+      description 'Updates a menu item in the system. ||admin basic update_menus||'
       formats [:json, :xml]
       param :name, String, :desc => 'Name of Menu Item'
       param :description, String, :desc => 'Description of Menu Item'
@@ -58,6 +58,16 @@ module Api
         @menu_item.currency = params[:currency] || @menu_item.currency
         @menu_item.staff_kind = @staff_kind if @staff_kind
         @menu_item.save!
+        respond_with @menu_item
+      end
+
+      api :DELETE, '/menu_items/:id', 'Delete a menu item in the system'
+      description 'Deletes a menu item in the system. ||admin basic delete_menus||'
+      formats [:json, :xml]
+      example File.read("#{Rails.root}/public/docs/api/v1/menu_items/destroy.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/menu_items/destroy.xml")
+      def destroy
+        @menu_item.destroy
         respond_with @menu_item
       end
 
