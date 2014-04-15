@@ -4,9 +4,10 @@ module Api
 
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :owner, :get_groups]
+      doorkeeper_for :update, :scopes => [:admin, :owner, :update_groups]
 
-      before_filter :set_group, :only => [:show]
-      before_filter :check_ownership, :only => [:show]
+      before_filter :set_group, :only => [:show, :update]
+      before_filter :check_ownership, :only => [:show, :update]
 
       resource_description do
         name 'Groups'
@@ -36,6 +37,18 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/groups/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/groups/show.xml")
       def show
+        respond_with @group
+      end
+
+      api :PUT, '/groups/:id', 'Update a group in the system'
+      description 'Updates a group in the system. ||admin owner update_groups||'
+      formats [:json, :xml]
+      param :name, String, 'Group name'
+      example File.read("#{Rails.root}/public/docs/api/v1/groups/update.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/groups/update.xml")
+      def update
+        @group.name = params[:name] || @group.name
+        @group.save!
         respond_with @group
       end
 
