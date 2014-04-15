@@ -61,8 +61,8 @@ module Api
       api :DELETE, '/menu_sections/:id', 'Delete a menu section in the system'
       description 'Deletes a menu section in the system. ||admin owner delete_menus||'
       formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/update.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/update.xml")
+      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/destroy.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/destroy.xml")
       def destroy
         @menu_section.destroy
         respond_with @menu_section
