@@ -4,6 +4,10 @@
     "name": "Beef Burger",
     "description": "Beef Burger with a small side salad.",
     "price": 12.9,
-    "currency": "EUR"
+    "currency": "EUR",
+    "staff_kind": {
+      "id": 3,
+      "name": "Kitchen Staff"
+    }
   }
 }

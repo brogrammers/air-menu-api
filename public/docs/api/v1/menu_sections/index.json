@@ -13,7 +13,10 @@
       "id": 2,
       "name": "Alcoholic Drinks",
       "description": "Our list of Wines, Beers & Spirits",
-      "staff_kind": null
+      "staff_kind": {
+        "id": 3,
+        "name": "Kitchen Staff"
+      }
     },
     {
       "id": 3,

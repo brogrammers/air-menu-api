@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(:version => 20140415000254) do
     t.integer  "menu_section_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.integer  "staff_kind_id"
   end
 
   create_table "menu_sections", :force => true do |t|

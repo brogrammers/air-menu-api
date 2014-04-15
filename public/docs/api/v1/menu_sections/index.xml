@@ -13,7 +13,10 @@
     <id type="integer">2</id>
     <name>Alcoholic Drinks</name>
     <description>Our list of Wines, Beers &amp; Spirits</description>
-    <staff-kind nil="true"/>
+    <staff-kind>
+      <id type="integer">3</id>
+      <name>Kitchen Staff</name>
+    </staff-kind>
   </menu-section>
   <menu-section>
     <id type="integer">3</id>

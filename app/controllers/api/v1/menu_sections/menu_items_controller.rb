@@ -9,6 +9,7 @@ module Api
         before_filter :set_menu_section, :only => [:index, :create]
         before_filter :check_active_menu_section, :only => [:index, :create]
         before_filter :check_ownership, :only => [:create]
+        before_filter :set_staff_kind, :only => [:create]
 
         resource_description do
           name 'Menu Sections > Menu Items'
@@ -38,6 +39,7 @@ module Api
         param :description, String, :desc => 'Description of Menu Item', :required => true
         param :price, Float, :desc => 'Price of Menu Item', :required => true
         param :currency, ['EUR'], :desc => 'Currency of Menu Item', :required => true
+        param :staff_kind_id, String, :desc => 'Staff Kind handling this menu section'
         example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/create.json")
         example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/create.xml")
         def create
@@ -47,6 +49,7 @@ module Api
           @menu_item.price = params[:price]
           @menu_item.currency = params[:currency]
           @menu_item.menu_section = @menu_section
+          @menu_item.staff_kind = @staff_kind if @staff_kind
           @menu_section.menu_items << @menu_item
           @menu_item.save!
           respond_with @menu_item, :status => :created
@@ -58,6 +61,12 @@ module Api
           @menu_section = MenuSection.find params[:menu_section_id]
         rescue ActiveRecord::RecordNotFound
           render_model_not_found 'MenuSection'
+        end
+
+        def set_staff_kind
+          @staff_kind = StaffKind.find params[:staff_kind_id]
+        rescue ActiveRecord::RecordNotFound
+
         end
 
         def check_active_menu_section

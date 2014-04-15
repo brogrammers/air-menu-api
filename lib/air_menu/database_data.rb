@@ -350,7 +350,8 @@ DATABASE_TABLES = {
       {
           :name => 'Alcoholic Drinks',
           :description => 'Our list of Wines, Beers & Spirits',
-          :menu_id => 1
+          :menu_id => 1,
+          :staff_kind_id => 3
       },
       {
           :name => 'Some Menu Section',
@@ -375,14 +376,16 @@ DATABASE_TABLES = {
           :description => 'Beef Burger with a small side salad.',
           :price => 12.90,
           :currency => 'EUR',
-          :menu_section_id => 1
+          :menu_section_id => 1,
+          :staff_kind_id => 3
       },
       {
           :name => 'Corona',
           :description => '0.5',
           :price => 5.70,
           :currency => 'EUR',
-          :menu_section_id => 2
+          :menu_section_id => 2,
+          :staff_kind_id => 3
       },
       {
           :name => 'Corona Light',
