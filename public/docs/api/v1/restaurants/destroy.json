@@ -1,0 +1,27 @@
+{
+  "restaurant": {
+    "id": 1,
+    "name": "The Church",
+    "loyalty": false,
+    "remote_order": false,
+    "conversion_rate": 0.0,
+    "address": {
+      "id": 3,
+      "address_1": "Junction of Mary St",
+      "address_2": "Jervis St",
+      "city": "Dublin",
+      "county": "Dublin",
+      "state": null,
+      "country": "Ireland"
+    },
+    "menu": {
+      "id": 3,
+      "name": "Main Menu"
+    },
+    "location": {
+      "id": 2,
+      "longitude": 59.23454,
+      "latitude": 59.23454
+    }
+  }
+}

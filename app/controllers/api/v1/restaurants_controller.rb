@@ -5,9 +5,10 @@ module Api
       doorkeeper_for :index, :scopes => [:admin, :user]
       doorkeeper_for :show, :scopes => [:admin, :user]
       doorkeeper_for :update, :scopes => [:admin, :owner]
+      doorkeeper_for :destroy, :scopes => [:admin, :owner]
 
-      before_filter :set_restaurant, :only => [:show, :update]
-      before_filter :check_ownership, :only => [:update]
+      before_filter :set_restaurant, :only => [:show, :update, :destroy]
+      before_filter :check_ownership, :only => [:update, :destroy]
 
       resource_description do
         name 'Restaurants'
@@ -48,7 +49,7 @@ module Api
       end
 
       api :PUT, '/restaurants/:id', 'Get a Restaurant profile'
-      description 'Fetches a restaurant profile. ||admin ownere||'
+      description 'Fetches a restaurant profile. ||admin owner||'
       formats [:json, :xml]
       param :name, String, :desc => "New Restaurant Name"
       param :address_1, String, :desc => "New Restaurant address line 1"
@@ -74,6 +75,16 @@ module Api
         @restaurant.address.save!
         @restaurant.location.save! if @restaurant.location
         @restaurant.save!
+        respond_with @restaurant
+      end
+
+      api :DELETE, '/restaurants/:id', 'Delete a Restaurant profile'
+      description 'Deletes a restaurant profile. ||admin owner||'
+      formats [:json, :xml]
+      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/update.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/update.xml")
+      def destroy
+        @restaurant.destroy
         respond_with @restaurant
       end
 
