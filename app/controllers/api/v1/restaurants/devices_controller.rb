@@ -36,7 +36,7 @@ module Api
         formats [:json, :xml]
         param :name, String, 'Device name', :required => true
         param :uuid, String, 'Device UUID', :required => true
-        param :token, String, 'Device token', :required => true
+        param :token, String, 'Device token'
         param :platform, [:ios], 'Device platform (currently only iOS)', :required => true
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/devices/create.json")
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/devices/create.xml")
