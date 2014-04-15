@@ -5,11 +5,12 @@ module Api
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :basic, :user]
       doorkeeper_for :update, :scopes => [:admin, :owner, :update_menus]
+      doorkeeper_for :destroy, :scopes => [:admin, :owner, :delete_menus]
 
-      before_filter :set_menu_section, :only => [:update, :show]
+      before_filter :set_menu_section, :only => [:show, :update, :destroy]
       before_filter :set_staff_kind, :only => [:update]
-      before_filter :check_ownership, :only => [:update]
-      before_filter :check_active_menu_section, :only => [:show, :update]
+      before_filter :check_ownership, :only => [:update, :destroy]
+      before_filter :check_active_menu_section, :only => [:show, :update, :destroy]
 
       resource_description do
         name 'Menu Sections'
@@ -54,6 +55,16 @@ module Api
         @menu_section.description = params[:description] || @menu_sections.description
         @menu_section.staff_kind = @staff_kind
         @menu_section.save!
+        respond_with @menu_section
+      end
+
+      api :DELETE, '/menu_sections/:id', 'Delete a menu section in the system'
+      description 'Deletes a menu section in the system. ||admin owner delete_menus||'
+      formats [:json, :xml]
+      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/update.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/update.xml")
+      def destroy
+        @menu_section.destroy
         respond_with @menu_section
       end
 

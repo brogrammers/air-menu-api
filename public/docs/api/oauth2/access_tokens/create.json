@@ -3,7 +3,7 @@
     "token": "63d1ebd19ebc0b952009f4e155d3bfb404612e3c2b36fc034a30924787ec93af",
     "refresh_token": "e96f304cef585d81eff35d34501bdf25b035c94dc8f325412a9fc23a184dbb65",
     "token_type": "bearer",
-    "expires_in_seconds": 3026,
+    "expires_in_seconds": 0,
     "scopes": [
       "user",
       "basic",
