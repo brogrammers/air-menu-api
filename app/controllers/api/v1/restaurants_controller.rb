@@ -4,8 +4,10 @@ module Api
 
       doorkeeper_for :index, :scopes => [:admin, :user]
       doorkeeper_for :show, :scopes => [:admin, :user]
+      doorkeeper_for :update, :scopes => [:admin, :owner]
 
-      before_filter :set_restaurant, :only => [:show]
+      before_filter :set_restaurant, :only => [:show, :update]
+      before_filter :check_ownership, :only => [:update]
 
       resource_description do
         name 'Restaurants'
@@ -45,12 +47,46 @@ module Api
         respond_with @restaurant
       end
 
+      api :PUT, '/restaurants/:id', 'Get a Restaurant profile'
+      description 'Fetches a restaurant profile. ||admin ownere||'
+      formats [:json, :xml]
+      param :name, String, :desc => "New Restaurant Name"
+      param :address_1, String, :desc => "New Restaurant address line 1"
+      param :address_2, String, :desc => "New Restaurant address line 2"
+      param :city, String, :desc => "New Restaurant city"
+      param :county, String, :desc => "New Restaurants county"
+      param :state, String, :desc => "New Restaurants state (only US)"
+      param :country, String, :desc => "New Restaurants country"
+      param :latitude, Float, :desc => "New Restaurants latitude"
+      param :longitude, Float, :desc => "New Restaurants longitude"
+      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/update.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/update.xml")
+      def update
+        @restaurant.name = params[:name] || @restaurant.name
+        @restaurant.address.address_1 = params[:address_1] || @restaurant.address.address_1
+        @restaurant.address.address_2 = params[:address_2] || @restaurant.address.address_2
+        @restaurant.address.city = params[:city] || @restaurant.address.city
+        @restaurant.address.county = params[:county] || @restaurant.address.county
+        @restaurant.address.state = params[:state] || @restaurant.address.state
+        @restaurant.address.country = params[:country] || @restaurant.address.country
+        @restaurant.location.latitude = params[:latitude] || @restaurant.location.latitude if @restaurant.location
+        @restaurant.location.longitude = param[:longitude] || @restaurant.location.longitude if @restaurant.location
+        @restaurant.address.save!
+        @restaurant.location.save! if @restaurant.location
+        @restaurant.save!
+        respond_with @restaurant
+      end
+
       private
 
       def set_restaurant
         @restaurant = Restaurant.find params[:id]
       rescue ActiveRecord::RecordNotFound
         render_model_not_found 'Restaurant'
+      end
+
+      def check_ownership
+        render_forbidden 'ownership_failure' if not_admin_and?(!@user.owns(@restaurant))
       end
 
     end
