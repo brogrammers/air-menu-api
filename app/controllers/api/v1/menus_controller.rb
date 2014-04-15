@@ -4,9 +4,11 @@ module Api
 
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :basic, :user]
+      doorkeeper_for :delete, :scopes => [:admin, :owner, :delete_menus]
 
-      before_filter :set_menu, :only => [:show]
-      before_filter :check_active_menu, :only => [:show]
+      before_filter :set_menu, :only => [:show, :destroy]
+      before_filter :check_active_menu, :only => [:show, :destroy]
+      before_filter :check_ownership, :only => [:destroy]
 
       resource_description do
         name 'Menus'
@@ -39,12 +41,26 @@ module Api
         respond_with @menu
       end
 
+      api :DELETE, '/menus/:id', 'Get a menu in the system'
+      description 'Fetches all the menus in the system. ||admin owner delete_menus||'
+      formats [:json, :xml]
+      example File.read("#{Rails.root}/public/docs/api/v1/menus/show.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/menus/show.xml")
+      def destroy
+        @menu.destroy
+        respond_with @menu
+      end
+
       private
 
       def set_menu
         @menu = Menu.find params[:id]
       rescue ActiveRecord::RecordNotFound
         render_model_not_found 'Menu'
+      end
+
+      def check_ownership
+        render_model_not_found 'Menu' if not_admin_and?(!@user.owns(@menu))
       end
 
       def check_active_menu

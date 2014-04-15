@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+  <id type="integer">1</id>
+  <name>Main Menu</name>
+  <menu-sections type="array">
+    <menu-section>
+      <id type="integer">1</id>
+      <name>Main Foods</name>
+      <description>All our main dishes</description>
+      <menu-items type="array">
+        <menu-item>
+          <id type="integer">1</id>
+          <name>Beef Burger</name>
+          <description>Beef Burger with a small side salad.</description>
+          <price type="float">12.9</price>
+          <currency>EUR</currency>
+        </menu-item>
+      </menu-items>
+    </menu-section>
+    <menu-section>
+      <id type="integer">2</id>
+      <name>Alcoholic Drinks</name>
+      <description>Our list of Wines, Beers &amp; Spirits</description>
+      <menu-items type="array">
+        <menu-item>
+          <id type="integer">2</id>
+          <name>Corona</name>
+          <description>0.5</description>
+          <price type="float">5.7</price>
+          <currency>EUR</currency>
+        </menu-item>
+        <menu-item>
+          <id type="integer">3</id>
+          <name>Corona Light</name>
+          <description>0.5</description>
+          <price type="float">5.7</price>
+          <currency>EUR</currency>
+        </menu-item>
+        <menu-item>
+          <id type="integer">4</id>
+          <name>Blue</name>
+          <description>0.5</description>
+          <price type="float">5.7</price>
+          <currency>EUR</currency>
+        </menu-item>
+        <menu-item>
+          <id type="integer">5</id>
+          <name>Tiger</name>
+          <description>0.5</description>
+          <price type="float">5.7</price>
+          <currency>EUR</currency>
+        </menu-item>
+        <menu-item>
+          <id type="integer">6</id>
+          <name>Bam</name>
+          <description>0.5</description>
+          <price type="float">5.6</price>
+          <currency>EUR</currency>
+        </menu-item>
+      </menu-items>
+    </menu-section>
+  </menu-sections>
+</menu>
