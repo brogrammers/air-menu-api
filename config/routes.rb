@@ -49,6 +49,7 @@ AirMenuApi::Application.routes.draw do
       end
 
       resources :me, :only => [:index]
+      put 'me', :to => 'me#update'
       namespace :me do
         resources :devices, :controller => 'devices', :only => [:index, :create]
         resources :notifications, :controller => 'notifications', :only => [:index]
