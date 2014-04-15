@@ -321,7 +321,8 @@ DATABASE_TABLES = {
   :group => [
       {
           :name => 'Waiters',
-          :restaurant_id => 1
+          :restaurant_id => 1,
+          :device_id => 3
       }
   ],
 
@@ -515,8 +516,16 @@ DATABASE_TABLES = {
       },
       {
           :name => 'Bar Phone',
-          :uuid => 'iw47b8gr376wefbr8764grb78wg94n8r7ngesdfw',
-          :token => 'ysidf85sad76f2oq3gr6we84732423892b34234',
+          :uuid => 'jsdhfshdfkuhsdfkhsdkfgwye6234er23b7823942',
+          :token => 'oudsft23r92362332yewgbywet6wet67w64brwr7',
+          :platform => 'ios',
+          :notifiable_id => 1,
+          :notifiable_type => 'Restaurant'
+      },
+      {
+          :name => 'Group Phone',
+          :uuid => 'skdfgds56sdf5sdfsdf767as55as332342df4566a',
+          :token => 'ygasd4as823hg8g3846g7gwe7rgw76er76wer721',
           :platform => 'ios',
           :notifiable_id => 1,
           :notifiable_type => 'Restaurant'

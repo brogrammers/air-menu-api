@@ -3,5 +3,11 @@
   <group>
     <id type="integer">1</id>
     <name>Waiters</name>
+    <device>
+      <id type="integer">3</id>
+      <uuid>skdfgds56sdf5sdfsdf767as55as332342df4566a</uuid>
+      <token>ygasd4as823hg8g3846g7gwe7rgw76er76wer721</token>
+      <platform>ios</platform>
+    </device>
   </group>
 </groups>
