@@ -254,4 +254,152 @@ describe Api::V1::MenuSectionsController do
     end
 
   end
+
+  describe 'PUT #update' do
+
+    describe 'on existing menu section' do
+
+      describe 'as an owner' do
+        let(:owner_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
+
+        describe 'owning the menu section' do
+          let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope, :revoked? => false, :expired? => false }
+
+          describe 'on an active menu section' do
+
+            before :each do
+              put :update, :id => 1, :name => 'new name', :description => 'new description', :staff_kind_id => 1
+            end
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+            it 'should changed the menu section attributes' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['menu_section']['name']).to eq('new name')
+              expect(body['menu_section']['description']).to eq('new description')
+              expect(body['menu_section']['staff_kind'].class == Hash).to be_true
+            end
+
+          end
+
+          describe 'on an active menu section' do
+
+            before :each do
+              put :update, :id => 2, :name => 'new name', :description => 'new description', :staff_kind_id => 1
+            end
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+            it 'should changed the menu section attributes' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['menu_section']['name']).to eq('new name')
+              expect(body['menu_section']['description']).to eq('new description')
+              expect(body['menu_section']['staff_kind'].class == Hash).to be_true
+            end
+
+          end
+
+        end
+
+        describe 'not owning the menu section' do
+          let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => owner_scope, :revoked? => false, :expired? => false }
+
+          before :each do
+            put :update, :id => 1, :name => 'new name', :description => 'new description', :staff_kind_id => 1
+          end
+
+          it 'should respond with a HTTP 404 status code' do
+            expect(response).to be_not_found
+            expect(response.status).to eq(404)
+          end
+
+          it 'should changed the menu section attributes' do
+            body = JSON.parse(response.body) rescue { }
+            expect(body['error']['code']).to eq('model_not_found')
+            expect(body['error']['model']).to eq('MenuSection')
+          end
+
+        end
+
+      end
+
+      describe 'as a staff member' do
+        let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['update_menus'] }
+
+        describe 'owning the menu section' do
+          let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
+
+          describe 'on an active menu section' do
+
+            before :each do
+              put :update, :id => 1, :name => 'new name', :description => 'new description', :staff_kind_id => 1
+            end
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+            it 'should changed the menu section attributes' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['menu_section']['name']).to eq('new name')
+              expect(body['menu_section']['description']).to eq('new description')
+              expect(body['menu_section']['staff_kind'].class == Hash).to be_true
+            end
+
+          end
+
+          describe 'on an active menu section' do
+
+            before :each do
+              put :update, :id => 2, :name => 'new name', :description => 'new description', :staff_kind_id => 1
+            end
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+            it 'should changed the menu section attributes' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['menu_section']['name']).to eq('new name')
+              expect(body['menu_section']['description']).to eq('new description')
+              expect(body['menu_section']['staff_kind'].class == Hash).to be_true
+            end
+
+          end
+
+        end
+
+        describe 'not owning the menu section' do
+          let(:token) { double :accessible? => true, :resource_owner_id => 10, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
+
+          before :each do
+            put :update, :id => 1, :name => 'new name', :description => 'new description', :staff_kind_id => 1
+          end
+
+          it 'should respond with a HTTP 404 status code' do
+            expect(response).to be_not_found
+            expect(response.status).to eq(404)
+          end
+
+          it 'should changed the menu section attributes' do
+            body = JSON.parse(response.body) rescue { }
+            expect(body['error']['code']).to eq('model_not_found')
+            expect(body['error']['model']).to eq('MenuSection')
+          end
+
+        end
+
+      end
+
+    end
+
+  end
 end

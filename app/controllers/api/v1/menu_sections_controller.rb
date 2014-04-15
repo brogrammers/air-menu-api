@@ -4,9 +4,12 @@ module Api
 
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :basic, :user]
+      doorkeeper_for :update, :scopes => [:admin, :owner, :update_menus]
 
-      before_filter :set_menu_section, :only => [:show]
-      before_filter :check_active_menu_section, :only => [:show]
+      before_filter :set_menu_section, :only => [:update, :show]
+      before_filter :set_staff_kind, :only => [:update]
+      before_filter :check_ownership, :only => [:update]
+      before_filter :check_active_menu_section, :only => [:show, :update]
 
       resource_description do
         name 'Menu Sections'
@@ -29,12 +32,28 @@ module Api
         respond_with @menu_sections
       end
 
-      api :GET, '/menu_sections/:id', 'Get a menu in the system'
+      api :GET, '/menu_sections/:id', 'Get a menu section in the system'
       description 'Fetches a menu section in the system. ||admin basic user||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/show.xml")
       def show
+        respond_with @menu_section
+      end
+
+      api :PUT, '/menu_sections/:id', 'Update a menu section in the system'
+      description 'Updates a menu section in the system. ||admin basic user||'
+      formats [:json, :xml]
+      param :name, String, :desc => 'Name of Menu Section'
+      param :description, String, :desc => 'Description of Menu Section'
+      param :staff_kind_id, String, :desc => 'Staff Kind handling this menu section'
+      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/update.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/update.xml")
+      def update
+        @menu_section.name = params[:name] || @menu_sections.name
+        @menu_section.description = params[:description] || @menu_sections.description
+        @menu_section.staff_kind = @staff_kind
+        @menu_section.save!
         respond_with @menu_section
       end
 
@@ -44,6 +63,16 @@ module Api
         @menu_section = MenuSection.find params[:id]
       rescue ActiveRecord::RecordNotFound
         render_model_not_found 'MenuSection'
+      end
+
+      def set_staff_kind
+        @staff_kind = StaffKind.find params[:staff_kind_id]
+      rescue ActiveRecord::RecordNotFound
+        render_model_not_found 'StaffKind'
+      end
+
+      def check_ownership
+        render_model_not_found 'MenuSection' if not_admin_and?(!@user.owns(@menu_section))
       end
 
       def check_active_menu_section
