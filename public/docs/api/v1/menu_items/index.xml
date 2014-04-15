@@ -6,6 +6,10 @@
     <description>Beef Burger with a small side salad.</description>
     <price type="float">12.9</price>
     <currency>EUR</currency>
+    <staff-kind>
+      <id type="integer">3</id>
+      <name>Kitchen Staff</name>
+    </staff-kind>
   </menu-item>
   <menu-item>
     <id type="integer">2</id>
@@ -13,6 +17,10 @@
     <description>0.5</description>
     <price type="float">5.7</price>
     <currency>EUR</currency>
+    <staff-kind>
+      <id type="integer">3</id>
+      <name>Kitchen Staff</name>
+    </staff-kind>
   </menu-item>
   <menu-item>
     <id type="integer">3</id>
@@ -20,5 +28,6 @@
     <description>0.5</description>
     <price type="float">5.7</price>
     <currency>EUR</currency>
+    <staff-kind nil="true"/>
   </menu-item>
 </menu-items>

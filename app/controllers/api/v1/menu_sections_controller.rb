@@ -42,7 +42,7 @@ module Api
       end
 
       api :PUT, '/menu_sections/:id', 'Update a menu section in the system'
-      description 'Updates a menu section in the system. ||admin basic user||'
+      description 'Updates a menu section in the system. ||admin owner update_menus||'
       formats [:json, :xml]
       param :name, String, :desc => 'Name of Menu Section'
       param :description, String, :desc => 'Description of Menu Section'

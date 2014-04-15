@@ -4,9 +4,12 @@ module Api
 
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :basic, :user]
+      doorkeeper_for :update, :scopes => [:admin, :owner, :update_menus]
 
-      before_filter :set_menu_item, :only => [:show]
-      before_filter :check_active_menu_item, :only => [:show]
+      before_filter :set_menu_item, :only => [:show, :update]
+      before_filter :set_staff_kind, :only => [:update]
+      before_filter :check_ownership, :only => [:update]
+      before_filter :check_active_menu_item, :only => [:show, :update]
 
       resource_description do
         name 'Menu Items'
@@ -38,12 +41,42 @@ module Api
         respond_with @menu_item
       end
 
+      api :PUT, '/menu_items/:id', 'Update a menu item in the system'
+      description 'Updates a menu item in the system. ||admin basic user||'
+      formats [:json, :xml]
+      param :name, String, :desc => 'Name of Menu Item'
+      param :description, String, :desc => 'Description of Menu Item'
+      param :price, Float, :desc => 'Price of Menu Item'
+      param :currency, ['EUR'], :desc => 'Currency of Menu Item'
+      param :staff_kind_id, String, :desc => 'Staff Kind handling this menu section'
+      example File.read("#{Rails.root}/public/docs/api/v1/menu_items/show.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/menu_items/show.xml")
+      def update
+        @menu_item.name = params[:name] || @menu_item.name
+        @menu_item.description = params[:description] || @menu_item.description
+        @menu_item.price = params[:price] || @menu_item.price
+        @menu_item.currency = params[:currency] || @menu_item.currency
+        @menu_item.staff_kind = @staff_kind if @staff_kind
+        @menu_item.save!
+        respond_with @menu_item
+      end
+
       private
 
       def set_menu_item
         @menu_item = MenuItem.find params[:id]
       rescue ActiveRecord::RecordNotFound
         render_model_not_found 'MenuItem'
+      end
+
+      def set_staff_kind
+        @staff_kind = StaffKind.find params[:staff_kind_id]
+      rescue ActiveRecord::RecordNotFound
+        render_model_not_found 'StaffKind'
+      end
+
+      def check_ownership
+        render_model_not_found 'MenuItem' if not_admin_and?(!@user.owns(@menu_item))
       end
 
       def check_active_menu_item
