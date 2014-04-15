@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<company>
+  <id type="integer">1</id>
+  <name>Brogrammers</name>
+  <user-id type="integer">1</user-id>
+  <address>
+    <id type="integer">1</id>
+    <address-1>SomeOffice House 45</address-1>
+    <address-2>Business Campus</address-2>
+    <city>Dublin</city>
+    <county>Dublin</county>
+    <state nil="true"/>
+    <country>Ireland</country>
+  </address>
+</company>

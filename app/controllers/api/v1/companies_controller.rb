@@ -4,9 +4,11 @@ module Api
 
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:user]
+      doorkeeper_for :update, :scopes => [:owner]
       doorkeeper_for :create, :scopes => [:user]
 
-      before_filter :set_company, :only => [:show]
+      before_filter :set_company, :only => [:show, :update]
+      before_filter :check_ownership, :only => [:update]
       before_filter :check_company_exists, :only => [:create]
 
       resource_description do
@@ -41,6 +43,33 @@ module Api
         respond_with @company
       end
 
+      api :PUT, '/companies/:id', 'Update a company profile'
+      description 'Updates a company profile. ||owner||'
+      formats [:json, :xml]
+      param :name, String, :desc => "Companies name"
+      param :website, String, :desc => "Companies website"
+      param :address_1, String, :desc => "Companies address line 1"
+      param :address_2, String, :desc => "Companies address line 2"
+      param :city, String, :desc => "Companies city"
+      param :county, String, :desc => "Companies county"
+      param :state, String, :desc => "Companies state (only US)"
+      param :country, String, :desc => "Companies country"
+      example File.read("#{Rails.root}/public/docs/api/v1/companies/update.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/companies/update.xml")
+      def update
+        @company.name = params[:name] || @company.name
+        @company.website = params[:website] || @company.website
+        @company.address.address_1 = params[:address_1] || @company.address.address_1
+        @company.address.address_2 = params[:address_2] || @company.address.address_2
+        @company.address.city = params[:city] || @company.address.city
+        @company.address.county = params[:county] || @company.address.county
+        @company.address.state = params[:state] || @company.address.state
+        @company.address.country = params[:country] || @company.address.country
+        @company.address.save!
+        @company.save!
+        respond_with @company
+      end
+
       api :POST, '/companies', 'Create a new company'
       description 'Creates a new company. ||user||'
       formats [:json, :xml]
@@ -65,6 +94,10 @@ module Api
         @company = Company.find params[:id]
       rescue ActiveRecord::RecordNotFound
         render_model_not_found 'Company'
+      end
+
+      def check_ownership
+        render_model_not_found 'Company' if not_admin_and?(!@user.owns(@company))
       end
 
       def check_company_exists

@@ -1,0 +1,16 @@
+{
+  "company": {
+    "id": 1,
+    "name": "Brogrammers",
+    "user_id": 1,
+    "address": {
+      "id": 1,
+      "address_1": "SomeOffice House 45",
+      "address_2": "Business Campus",
+      "city": "Dublin",
+      "county": "Dublin",
+      "state": null,
+      "country": "Ireland"
+    }
+  }
+}
