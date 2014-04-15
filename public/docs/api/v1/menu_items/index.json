@@ -5,21 +5,30 @@
       "name": "Beef Burger",
       "description": "Beef Burger with a small side salad.",
       "price": 12.9,
-      "currency": "EUR"
+      "currency": "EUR",
+      "staff_kind": {
+        "id": 3,
+        "name": "Kitchen Staff"
+      }
     },
     {
       "id": 2,
       "name": "Corona",
       "description": "0.5",
       "price": 5.7,
-      "currency": "EUR"
+      "currency": "EUR",
+      "staff_kind": {
+        "id": 3,
+        "name": "Kitchen Staff"
+      }
     },
     {
       "id": 3,
       "name": "Corona Light",
       "description": "0.5",
       "price": 5.7,
-      "currency": "EUR"
+      "currency": "EUR",
+      "staff_kind": null
     }
   ]
 }
