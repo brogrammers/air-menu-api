@@ -54,6 +54,7 @@ Doorkeeper.configure do
                   :get_groups,
                   :create_groups,
                   :update_groups,
+                  :delete_groups,
                   :get_devices,
                   :create_devices,
                   :get_staff_kinds,

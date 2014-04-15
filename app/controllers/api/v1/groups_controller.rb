@@ -5,9 +5,10 @@ module Api
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :owner, :get_groups]
       doorkeeper_for :update, :scopes => [:admin, :owner, :update_groups]
+      doorkeeper_for :destroy, :scopes => [:admin, :owner, :delete_groups]
 
-      before_filter :set_group, :only => [:show, :update]
-      before_filter :check_ownership, :only => [:show, :update]
+      before_filter :set_group, :only => [:show, :update, :destroy]
+      before_filter :check_ownership, :only => [:show, :update, :destroy]
 
       resource_description do
         name 'Groups'
@@ -49,6 +50,16 @@ module Api
       def update
         @group.name = params[:name] || @group.name
         @group.save!
+        respond_with @group
+      end
+
+      api :DELETE, '/groups/:id', 'Delete a group in the system'
+      description 'Deletes a group in the system. ||admin owner delete_groups||'
+      formats [:json, :xml]
+      example File.read("#{Rails.root}/public/docs/api/v1/groups/destroy.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/groups/destroy.xml")
+      def destroy
+        @group.destroy
         respond_with @group
       end
 
