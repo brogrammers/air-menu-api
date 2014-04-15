@@ -6,9 +6,10 @@ module Api
       doorkeeper_for :show, :scopes => [:user]
       doorkeeper_for :update, :scopes => [:owner]
       doorkeeper_for :create, :scopes => [:user]
+      doorkeeper_for :destroy, :scopes => [:owner]
 
-      before_filter :set_company, :only => [:show, :update]
-      before_filter :check_ownership, :only => [:update]
+      before_filter :set_company, :only => [:show, :update, :destroy]
+      before_filter :check_ownership, :only => [:update, :destroy]
       before_filter :check_company_exists, :only => [:create]
 
       resource_description do
@@ -86,6 +87,16 @@ module Api
       def create
         @company = create_company
         respond_with @company, :status => :created
+      end
+
+      api :DELETE, '/companies/:id', 'Delete a company profile'
+      description 'Deletes a company profile. ||owner||'
+      formats [:json, :xml]
+      example File.read("#{Rails.root}/public/docs/api/v1/companies/destroy.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/companies/destroy.xml")
+      def destroy
+        @company.destroy
+        respond_with @company
       end
 
       private
