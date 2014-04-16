@@ -65,6 +65,7 @@ module Api
           order.user = @user if @user.class == User
           if @user.class == StaffMember
             order.staff_member = @user
+            order.set_state
             order.open!
           end
           order.restaurant = restaurant
