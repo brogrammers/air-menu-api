@@ -61,10 +61,13 @@ module Api
 
         def create_order(restaurant)
           order = Order.new
-          order.user = @user if @user.class == User
-          order.staff_member = @user if @user.class == StaffMember
-          order.restaurant = restaurant
           order.state = :new
+          order.user = @user if @user.class == User
+          if @user.class == StaffMember
+            order.staff_member = @user
+            order.open!
+          end
+          order.restaurant = restaurant
           order.save!
           order
         end
