@@ -5,7 +5,7 @@ At the moment we only support authentication through credentials for trusted OAu
 Read more about it in the POST /access_tokens route description.
 
 === Scopes:
-- basic
+- basic,
 - admin,
 - trusted,
 - user,
@@ -27,5 +27,6 @@ Read more about it in the POST /access_tokens route description.
 - create_devices,
 - get_staff_kinds,
 - create_staff_kinds,
+- update_staff_kinds,
 - get_staff_members,
 - create_staff_members

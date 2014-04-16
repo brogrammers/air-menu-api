@@ -60,6 +60,7 @@ Doorkeeper.configure do
                   :create_devices,
                   :get_staff_kinds,
                   :create_staff_kinds,
+                  :update_staff_kinds,
                   :get_staff_members,
                   :create_staff_members
 

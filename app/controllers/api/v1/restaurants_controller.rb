@@ -48,8 +48,8 @@ module Api
         respond_with @restaurant
       end
 
-      api :PUT, '/restaurants/:id', 'Get a Restaurant profile'
-      description 'Fetches a restaurant profile. ||admin owner||'
+      api :PUT, '/restaurants/:id', 'Change a Restaurant profile'
+      description 'Changes a restaurant profile. ||admin owner||'
       formats [:json, :xml]
       param :name, String, :desc => "New Restaurant Name"
       param :address_1, String, :desc => "New Restaurant address line 1"
