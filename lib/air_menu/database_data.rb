@@ -190,6 +190,11 @@ DATABASE_TABLES = {
           :name => 'Nandos',
           :website => 'http://nandos.co.uk',
           :user_id => 4
+      },
+      {
+          :name => 'Robs & Co',
+          :website => 'http://robsandco.com',
+          :user_id => 2
       }
   ],
 
@@ -248,6 +253,14 @@ DATABASE_TABLES = {
           :conversion_rate => 0.0,
           :company_id => 3,
           :active_menu_id => nil
+      },
+      {
+          :name => 'Robs',
+          :loyalty => false,
+          :remote_order => false,
+          :conversion_rate => 0.0,
+          :company_id => 4,
+          :active_menu_id => 4
       }
   ],
 
@@ -338,6 +351,10 @@ DATABASE_TABLES = {
       {
           :name => 'Main Menu',
           :restaurant_id => 1
+      },
+      {
+          :name => 'Main Menu',
+          :restaurant_id => 3
       }
   ],
 
