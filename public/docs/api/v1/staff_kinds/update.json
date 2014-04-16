@@ -2,6 +2,8 @@
   "staff_kind": {
     "id": 1,
     "name": "Manager",
+    "accept_orders": true,
+    "accept_order_items": true,
     "restaurant": {
       "id": 1,
       "name": "The Church"

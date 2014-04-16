@@ -3,6 +3,8 @@
     {
       "id": 1,
       "name": "Manager",
+      "accept_orders": true,
+      "accept_order_items": true,
       "restaurant": {
         "id": 1,
         "name": "The Church"
@@ -14,6 +16,8 @@
     {
       "id": 2,
       "name": "Waitress",
+      "accept_orders": null,
+      "accept_order_items": null,
       "restaurant": {
         "id": 1,
         "name": "The Church"
@@ -25,6 +29,8 @@
     {
       "id": 3,
       "name": "Kitchen Staff",
+      "accept_orders": null,
+      "accept_order_items": null,
       "restaurant": {
         "id": 1,
         "name": "The Church"

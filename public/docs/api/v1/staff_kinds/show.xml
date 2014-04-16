@@ -2,6 +2,8 @@
 <staff-kind>
   <id type="integer">1</id>
   <name>Manager</name>
+  <accept-orders type="boolean">true</accept-orders>
+  <accept-order-items type="boolean">true</accept-order-items>
   <restaurant>
     <id type="integer">1</id>
     <name>The Church</name>

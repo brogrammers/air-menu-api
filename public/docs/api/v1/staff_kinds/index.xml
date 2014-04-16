@@ -3,6 +3,8 @@
   <staff-kind>
     <id type="integer">1</id>
     <name>Manager</name>
+    <accept-orders type="boolean">true</accept-orders>
+    <accept-order-items type="boolean">true</accept-order-items>
     <restaurant>
       <id type="integer">1</id>
       <name>The Church</name>
@@ -12,6 +14,8 @@
   <staff-kind>
     <id type="integer">2</id>
     <name>Waitress</name>
+    <accept-orders nil="true"/>
+    <accept-order-items nil="true"/>
     <restaurant>
       <id type="integer">1</id>
       <name>The Church</name>
@@ -21,6 +25,8 @@
   <staff-kind>
     <id type="integer">3</id>
     <name>Kitchen Staff</name>
+    <accept-orders nil="true"/>
+    <accept-order-items nil="true"/>
     <restaurant>
       <id type="integer">1</id>
       <name>The Church</name>

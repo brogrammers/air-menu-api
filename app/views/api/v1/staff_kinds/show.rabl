@@ -1,6 +1,6 @@
 object @staff_kind => :staff_kind
 
-attributes :id, :name
+attributes :id, :name, :accept_orders, :accept_order_items
 
 node :restaurant do |staff_kind|
   partial('api/v1/staff_kinds/_restaurant', :object => staff_kind.restaurant)
