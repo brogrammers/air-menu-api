@@ -187,6 +187,7 @@ describe Api::V1::Groups::StaffMembersController do
 
             it 'should add a staff member to the group' do
               body = JSON.parse(response.body) rescue { }
+              puts StaffMember.find(body['staff_member']['id'])
               expect(StaffMember.find(body['staff_member']['id']).group_id).to eq(1)
             end
 

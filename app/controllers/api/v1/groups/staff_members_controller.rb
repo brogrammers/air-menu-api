@@ -39,7 +39,7 @@ module Api
         example File.read("#{Rails.root}/public/docs/api/v1/groups/staff_members/create.json")
         example File.read("#{Rails.root}/public/docs/api/v1/groups/staff_members/create.xml")
         def create
-          @group.staff_members << @staff_member
+          @group.add_staff_member @staff_member
           @staff_member.save!
           respond_with @staff_member, :status => :created
         end
