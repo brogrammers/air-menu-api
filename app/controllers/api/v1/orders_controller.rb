@@ -45,8 +45,8 @@ module Api
       description 'Updates an order in the system. ||admin user owner update_orders||'
       formats [:json, :xml]
       param :state, ['open', 'cancelled'], :desc => 'Set the new state for the order.'
-      example File.read("#{Rails.root}/public/docs/api/v1/orders/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/orders/show.xml")
+      example File.read("#{Rails.root}/public/docs/api/v1/orders/update.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/orders/update.xml")
       def update
         respond_with @order
       end

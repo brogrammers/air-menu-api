@@ -44,8 +44,8 @@ module Api
       api :DELETE, '/menus/:id', 'Get a menu in the system'
       description 'Fetches all the menus in the system. ||admin owner delete_menus||'
       formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/menus/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/menus/show.xml")
+      example File.read("#{Rails.root}/public/docs/api/v1/menus/destroy.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/menus/destroy.xml")
       def destroy
         @menu.destroy
         respond_with @menu

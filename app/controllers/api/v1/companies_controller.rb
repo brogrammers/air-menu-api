@@ -82,8 +82,8 @@ module Api
       param :county, String, :desc => "Companies county", :required => true
       param :state, String, :desc => "Companies state (only US)"
       param :country, String, :desc => "Companies country", :required => true
-      example File.read("#{Rails.root}/public/docs/api/v1/companies/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/companies/show.xml")
+      example File.read("#{Rails.root}/public/docs/api/v1/companies/create.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/companies/create.xml")
       def create
         @company = create_company
         respond_with @company, :status => :created

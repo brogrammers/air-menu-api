@@ -81,8 +81,8 @@ module Api
       api :DELETE, '/restaurants/:id', 'Delete a Restaurant profile'
       description 'Deletes a restaurant profile. ||admin owner||'
       formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/update.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/update.xml")
+      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/destroy.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/restaurants/destroy.xml")
       def destroy
         @restaurant.destroy
         respond_with @restaurant
