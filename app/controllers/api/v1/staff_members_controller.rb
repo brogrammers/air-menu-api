@@ -4,9 +4,11 @@ module Api
 
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :owner, :get_staff_members]
+      doorkeeper_for :update, :scopes => [:admin, :owner, :update_staff_members]
 
-      before_filter :set_staff_member, :only => [:show]
-      before_filter :check_ownership, :only => [:show]
+      before_filter :set_staff_member, :only => [:show, :update]
+      before_filter :set_staff_kind, :only => [:update]
+      before_filter :check_ownership, :only => [:show, :update]
 
       resource_description do
         name 'Staff Members'
@@ -39,12 +41,37 @@ module Api
         respond_with @staff_member
       end
 
+      api :PUT, '/staff_members/:id', 'Update a staff member in the system'
+      description 'Updates a staff member in the system. ||admin owner update_staff_members||'
+      formats [:json, :xml]
+      param :name, String, 'New Staff Member name'
+      param :password, String, 'New Staff Member password'
+      param :email, String, 'New Staff Member email'
+      param :staff_kind_id, String, 'Set Staff Members staff kind id'
+      example File.read("#{Rails.root}/public/docs/api/v1/staff_members/update.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/staff_members/update.xml")
+      def update
+        @staff_member.name = params[:name] || @staff_member.name
+        @staff_member.identity.new_password = params[:password] if params[:password]
+        @staff_member.identity.email = params[:email] || @staff_member.identity.email
+        @staff_member.staff_kind = @staff_kind if @staff_kind
+        @staff_member.identity.save!
+        @staff_member.save!
+        respond_with @staff_member
+      end
+
       private
 
       def set_staff_member
         @staff_member = StaffMember.find params[:id]
       rescue ActiveRecord::RecordNotFound
         render_model_not_found 'StaffMember'
+      end
+
+      def set_staff_kind
+        @staff_kind = StaffKind.find params[:staff_kind_id] if params[:staff_kind_id]
+      rescue ActiveRecord::RecordNotFound
+        render_model_not_found 'StaffKind'
       end
 
       def check_ownership

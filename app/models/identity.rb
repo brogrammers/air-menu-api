@@ -21,6 +21,13 @@ class Identity < ActiveRecord::Base
     self.password = password
   end
 
+  class << self
+    def authenticate!(username, password)
+      identity = Identity.find_by_username(username)
+      identity && identity.match_password(password) ? identity : nil
+    end
+  end
+
  	private
 
  	def encrypt_password
