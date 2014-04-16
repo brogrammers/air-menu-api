@@ -12,7 +12,7 @@ end
 
 node :current_orders do |user|
     partial('api/v1/me/_order', :object => user.current_orders)
-end
+end if @user.class == User
 
 node :company do |user|
   partial('api/v1/me/_company', :object => user.company) if user.company
