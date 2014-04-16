@@ -5,6 +5,12 @@
       "name": "Manager",
       "scopes": [
 
+      ],
+      "staff_members": [
+        {
+          "id": 1,
+          "name": "Fritz Blah"
+        }
       ]
     },
     {
@@ -12,6 +18,12 @@
       "name": "Waitress",
       "scopes": [
 
+      ],
+      "staff_members": [
+        {
+          "id": 2,
+          "name": "Emma Blah"
+        }
       ]
     },
     {
@@ -19,6 +31,12 @@
       "name": "Kitchen Staff",
       "scopes": [
 
+      ],
+      "staff_members": [
+        {
+          "id": 3,
+          "name": "Patrick Blah"
+        }
       ]
     }
   ]

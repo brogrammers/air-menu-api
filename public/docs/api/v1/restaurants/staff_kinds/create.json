@@ -4,6 +4,12 @@
     "name": "Manager",
     "scopes": [
 
+    ],
+    "staff_members": [
+      {
+        "id": 1,
+        "name": "Fritz Blah"
+      }
     ]
   }
 }

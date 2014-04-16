@@ -3,4 +3,10 @@
   <id type="integer">1</id>
   <name>Manager</name>
   <scopes type="array"/>
+  <staff-members type="array">
+    <staff-member>
+      <id type="integer">1</id>
+      <name>Fritz Blah</name>
+    </staff-member>
+  </staff-members>
 </staff-kind>
