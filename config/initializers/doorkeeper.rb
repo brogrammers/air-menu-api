@@ -61,6 +61,7 @@ Doorkeeper.configure do
                   :get_staff_kinds,
                   :create_staff_kinds,
                   :update_staff_kinds,
+                  :delete_staff_kinds,
                   :get_staff_members,
                   :create_staff_members
 
