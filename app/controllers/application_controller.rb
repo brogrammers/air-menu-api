@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def determine_phone
+    # TODO: Check if scope is trusted!!
     if device? and @user
       device = Device.authenticate(request.headers["X-Device-UUID"], @user)
       if device

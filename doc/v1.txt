@@ -11,7 +11,7 @@ current access token in use
 === Getting Started
 
 To start, an access token is required, as the whole system depends on the OAuth 2.0 protocol and can only work through it.
-Check out the oauth2[link:oauth2] docs on how to acquire an access token.
+Check out the oauth2 docs on how to acquire an access token.
 
 Once an access token has been acquired include it in every request to the API, by adding it to the authorization header
 like this:
@@ -20,3 +20,37 @@ like this:
 
 Now you should be able to perform API calls. Make sure that the acquired access token has the correct scopes to be able to
 invoke cerain routes.
+
+=== Error Codes
+
+[Missing Content]
+
+=== Devices
+
+[Missing Content]
+
+=== Location
+
+[Missing Content]
+
+=== Orders & Order Items
+
+Both these entity have different states, which are stated here:
+
+==== Order
+
+- new
+- open
+- approved
+- cancelled
+- served
+- paid
+
+==== Order Item
+
+- new
+- approved
+- declined
+- start_prepare
+- end_prepare
+- served
