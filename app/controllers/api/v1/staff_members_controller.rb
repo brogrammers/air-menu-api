@@ -67,6 +67,7 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/staff_members/update.json")
       example File.read("#{Rails.root}/public/docs/api/v1/staff_members/update.xml")
       def destroy
+        @staff_member.destroy
         respond_with @staff_member
       end
 

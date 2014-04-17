@@ -324,6 +324,11 @@ describe Api::V1::StaffMembersController do
             expect(response.status).to eq(200)
           end
 
+          it 'should delete the staff member' do
+            body = JSON.parse(response.body) rescue { }
+            expect { StaffMember.find body['staff_member']['id'] }.to raise_error
+          end
+
         end
 
         describe 'not owning the staff member' do
