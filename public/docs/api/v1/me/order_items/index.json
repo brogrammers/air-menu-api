@@ -1,0 +1,29 @@
+{
+  "order_items": [
+    {
+      "id": 1,
+      "comment": null,
+      "count": 1,
+      "state": "new",
+      "approved_time": null,
+      "declined_time": null,
+      "start_prepare_time": null,
+      "end_prepare_time": null,
+      "served_time": null,
+      "order": {
+        "id": 1,
+        "state": "new",
+        "approved_time": null,
+        "served_time": null,
+        "cancelled_time": null
+      },
+      "menu_item": {
+        "id": 10,
+        "name": "1/4 Chicken Leg",
+        "description": "",
+        "price": 7.2,
+        "currency": "EUR"
+      }
+    }
+  ]
+}

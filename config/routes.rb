@@ -54,6 +54,7 @@ AirMenuApi::Application.routes.draw do
         resources :devices, :controller => 'devices', :only => [:index, :create]
         resources :notifications, :controller => 'notifications', :only => [:index]
         resources :orders, :controller => 'orders', :only => [:index]
+        resources :order_items, :controller => 'order_items', :only => [:index]
       end
     end
 

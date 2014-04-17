@@ -42,7 +42,7 @@ class StaffMember < ActiveRecord::Base
     eval(
         <<-eos
     def #{state}_order_items
-      Order.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s)
+      OrderItem.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s)
     end
     eos
     )
