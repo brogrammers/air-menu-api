@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<orders type="array">
+  <order>
+    <id type="integer">1</id>
+    <state type="symbol">new</state>
+    <approved-time nil="true"/>
+    <served-time nil="true"/>
+    <cancelled-time nil="true"/>
+    <user>
+      <id type="integer">5</id>
+      <name>Denis McKenna</name>
+      <type>User</type>
+    </user>
+    <restaurant>
+      <id type="integer">1</id>
+      <name>The Church</name>
+    </restaurant>
+  </order>
+</orders>

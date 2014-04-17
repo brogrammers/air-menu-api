@@ -16,6 +16,7 @@ Read more about it in the POST /access_tokens route description.
 - add_active_menus,
 - update_menus,
 - delete_menus,
+- get_orders,
 - get_current_orders,
 - add_orders,
 - update_orders,

@@ -53,6 +53,7 @@ AirMenuApi::Application.routes.draw do
       namespace :me do
         resources :devices, :controller => 'devices', :only => [:index, :create]
         resources :notifications, :controller => 'notifications', :only => [:index]
+        resources :orders, :controller => 'orders', :only => [:index]
       end
     end
 

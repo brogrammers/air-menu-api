@@ -28,8 +28,24 @@ class StaffMember < ActiveRecord::Base
     15
   end
 
-  def current_orders
-    Order.where("state_cd != 4 AND staff_member_id = #{self.id}")
+  Order::State::STATES.each_with_index do |state, index|
+    eval(
+        <<-eos
+    def #{state}_orders
+      Order.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s)
+    end
+    eos
+    )
+  end
+
+  OrderItem::State::STATES.each_with_index do |state, index|
+    eval(
+        <<-eos
+    def #{state}_order_items
+      Order.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s)
+    end
+    eos
+    )
   end
 
   def can_order?
@@ -38,6 +54,10 @@ class StaffMember < ActiveRecord::Base
 
   def has_current_orders?
     current_orders.size > 0
+  end
+
+  def current_orders
+    []
   end
 
   def unread
