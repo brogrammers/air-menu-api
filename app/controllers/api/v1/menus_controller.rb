@@ -4,11 +4,12 @@ module Api
 
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :basic, :user]
+      doorkeeper_for :update, :scopes => [:admin, :owner, :update_menus]
       doorkeeper_for :delete, :scopes => [:admin, :owner, :delete_menus]
 
-      before_filter :set_menu, :only => [:show, :destroy]
-      before_filter :check_active_menu, :only => [:show, :destroy]
-      before_filter :check_ownership, :only => [:destroy]
+      before_filter :set_menu, :only => [:show, :update, :destroy]
+      before_filter :check_active_menu, :only => [:show, :update, :destroy]
+      before_filter :check_ownership, :only => [:update, :destroy]
 
       resource_description do
         name 'Menus'
@@ -38,6 +39,20 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/menus/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menus/show.xml")
       def show
+        respond_with @menu
+      end
+
+      api :PUT, '/menus/:id', 'Update a menu in the system'
+      description 'Updates all the menus in the system. ||admin owner update_menus||'
+      formats [:json, :xml]
+      param :active, String, :desc => 'Make menu active. ||owner add_active_menus||'
+      example File.read("#{Rails.root}/public/docs/api/v1/menus/update.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/menus/update.xml")
+      def update
+        if params[:active] and (scope_exists? 'add_active_menus' or scope_exists? 'owner')
+          @menu.restaurant.active_menu_id = @menu.id
+          @menu.restaurant.save!
+        end
         respond_with @menu
       end
 

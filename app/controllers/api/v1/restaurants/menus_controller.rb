@@ -43,7 +43,7 @@ module Api
           @menu.name = params[:name]
           @menu.save!
           @restaurant.menus << @menu
-          if params[:active] and scope_exists? 'add_active_menus' and scope_exists? 'owner'
+          if params[:active] and (scope_exists? 'add_active_menus' or scope_exists? 'owner')
             @restaurant.active_menu_id = @menu.id
             @restaurant.save!
           end

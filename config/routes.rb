@@ -31,7 +31,7 @@ AirMenuApi::Application.routes.draw do
         resources :menu_items, :controller => 'menu_sections/menu_items', :only => [:index, :create]
       end
 
-      resources :menus, :only => [:index, :show, :destroy] do
+      resources :menus, :only => [:index, :show, :update, :destroy] do
         resources :menu_sections, :controller => 'menus/menu_sections', :only => [:index, :create]
       end
 
