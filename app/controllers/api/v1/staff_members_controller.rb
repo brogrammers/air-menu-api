@@ -5,10 +5,11 @@ module Api
       doorkeeper_for :index, :scopes => [:admin]
       doorkeeper_for :show, :scopes => [:admin, :owner, :get_staff_members]
       doorkeeper_for :update, :scopes => [:admin, :owner, :update_staff_members]
+      doorkeeper_for :destroy, :scopes => [:admin, :owner, :delete_staff_members]
 
-      before_filter :set_staff_member, :only => [:show, :update]
+      before_filter :set_staff_member, :only => [:show, :update, :destroy]
       before_filter :set_staff_kind, :only => [:update]
-      before_filter :check_ownership, :only => [:show, :update]
+      before_filter :check_ownership, :only => [:show, :update, :destroy]
 
       resource_description do
         name 'Staff Members'
@@ -57,6 +58,15 @@ module Api
         @staff_member.staff_kind = @staff_kind if @staff_kind
         @staff_member.identity.save!
         @staff_member.save!
+        respond_with @staff_member
+      end
+
+      api :DELETE, '/staff_members/:id', 'Delete a staff member in the system'
+      description 'Deletes a staff member in the system. ||admin owner delete_staff_members||'
+      formats [:json, :xml]
+      example File.read("#{Rails.root}/public/docs/api/v1/staff_members/update.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/staff_members/update.xml")
+      def destroy
         respond_with @staff_member
       end
 
