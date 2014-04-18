@@ -23,7 +23,7 @@ AirMenuApi::Application.routes.draw do
         resources :staff_members, :controller => 'groups/staff_members', :only => [:index, :create]
       end
 
-      resources :orders, :only => [:index, :show, :update] do
+      resources :orders, :only => [:index, :show, :update, :destroy] do
         resources :order_items, :controller => 'orders/order_items', :only => [:index, :create]
       end
 

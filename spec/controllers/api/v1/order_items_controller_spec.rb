@@ -949,7 +949,7 @@ describe Api::V1::OrderItemsController do
       describe 'as a staff member' do
 
         describe 'owning the order item' do
-          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['delete_order_items'] }
+          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['delete_orders'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 7, :scopes => user_scope, :revoked? => false, :expired? => false }
 
           before :each do

@@ -44,3 +44,10 @@ open_order_normal_restaurant:
   restaurant_id: 1
   state_cd: 1
   staff_member_id: 1
+
+new_order:
+  id: 9
+  user_id: 1
+  restaurant_id: 1
+  state_cd: 1
+  staff_member_id: 2

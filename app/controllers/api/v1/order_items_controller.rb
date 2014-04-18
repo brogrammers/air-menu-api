@@ -3,8 +3,9 @@ module Api
     class OrderItemsController < BaseController
 
       doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :create, :scopes => [:admin, :user, :owner, :get_current_orders]
+      doorkeeper_for :create, :scopes => [:admin, :user, :owner, :get_orders]
       doorkeeper_for :update, :scopes => [:admin, :user, :owner, :update_orders]
+      doorkeeper_for :destroy, :scopes => [:admin, :user, :owner, :delete_orders]
 
       before_filter :set_order_item, :only => [:show, :update, :destroy]
       before_filter :check_ownership, :only => [:show, :update, :destroy]
@@ -34,7 +35,7 @@ module Api
       end
 
       api :GET, '/order_items/:id', 'Get an order item in the system'
-      description 'Gets an order item in the system. ||admin user owner get_current_orders||'
+      description 'Gets an order item in the system. ||admin user owner get_orders||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/order_items/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/order_items/show.xml")
@@ -60,11 +61,8 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/order_items/destroy.json")
       example File.read("#{Rails.root}/public/docs/api/v1/order_items/destroy.xml")
       def destroy
-        if @order_item.order.state == :new
-          @order_item.destroy
-        else
-          render_forbidden 'not_new_state'
-        end
+        render_forbidden 'not_new_state' and return if @order_item.order.state != :new
+        @order_item.destroy
         respond_with @order_item
       end
 
