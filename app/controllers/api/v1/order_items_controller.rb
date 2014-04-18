@@ -6,8 +6,8 @@ module Api
       doorkeeper_for :create, :scopes => [:admin, :user, :owner, :get_current_orders]
       doorkeeper_for :update, :scopes => [:admin, :user, :owner, :update_orders]
 
-      before_filter :set_order_item, :only => [:show, :update]
-      before_filter :check_ownership, :only => [:show, :update]
+      before_filter :set_order_item, :only => [:show, :update, :destroy]
+      before_filter :check_ownership, :only => [:show, :update, :destroy]
       before_filter :update_order_item, :only => [:update]
       before_filter :update_order_item_state, :only => [:update]
 
@@ -51,6 +51,20 @@ module Api
       example File.read("#{Rails.root}/public/docs/api/v1/order_items/update.json")
       example File.read("#{Rails.root}/public/docs/api/v1/order_items/update.xml")
       def update
+        respond_with @order_item
+      end
+
+      api :DELETE, '/order_items/:id', 'Delete an order item in the system'
+      description 'Deletes an order item in the system. ||admin user owner delete_orders||'
+      formats [:json, :xml]
+      example File.read("#{Rails.root}/public/docs/api/v1/order_items/destroy.json")
+      example File.read("#{Rails.root}/public/docs/api/v1/order_items/destroy.xml")
+      def destroy
+        if @order_item.order.state == :new
+          @order_item.destroy
+        else
+          render_forbidden 'not_new_state'
+        end
         respond_with @order_item
       end
 

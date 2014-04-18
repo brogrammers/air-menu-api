@@ -101,7 +101,7 @@ class StaffMember < ActiveRecord::Base
   end
 
   def owns_order_item(order_item)
-    owns_order order_item.order
+    OrderItem.where(:staff_member_id => self.id, :id => order_item.id).size > 0
   end
 
   def owns_notification(notification)

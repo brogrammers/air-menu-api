@@ -879,4 +879,99 @@ describe Api::V1::OrderItemsController do
 
   end
 
+  describe 'DELETE #destroy' do
+
+    describe 'when the order items order is new' do
+
+      describe 'as a user' do
+
+        describe 'owning the order item' do
+          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user'] }
+          let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
+
+          before :each do
+            delete :destroy, :id => 1
+          end
+
+          it 'should respond with a HTTP 200 status code' do
+            expect(response).to be_success
+            expect(response.status).to be(200)
+          end
+
+          it 'should delete the order item' do
+            body = JSON.parse(response.body) rescue { }
+            expect {OrderItem.find body['order_item']['id']}.to raise_error
+          end
+
+        end
+
+        describe 'owning the order item' do
+          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user'] }
+          let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => user_scope, :revoked? => false, :expired? => false }
+
+          before :each do
+            delete :destroy, :id => 1
+          end
+
+          it 'should respond with a HTTP 404 status code' do
+            expect(response).to be_not_found
+            expect(response.status).to be(404)
+          end
+
+        end
+
+      end
+
+      describe 'as an owner' do
+
+        describe 'owning the order item' do
+          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
+          let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
+
+          before :each do
+            delete :destroy, :id => 1
+          end
+
+          it 'should respond with a HTTP 200 status code' do
+            expect(response).to be_success
+            expect(response.status).to be(200)
+          end
+
+          it 'should delete the order item' do
+            body = JSON.parse(response.body) rescue { }
+            expect {OrderItem.find body['order_item']['id']}.to raise_error
+          end
+
+        end
+
+      end
+
+      describe 'as a staff member' do
+
+        describe 'owning the order item' do
+          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['delete_order_items'] }
+          let(:token) { double :accessible? => true, :resource_owner_id => 7, :scopes => user_scope, :revoked? => false, :expired? => false }
+
+          before :each do
+            delete :destroy, :id => 1
+          end
+
+          it 'should respond with a HTTP 200 status code' do
+            expect(response).to be_success
+            expect(response.status).to be(200)
+          end
+
+          it 'should delete the order item' do
+            body = JSON.parse(response.body) rescue { }
+            expect {OrderItem.find body['order_item']['id']}.to raise_error
+          end
+
+        end
+
+      end
+
+    end
+
+  end
+
 end
