@@ -214,15 +214,16 @@ describe Api::V1::OrderItemsController do
 
                 describe "and set to #{state}" do
 
-                  it 'should respond with a HTTP 403 status code' do
+                  it 'should respond with a HTTP 400 status code' do
                     put :update, :id => value[:id], :state => state
-                    expect(response.status).to eq(403)
+                    expect(response.status).to eq(400)
                   end
 
                   it 'should return a forbidden error message' do
                     put :update, :id => value[:id], :state => state
                     body = JSON.parse(response.body) rescue { }
-                    expect(body['error']['code']).to eq('invalid_scope')
+                    expect(body['error']['code']).to eq('parameters')
+                    expect(body['error']['parameters']).to include('state')
                   end
 
                 end
@@ -230,6 +231,23 @@ describe Api::V1::OrderItemsController do
               end
 
             end
+
+          end
+
+          describe 'when changing an order item' do
+            let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user'] }
+            let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
+
+            before :each do
+              put :update, :id => 1, :comment => 'new comment', :count => 101
+            end
+
+            it 'should change the order' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['order_item']['comment']).to eq('new comment')
+              expect(body['order_item']['count']).to eq(101)
+            end
+
 
           end
 
@@ -244,14 +262,15 @@ describe Api::V1::OrderItemsController do
             put :update, :id => 1
           end
 
-          it 'should respond with a HTTP 403 status code' do
-            expect(response).to be_forbidden
-            expect(response.status).to eq(403)
+          it 'should respond with a HTTP 404 status code' do
+            expect(response).to be_not_found
+            expect(response.status).to eq(404)
           end
 
           it 'should return a forbidden error message' do
             body = JSON.parse(response.body) rescue { }
-            expect(body['error']['code']).to eq('invalid_scope')
+            expect(body['error']['code']).to eq('model_not_found')
+            expect(body['error']['model']).to include('OrderItem')
           end
 
         end
@@ -262,7 +281,7 @@ describe Api::V1::OrderItemsController do
 
         describe 'owning the order item' do
 
-          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user', 'owner'] }
+          let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
           describe 'when order item is new' do
