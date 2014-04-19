@@ -1,6 +1,7 @@
 {
   "menu": {
     "id": 1,
-    "name": "Main Menu"
+    "name": "Main Menu",
+    "active": false
   }
 }

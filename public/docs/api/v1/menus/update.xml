@@ -2,6 +2,7 @@
 <menu>
   <id type="integer">1</id>
   <name>Main Menu</name>
+  <active type="boolean">false</active>
   <menu-sections type="array">
     <menu-section>
       <id type="integer">1</id>

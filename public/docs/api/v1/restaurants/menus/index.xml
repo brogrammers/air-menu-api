@@ -3,13 +3,16 @@
   <menu>
     <id type="integer">1</id>
     <name>Main Menu</name>
+    <active type="boolean">false</active>
   </menu>
   <menu>
     <id type="integer">2</id>
     <name>Alternative Menu</name>
+    <active type="boolean">false</active>
   </menu>
   <menu>
     <id type="integer">3</id>
     <name>Main Menu</name>
+    <active type="boolean">true</active>
   </menu>
 </menus>

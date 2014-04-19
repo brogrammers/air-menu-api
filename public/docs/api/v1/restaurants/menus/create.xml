@@ -2,4 +2,5 @@
 <menu>
   <id type="integer">1</id>
   <name>Main Menu</name>
+  <active type="boolean">false</active>
 </menu>
