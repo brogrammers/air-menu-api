@@ -3,7 +3,7 @@ module Api
     module Orders
       class OrderItemsController < BaseController
 
-        doorkeeper_for :index, :scopes => [:admin, :user, :owner, :get_current_orders]
+        doorkeeper_for :index, :scopes => [:admin, :user, :owner, :get_orders]
         doorkeeper_for :create, :scopes => [:admin, :user, :owner, :add_orders]
 
         before_filter :set_order, :only => [:index, :create]
@@ -24,7 +24,7 @@ module Api
         end
 
         api :GET, '/orders/:id/order_items', 'All the order items of an order'
-        description 'Fetches all the order items in of an order. ||admin user owner get_current_orders||'
+        description 'Fetches all the order items in of an order. ||admin user owner get_orders||'
         formats [:json, :xml]
         example File.read("#{Rails.root}/public/docs/api/v1/orders/order_items/index.json")
         example File.read("#{Rails.root}/public/docs/api/v1/orders/order_items/index.xml")

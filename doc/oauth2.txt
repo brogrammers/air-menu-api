@@ -25,6 +25,8 @@ Read more about it in the POST /access_tokens route description.
 - delete_groups,
 - get_devices,
 - create_devices,
+- update_devices,
+- delete_devices,
 - get_staff_kinds,
 - create_staff_kinds,
 - update_staff_kinds,

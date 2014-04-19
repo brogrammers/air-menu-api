@@ -549,21 +549,151 @@ DATABASE_TABLES = {
       }
   ],
 
+  :staff_kind_scope => [
+      {
+        :staff_kind_id => 1,
+        :scope_id => 1
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 2
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 3
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 4
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 5
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 6
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 7
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 8
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 9
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 10
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 11
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 12
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 13
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 14
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 15
+      },
+      {
+          :staff_kind_id => 1,
+          :scope_id => 16
+      }
+  ],
+
   :scope => [
       {
-          :name => 'get_all_current_orders'
+          :name => 'get_menus'
       },
       {
-          :name => 'get_all_orders'
+          :name => 'add_menus'
       },
       {
-          :name => 'create_new_orders'
+          :name => 'add_active_menus'
       },
       {
-          :name => 'change_orders'
+          :name => 'update_menus'
       },
       {
-          :name => 'cancel_orders'
+          :name => 'delete_menus'
+      },
+      {
+          :name => 'get_orders'
+      },
+      {
+          :name => 'add_orders'
+      },
+      {
+          :name => 'update_orders'
+      },
+      {
+          :name => 'get_groups'
+      },
+      {
+          :name => 'add_orders'
+      },
+      {
+          :name => 'update_orders'
+      },
+      {
+          :name => 'get_groups'
+      },
+      {
+          :name => 'create_groups'
+      },
+      {
+          :name => 'delete_groups'
+      },
+      {
+          :name => 'get_devices'
+      },
+      {
+          :name => 'create_devices'
+      },
+      {
+          :name => 'update_devices'
+      },
+      {
+          :name => 'delete_devices'
+      },
+      {
+          :name => 'get_staff_kinds'
+      },
+      {
+          :name => 'create_staff_kinds'
+      },
+      {
+          :name => 'update_staff_kinds'
+      },
+      {
+          :name => 'delete_staff_kinds'
+      },
+      {
+          :name => 'get_staff_members'
+      },
+      {
+          :name => 'create_staff_members'
+      },
+      {
+          :name => 'update_staff_members'
+      },
+      {
+          :name => 'delete_staff_members'
       }
   ]
 }

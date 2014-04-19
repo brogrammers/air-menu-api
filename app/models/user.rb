@@ -42,6 +42,10 @@ class User < ActiveRecord::Base
     current_orders.size > 0
   end
 
+  def scopes
+    ['user']
+  end
+
   def unread
     Notification.where(:remindable_id => self.id, :read => false)
   end

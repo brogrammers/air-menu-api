@@ -28,6 +28,10 @@ class StaffMember < ActiveRecord::Base
     15
   end
 
+  def scopes
+    staff_kind ? staff_kind.scopes : []
+  end
+
   Order::State::STATES.each_with_index do |state, index|
     eval(
         <<-eos
