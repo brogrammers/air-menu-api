@@ -3,8 +3,54 @@
     {
       "id": 1,
       "name": "Manager",
+      "accept_orders": true,
+      "accept_order_items": true,
       "scopes": [
-
+        {
+          "name": "add_menus"
+        },
+        {
+          "name": "add_active_menus"
+        },
+        {
+          "name": "update_menus"
+        },
+        {
+          "name": "delete_menus"
+        },
+        {
+          "name": "get_orders"
+        },
+        {
+          "name": "add_orders"
+        },
+        {
+          "name": "update_orders"
+        },
+        {
+          "name": "get_groups"
+        },
+        {
+          "name": "add_orders"
+        },
+        {
+          "name": "update_orders"
+        },
+        {
+          "name": "get_groups"
+        },
+        {
+          "name": "create_groups"
+        },
+        {
+          "name": "delete_groups"
+        },
+        {
+          "name": "get_devices"
+        },
+        {
+          "name": "create_devices"
+        }
       ],
       "staff_members": [
         {
@@ -16,6 +62,8 @@
     {
       "id": 2,
       "name": "Waitress",
+      "accept_orders": null,
+      "accept_order_items": null,
       "scopes": [
 
       ],
@@ -29,6 +77,8 @@
     {
       "id": 3,
       "name": "Kitchen Staff",
+      "accept_orders": null,
+      "accept_order_items": null,
       "scopes": [
 
       ],

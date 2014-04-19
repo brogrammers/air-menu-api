@@ -87,6 +87,8 @@ module Api
         def create_staff_kind(restaurant)
           staff_kind = StaffKind.new
           staff_kind.name = params[:name]
+          staff_kind.accept_orders = params[:accept_orders]
+          staff_kind.accept_order_items = params[:accept_order_items]
           staff_kind.restaurant = restaurant
           staff_kind.save!
           staff_kind

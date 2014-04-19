@@ -45,12 +45,16 @@ module Api
       api :PUT, '/staff_kinds/:id', 'Change a staff kind in the system'
       description 'Changes a staff kind in the system. ||admin owner update_staff_kinds||'
       formats [:json, :xml]
-      param :name, String, :desc => "New Staff Kind name"
-      param :scopes, String, :desc => "Staff Kind Permissions"
+      param :name, String, :desc => 'New Staff Kind name'
+      param :scopes, String, :desc => 'Staff Kind Permissions'
+      param :accept_orders, String, :desc => 'Staff kind can accept orders'
+      param :accept_order_items, String, :desc => 'Staff kind can accept order items'
       example File.read("#{Rails.root}/public/docs/api/v1/staff_kinds/update.json")
       example File.read("#{Rails.root}/public/docs/api/v1/staff_kinds/update.xml")
       def update
         @staff_kind.name = params[:name] || @staff_kind.name
+        @staff_kind.accept_orders = params[:accept_orders] unless params[:accept_orders].nil?
+        @staff_kind.accept_order_items = params[:accept_order_items] unless params[:accept_order_items].nil?
         @staff_kind.empty_scopes if @staff_kind_scopes.size > 0
         @staff_kind_scopes.each do |scope|
           @staff_kind.scopes << scope

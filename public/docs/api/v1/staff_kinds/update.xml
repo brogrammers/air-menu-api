@@ -8,5 +8,72 @@
     <id type="integer">1</id>
     <name>The Church</name>
   </restaurant>
-  <scopes type="array"/>
+  <scopes type="array">
+    <scope>
+      <id type="integer">2</id>
+      <name>add_menus</name>
+    </scope>
+    <scope>
+      <id type="integer">3</id>
+      <name>add_active_menus</name>
+    </scope>
+    <scope>
+      <id type="integer">4</id>
+      <name>update_menus</name>
+    </scope>
+    <scope>
+      <id type="integer">5</id>
+      <name>delete_menus</name>
+    </scope>
+    <scope>
+      <id type="integer">6</id>
+      <name>get_orders</name>
+    </scope>
+    <scope>
+      <id type="integer">7</id>
+      <name>add_orders</name>
+    </scope>
+    <scope>
+      <id type="integer">8</id>
+      <name>update_orders</name>
+    </scope>
+    <scope>
+      <id type="integer">9</id>
+      <name>get_groups</name>
+    </scope>
+    <scope>
+      <id type="integer">10</id>
+      <name>add_orders</name>
+    </scope>
+    <scope>
+      <id type="integer">11</id>
+      <name>update_orders</name>
+    </scope>
+    <scope>
+      <id type="integer">12</id>
+      <name>get_groups</name>
+    </scope>
+    <scope>
+      <id type="integer">13</id>
+      <name>create_groups</name>
+    </scope>
+    <scope>
+      <id type="integer">14</id>
+      <name>delete_groups</name>
+    </scope>
+    <scope>
+      <id type="integer">15</id>
+      <name>get_devices</name>
+    </scope>
+    <scope>
+      <id type="integer">16</id>
+      <name>create_devices</name>
+    </scope>
+  </scopes>
+  <staff-members type="array">
+    <staff-member>
+      <id type="integer">1</id>
+      <name>Fritz Blah</name>
+    </staff-member>
+  </staff-members>
 </staff-kind>

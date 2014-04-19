@@ -211,6 +211,13 @@ describe Api::V1::StaffKindsController do
             expect(response.status).to eq(200)
           end
 
+          it 'should change staff kind' do
+            put :update, :id => 1, :accept_orders => true, :accept_order_items => false
+            body = JSON.parse(response.body) rescue { }
+            expect(body['staff_kind']['accept_orders']).to eq(true)
+            expect(body['staff_kind']['accept_order_items']).to eq(false)
+          end
+
           it 'should change scopes' do
             put :update, :id => 1, :scopes => 'scope1'
             body = JSON.parse(response.body) rescue { }

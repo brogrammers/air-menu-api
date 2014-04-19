@@ -35,6 +35,8 @@ module Api
         description 'Creates a staff kind for a restaurant. ||admin owner create_staff_kinds||'
         formats [:json, :xml]
         param :name, String, :desc => 'Staff kind name', :required => true
+        param :accept_orders, String, :desc => 'Staff kind can accept orders', :required => true
+        param :accept_order_items, String, :desc => 'Staff kind can accept order items', :required => true
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_kinds/create.json")
         example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_kinds/create.xml")
         def create

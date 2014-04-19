@@ -10,7 +10,72 @@
         "name": "The Church"
       },
       "scopes": [
-
+        {
+          "id": 2,
+          "name": "add_menus"
+        },
+        {
+          "id": 3,
+          "name": "add_active_menus"
+        },
+        {
+          "id": 4,
+          "name": "update_menus"
+        },
+        {
+          "id": 5,
+          "name": "delete_menus"
+        },
+        {
+          "id": 6,
+          "name": "get_orders"
+        },
+        {
+          "id": 7,
+          "name": "add_orders"
+        },
+        {
+          "id": 8,
+          "name": "update_orders"
+        },
+        {
+          "id": 9,
+          "name": "get_groups"
+        },
+        {
+          "id": 10,
+          "name": "add_orders"
+        },
+        {
+          "id": 11,
+          "name": "update_orders"
+        },
+        {
+          "id": 12,
+          "name": "get_groups"
+        },
+        {
+          "id": 13,
+          "name": "create_groups"
+        },
+        {
+          "id": 14,
+          "name": "delete_groups"
+        },
+        {
+          "id": 15,
+          "name": "get_devices"
+        },
+        {
+          "id": 16,
+          "name": "create_devices"
+        }
+      ],
+      "staff_members": [
+        {
+          "id": 1,
+          "name": "Fritz Blah"
+        }
       ]
     },
     {
@@ -24,6 +89,12 @@
       },
       "scopes": [
 
+      ],
+      "staff_members": [
+        {
+          "id": 2,
+          "name": "Emma Blah"
+        }
       ]
     },
     {
@@ -37,6 +108,12 @@
       },
       "scopes": [
 
+      ],
+      "staff_members": [
+        {
+          "id": 3,
+          "name": "Patrick Blah"
+        }
       ]
     }
   ]

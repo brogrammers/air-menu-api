@@ -2,7 +2,55 @@
 <staff-kind>
   <id type="integer">1</id>
   <name>Manager</name>
-  <scopes type="array"/>
+  <accept-orders type="boolean">true</accept-orders>
+  <accept-order-items type="boolean">true</accept-order-items>
+  <scopes type="array">
+    <scope>
+      <name>add_menus</name>
+    </scope>
+    <scope>
+      <name>add_active_menus</name>
+    </scope>
+    <scope>
+      <name>update_menus</name>
+    </scope>
+    <scope>
+      <name>delete_menus</name>
+    </scope>
+    <scope>
+      <name>get_orders</name>
+    </scope>
+    <scope>
+      <name>add_orders</name>
+    </scope>
+    <scope>
+      <name>update_orders</name>
+    </scope>
+    <scope>
+      <name>get_groups</name>
+    </scope>
+    <scope>
+      <name>add_orders</name>
+    </scope>
+    <scope>
+      <name>update_orders</name>
+    </scope>
+    <scope>
+      <name>get_groups</name>
+    </scope>
+    <scope>
+      <name>create_groups</name>
+    </scope>
+    <scope>
+      <name>delete_groups</name>
+    </scope>
+    <scope>
+      <name>get_devices</name>
+    </scope>
+    <scope>
+      <name>create_devices</name>
+    </scope>
+  </scopes>
   <staff-members type="array">
     <staff-member>
       <id type="integer">1</id>

@@ -170,7 +170,7 @@ describe Api::V1::Restaurants::StaffKindsController do
       describe 'as an owner' do
 
         before :each do
-          post :create, :restaurant_id => 1
+          post :create, :restaurant_id => 1, :name => 'Some Staff Kind', :accept_orders => true, :accept_order_items => false
         end
 
         describe 'owning the restaurant' do
@@ -180,6 +180,13 @@ describe Api::V1::Restaurants::StaffKindsController do
           it 'should respond with a HTTP 201 status code' do
             expect(response).to be_success
             expect(response.status).to eq(201)
+          end
+
+          it 'should change the staff kind' do
+            body = JSON.parse(response.body) rescue { }
+            expect(body['staff_kind']['name']).to eq('Some Staff Kind')
+            expect(body['staff_kind']['accept_orders']).to eq(true)
+            expect(body['staff_kind']['accept_order_items']).to eq(false)
           end
 
         end

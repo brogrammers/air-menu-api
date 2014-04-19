@@ -35,4 +35,17 @@
     <menu nil="true"/>
     <location nil="true"/>
   </restaurant>
+  <restaurant>
+    <id type="integer">3</id>
+    <name>Robs</name>
+    <loyalty type="boolean">false</loyalty>
+    <remote-order type="boolean">false</remote-order>
+    <conversion-rate type="float">0.0</conversion-rate>
+    <address nil="true"/>
+    <menu>
+      <id type="integer">4</id>
+      <name>Main Menu</name>
+    </menu>
+    <location nil="true"/>
+  </restaurant>
 </restaurants>

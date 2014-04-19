@@ -34,6 +34,19 @@
       "address": null,
       "menu": null,
       "location": null
+    },
+    {
+      "id": 3,
+      "name": "Robs",
+      "loyalty": false,
+      "remote_order": false,
+      "conversion_rate": 0.0,
+      "address": null,
+      "menu": {
+        "id": 4,
+        "name": "Main Menu"
+      },
+      "location": null
     }
   ]
 }
