@@ -57,7 +57,7 @@ describe Api::V1::CompaniesController do
 
   describe 'GET #show' do
 
-    let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => ['user'], :revoked? => false, :expired? => false }
+    let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => ['owner'], :revoked? => false, :expired? => false }
 
     describe 'on existing company' do
 

@@ -25,7 +25,7 @@ describe Api::V1::Companies::RestaurantsController do
 
       describe 'as a user' do
 
-        let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => ['user'] }
+        let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => ['owner'] }
 
         it 'should respond with a HTTP 200 status code' do
           get :index, :company_id => 1
@@ -54,7 +54,7 @@ describe Api::V1::Companies::RestaurantsController do
 
     describe 'on missing company' do
 
-      let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['user'] }
+      let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
       let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
 
       it 'should respond with a HTTP 404 status code' do
