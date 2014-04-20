@@ -20,6 +20,7 @@ module AirMenu
     def individual_scopes
       @scopes <<('admin') if @identity.admin && @requested_scopes.include?('admin')
       @scopes <<('developer') if @identity.developer && @requested_scopes.include?('developer')
+      @scopes <<('owner') if @identity.identifiable.type == 'Owner' && @requested_scopes.include?('owner')
     end
 
     def scope_string
