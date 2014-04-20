@@ -3,6 +3,7 @@ one:
   staff_kind_id: 1
   name: Manager
   restaurant_id: 1
+  device_id: 3
 
 two:
   id: 2

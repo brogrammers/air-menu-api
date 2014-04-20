@@ -17,6 +17,7 @@ class StaffMember < ActiveRecord::Base
     return owns_order object if object.class == Order
     return owns_order_item object if object.class == OrderItem
     return owns_notification object if object.class == Notification
+    return owns_device object if object.class == Device
     false
   end
 
@@ -112,4 +113,7 @@ class StaffMember < ActiveRecord::Base
     notification.remindable_id == self.id
   end
 
+  def owns_device(device)
+    self.device_id == device.id
+  end
 end

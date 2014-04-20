@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
     return owns_order object if object.class == Order
     return owns_order_item object if object.class == OrderItem
     return owns_notification object if object.class == Notification
+    return owns_device object if object.class == Device
     false
   end
 
@@ -97,5 +98,19 @@ class User < ActiveRecord::Base
 
   def owns_notification(notification)
     notification.remindable_id == self.id
+  end
+
+  def owns_device(device)
+    self.devices.each do |owned_device|
+      return true if device.id == owned_device.id
+    end
+    if self.type == 'Owner'
+      self.company.restaurants.each do |owned_restaurant|
+        owned_restaurant.devices.each do |owned_device|
+          return true if device.id == owned_device.id
+        end
+      end
+    end
+    false
   end
 end
