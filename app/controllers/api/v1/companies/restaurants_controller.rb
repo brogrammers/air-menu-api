@@ -3,7 +3,7 @@ module Api
     module Companies
       class RestaurantsController < BaseController
 
-        doorkeeper_for :index, :scopes => [:admin, :user]
+        doorkeeper_for :index, :scopes => [:admin, :owner]
         doorkeeper_for :create, :scopes => [:admin, :owner]
 
         before_filter :set_company, :only => [:index, :create]
@@ -22,7 +22,7 @@ module Api
         end
 
         api :GET, '/companies/:id/restaurants', 'All the restaurants of a company'
-        description 'Fetches all the restaurants in the system. ||admin user||'
+        description 'Fetches all the restaurants in the system. ||admin owner||'
         formats [:json, :xml]
         example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/index.json")
         example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/index.xml")

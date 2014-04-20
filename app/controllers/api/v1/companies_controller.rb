@@ -3,7 +3,7 @@ module Api
     class CompaniesController < BaseController
 
       doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:user]
+      doorkeeper_for :show, :scopes => [:owner]
       doorkeeper_for :update, :scopes => [:owner]
       doorkeeper_for :create, :scopes => [:user]
       doorkeeper_for :destroy, :scopes => [:owner]
@@ -36,7 +36,7 @@ module Api
       end
 
       api :GET, '/companies/:id', 'Get a company profile'
-      description 'Fetches a company profile. ||user||'
+      description 'Fetches a company profile. ||owner||'
       formats [:json, :xml]
       example File.read("#{Rails.root}/public/docs/api/v1/companies/show.json")
       example File.read("#{Rails.root}/public/docs/api/v1/companies/show.xml")
