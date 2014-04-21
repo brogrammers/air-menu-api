@@ -4,7 +4,6 @@ class AddCreditCards < ActiveRecord::Migration
       t.string :number
       t.string :type
       t.string :month
-      t.string :year
       t.string :cvc
       t.belongs_to :user
     end
