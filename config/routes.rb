@@ -52,6 +52,7 @@ AirMenuApi::Application.routes.draw do
       resources :me, :only => [:index]
       put 'me', :to => 'me#update'
       namespace :me do
+        resources :credit_cards, :controller => 'credit_cards', :only => [:index, :create]
         resources :devices, :controller => 'devices', :only => [:index, :create]
         resources :notifications, :controller => 'notifications', :only => [:index]
         resources :orders, :controller => 'orders', :only => [:index]

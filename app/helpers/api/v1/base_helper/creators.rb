@@ -133,6 +133,18 @@ module Api
           location
         end
 
+        def create_credit_card(user)
+          credit_card = CreditCard.new
+          credit_card.number = params[:number]
+          credit_card.card_type = params[:card_type]
+          credit_card.month = params[:month]
+          credit_card.year = params[:year]
+          credit_card.cvc = params[:cvc]
+          credit_card.user = user
+          credit_card.save!
+          credit_card
+        end
+
       end
     end
   end

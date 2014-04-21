@@ -89,6 +89,57 @@ DATABASE_TABLES = {
       }
   ],
 
+  :credit_card => [
+      {
+          :number => '4319445320747508',
+          :card_type => 'VISA',
+          :month => '01',
+          :year => '17',
+          :cvc => '445',
+          :user_id => 1
+      },
+      {
+          :number => '5432672370544532',
+          :card_type => 'MASTERCARD',
+          :month => '01',
+          :year => '17',
+          :cvc => '445',
+          :user_id => 1
+      },
+      {
+          :number => '4319445320747508',
+          :card_type => 'VISA',
+          :month => '01',
+          :year => '17',
+          :cvc => '445',
+          :user_id => 2
+      },
+      {
+          :number => '5432672370544532',
+          :card_type => 'MASTERCARD',
+          :month => '01',
+          :year => '17',
+          :cvc => '445',
+          :user_id => 2
+      },
+      {
+          :number => '4319445320747508',
+          :card_type => 'VISA',
+          :month => '01',
+          :year => '17',
+          :cvc => '445',
+          :user_id => 3
+      },
+      {
+          :number => '5432672370544532',
+          :card_type => 'MASTERCARD',
+          :month => '01',
+          :year => '17',
+          :cvc => '445',
+          :user_id => 3
+      }
+  ],
+
   :identity => [
       {
           :username => 'tsov',
@@ -303,31 +354,45 @@ DATABASE_TABLES = {
   :staff_kind => [
       {
           :name => 'Manager',
-          :restaurant_id => 1
+          :restaurant_id => 1,
+          :accept_orders => true,
+          :accept_order_items => false
       },
       {
           :name => 'Waitress',
-          :restaurant_id => 1
+          :restaurant_id => 1,
+          :accept_orders => true,
+          :accept_order_items => false
       },
       {
           :name => 'Kitchen Staff',
-          :restaurant_id => 1
+          :restaurant_id => 1,
+          :accept_orders => false,
+          :accept_order_items => true
       },
       {
           :name => 'Bar Staff',
-          :restaurant_id => 1
+          :restaurant_id => 1,
+          :accept_orders => false,
+          :accept_order_items => true
       },
       {
           :name => 'Manager',
-          :restaurant_id => 2
+          :restaurant_id => 2,
+          :accept_orders => true,
+          :accept_order_items => false
       },
       {
           :name => 'Waitress',
-          :restaurant_id => 2
+          :restaurant_id => 2,
+          :accept_orders => true,
+          :accept_order_items => true
       },
       {
           :name => 'Kitchen',
-          :restaurant_id => 2
+          :restaurant_id => 2,
+          :accept_orders => false,
+          :accept_order_items => true
       }
   ],
 

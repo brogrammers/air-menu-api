@@ -36,8 +36,9 @@ ActiveRecord::Schema.define(:version => 20140420185251) do
 
   create_table "credit_cards", :force => true do |t|
     t.string  "number"
-    t.string  "type"
+    t.string  "card_type"
     t.string  "month"
+    t.string  "year"
     t.string  "cvc"
     t.integer "user_id"
   end

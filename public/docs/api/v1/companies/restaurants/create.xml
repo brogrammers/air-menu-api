@@ -14,9 +14,5 @@
     <state nil="true"/>
     <country>Ireland</country>
   </address>
-  <location>
-    <id type="integer">2</id>
-    <longitude type="float">59.23454</longitude>
-    <latitude type="float">59.23454</latitude>
-  </location>
+  <location nil="true"/>
 </restaurant>

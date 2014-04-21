@@ -1,14 +1,15 @@
 {
   "access_token": {
-    "token": "63d1ebd19ebc0b952009f4e155d3bfb404612e3c2b36fc034a30924787ec93af",
-    "refresh_token": "e96f304cef585d81eff35d34501bdf25b035c94dc8f325412a9fc23a184dbb65",
+    "token": "f8b872175ef03859aa9c63ae1539e16eacf00de3b9f49cb073cbc48cdad17a15",
+    "refresh_token": "7a086bd42c193b7ef738588ede69b02a96b3bff60d9c86f418ad68c2256aeb67",
     "token_type": "bearer",
-    "expires_in_seconds": 0,
+    "expires_in_seconds": 172705,
     "scopes": [
-      "user",
       "basic",
-      "owner",
-      "admin"
+      "user",
+      "admin",
+      "developer",
+      "owner"
     ]
   }
 }

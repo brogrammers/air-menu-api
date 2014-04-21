@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :notifications, :as => :remindable
   has_one :company
   has_many :orders
+  has_many :credit_cards
   has_many :applications, :class_name => 'Doorkeeper::Application', :as => :owner
   has_many :access_tokens, :class_name => 'Doorkeeper::AccessToken', :as => :owner
 

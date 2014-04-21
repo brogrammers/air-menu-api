@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <access-token>
-  <token>63d1ebd19ebc0b952009f4e155d3bfb404612e3c2b36fc034a30924787ec93af</token>
-  <refresh-token>e96f304cef585d81eff35d34501bdf25b035c94dc8f325412a9fc23a184dbb65</refresh-token>
+  <token>f8b872175ef03859aa9c63ae1539e16eacf00de3b9f49cb073cbc48cdad17a15</token>
+  <refresh-token>7a086bd42c193b7ef738588ede69b02a96b3bff60d9c86f418ad68c2256aeb67</refresh-token>
   <token-type>bearer</token-type>
-  <expires-in-seconds type="integer">0</expires-in-seconds>
-  <scopes type="Doorkeeper::OAuth::Scopes">user basic owner admin</scopes>
+  <expires-in-seconds type="integer">172705</expires-in-seconds>
+  <scopes type="Doorkeeper::OAuth::Scopes">basic user admin developer owner</scopes>
 </access-token>
