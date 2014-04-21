@@ -1,0 +1,25 @@
+{
+  "credit_cards": [
+    {
+      "id": 1,
+      "card_type": "VISA",
+      "month": "01",
+      "year": "17",
+      "number": "XXXXXXXXXXXX7508"
+    },
+    {
+      "id": 2,
+      "card_type": "MASTERCARD",
+      "month": "01",
+      "year": "17",
+      "number": "XXXXXXXXXXXX4532"
+    },
+    {
+      "id": 3,
+      "card_type": "VISA",
+      "month": "01",
+      "year": "17",
+      "number": "XXXXXXXXXXXX7508"
+    }
+  ]
+}
