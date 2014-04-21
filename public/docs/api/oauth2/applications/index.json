@@ -4,15 +4,15 @@
       "id": 1,
       "name": "iOS Restaurant",
       "redirect_uri": "http://localhost/",
-      "client_id": "d139c9ce62cfa644228aea012a7df98a8facdfb3b2819d3039a9894c3ed319f1",
-      "client_secret": "ff8c6c14814a43b9a2458536b6b6c01404982833435e2337e2890de9efd67a30"
+      "client_id": "fab9060fa8c95f6fbc29d3164ff1f37c1617b8a0f10101cccb946cad50f93cc7",
+      "client_secret": "3c93e7aeab2cbf88003e5e594254457193e81cf5b2db04f7e3e91ad2488c2fdb"
     },
     {
       "id": 2,
       "name": "iOS Customer",
       "redirect_uri": "http://localhost/",
-      "client_id": "867993c726b8b0307f955ac04b86cf9ee755f4e4fd16b5dcc2a5b96a48076f5a",
-      "client_secret": "164daf9e04ebc6eb781a26a60ef618f138a9387cfced16a8a86224aeb7b5d859"
+      "client_id": "4d00a280e710562915f80d643f2d7d7b47a5ac4c340e440e8017e11018f055e3",
+      "client_secret": "a9f7f16865a965bb8febde38f1ca3cc04ad5b1c0018c8de9a550d24081f15a89"
     }
   ]
 }

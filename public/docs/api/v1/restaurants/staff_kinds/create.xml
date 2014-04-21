@@ -3,8 +3,11 @@
   <id type="integer">1</id>
   <name>Manager</name>
   <accept-orders type="boolean">true</accept-orders>
-  <accept-order-items type="boolean">true</accept-order-items>
+  <accept-order-items type="boolean">false</accept-order-items>
   <scopes type="array">
+    <scope>
+      <name>get_menus</name>
+    </scope>
     <scope>
       <name>add_menus</name>
     </scope>

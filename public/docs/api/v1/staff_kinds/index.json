@@ -4,12 +4,16 @@
       "id": 1,
       "name": "Manager",
       "accept_orders": true,
-      "accept_order_items": true,
+      "accept_order_items": false,
       "restaurant": {
         "id": 1,
         "name": "The Church"
       },
       "scopes": [
+        {
+          "id": 1,
+          "name": "get_menus"
+        },
         {
           "id": 2,
           "name": "add_menus"
@@ -81,8 +85,8 @@
     {
       "id": 2,
       "name": "Waitress",
-      "accept_orders": null,
-      "accept_order_items": null,
+      "accept_orders": true,
+      "accept_order_items": false,
       "restaurant": {
         "id": 1,
         "name": "The Church"
@@ -100,8 +104,8 @@
     {
       "id": 3,
       "name": "Kitchen Staff",
-      "accept_orders": null,
-      "accept_order_items": null,
+      "accept_orders": false,
+      "accept_order_items": true,
       "restaurant": {
         "id": 1,
         "name": "The Church"

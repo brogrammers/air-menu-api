@@ -3,12 +3,16 @@
     "id": 1,
     "name": "Manager",
     "accept_orders": true,
-    "accept_order_items": true,
+    "accept_order_items": false,
     "restaurant": {
       "id": 1,
       "name": "The Church"
     },
     "scopes": [
+      {
+        "id": 1,
+        "name": "get_menus"
+      },
       {
         "id": 2,
         "name": "add_menus"

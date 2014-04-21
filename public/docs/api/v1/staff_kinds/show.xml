@@ -3,12 +3,16 @@
   <id type="integer">1</id>
   <name>Manager</name>
   <accept-orders type="boolean">true</accept-orders>
-  <accept-order-items type="boolean">true</accept-order-items>
+  <accept-order-items type="boolean">false</accept-order-items>
   <restaurant>
     <id type="integer">1</id>
     <name>The Church</name>
   </restaurant>
   <scopes type="array">
+    <scope>
+      <id type="integer">1</id>
+      <name>get_menus</name>
+    </scope>
     <scope>
       <id type="integer">2</id>
       <name>add_menus</name>

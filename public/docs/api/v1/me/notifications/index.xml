@@ -2,23 +2,9 @@
 <notifications type="array">
   <notification>
     <id type="integer">1</id>
-    <content>Hello !!</content>
+    <content>Order has been approved</content>
     <read type="boolean">true</read>
-    <payload nil="true"/>
-    <created-at type="datetime">2014-04-12T23:24:53Z</created-at>
-  </notification>
-  <notification>
-    <id type="integer">2</id>
-    <content>Bluuu</content>
-    <read type="boolean">false</read>
-    <payload nil="true"/>
-    <created-at type="datetime">2014-04-13T00:12:59Z</created-at>
-  </notification>
-  <notification>
-    <id type="integer">3</id>
-    <content>New Order</content>
-    <read type="boolean">false</read>
-    <payload nil="true"/>
-    <created-at type="datetime">2014-04-13T01:16:53Z</created-at>
+    <payload>{"order_id":1}</payload>
+    <created-at type="datetime">2014-04-21T03:46:20Z</created-at>
   </notification>
 </notifications>

@@ -1,3 +1,4 @@
+require 'json'
 require 'pp'
 
 def fill_database
@@ -759,6 +760,27 @@ DATABASE_TABLES = {
       },
       {
           :name => 'delete_staff_members'
+      }
+  ],
+
+  :location => [
+      {
+          :latitude => 59.23454,
+          :longitude => 59.23454,
+          :findable_id => 1,
+          :findable_type => 'Restaurant'
+      }
+  ],
+
+  :notification => [
+      {
+          :content => 'Order has been approved',
+          :read => true,
+          :remindable_id => 1,
+          :remindable_type => 'User',
+          :payload => {
+              :order_id => 1
+          }.to_json
       }
   ]
 }

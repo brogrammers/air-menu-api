@@ -3,6 +3,6 @@
   <id type="integer">1</id>
   <name>iOS Restaurant</name>
   <redirect-uri>http://localhost/</redirect-uri>
-  <client-id>d139c9ce62cfa644228aea012a7df98a8facdfb3b2819d3039a9894c3ed319f1</client-id>
-  <client-secret>ff8c6c14814a43b9a2458536b6b6c01404982833435e2337e2890de9efd67a30</client-secret>
+  <client-id>fab9060fa8c95f6fbc29d3164ff1f37c1617b8a0f10101cccb946cad50f93cc7</client-id>
+  <client-secret>3c93e7aeab2cbf88003e5e594254457193e81cf5b2db04f7e3e91ad2488c2fdb</client-secret>
 </oauth-application>

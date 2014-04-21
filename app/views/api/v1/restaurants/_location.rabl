@@ -1,3 +1,3 @@
 object @location => :location
 
-attributes :id, :longitude, :latitude
+attributes :id, :longitude, :latitude, :address

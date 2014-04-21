@@ -18,5 +18,9 @@
     <id type="integer">3</id>
     <name>Main Menu</name>
   </menu>
-  <location nil="true"/>
+  <location>
+    <id type="integer">1</id>
+    <longitude type="float">59.23454</longitude>
+    <latitude type="float">59.23454</latitude>
+  </location>
 </restaurant>

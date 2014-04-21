@@ -18,6 +18,10 @@
       "id": 3,
       "name": "Main Menu"
     },
-    "location": null
+    "location": {
+      "id": 1,
+      "longitude": 59.23454,
+      "latitude": 59.23454
+    }
   }
 }

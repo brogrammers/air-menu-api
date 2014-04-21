@@ -3,8 +3,11 @@
     "id": 1,
     "name": "Manager",
     "accept_orders": true,
-    "accept_order_items": true,
+    "accept_order_items": false,
     "scopes": [
+      {
+        "name": "get_menus"
+      },
       {
         "name": "add_menus"
       },

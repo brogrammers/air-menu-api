@@ -1,15 +1,4 @@
 {
   "access_token": {
-    "token": "f8b872175ef03859aa9c63ae1539e16eacf00de3b9f49cb073cbc48cdad17a15",
-    "refresh_token": "7a086bd42c193b7ef738588ede69b02a96b3bff60d9c86f418ad68c2256aeb67",
-    "token_type": "bearer",
-    "expires_in_seconds": 172705,
-    "scopes": [
-      "basic",
-      "user",
-      "admin",
-      "developer",
-      "owner"
-    ]
   }
 }

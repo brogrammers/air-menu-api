@@ -4,8 +4,11 @@
       "id": 1,
       "name": "Manager",
       "accept_orders": true,
-      "accept_order_items": true,
+      "accept_order_items": false,
       "scopes": [
+        {
+          "name": "get_menus"
+        },
         {
           "name": "add_menus"
         },
@@ -62,8 +65,8 @@
     {
       "id": 2,
       "name": "Waitress",
-      "accept_orders": null,
-      "accept_order_items": null,
+      "accept_orders": true,
+      "accept_order_items": false,
       "scopes": [
 
       ],
@@ -77,8 +80,8 @@
     {
       "id": 3,
       "name": "Kitchen Staff",
-      "accept_orders": null,
-      "accept_order_items": null,
+      "accept_orders": false,
+      "accept_order_items": true,
       "scopes": [
 
       ],

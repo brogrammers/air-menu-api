@@ -4,8 +4,11 @@
     <id type="integer">1</id>
     <name>Manager</name>
     <accept-orders type="boolean">true</accept-orders>
-    <accept-order-items type="boolean">true</accept-order-items>
+    <accept-order-items type="boolean">false</accept-order-items>
     <scopes type="array">
+      <scope>
+        <name>get_menus</name>
+      </scope>
       <scope>
         <name>add_menus</name>
       </scope>
@@ -62,8 +65,8 @@
   <staff-kind>
     <id type="integer">2</id>
     <name>Waitress</name>
-    <accept-orders nil="true"/>
-    <accept-order-items nil="true"/>
+    <accept-orders type="boolean">true</accept-orders>
+    <accept-order-items type="boolean">false</accept-order-items>
     <scopes type="array"/>
     <staff-members type="array">
       <staff-member>
@@ -75,8 +78,8 @@
   <staff-kind>
     <id type="integer">3</id>
     <name>Kitchen Staff</name>
-    <accept-orders nil="true"/>
-    <accept-order-items nil="true"/>
+    <accept-orders type="boolean">false</accept-orders>
+    <accept-order-items type="boolean">true</accept-order-items>
     <scopes type="array"/>
     <staff-members type="array">
       <staff-member>
