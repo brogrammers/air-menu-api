@@ -201,7 +201,7 @@ describe Api::V1::MenuSections::MenuItemsController do
           let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
 
           before :each do
-            post :create, :menu_section_id => 1, :name => 'name', :description => 'description'
+            post :create, :menu_section_id => 1, :name => 'name', :description => 'description', :price => '12.10', :currency => 'EUR'
           end
 
           it 'should respond with a HTTP 403 status code' do
@@ -222,7 +222,7 @@ describe Api::V1::MenuSections::MenuItemsController do
           let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
 
           before :each do
-            post :create, :menu_section_id => 2, :name => 'name', :description => 'description'
+            post :create, :menu_section_id => 2, :name => 'name', :description => 'description', :price => '12.10', :currency => 'EUR'
           end
 
           it 'should respond with a HTTP 403 status code' do
@@ -247,7 +247,7 @@ describe Api::V1::MenuSections::MenuItemsController do
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
           before :each do
-            post :create, :menu_section_id => 1, :name => 'name', :description => 'description'
+            post :create, :menu_section_id => 1, :name => 'name', :description => 'description', :price => '12.10', :currency => 'EUR'
           end
 
           it 'should respond with a HTTP 201 status code' do
@@ -271,7 +271,7 @@ describe Api::V1::MenuSections::MenuItemsController do
             let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => user_scope, :revoked? => false, :expired? => false }
 
             before :each do
-              post :create, :menu_section_id => 1, :name => 'name', :description => 'description'
+              post :create, :menu_section_id => 1, :name => 'name', :description => 'description', :price => '12.10', :currency => 'EUR'
             end
 
             it 'should respond with a HTTP 403 status code' do
@@ -293,7 +293,7 @@ describe Api::V1::MenuSections::MenuItemsController do
             let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => user_scope, :revoked? => false, :expired? => false }
 
             before :each do
-              post :create, :menu_section_id => 2, :name => 'name', :description => 'description'
+              post :create, :menu_section_id => 2, :name => 'name', :description => 'description', :price => '12.10', :currency => 'EUR'
             end
 
             it 'should respond with a HTTP 404 status code' do
@@ -321,7 +321,7 @@ describe Api::V1::MenuSections::MenuItemsController do
           let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
 
           before :each do
-            post :create, :menu_section_id => 1, :name => 'name', :description => 'description'
+            post :create, :menu_section_id => 1, :name => 'name', :description => 'description', :price => '12.10', :currency => 'EUR'
           end
 
           it 'should respond with a HTTP 201 status code' do
@@ -345,7 +345,7 @@ describe Api::V1::MenuSections::MenuItemsController do
             let(:token) { double :accessible? => true, :resource_owner_id => 10, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
 
             before :each do
-              post :create, :menu_section_id => 1, :name => 'name', :description => 'description'
+              post :create, :menu_section_id => 1, :name => 'name', :description => 'description', :price => '12.10', :currency => 'EUR'
             end
 
             it 'should respond with a HTTP 403 status code' do
@@ -367,7 +367,7 @@ describe Api::V1::MenuSections::MenuItemsController do
             let(:token) { double :accessible? => true, :resource_owner_id => 10, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
 
             before :each do
-              post :create, :menu_section_id => 2, :name => 'name', :description => 'description'
+              post :create, :menu_section_id => 2, :name => 'name', :description => 'description', :price => '12.10', :currency => 'EUR'
             end
 
             it 'should respond with a HTTP 404 status code' do

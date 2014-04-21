@@ -48,7 +48,7 @@ module Api
       param :name, String, 'Device name'
       param :uuid, String, 'Device UUID'
       param :token, String, 'Device token'
-      param :platform, [:ios], 'Device platform (currently only iOS)'
+      param :platform, :device_platform, 'Device platform (currently only iOS)'
       example File.read("#{Rails.root}/public/docs/api/v1/devices/update.json")
       example File.read("#{Rails.root}/public/docs/api/v1/devices/update.xml")
       def update

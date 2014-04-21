@@ -213,7 +213,7 @@ describe Api::V1::Restaurants::StaffKindsController do
       describe 'as a staff member' do
 
         before :each do
-          post :create, :restaurant_id => 1
+          post :create, :restaurant_id => 1, :name => 'name', :accept_orders => true, :accept_order_items => true
         end
 
         describe 'owning the restaurant' do

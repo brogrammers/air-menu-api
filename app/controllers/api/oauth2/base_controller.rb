@@ -1,6 +1,7 @@
 module Api
   module Oauth2
     class BaseController < ApplicationController
+      include Api::V1::BaseHelper
 
       resource_description do
         api_version 'oauth2'

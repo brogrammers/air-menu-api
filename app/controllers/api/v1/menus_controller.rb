@@ -45,7 +45,7 @@ module Api
       api :PUT, '/menus/:id', 'Update a menu in the system'
       description 'Updates all the menus in the system. ||admin owner update_menus||'
       formats [:json, :xml]
-      param :active, String, :desc => 'Make menu active. ||owner add_active_menus||'
+      param :active, :bool, :desc => 'Make menu active. ||owner add_active_menus||'
       example File.read("#{Rails.root}/public/docs/api/v1/menus/update.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menus/update.xml")
       def update

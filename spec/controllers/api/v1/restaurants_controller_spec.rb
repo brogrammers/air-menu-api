@@ -26,7 +26,7 @@ describe Api::V1::RestaurantsController do
       let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => ['admin'] }
 
       it 'should respond with a HTTP 200 status code' do
-        get :index
+        get :index, :latitude => 59.99999, :longitude => 59.99999, :offset => 1000
         expect(response).to be_success
         expect(response.status).to eq(200)
       end

@@ -19,9 +19,13 @@ Doorkeeper.configure do
   resource_owner_from_credentials do |routes|
     client = Doorkeeper::Application.authenticate(params[:client_id], params[:client_secret])
     identity = Identity.authenticate!(params[:username], params[:password])
-    distributor = AirMenu::ScopeDistributor.new params, identity, client.trusted
-    routes.params[:scope] = distributor.scope_string
-    client && identity && client.trusted ? identity : nil
+    if client && identity && client.trusted
+      distributor = AirMenu::ScopeDistributor.new params, identity, client && client.trusted
+      routes.params[:scope] = distributor.scope_string
+      identity
+    else
+      nil
+    end
   end
 
   skip_authorization do |resource_owner, client|

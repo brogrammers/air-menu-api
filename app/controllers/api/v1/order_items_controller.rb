@@ -47,7 +47,7 @@ module Api
       description 'Updates an order item in the system. ||admin user owner update_orders||'
       formats [:json, :xml]
       param :comment, String, :desc => 'Change comment for order item'
-      param :count, Integer, :desc => 'Change the quantity of your order item'
+      param :count, :integer, :desc => 'Change the quantity of your order item'
       param :state, ['approved', 'declined', 'start_prepare', 'end_prepare', 'served'], :desc => 'Set the new state for the order item. (Only for staff members)'
       example File.read("#{Rails.root}/public/docs/api/v1/order_items/update.json")
       example File.read("#{Rails.root}/public/docs/api/v1/order_items/update.xml")

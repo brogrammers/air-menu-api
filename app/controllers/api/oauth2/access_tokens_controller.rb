@@ -16,12 +16,12 @@ module Api
       description 'Creates an OAuth 2.0 access token. This action does not require an access token. ||trusted||'
       formats [:json, :xml]
       param :grant_type, ['password', 'refresh_token'], :desc => 'How to create an access token', :required => true
-      param :username, String, :desc => 'The username', :required => true
-      param :password, String, :desc => 'The password', :required => true
-      param :refresh_token, String, :desc => 'The refresh token', :required => true
+      param :username, String, :desc => 'The username'
+      param :password, String, :desc => 'The password'
+      param :refresh_token, String, :desc => 'The refresh token'
       param :client_id, String, :desc => 'The OAuth application client_id', :required => true
       param :client_secret, String, :desc => 'The OAuth application client_secret', :required => true
-      param :scope, ['basic', 'user', 'admin', 'create_company'], :desc => 'The scope required', :required => true
+      param :scope, String, :desc => 'The scope required', :required => true
       example File.read("#{Rails.root}/public/docs/api/oauth2/access_tokens/create.json")
       example File.read("#{Rails.root}/public/docs/api/oauth2/access_tokens/create.xml")
       def create

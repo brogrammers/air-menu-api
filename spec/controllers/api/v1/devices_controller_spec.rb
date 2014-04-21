@@ -155,7 +155,7 @@ describe Api::V1::DevicesController do
         let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
 
         before :each do
-          put :update, :id => 1, :name => 'new name', :uuid => 'new uuid', :token => 'new token', :platform => 'android'
+          put :update, :id => 1, :name => 'new name', :uuid => 'new uuid', :token => 'new token', :platform => 'ios'
         end
 
         it 'should respond with a HTTP 200 status code' do
@@ -168,7 +168,7 @@ describe Api::V1::DevicesController do
           expect(body['device']['name']).to eq('new name')
           expect(body['device']['uuid']).to eq('new uuid')
           expect(body['device']['token']).to eq('new token')
-          expect(body['device']['platform']).to eq('android')
+          expect(body['device']['platform']).to eq('ios')
         end
 
       end
@@ -179,7 +179,7 @@ describe Api::V1::DevicesController do
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope, :revoked? => false, :expired? => false }
 
           before :each do
-            put :update, :id => 2, :name => 'new name', :uuid => 'new uuid', :token => 'new token', :platform => 'android'
+            put :update, :id => 2, :name => 'new name', :uuid => 'new uuid', :token => 'new token', :platform => 'ios'
           end
 
           it 'should respond with a HTTP 200 status code' do
@@ -192,7 +192,7 @@ describe Api::V1::DevicesController do
             expect(body['device']['name']).to eq('new name')
             expect(body['device']['uuid']).to eq('new uuid')
             expect(body['device']['token']).to eq('new token')
-            expect(body['device']['platform']).to eq('android')
+            expect(body['device']['platform']).to eq('ios')
           end
 
         end
@@ -219,7 +219,7 @@ describe Api::V1::DevicesController do
           let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
 
           before :each do
-            put :update, :id => 3, :name => 'new name', :uuid => 'new uuid', :token => 'new token', :platform => 'android'
+            put :update, :id => 3, :name => 'new name', :uuid => 'new uuid', :token => 'new token', :platform => 'ios'
           end
 
           it 'should respond with a HTTP 200 status code' do
@@ -232,7 +232,7 @@ describe Api::V1::DevicesController do
             expect(body['device']['name']).to eq('new name')
             expect(body['device']['uuid']).to eq('new uuid')
             expect(body['device']['token']).to eq('new token')
-            expect(body['device']['platform']).to eq('android')
+            expect(body['device']['platform']).to eq('ios')
           end
 
         end

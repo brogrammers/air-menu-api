@@ -58,8 +58,8 @@ module Api
       param :county, String, :desc => "New Restaurants county"
       param :state, String, :desc => "New Restaurants state (only US)"
       param :country, String, :desc => "New Restaurants country"
-      param :latitude, Float, :desc => "New Restaurants latitude"
-      param :longitude, Float, :desc => "New Restaurants longitude"
+      param :latitude, :latitude, :desc => "New Restaurants latitude"
+      param :longitude, :longitude, :desc => "New Restaurants longitude"
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/update.json")
       example File.read("#{Rails.root}/public/docs/api/v1/restaurants/update.xml")
       def update

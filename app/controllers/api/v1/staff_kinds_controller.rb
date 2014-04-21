@@ -47,8 +47,8 @@ module Api
       formats [:json, :xml]
       param :name, String, :desc => 'New Staff Kind name'
       param :scopes, String, :desc => 'Staff Kind Permissions'
-      param :accept_orders, String, :desc => 'Staff kind can accept orders'
-      param :accept_order_items, String, :desc => 'Staff kind can accept order items'
+      param :accept_orders, :bool, :desc => 'Staff kind can accept orders'
+      param :accept_order_items, :bool, :desc => 'Staff kind can accept order items'
       example File.read("#{Rails.root}/public/docs/api/v1/staff_kinds/update.json")
       example File.read("#{Rails.root}/public/docs/api/v1/staff_kinds/update.xml")
       def update

@@ -37,7 +37,7 @@ module Api
       formats [:json, :xml]
       param :name, String, :desc => 'Application name', :required => true
       param :redirect_uri, String, :desc => 'A redirection url', :required => true
-      param :trusted, [true, false], :desc => 'Trusted Application. ||admin||'
+      param :trusted, :bool, :desc => 'Trusted Application. ||admin||'
       example File.read("#{Rails.root}/public/docs/api/oauth2/applications/show.json")
       example File.read("#{Rails.root}/public/docs/api/oauth2/applications/show.xml")
       def create

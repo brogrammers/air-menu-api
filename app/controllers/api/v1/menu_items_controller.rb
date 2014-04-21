@@ -46,8 +46,8 @@ module Api
       formats [:json, :xml]
       param :name, String, :desc => 'Name of Menu Item'
       param :description, String, :desc => 'Description of Menu Item'
-      param :price, Float, :desc => 'Price of Menu Item'
-      param :currency, ['EUR'], :desc => 'Currency of Menu Item'
+      param :price, :price, :desc => 'Price of Menu Item'
+      param :currency, :currency, :desc => 'Currency of Menu Item'
       param :staff_kind_id, String, :desc => 'Staff Kind handling this menu section'
       example File.read("#{Rails.root}/public/docs/api/v1/menu_items/update.json")
       example File.read("#{Rails.root}/public/docs/api/v1/menu_items/update.xml")
