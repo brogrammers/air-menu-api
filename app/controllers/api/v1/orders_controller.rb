@@ -1,11 +1,16 @@
 module Api
   module V1
     class OrdersController < BaseController
+      SCOPES = {
+          :index => [:admin],
+          :show => [:admin, :user, :owner, :get_orders],
+          :update => [:admin, :user, :owner, :update_orders],
+          :destroy => [:admin, :user, :owner, :delete_orders]
+      }
 
-      doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:admin, :user, :owner, :get_orders]
-      doorkeeper_for :update, :scopes => [:admin, :user, :owner, :update_orders]
-      doorkeeper_for :destroy, :scopes => [:admin, :user, :owner, :delete_orders]
+      SCOPES.each do |action, scopes|
+        doorkeeper_for action, :scopes => scopes
+      end
 
       before_filter :set_order, :only => [:show, :update, :destroy]
       before_filter :check_ownership, :only => [:show, :update, :destroy]
@@ -23,45 +28,55 @@ module Api
         error 500, 'Internal Server Error, Something went wrong!'
       end
 
+      ################################################################################################################
+
       api :GET, '/orders', 'All the orders in the system'
-      description 'Fetches all the orders in the system. ||admin||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/orders/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/orders/index.xml")
+      description "Fetches all the orders in the system. ||#{SCOPES[:index].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[orders], :index, format }
+
       def index
         @orders = Order.all
         respond_with @orders
       end
 
+      ################################################################################################################
+
       api :GET, '/orders/:id', 'Get an order in the system'
-      description 'Fetches an order in the system. ||admin user owner get_orders||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/orders/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/orders/show.xml")
+      description "Fetches an order in the system. ||#{SCOPES[:show].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[orders], :show, format }
+
       def show
         respond_with @order
       end
 
+      ################################################################################################################
+
       api :PUT, '/orders/:id', 'Update an order in the system'
-      description 'Updates an order in the system. ||admin user owner update_orders||'
-      formats [:json, :xml]
+      description "Updates an order in the system. ||#{SCOPES[:update].join(' ')}||"
+      formats FORMATS
       param :state, ['open', 'cancelled'], :desc => 'Set the new state for the order.'
-      example File.read("#{Rails.root}/public/docs/api/v1/orders/update.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/orders/update.xml")
+      FORMATS.each { |format| example BaseController.example_file %w[orders], :update, format }
+
       def update
         respond_with @order
       end
 
+      ################################################################################################################
+
       api :DELETE, '/orders/:id', 'Delete an order in the system'
-      description 'Deletes an order in the system. ||admin user owner delete_orders||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/orders/destroy.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/orders/destroy.xml")
+      description "Deletes an order in the system. ||#{SCOPES[:destroy].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[orders], :destroy, format }
+
       def destroy
         render_forbidden 'not_new_state' and return if @order.state != :new
         @order.destroy
         respond_with @order
       end
+
+      ################################################################################################################
 
       private
 

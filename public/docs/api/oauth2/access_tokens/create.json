@@ -1,4 +1,11 @@
 {
   "access_token": {
+    "token": "901e1adaa93b1dd49591405ba8388ef9e482f95f589b4eb49e5156122fcb1264",
+    "refresh_token": "2fbbf8c8ec2eea630109d78ce4586c940a3bbc876d5a200960039edd5ac1ea43",
+    "token_type": "bearer",
+    "expires_in_seconds": 46886,
+    "scopes": [
+      "basic"
+    ]
   }
 }

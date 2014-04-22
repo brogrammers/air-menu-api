@@ -1,11 +1,16 @@
 module Api
   module V1
     class GroupsController < BaseController
+      SCOPES = {
+          :index => [:admin],
+          :show => [:admin, :owner, :get_groups],
+          :update => [:admin, :owner, :update_groups],
+          :destroy => [:admin, :owner, :delete_groups]
+      }
 
-      doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:admin, :owner, :get_groups]
-      doorkeeper_for :update, :scopes => [:admin, :owner, :update_groups]
-      doorkeeper_for :destroy, :scopes => [:admin, :owner, :delete_groups]
+      SCOPES.each do |action, scopes|
+        doorkeeper_for action, :scopes => scopes
+      end
 
       before_filter :set_group, :only => [:show, :update, :destroy]
       before_filter :check_ownership, :only => [:show, :update, :destroy]
@@ -22,46 +27,56 @@ module Api
         error 500, 'Internal Server Error, Something went wrong!'
       end
 
+      ################################################################################################################
+
       api :GET, '/groups', 'All the groups in the system'
-      description 'Fetches all the groups in the system. ||admin||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/groups/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/groups/index.xml")
+      description "Fetches all the groups in the system. ||#{SCOPES[:index].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[groups], :index, format }
+
       def index
         @groups = Group.all
         respond_with @groups
       end
 
+      ################################################################################################################
+
       api :GET, '/groups/:id', 'Get a group in the system'
-      description 'Gets a group in the system. ||admin owner get_groups||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/groups/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/groups/show.xml")
+      description "Gets a group in the system. ||#{SCOPES[:show].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[groups], :show, format }
+
       def show
         respond_with @group
       end
 
+      ################################################################################################################
+
       api :PUT, '/groups/:id', 'Update a group in the system'
-      description 'Updates a group in the system. ||admin owner update_groups||'
-      formats [:json, :xml]
-      param :name, String, 'Group name'
-      example File.read("#{Rails.root}/public/docs/api/v1/groups/update.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/groups/update.xml")
+      description "Updates a group in the system. ||#{SCOPES[:update].join(' ')}||"
+      formats FORMATS
+      param_group :update_group, Api::V1::BaseController
+      FORMATS.each { |format| example BaseController.example_file %w[groups], :update, format }
+
       def update
         @group.name = params[:name] || @group.name
         @group.save!
         respond_with @group
       end
 
+      ################################################################################################################
+
       api :DELETE, '/groups/:id', 'Delete a group in the system'
-      description 'Deletes a group in the system. ||admin owner delete_groups||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/groups/destroy.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/groups/destroy.xml")
+      description "Deletes a group in the system. ||#{SCOPES[:destroy].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[groups], :destroy, format }
+
       def destroy
         @group.destroy
         respond_with @group
       end
+
+      ################################################################################################################
 
       private
 

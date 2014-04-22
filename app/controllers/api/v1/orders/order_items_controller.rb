@@ -2,9 +2,14 @@ module Api
   module V1
     module Orders
       class OrderItemsController < BaseController
+        SCOPES = {
+            :index => [:admin, :user, :owner, :get_orders],
+            :create => [:admin, :user, :owner, :add_orders]
+        }
 
-        doorkeeper_for :index, :scopes => [:admin, :user, :owner, :get_orders]
-        doorkeeper_for :create, :scopes => [:admin, :user, :owner, :add_orders]
+        SCOPES.each do |action, scopes|
+          doorkeeper_for action, :scopes => scopes
+        end
 
         before_filter :set_order, :only => [:index, :create]
         before_filter :set_menu_item, :only => [:create]
@@ -23,28 +28,32 @@ module Api
           error 500, 'Internal Server Error, Something went wrong!'
         end
 
+        ################################################################################################################
+
         api :GET, '/orders/:id/order_items', 'All the order items of an order'
-        description 'Fetches all the order items in of an order. ||admin user owner get_orders||'
-        formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/orders/order_items/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/orders/order_items/index.xml")
+        description "Fetches all the order items in of an order. ||#{SCOPES[:index].join(' ')}||"
+        formats FORMATS
+        FORMATS.each { |format| example BaseController.example_file %w[orders order_items], :index, format }
+
         def index
           @order_items = @order.order_items
           respond_with @order_items
         end
 
+        ################################################################################################################
+
         api :POST, '/orders/:id/order_items', 'Create an order item for an existing order'
-        description 'Creates an order item for an existing order. ||admin user owner add_orders||'
-        formats [:json, :xml]
-        param :comment, String, :desc => 'Set a comment on the order item'
-        param :count, :integer, :desc => 'Set how many times you want to order the menu item'
-        param :menu_item_id, :integer, :desc => 'Set menu item'
-        example File.read("#{Rails.root}/public/docs/api/v1/orders/order_items/create.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/orders/order_items/create.xml")
+        description "Creates an order item for an existing order. ||#{SCOPES[:create].join(' ')}||"
+        formats FORMATS
+        param_group :create_order_item, Api::V1::BaseController
+        FORMATS.each { |format| example BaseController.example_file %w[orders order_items], :create, format }
+
         def create
           @order_item = create_order_item @order, @menu_item
           respond_with @order_item, :status => :created
         end
+
+        ################################################################################################################
 
         private
 

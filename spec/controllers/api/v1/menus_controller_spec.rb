@@ -506,9 +506,9 @@ describe Api::V1::MenusController do
             delete :destroy, :id => 1
           end
 
-          it 'should respond with a HTTP 404 status code' do
-            expect(response).to be_not_found
-            expect(response.status).to eq(404)
+          it 'should respond with a HTTP 403 status code' do
+            expect(response).to be_forbidden
+            expect(response.status).to eq(403)
           end
 
         end
@@ -516,12 +516,12 @@ describe Api::V1::MenusController do
         describe 'on an inactive menu' do
 
           before :each do
-            get :show, :id => 2
+            delete :destroy, :id => 2
           end
 
-          it 'should respond with a HTTP 404 status code' do
-            expect(response).to be_not_found
-            expect(response.status).to eq(404)
+          it 'should respond with a HTTP 403 status code' do
+            expect(response).to be_forbidden
+            expect(response.status).to eq(403)
           end
 
         end
@@ -629,8 +629,9 @@ describe Api::V1::MenusController do
         end
 
         describe 'not owning the menu' do
-          let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['basic'] }
+          let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['delete_menus'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 10, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
+
 
           describe 'on an active menu' do
 

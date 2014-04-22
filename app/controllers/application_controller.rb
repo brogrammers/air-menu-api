@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  FORMATS = [:json, :xml]
+
   before_filter :find_current_user
   before_filter :determine_format
   before_filter :determine_phone

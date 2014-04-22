@@ -135,7 +135,7 @@ describe Api::V1::OrderItemsController do
 
         describe 'owning the order item' do
 
-          let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['get_current_orders'] }
+          let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['get_orders'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 7, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
 
           before :each do
@@ -150,7 +150,7 @@ describe Api::V1::OrderItemsController do
         end
 
         describe 'not owning the order item' do
-          let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['get_current_orders'] }
+          let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['get_orders'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 10, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
 
           before :each do
@@ -839,7 +839,7 @@ describe Api::V1::OrderItemsController do
           let(:token) { double :accessible? => true, :resource_owner_id => 10, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
 
           before :each do
-            put :show, :id => 1
+            put :update, :id => 1
           end
 
 

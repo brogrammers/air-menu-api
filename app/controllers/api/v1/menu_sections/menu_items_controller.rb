@@ -2,9 +2,14 @@ module Api
   module V1
     module MenuSections
       class MenuItemsController < BaseController
+        SCOPES = {
+            :index => [:admin, :user, :basic],
+            :create => [:admin, :owner, :add_menus, :add_active_menus]
+        }
 
-        doorkeeper_for :index, :scopes => [:admin, :user, :basic]
-        doorkeeper_for :create, :scopes => [:admin, :owner, :add_menus, :add_active_menus]
+        SCOPES.each do |action, scopes|
+          doorkeeper_for action, :scopes => scopes
+        end
 
         before_filter :set_menu_section, :only => [:index, :create]
         before_filter :check_active_menu_section, :only => [:index, :create]
@@ -22,26 +27,26 @@ module Api
           error 500, 'Internal Server Error, Something went wrong!'
         end
 
+        ################################################################################################################
+
         api :GET, '/menu_sections/:id/menu_items', 'All the menu items within a menu section'
-        description 'Fetches all the menu items within a menu section. ||admin user basic||'
-        formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/index.xml")
+        description "Fetches all the menu items within a menu section. ||#{SCOPES[:index].join(' ')}||"
+        formats FORMATS
+        FORMATS.each { |format| example BaseController.example_file %w[menu_sections menu_items], :index, format }
+
         def index
           @menu_items = @menu_section.menu_items
           respond_with @menu_items
         end
 
+        ################################################################################################################
+
         api :POST, '/menu_sections/:id/menu_items', 'Create menu items within a menu section'
-        description 'Creates a menu item within a menu section. ||admin owner add_menus add_active_menus||'
-        formats [:json, :xml]
-        param :name, String, :desc => 'Name of Menu Item', :required => true
-        param :description, String, :desc => 'Description of Menu Item', :required => true
-        param :price, :price, :desc => 'Price of Menu Item', :required => true
-        param :currency, :currency, :desc => 'Currency of Menu Item', :required => true
-        param :staff_kind_id, String, :desc => 'Staff Kind handling this menu section'
-        example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/create.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/create.xml")
+        description "Creates a menu item within a menu section. ||#{SCOPES[:create].join(' ')}||"
+        formats FORMATS
+        param_group :create_menu_item, Api::V1::BaseController
+        FORMATS.each { |format| example BaseController.example_file %w[menu_sections menu_items], :create, format }
+
         def create
           @menu_item = MenuItem.new
           @menu_item.name = params[:name]
@@ -54,6 +59,8 @@ module Api
           @menu_item.save!
           respond_with @menu_item, :status => :created
         end
+
+        ################################################################################################################
 
         private
 

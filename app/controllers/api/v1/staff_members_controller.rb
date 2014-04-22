@@ -1,11 +1,16 @@
 module Api
   module V1
     class StaffMembersController < BaseController
+      SCOPES = {
+          :index => [:admin],
+          :show => [:admin, :owner, :get_staff_members],
+          :update => [:admin, :owner, :update_staff_members],
+          :destroy => [:admin, :owner, :delete_staff_members]
+      }
 
-      doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:admin, :owner, :get_staff_members]
-      doorkeeper_for :update, :scopes => [:admin, :owner, :update_staff_members]
-      doorkeeper_for :destroy, :scopes => [:admin, :owner, :delete_staff_members]
+      SCOPES.each do |action, scopes|
+        doorkeeper_for action, :scopes => scopes
+      end
 
       before_filter :set_staff_member, :only => [:show, :update, :destroy]
       before_filter :set_staff_kind, :only => [:update]
@@ -23,34 +28,37 @@ module Api
         error 500, 'Internal Server Error, Something went wrong!'
       end
 
+      ################################################################################################################
+
       api :GET, '/staff_members', 'All the staff members in the system'
-      description 'Fetches all the staff members in the system. ||admin||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/staff_members/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/staff_members/index.xml")
+      description "Fetches all the staff members in the system. ||#{SCOPES[:index].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[staff_members], :index, format }
+
       def index
         @staff_members = StaffMember.all
         respond_with @staff_members
       end
 
+      ################################################################################################################
+
       api :GET, '/staff_members/:id', 'Get a staff member in the system'
-      description 'Gets a staff member in the system. ||admin owner get_staff_members||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/staff_members/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/staff_members/show.xml")
+      description "Gets a staff member in the system. ||#{SCOPES[:show].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[staff_members], :show, format }
+
       def show
         respond_with @staff_member
       end
 
+      ################################################################################################################
+
       api :PUT, '/staff_members/:id', 'Update a staff member in the system'
-      description 'Updates a staff member in the system. ||admin owner update_staff_members||'
-      formats [:json, :xml]
-      param :name, String, 'New Staff Member name'
-      param :password, String, 'New Staff Member password'
-      param :email, String, 'New Staff Member email'
-      param :staff_kind_id, String, 'Set Staff Members staff kind id'
-      example File.read("#{Rails.root}/public/docs/api/v1/staff_members/update.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/staff_members/update.xml")
+      description "Updates a staff member in the system. ||#{SCOPES[:update].join(' ')}||"
+      formats FORMATS
+      param_group :update_staff_member, Api::V1::BaseController
+      FORMATS.each { |format| example BaseController.example_file %w[staff_members], :update, format }
+
       def update
         @staff_member.name = params[:name] || @staff_member.name
         @staff_member.identity.new_password = params[:password] if params[:password]
@@ -61,15 +69,19 @@ module Api
         respond_with @staff_member
       end
 
+      ################################################################################################################
+
       api :DELETE, '/staff_members/:id', 'Delete a staff member in the system'
-      description 'Deletes a staff member in the system. ||admin owner delete_staff_members||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/staff_members/update.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/staff_members/update.xml")
+      description "Deletes a staff member in the system. ||#{SCOPES[:destroy].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[staff_members], :destroy, format }
+
       def destroy
         @staff_member.destroy
         respond_with @staff_member
       end
+
+      ################################################################################################################
 
       private
 

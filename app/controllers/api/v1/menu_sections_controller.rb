@@ -1,11 +1,16 @@
 module Api
   module V1
     class MenuSectionsController < BaseController
+      SCOPES = {
+          :index => [:admin],
+          :show => [:admin, :basic, :user],
+          :update => [:admin, :owner, :update_menus],
+          :destroy => [:admin, :owner, :delete_menus]
+      }
 
-      doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:admin, :basic, :user]
-      doorkeeper_for :update, :scopes => [:admin, :owner, :update_menus]
-      doorkeeper_for :destroy, :scopes => [:admin, :owner, :delete_menus]
+      SCOPES.each do |action, scopes|
+        doorkeeper_for action, :scopes => scopes
+      end
 
       before_filter :set_menu_section, :only => [:show, :update, :destroy]
       before_filter :set_staff_kind, :only => [:update]
@@ -23,33 +28,37 @@ module Api
         error 500, 'Internal Server Error, Something went wrong!'
       end
 
+      ################################################################################################################
+
       api :GET, '/menu_sections', 'All the menu sections in the system'
-      description 'Fetches all the menus in the system. ||admin||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/index.xml")
+      description "Fetches all the menus in the system. ||#{SCOPES[:index].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[menu_sections], :index, format }
+
       def index
         @menu_sections = MenuSection.all
         respond_with @menu_sections
       end
 
+      ################################################################################################################
+
       api :GET, '/menu_sections/:id', 'Get a menu section in the system'
-      description 'Fetches a menu section in the system. ||admin basic user||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/show.xml")
+      description "Fetches a menu section in the system. ||#{SCOPES[:show].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[menu_sections], :show, format }
+
       def show
         respond_with @menu_section
       end
 
+      ################################################################################################################
+
       api :PUT, '/menu_sections/:id', 'Update a menu section in the system'
-      description 'Updates a menu section in the system. ||admin owner update_menus||'
-      formats [:json, :xml]
-      param :name, String, :desc => 'Name of Menu Section'
-      param :description, String, :desc => 'Description of Menu Section'
-      param :staff_kind_id, String, :desc => 'Staff Kind handling this menu section'
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/update.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/update.xml")
+      description "Updates a menu section in the system. ||#{SCOPES[:update].join(' ')}||"
+      formats FORMATS
+      param_group :update_menu_section, Api::V1::BaseController
+      FORMATS.each { |format| example BaseController.example_file %w[menu_sections], :update, format }
+
       def update
         @menu_section.name = params[:name] || @menu_sections.name
         @menu_section.description = params[:description] || @menu_sections.description
@@ -58,15 +67,19 @@ module Api
         respond_with @menu_section
       end
 
+      ################################################################################################################
+
       api :DELETE, '/menu_sections/:id', 'Delete a menu section in the system'
-      description 'Deletes a menu section in the system. ||admin owner delete_menus||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/destroy.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/destroy.xml")
+      description "Deletes a menu section in the system. ||#{SCOPES[:destroy].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[menu_sections], :destroy, format }
+
       def destroy
         @menu_section.destroy
         respond_with @menu_section
       end
+
+      ################################################################################################################
 
       private
 

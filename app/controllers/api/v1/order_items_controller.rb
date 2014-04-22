@@ -1,11 +1,16 @@
 module Api
   module V1
     class OrderItemsController < BaseController
+      SCOPES = {
+          :index => [:admin],
+          :show => [:admin, :user, :owner, :get_orders],
+          :update => [:admin, :user, :owner, :update_orders],
+          :destroy => [:admin, :user, :owner, :delete_orders]
+      }
 
-      doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :create, :scopes => [:admin, :user, :owner, :get_orders]
-      doorkeeper_for :update, :scopes => [:admin, :user, :owner, :update_orders]
-      doorkeeper_for :destroy, :scopes => [:admin, :user, :owner, :delete_orders]
+      SCOPES.each do |action, scopes|
+        doorkeeper_for action, :scopes => scopes
+      end
 
       before_filter :set_order_item, :only => [:show, :update, :destroy]
       before_filter :check_ownership, :only => [:show, :update, :destroy]
@@ -24,47 +29,55 @@ module Api
         error 500, 'Internal Server Error, Something went wrong!'
       end
 
+      ################################################################################################################
+
       api :GET, '/order_items', 'All the order items in the system'
-      description 'Fetches all the order items in the system. ||admin||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/order_items/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/order_items/index.xml")
+      description "Fetches all the order items in the system. ||#{SCOPES[:index].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[order_items], :index, format }
+
       def index
         @order_items = OrderItem.all
         respond_with @order_items
       end
 
+      ################################################################################################################
+
       api :GET, '/order_items/:id', 'Get an order item in the system'
-      description 'Gets an order item in the system. ||admin user owner get_orders||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/order_items/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/order_items/show.xml")
+      description "Gets an order item in the system. ||#{SCOPES[:show].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[order_items], :show, format }
+
       def show
         respond_with @order_item
       end
 
+      ################################################################################################################
+
       api :PUT, '/order_items/:id', 'Update an order item in the system'
-      description 'Updates an order item in the system. ||admin user owner update_orders||'
-      formats [:json, :xml]
-      param :comment, String, :desc => 'Change comment for order item'
-      param :count, :integer, :desc => 'Change the quantity of your order item'
-      param :state, ['approved', 'declined', 'start_prepare', 'end_prepare', 'served'], :desc => 'Set the new state for the order item. (Only for staff members)'
-      example File.read("#{Rails.root}/public/docs/api/v1/order_items/update.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/order_items/update.xml")
+      description "Updates an order item in the system. ||#{SCOPES[:update].join(' ')}||"
+      formats FORMATS
+      param_group :update_order_item, Api::V1::BaseController
+      FORMATS.each { |format| example BaseController.example_file %w[order_items], :update, format }
+
       def update
         respond_with @order_item
       end
 
+      ################################################################################################################
+
       api :DELETE, '/order_items/:id', 'Delete an order item in the system'
-      description 'Deletes an order item in the system. ||admin user owner delete_orders||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/order_items/destroy.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/order_items/destroy.xml")
+      description "Deletes an order item in the system. ||#{SCOPES[:destroy].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[order_items], :destroy, format }
+
       def destroy
         render_forbidden 'not_new_state' and return if @order_item.order.state != :new
         @order_item.destroy
         respond_with @order_item
       end
+
+      ################################################################################################################
 
       private
 

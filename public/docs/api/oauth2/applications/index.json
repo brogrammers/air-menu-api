@@ -4,6 +4,7 @@
       "id": 1,
       "name": "iOS Restaurant",
       "redirect_uri": "http://localhost/",
+      "trusted": true,
       "client_id": "fab9060fa8c95f6fbc29d3164ff1f37c1617b8a0f10101cccb946cad50f93cc7",
       "client_secret": "3c93e7aeab2cbf88003e5e594254457193e81cf5b2db04f7e3e91ad2488c2fdb"
     },
@@ -11,6 +12,7 @@
       "id": 2,
       "name": "iOS Customer",
       "redirect_uri": "http://localhost/",
+      "trusted": true,
       "client_id": "4d00a280e710562915f80d643f2d7d7b47a5ac4c340e440e8017e11018f055e3",
       "client_secret": "a9f7f16865a965bb8febde38f1ca3cc04ad5b1c0018c8de9a550d24081f15a89"
     }

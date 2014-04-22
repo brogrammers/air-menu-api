@@ -2,8 +2,13 @@ module Api
   module V1
     module Me
       class OrdersController < BaseController
+        SCOPES = {
+            :index => [:get_orders]
+        }
 
-        doorkeeper_for :index, :scopes => [:get_orders]
+        SCOPES.each do |action, scopes|
+          doorkeeper_for action, :scopes => scopes
+        end
 
         before_filter :check_staff_member
         before_filter :set_orders
@@ -19,15 +24,19 @@ module Api
           error 500, 'Internal Server Error, Something went wrong!'
         end
 
+        ################################################################################################################
+
         api :GET, '/me/orders', 'All the orders of the currently logged-in staff member'
-        description 'Fetches all the orders of the currently logged-in staff member. ||get_orders||'
-        formats [:json, :xml]
-        param :state, ['open', 'approved', 'cancelled', 'served', 'paid'], 'Get orders of certain state', :required => true
-        example File.read("#{Rails.root}/public/docs/api/v1/me/orders/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/me/orders/index.xml")
+        description "Fetches all the orders of the currently logged-in staff member. ||#{SCOPES[:index].join(' ')}||"
+        formats FORMATS
+        param :state, %w[open approved cancelled served paid], 'Get orders of certain state', :required => true
+        FORMATS.each { |format| example BaseController.example_file %w[me orders], :index, format }
+
         def index
           respond_with @orders
         end
+
+        ################################################################################################################
 
         private
 

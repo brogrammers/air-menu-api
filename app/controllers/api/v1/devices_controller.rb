@@ -1,11 +1,16 @@
 module Api
   module V1
     class DevicesController < BaseController
+      SCOPES = {
+          :index => [:admin],
+          :show => [:admin, :user, :owner, :get_devices],
+          :update => [:admin, :user, :owner, :update_devices],
+          :destroy => [:admin, :user, :owner, :delete_devices]
+      }
 
-      doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:admin, :user, :owner, :get_devices]
-      doorkeeper_for :update, :scopes => [:admin, :user, :owner, :update_devices]
-      doorkeeper_for :destroy, :scopes => [:admin, :user, :owner, :delete_devices]
+      SCOPES.each do |action, scopes|
+        doorkeeper_for action, :scopes => scopes
+      end
 
       before_filter :set_device, :only => [:show, :update, :destroy]
       before_filter :check_ownership, :only => [:show, :update, :destroy]
@@ -23,47 +28,54 @@ module Api
         error 500, 'Internal Server Error, Something went wrong!'
       end
 
+      ################################################################################################################
+
       api :GET, '/devices', 'All the devices in the system'
-      description 'Fetches all the devices in the system. ||admin||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/devices/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/devices/index.xml")
+      description "Fetches all the devices in the system. ||#{SCOPES[:index].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[devices], :index, format }
+
       def index
         @devices = Device.all
         respond_with @devices
       end
 
+      ################################################################################################################
+
       api :GET, '/devices/:id', 'Get a device in the system'
-      description 'Gets a device in the system. ||admin user owner get_devices||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/devices/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/devices/show.xml")
+      description "Gets a device in the system. ||#{SCOPES[:show].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[devices], :show, format }
+
       def show
         respond_with @device
       end
 
+      ################################################################################################################
+
       api :PUT, '/devices/:id', 'Update a device in the system'
-      description 'Updates a device in the system. ||admin user owner update_devices||'
-      formats [:json, :xml]
-      param :name, String, 'Device name'
-      param :uuid, String, 'Device UUID'
-      param :token, String, 'Device token'
-      param :platform, :device_platform, 'Device platform (currently only iOS)'
-      example File.read("#{Rails.root}/public/docs/api/v1/devices/update.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/devices/update.xml")
+      description "Updates a device in the system. ||#{SCOPES[:update].join(' ')}||"
+      formats FORMATS
+      param_group :update_device, Api::V1::BaseController
+      FORMATS.each { |format| example BaseController.example_file %w[devices], :update, format }
+
       def update
         respond_with @device
       end
 
+      ################################################################################################################
+
       api :DELETE, '/devices/:id', 'Delete a device in the system'
-      description 'Deletes a device in the system. ||admin user owner delete_devices||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/devices/destroy.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/devices/destroy.xml")
+      description "Deletes a device in the system. ||#{SCOPES[:destroy].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[devices], :destroy, format }
+
       def destroy
         @device.destroy
         respond_with @device
       end
+
+      ################################################################################################################
 
       private
 

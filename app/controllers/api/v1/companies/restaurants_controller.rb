@@ -2,9 +2,14 @@ module Api
   module V1
     module Companies
       class RestaurantsController < BaseController
+        SCOPES = {
+            :index => [:admin, :owner],
+            :create => [:admin, :owner]
+        }
 
-        doorkeeper_for :index, :scopes => [:admin, :owner]
-        doorkeeper_for :create, :scopes => [:admin, :owner]
+        SCOPES.each do |action, scopes|
+          doorkeeper_for action, :scopes => scopes
+        end
 
         before_filter :set_company, :only => [:index, :create]
         before_filter :check_ownership, :only => [:create]
@@ -21,34 +26,32 @@ module Api
           error 500, 'Internal Server Error, Something went wrong!'
         end
 
+        ################################################################################################################
+
         api :GET, '/companies/:id/restaurants', 'All the restaurants of a company'
-        description 'Fetches all the restaurants in the system. ||admin owner||'
-        formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/index.xml")
+        description "Fetches all the restaurants in the system. ||#{SCOPES[:index].join(' ')}||"
+        formats FORMATS
+        FORMATS.each { |format| example BaseController.example_file %w[companies restaurants], :index, format }
+
         def index
           @restaurants = @company.restaurants
           respond_with @restaurants
         end
 
+        ################################################################################################################
+
         api :POST, '/companies/:id/restaurants', 'Create a new restaurant'
-        description 'Creates a new company. Only owners can create new restaurants. ||admin owner||'
-        formats [:json, :xml]
-        param :name, String, :desc => "Restaurant Name", :required => true
-        param :address_1, String, :desc => "Restaurants address line 1", :required => true
-        param :address_2, String, :desc => "Restaurants address line 2", :required => true
-        param :city, String, :desc => "Restaurants city", :required => true
-        param :county, String, :desc => "Restaurants county", :required => true
-        param :state, String, :desc => "Restaurants state (only US)"
-        param :country, String, :desc => "Restaurants country", :required => true
-        param :latitude, :latitude, :desc => "Restaurants latitude", :required => true
-        param :longitude, :longitude, :desc => "Restaurants longitude", :required => true
-        example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/create.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/companies/restaurants/create.xml")
+        description "Creates a new company. Only owners can create new restaurants. ||#{SCOPES[:create].join(' ')}||"
+        formats FORMATS
+        param_group :create_restaurant, Api::V1::BaseController
+        FORMATS.each { |format| example BaseController.example_file %w[companies restaurants], :create, format }
+
         def create
           @restaurant = create_restaurant @company
           respond_with @restaurant, :status => :created
         end
+
+        ################################################################################################################
 
         private
 

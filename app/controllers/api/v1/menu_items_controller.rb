@@ -1,10 +1,16 @@
 module Api
   module V1
     class MenuItemsController < BaseController
+      SCOPES = {
+          :index => [:admin],
+          :show => [:admin, :basic, :user],
+          :update => [:admin, :owner, :update_menus],
+          :destroy => [:admin, :owner, :delete_menus]
+      }
 
-      doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:admin, :basic, :user]
-      doorkeeper_for :update, :scopes => [:admin, :owner, :update_menus]
+      SCOPES.each do |action, scopes|
+        doorkeeper_for action, :scopes => scopes
+      end
 
       before_filter :set_menu_item, :only => [:show, :update, :destroy]
       before_filter :set_staff_kind, :only => [:update]
@@ -22,35 +28,37 @@ module Api
         error 500, 'Internal Server Error, Something went wrong!'
       end
 
+      ################################################################################################################
+
       api :GET, '/menu_items', 'All the menu items in the system'
-      description 'Fetches all the menu items in the system. ||admin||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_items/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_items/index.xml")
+      description "Fetches all the menu items in the system. ||#{SCOPES[:index].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[menu_items], :index, format }
+
       def index
         @menu_items = MenuItem.all
         respond_with @menu_items
       end
 
+      ################################################################################################################
+
       api :GET, '/menu_items/:id', 'Get a menu item in the system'
-      description 'Fetches a menu item in the system. ||admin basic user||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_items/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_items/show.xml")
+      description "Fetches a menu item in the system. ||#{SCOPES[:show].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[menu_items], :show, format }
+
       def show
         respond_with @menu_item
       end
 
+      ################################################################################################################
+
       api :PUT, '/menu_items/:id', 'Update a menu item in the system'
-      description 'Updates a menu item in the system. ||admin basic update_menus||'
-      formats [:json, :xml]
-      param :name, String, :desc => 'Name of Menu Item'
-      param :description, String, :desc => 'Description of Menu Item'
-      param :price, :price, :desc => 'Price of Menu Item'
-      param :currency, :currency, :desc => 'Currency of Menu Item'
-      param :staff_kind_id, String, :desc => 'Staff Kind handling this menu section'
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_items/update.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_items/update.xml")
+      description "Updates a menu item in the system. ||#{SCOPES[:update].join(' ')}||"
+      formats FORMATS
+      param_group :update_menu, Api::V1::BaseController
+      FORMATS.each { |format| example BaseController.example_file %w[menu_items], :update, format }
+
       def update
         @menu_item.name = params[:name] || @menu_item.name
         @menu_item.description = params[:description] || @menu_item.description
@@ -61,15 +69,19 @@ module Api
         respond_with @menu_item
       end
 
+      ################################################################################################################
+
       api :DELETE, '/menu_items/:id', 'Delete a menu item in the system'
-      description 'Deletes a menu item in the system. ||admin basic delete_menus||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_items/destroy.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/menu_items/destroy.xml")
+      description "Deletes a menu item in the system. ||#{SCOPES[:destroy].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[menu_items], :destroy, format }
+
       def destroy
         @menu_item.destroy
         respond_with @menu_item
       end
+
+      ################################################################################################################
 
       private
 

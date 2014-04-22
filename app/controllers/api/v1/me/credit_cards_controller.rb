@@ -2,9 +2,14 @@ module Api
   module V1
     module Me
       class CreditCardsController < BaseController
+        SCOPES = {
+            :index => [:user, :owner],
+            :create => [:user, :owner]
+        }
 
-        doorkeeper_for :index, :scopes => [:user, :owner]
-        doorkeeper_for :create, :scopes => [:user, :owner]
+        SCOPES.each do |action, scopes|
+          doorkeeper_for action, :scopes => scopes
+        end
 
         resource_description do
           name 'Me > Credit Cards'
@@ -18,30 +23,32 @@ module Api
           error 500, 'Internal Server Error, Something went wrong!'
         end
 
+        ################################################################################################################
+
         api :GET, '/me/credit_cards', 'All the credit cards of the currently logged-in user'
-        description 'Fetches a credit card of the currently logged-in user. ||user owner||'
-        formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/me/credit_cards/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/me/credit_cards/index.xml")
+        description "Fetches a credit card of the currently logged-in user. ||#{SCOPES[:index].join(' ')}||"
+        formats FORMATS
+        FORMATS.each { |format| example BaseController.example_file %w[me credit_cards], :index, format }
+
         def index
           @credit_cards = @user.credit_cards
           respond_with @credit_cards
         end
 
+        ################################################################################################################
+
         api :POST, '/me/credit_cards', 'Create a credit card for the currently logged-in user'
-        description 'Creates a credit card for the currently logged-in user. ||user owner||'
-        formats [:json, :xml]
-        param :number, String, :desc => 'Credit Card number (16 digits)', :required => true
-        param :card_type, ['VISA', 'MASTERCARD'], :desc => 'Credit Card type', :required => true
-        param :month, String, :desc => 'Credit Card expiry month', :required => true
-        param :year, String, :desc => 'Credit Card expiry year', :required => true
-        param :cvc, String, :desc => 'Credit Card CVC', :required => true
-        example File.read("#{Rails.root}/public/docs/api/v1/me/credit_cards/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/me/credit_cards/index.xml")
+        description "Creates a credit card for the currently logged-in user. ||#{SCOPES[:create].join(' ')}||"
+        formats FORMATS
+        param_group :create_credit_card, Api::V1::BaseController
+        FORMATS.each { |format| example BaseController.example_file %w[me credit_cards], :index, format }
+
         def create
           @credit_card = create_credit_card @user
           respond_with @credit_card, :status => :created
         end
+
+        ################################################################################################################
 
       end
     end
