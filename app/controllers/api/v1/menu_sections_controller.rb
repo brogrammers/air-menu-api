@@ -60,10 +60,7 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[menu_sections], :update, format }
 
       def update
-        @menu_section.name = params[:name] || @menu_sections.name
-        @menu_section.description = params[:description] || @menu_sections.description
-        @menu_section.staff_kind = @staff_kind
-        @menu_section.save!
+        @menu_section = update_menu_section @menu_section, @staff_kind
         respond_with @menu_section
       end
 

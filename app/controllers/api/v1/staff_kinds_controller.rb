@@ -60,14 +60,7 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[staff_kinds], :update, format }
 
       def update
-        @staff_kind.name = params[:name] || @staff_kind.name
-        @staff_kind.accept_orders = params[:accept_orders] unless params[:accept_orders].nil?
-        @staff_kind.accept_order_items = params[:accept_order_items] unless params[:accept_order_items].nil?
-        @staff_kind.empty_scopes if @staff_kind_scopes.size > 0
-        @staff_kind_scopes.each do |scope|
-          @staff_kind.scopes << scope
-        end
-        @staff_kind.save!
+        @staff_kind = update_staff_kind @staff_kind, @staff_kind_scopes
         respond_with @staff_kind
       end
 

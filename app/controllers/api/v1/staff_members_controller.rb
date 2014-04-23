@@ -60,12 +60,7 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[staff_members], :update, format }
 
       def update
-        @staff_member.name = params[:name] || @staff_member.name
-        @staff_member.identity.new_password = params[:password] if params[:password]
-        @staff_member.identity.email = params[:email] || @staff_member.identity.email
-        @staff_member.staff_kind = @staff_kind if @staff_kind
-        @staff_member.identity.save!
-        @staff_member.save!
+        @staff_member = update_staff_member @staff_member, @staff_kind
         respond_with @staff_member
       end
 

@@ -14,7 +14,6 @@ module Api
 
       before_filter :set_order_item, :only => [:show, :update, :destroy]
       before_filter :check_ownership, :only => [:show, :update, :destroy]
-      before_filter :update_order_item, :only => [:update]
       before_filter :update_order_item_state, :only => [:update]
 
       resource_description do
@@ -61,6 +60,7 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[order_items], :update, format }
 
       def update
+        @order_item = update_order_item @order_item
         respond_with @order_item
       end
 
@@ -89,12 +89,6 @@ module Api
 
       def check_ownership
         render_model_not_found 'OrderItem' if not_admin_and?(!@user.owns(@order_item))
-      end
-
-      def update_order_item
-        @order_item.comment = params[:comment] || @order_item.comment
-        @order_item.count = params[:count] || @order_item.count
-        @order_item.save!
       end
 
       def update_order_item_state

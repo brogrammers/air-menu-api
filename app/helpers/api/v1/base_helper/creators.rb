@@ -44,6 +44,9 @@ module Api
           user = User.new
           user.name = params[:name]
           user.phone = params[:phone]
+          identity = create_identity
+          user.identity = identity
+          identity.save!
           user.save!
           user
         end

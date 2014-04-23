@@ -14,7 +14,6 @@ module Api
 
       before_filter :set_device, :only => [:show, :update, :destroy]
       before_filter :check_ownership, :only => [:show, :update, :destroy]
-      before_filter :update_device, :only => [:update]
 
       resource_description do
         name 'Devices'
@@ -60,6 +59,7 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[devices], :update, format }
 
       def update
+        @device = update_device @device
         respond_with @device
       end
 
@@ -87,14 +87,6 @@ module Api
 
       def check_ownership
         render_model_not_found 'Device' if not_admin_and?(!@user.owns(@device))
-      end
-
-      def update_device
-        @device.name = params[:name] || @device.name
-        @device.uuid = params[:uuid] || @device.uuid
-        @device.token = params[:token] || @device.token
-        @device.platform = params[:platform] || @device.platform
-        @device.save!
       end
 
     end

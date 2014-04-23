@@ -32,8 +32,7 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[notifications], :update, format }
 
       def update
-        @notification.read = params[:read] || @notification.read
-        @notification.save!
+        @notification = update_notification @notification
         respond_with @notification
       end
 

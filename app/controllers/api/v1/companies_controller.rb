@@ -62,16 +62,7 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[companies], :update, format }
 
       def update
-        @company.name = params[:name] || @company.name
-        @company.website = params[:website] || @company.website
-        @company.address.address_1 = params[:address_1] || @company.address.address_1
-        @company.address.address_2 = params[:address_2] || @company.address.address_2
-        @company.address.city = params[:city] || @company.address.city
-        @company.address.county = params[:county] || @company.address.county
-        @company.address.state = params[:state] || @company.address.state
-        @company.address.country = params[:country] || @company.address.country
-        @company.address.save!
-        @company.save!
+        @company = update_company @company
         respond_with @company
       end
 

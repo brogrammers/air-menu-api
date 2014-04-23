@@ -60,10 +60,7 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[menus], :update, format }
 
       def update
-        if params[:active] and (scope_exists? 'add_active_menus' or scope_exists? 'owner')
-          @menu.restaurant.active_menu_id = @menu.id
-          @menu.restaurant.save!
-        end
+        @menu = update_menu @menu
         respond_with @menu
       end
 

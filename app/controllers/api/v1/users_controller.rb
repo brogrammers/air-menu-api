@@ -58,9 +58,6 @@ module Api
 
       def create
         @user = create_user
-        @identity = create_identity
-        @user.identity = @identity
-        @identity.save!
         respond_with @user, :status => :created
       end
 

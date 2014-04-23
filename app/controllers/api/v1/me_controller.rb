@@ -41,10 +41,7 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[me], :update, format }
 
       def update
-        @user.name = params[:name] || @user.name
-        @user.identity.new_password = params[:password] if params[:password]
-        @user.phone = params[:phone] if @user.class == User
-        @user.save!
+        @user = update_user @user
         respond_with @user
       end
 

@@ -59,8 +59,7 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[groups], :update, format }
 
       def update
-        @group.name = params[:name] || @group.name
-        @group.save!
+        @group = update_group @group
         respond_with @group
       end
 

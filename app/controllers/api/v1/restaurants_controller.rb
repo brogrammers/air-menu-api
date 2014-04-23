@@ -64,18 +64,7 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[restaurants], :update, format }
 
       def update
-        @restaurant.name = params[:name] || @restaurant.name
-        @restaurant.address.address_1 = params[:address_1] || @restaurant.address.address_1
-        @restaurant.address.address_2 = params[:address_2] || @restaurant.address.address_2
-        @restaurant.address.city = params[:city] || @restaurant.address.city
-        @restaurant.address.county = params[:county] || @restaurant.address.county
-        @restaurant.address.state = params[:state] || @restaurant.address.state
-        @restaurant.address.country = params[:country] || @restaurant.address.country
-        @restaurant.location.latitude = params[:latitude] || @restaurant.location.latitude if @restaurant.location
-        @restaurant.location.longitude = params[:longitude] || @restaurant.location.longitude if @restaurant.location
-        @restaurant.address.save!
-        @restaurant.location.save! if @restaurant.location
-        @restaurant.save!
+        @restaurant = update_restaurant @restaurant
         respond_with @restaurant
       end
 

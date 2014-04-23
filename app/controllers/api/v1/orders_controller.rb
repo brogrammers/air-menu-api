@@ -14,7 +14,7 @@ module Api
 
       before_filter :set_order, :only => [:show, :update, :destroy]
       before_filter :check_ownership, :only => [:show, :update, :destroy]
-      before_filter :update_order, :only => [:update]
+      before_filter :update_order_state, :only => [:update]
 
       resource_description do
         name 'Orders'
@@ -90,7 +90,7 @@ module Api
         render_model_not_found 'Order' if not_admin_and?(!@user.owns(@order))
       end
 
-      def update_order
+      def update_order_state
         if params[:state] == 'cancelled' or params[:state] == 'open'
           @order.send "#{params[:state]}!".to_sym
         else
