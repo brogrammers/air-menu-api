@@ -145,6 +145,55 @@ module Api
           credit_card
         end
 
+        def create_application(user)
+          application = Doorkeeper::Application.new
+          application.name = params[:name]
+          application.redirect_uri = params[:redirect_uri]
+          if scope_exists? 'admin'
+            application.trusted = params[:trusted] || false
+          else
+            application.trusted = false
+          end
+          user.applications << @application
+          application.save!
+          application
+        end
+
+        def create_menu_item(menu_section, staff_kind)
+          menu_item = MenuItem.new
+          menu_item.name = params[:name]
+          menu_item.description = params[:description]
+          menu_item.price = params[:price]
+          menu_item.currency = params[:currency]
+          menu_item.menu_section = menu_section
+          menu_item.staff_kind = staff_kind if staff_kind
+          menu_section.menu_items << menu_item
+          menu_item.save!
+          menu_item
+        end
+
+        def create_menu_section(menu)
+          menu_section = MenuSection.new
+          menu_section.name = params[:name]
+          menu_section.description = params[:description]
+          menu.menu_sections << menu_section
+          menu_section.menu = menu
+          menu_section.save!
+          menu_section
+        end
+
+        def create_menu(restaurant)
+          menu = Menu.new
+          menu.name = params[:name]
+          menu.save!
+          restaurant.menus << menu
+          if params[:active] and (scope_exists? 'add_active_menus' or scope_exists? 'owner')
+            restaurant.active_menu_id = menu.id
+            restaurant.save!
+          end
+          menu
+        end
+
       end
     end
   end

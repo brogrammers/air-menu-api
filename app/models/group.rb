@@ -4,7 +4,7 @@ class Group < ActiveRecord::Base
   belongs_to :restaurant
   belongs_to :device
 
-  def add_staff_member(staff_member)
+  def add_staff_member!(staff_member)
     if staff_kind
       if staff_member.staff_kind.id == staff_kind.id
         self.staff_members << staff_member
@@ -14,6 +14,7 @@ class Group < ActiveRecord::Base
     else
       self.staff_members << staff_member
     end
+    save!
   end
 
   def staff_kind

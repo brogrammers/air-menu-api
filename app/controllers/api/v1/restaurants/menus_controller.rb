@@ -46,14 +46,7 @@ module Api
         param_group :create_menu, Api::V1::BaseController
         FORMATS.each { |format| example BaseController.example_file %w[restaurants menus], :create, format }
         def create
-          @menu = Menu.new
-          @menu.name = params[:name]
-          @menu.save!
-          @restaurant.menus << @menu
-          if params[:active] and (scope_exists? 'add_active_menus' or scope_exists? 'owner')
-            @restaurant.active_menu_id = @menu.id
-            @restaurant.save!
-          end
+          @menu = create_menu @restaurant
           respond_with @menu, :status => :created
         end
 

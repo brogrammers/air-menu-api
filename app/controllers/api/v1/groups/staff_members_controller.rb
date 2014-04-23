@@ -48,8 +48,7 @@ module Api
         FORMATS.each { |format| example BaseController.example_file %w[groups staff_members], :create, format }
 
         def create
-          @group.add_staff_member @staff_member
-          @staff_member.save!
+          @group.add_staff_member! @staff_member
           respond_with @staff_member, :status => :created
         end
 

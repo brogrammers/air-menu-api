@@ -52,16 +52,7 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[applications], :create, format }
 
       def create
-        @application = Doorkeeper::Application.new
-        @application.name = params[:name]
-        @application.redirect_uri = params[:redirect_uri]
-        if scope_exists? 'admin'
-          @application.trusted = params[:trusted] || false
-        else
-          @application.trusted = false
-        end
-        @user.applications << @application
-        @application.save!
+        @application = create_application @user
         respond_with @application
       end
 

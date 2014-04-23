@@ -48,15 +48,7 @@ module Api
         FORMATS.each { |format| example BaseController.example_file %w[menu_sections menu_items], :create, format }
 
         def create
-          @menu_item = MenuItem.new
-          @menu_item.name = params[:name]
-          @menu_item.description = params[:description]
-          @menu_item.price = params[:price]
-          @menu_item.currency = params[:currency]
-          @menu_item.menu_section = @menu_section
-          @menu_item.staff_kind = @staff_kind if @staff_kind
-          @menu_section.menu_items << @menu_item
-          @menu_item.save!
+          @menu_item = create_menu_item @menu_section, @staff_kind
           respond_with @menu_item, :status => :created
         end
 
