@@ -18,6 +18,7 @@ AirMenuApi::Application.routes.draw do
       resources :staff_kinds, :only => [:index, :show, :update, :destroy]
       resources :staff_members, :only => [:index, :show, :update, :destroy]
       resources :devices, :only => [:index, :show, :update, :destroy]
+      resources :credit_cards, :only => [:index, :show, :update, :destroy]
       resources :notifications, :only => [:update]
 
       resources :groups, :only => [:index, :show, :update, :destroy] do

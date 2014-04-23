@@ -18,6 +18,7 @@ class StaffMember < ActiveRecord::Base
     return owns_order_item object if object.class == OrderItem
     return owns_notification object if object.class == Notification
     return owns_device object if object.class == Device
+    return owns_credit_card object if object.class == CreditCard
     false
   end
 
@@ -115,5 +116,9 @@ class StaffMember < ActiveRecord::Base
 
   def owns_device(device)
     self.device_id == device.id
+  end
+
+  def owns_credit_card(credit_card)
+    false
   end
 end

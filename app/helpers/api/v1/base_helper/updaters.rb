@@ -117,6 +117,16 @@ module Api
           staff_member
         end
 
+        def update_credit_card(credit_card)
+          credit_card.number = params[:number] || credit_card.number
+          credit_card.card_type = params[:card_type] || credit_card.card_type
+          credit_card.month = params[:month] || credit_card.month
+          credit_card.year = params[:year] || credit_card.year
+          credit_card.cvc = params[:cvc] || credit_card.cvc
+          credit_card.save!
+          credit_card
+        end
+
       end
     end
   end
