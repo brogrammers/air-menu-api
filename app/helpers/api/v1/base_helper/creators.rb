@@ -197,6 +197,15 @@ module Api
           menu
         end
 
+        def create_payment(order, credit_card)
+          payment = Payment.new
+          payment.order = order
+          payment.credit_card = credit_card
+          order.paid!
+          payment.save!
+          payment
+        end
+
       end
     end
   end

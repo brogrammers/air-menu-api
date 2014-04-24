@@ -115,6 +115,10 @@ module Api
         param :offset, String, :desc => 'Offset', :required => true
       end
 
+      def_param_group :create_payment do
+        param :credit_card_id, :integer, :desc => 'Credit Card id (required for user, not allowed by staff member)'
+      end
+
     end
   end
 end

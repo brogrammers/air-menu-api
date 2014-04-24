@@ -6,3 +6,12 @@ one:
   year: 18
   cvc: 445
   user_id: 1
+
+two:
+  id: 2
+  number: 4319445320747509
+  card_type: VISA
+  month: 01
+  year: 18
+  cvc: 445
+  user_id: 2

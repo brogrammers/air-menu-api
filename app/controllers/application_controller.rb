@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   end
 
   def device?
-    request.headers["X-Device-UUID"] and request.headers["X-Device-Token"]
+    request.headers["X-Device-UUID"] && request.headers["X-Device-Token"]
   end
 
   def scope_exists?(scope)

@@ -760,6 +760,9 @@ DATABASE_TABLES = {
       },
       {
           :name => 'delete_staff_members'
+      },
+      {
+          :name => 'create_payments'
       }
   ],
 

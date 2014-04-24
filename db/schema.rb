@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140421035146) do
+ActiveRecord::Schema.define(:version => 20140423175432) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_1"
@@ -35,12 +35,14 @@ ActiveRecord::Schema.define(:version => 20140421035146) do
   end
 
   create_table "credit_cards", :force => true do |t|
-    t.string  "number"
-    t.string  "card_type"
-    t.string  "month"
-    t.string  "cvc"
-    t.integer "user_id"
-    t.string  "year"
+    t.string   "number"
+    t.string   "card_type"
+    t.string   "month"
+    t.string   "cvc"
+    t.integer  "user_id"
+    t.string   "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "devices", :force => true do |t|
@@ -55,9 +57,11 @@ ActiveRecord::Schema.define(:version => 20140421035146) do
   end
 
   create_table "groups", :force => true do |t|
-    t.string  "name"
-    t.integer "restaurant_id"
-    t.integer "device_id"
+    t.string   "name"
+    t.integer  "restaurant_id"
+    t.integer  "device_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "identities", :force => true do |t|
@@ -191,6 +195,13 @@ ActiveRecord::Schema.define(:version => 20140421035146) do
     t.datetime "served_time"
     t.datetime "cancelled_time"
     t.integer  "staff_member_id"
+  end
+
+  create_table "payments", :force => true do |t|
+    t.integer  "order_id"
+    t.integer  "credit_card_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "restaurants", :force => true do |t|

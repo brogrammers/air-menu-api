@@ -33,4 +33,5 @@ Read more about it in the POST /access_tokens route description.
 - delete_staff_kinds,
 - get_staff_members,
 - create_staff_members,
-- delete_staff_members
+- delete_staff_members,
+- create_payments

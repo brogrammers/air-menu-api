@@ -27,6 +27,7 @@ AirMenuApi::Application.routes.draw do
 
       resources :orders, :only => [:index, :show, :update, :destroy] do
         resources :order_items, :controller => 'orders/order_items', :only => [:index, :create]
+        resources :payments, :controller => 'orders/payments', :only => [:create]
       end
 
       resources :menu_sections, :only => [:index, :show, :update, :destroy] do

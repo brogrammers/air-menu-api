@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<credit-card>
+  <id type="integer">1</id>
+  <card-type>VISA</card-type>
+  <month>01</month>
+  <year>17</year>
+  <number>XXXXXXXXXXXX7508</number>
+</credit-card>

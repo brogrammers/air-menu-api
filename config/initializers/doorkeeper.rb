@@ -69,7 +69,8 @@ Doorkeeper.configure do
                   :get_staff_members,
                   :create_staff_members,
                   :update_staff_members,
-                  :delete_staff_members
+                  :delete_staff_members,
+                  :create_payments
 
   realm 'AirMenuApi'
 end
