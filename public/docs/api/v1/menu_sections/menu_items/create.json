@@ -1,9 +1,0 @@
-{
-  "menu_item": {
-    "id": 1,
-    "name": "Beef Burger",
-    "description": "Beef Burger with a small side salad.",
-    "price": 12.9,
-    "currency": "EUR"
-  }
-}

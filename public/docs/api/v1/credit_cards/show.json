@@ -1,9 +1,0 @@
-{
-  "credit_card": {
-    "id": 1,
-    "card_type": "VISA",
-    "month": "01",
-    "year": "17",
-    "number": "XXXXXXXXXXXX7508"
-  }
-}

@@ -27,3 +27,4 @@ node_modules/*
 
 secrets.yml
 coverage
+public/docs
