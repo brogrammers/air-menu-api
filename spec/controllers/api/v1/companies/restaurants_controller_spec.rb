@@ -107,7 +107,7 @@ describe Api::V1::Companies::RestaurantsController do
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
           before :each do
-            post :create, :company_id => 1, :name => 'Restaurant', :loyalty => false, :conversion_rate => 0.0, :remote_order => false, :address_1 => 'a1', :address_2 => 'a2', :city => 'city', :county => 'county', :country => 'IE', :latitude => 56.3443, :longitude => 6.78234
+            post :create, :company_id => 1, :name => 'Restaurant', :description => 'description', :loyalty => false, :conversion_rate => 0.0, :remote_order => false, :address_1 => 'a1', :address_2 => 'a2', :city => 'city', :county => 'county', :country => 'IE', :latitude => 56.3443, :longitude => 6.78234
           end
 
           it 'should respond with a HTTP 201 status code' do
@@ -115,23 +115,32 @@ describe Api::V1::Companies::RestaurantsController do
             expect(response.status).to eq(201)
           end
 
-          #it 'should create a new restaurant object' do
-          #  body = JSON.parse(response.body) rescue { }
-          #  restaurant = Restaurant.find(body['restaurant']['id']) rescue nil
-          #  expect(restaurant).not_to be_nil
-          #end
-          #
-          #it 'should create a new address object' do
-          #  body = JSON.parse(response.body) rescue { }
-          #  address = Address.find(body['restaurant']['address']['id']) rescue nil
-          #  expect(address).not_to be_nil
-          #end
-          #
-          #it 'should create new location object' do
-          #  body = JSON.parse(response.body) rescue { }
-          #  location = Address.find(body['restaurant']['location']['id']) rescue nil
-          #  expect(location).not_to be_nil
-          #end
+          it 'should add the correct attributes' do
+            body = JSON.parse(response.body) rescue { }
+            expect(body['restaurant']['name']).to eq('Restaurant')
+            expect(body['restaurant']['description']).to eq('description')
+            expect(body['restaurant']['loyalty']).to eq(false)
+            expect(body['restaurant']['conversion_rate']).to eq(0.0)
+            expect(body['restaurant']['remote_order']).to eq(false)
+          end
+
+          it 'should create a new restaurant object' do
+            body = JSON.parse(response.body) rescue { }
+            restaurant = Restaurant.find(body['restaurant']['id']) rescue nil
+            expect(restaurant).not_to be_nil
+          end
+
+          it 'should create a new address object' do
+            body = JSON.parse(response.body) rescue { }
+            address = Address.find(body['restaurant']['address']['id']) rescue nil
+            expect(address).not_to be_nil
+          end
+
+          it 'should create new location object' do
+            body = JSON.parse(response.body) rescue { }
+            location = Address.find(body['restaurant']['location']['id']) rescue nil
+            expect(location).not_to be_nil
+          end
 
         end
 

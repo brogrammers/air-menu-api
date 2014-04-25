@@ -194,12 +194,18 @@ describe Api::V1::RestaurantsController do
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope, :revoked? => false, :expired? => false }
 
           before :each do
-            put :update, :id => 1, :name => 'new name', :address_1 => 'new a1', :address_2 => 'new a2', :city => 'new city', :county => 'new county', :state => 'new state', :country => 'new country', :latitude => 54.3452, :longitude => 4.2342
+            put :update, :id => 1, :name => 'new name', :description => 'new description', :address_1 => 'new a1', :address_2 => 'new a2', :city => 'new city', :county => 'new county', :state => 'new state', :country => 'new country', :latitude => 54.3452, :longitude => 4.2342
           end
 
           it 'should respond with a HTTP 200 status code' do
             expect(response).to be_success
             expect(response.status).to eq(200)
+          end
+
+          it 'should change the correct attributes' do
+            body = JSON.parse(response.body) rescue { }
+            expect(body['restaurant']['name']).to eq('new name')
+            expect(body['restaurant']['description']).to eq('new description')
           end
 
         end

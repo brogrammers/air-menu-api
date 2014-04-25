@@ -4,6 +4,7 @@ class Restaurant < ActiveRecord::Base
   has_many :staff_kinds
   has_many :staff_members
   has_many :groups
+  has_many :reviews
   has_many :devices, :as => :notifiable
   has_one :address, :as => :contactable
   has_one :location, :as => :findable

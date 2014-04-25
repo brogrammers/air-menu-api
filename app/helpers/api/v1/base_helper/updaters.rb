@@ -81,6 +81,7 @@ module Api
 
         def update_restaurant(restaurant)
           restaurant.name = params[:name] || restaurant.name
+          restaurant.description = params[:description] || restaurant.description
           restaurant.address.address_1 = params[:address_1] || restaurant.address.address_1
           restaurant.address.address_2 = params[:address_2] || restaurant.address.address_2
           restaurant.address.city = params[:city] || restaurant.address.city

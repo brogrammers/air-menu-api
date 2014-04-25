@@ -26,6 +26,7 @@ module Api
 
         def_param_group :"#{action}_restaurant" do
           param :name, String, :desc => 'Restaurant Name', :required => required
+          param :description, String, :desc => 'Restaurant Description', :required => required
           param_group :"#{action}_address", Api::V1::BaseController
           param_group :"#{action}_location", Api::V1::BaseController
         end
