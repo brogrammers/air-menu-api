@@ -207,6 +207,18 @@ module Api
           payment
         end
 
+        def create_review(reviewable, user)
+          review = Review.new
+          review.subject = params[:subject]
+          review.message = params[:message]
+          review.rating = params[:rating]
+          review.user = user
+          review.restaurant = reviewable if reviewable.class == Restaurant
+          review.menu_item = reviewable if reviewable.class == MenuItem
+          review.save!
+          review
+        end
+
       end
     end
   end

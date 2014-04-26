@@ -17,4 +17,10 @@ class Restaurant < ActiveRecord::Base
   def active_menu
     @active_menu ||= Menu.find(self.active_menu_id) rescue nil
   end
+
+  def rating
+    review_array = self.reviews.to_a
+    sum = review_array.inject(0) { |sum, review| sum + review.rating }
+    review_array.size != 0 ? sum / review_array.size : 0.0
+  end
 end

@@ -169,3 +169,32 @@ class LongitudeValidator < Apipie::Validator::BaseValidator
   end
 
 end
+
+class RatingValidator < Apipie::Validator::BaseValidator
+
+  def initialize(param_description, argument)
+    super(param_description)
+    @type = argument
+  end
+
+  def validate(value)
+    return false if value.nil? || !value.is_a?(String)
+    converted = value.to_i
+    converted.to_s == value && converted > 0 && converted < 6
+  end
+
+  def self.build(param_description, argument, options, block)
+    if argument == :rating
+      self.new(param_description, argument)
+    end
+  end
+
+  def description
+    "#{@param_description}"
+  end
+
+  def expected_type
+    'integer (1-5)'
+  end
+
+end

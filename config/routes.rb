@@ -49,6 +49,7 @@ AirMenuApi::Application.routes.draw do
         resources :staff_members, :controller => 'restaurants/staff_members', :only => [:index, :create]
         resources :groups, :controller => 'restaurants/groups', :only => [:index, :create]
         resources :devices, :controller => 'restaurants/devices', :only => [:index, :create]
+        resources :reviews, :controller => 'restaurants/reviews', :only => [:index, :create]
       end
 
       resources :me, :only => [:index]

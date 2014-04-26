@@ -120,6 +120,12 @@ module Api
         param :credit_card_id, :integer, :desc => 'Credit Card id (required for user, not allowed by staff member)'
       end
 
+      def_param_group :create_review do
+        param :subject, String, :desc => 'Subject', :required => true
+        param :message, String, :desc => 'Message', :required => true
+        param :rating, :rating, :desc => 'Rating (1-5)', :required => true
+      end
+
     end
   end
 end
