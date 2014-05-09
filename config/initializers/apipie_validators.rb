@@ -198,3 +198,92 @@ class RatingValidator < Apipie::Validator::BaseValidator
   end
 
 end
+
+class DayValidator < Apipie::Validator::BaseValidator
+
+  def initialize(param_description, argument)
+    super(param_description)
+    @type = argument
+    @days = %w(monday tuesday wednesday thursday friday saturday sunday)
+  end
+
+  def validate(value)
+    return false if value.nil? || !value.is_a?(String)
+    @days.include? value
+  end
+
+  def self.build(param_description, argument, options, block)
+    if argument == :day
+      self.new(param_description, argument)
+    end
+  end
+
+  def description
+    "#{@param_description}"
+  end
+
+  def expected_type
+    "days  [#{@days.join(', ')}]"
+  end
+
+end
+
+class HourOffsetValidator < Apipie::Validator::BaseValidator
+
+  def initialize(param_description, argument)
+    super(param_description)
+    @type = argument
+  end
+
+  def validate(value)
+    return false if value.nil? || !value.is_a?(String)
+    valid_float = value == value.to_f.to_s
+    valid_size = value.to_f < 24.0 && value.to_f > 0.0
+    valid_float && valid_size
+  end
+
+  def self.build(param_description, argument, options, block)
+    if argument == :hour_offset
+      self.new(param_description, argument)
+    end
+  end
+
+  def description
+    "#{@param_description}"
+  end
+
+  def expected_type
+    'float [0.0..24.0]'
+  end
+
+end
+
+class StartOpeningHourValidator < Apipie::Validator::BaseValidator
+
+  def initialize(param_description, argument)
+    super(param_description)
+    @type = argument
+  end
+
+  def validate(value)
+    return false if value.nil? || !value.is_a?(String)
+    !!(Time.iso8601(value))
+  rescue ArgumentError
+    false
+  end
+
+  def self.build(param_description, argument, options, block)
+    if argument == :start_opening_hour
+      self.new(param_description, argument)
+    end
+  end
+
+  def description
+    "#{@param_description}"
+  end
+
+  def expected_type
+    'start time ISO8601 format'
+  end
+
+end

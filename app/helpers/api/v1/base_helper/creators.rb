@@ -219,6 +219,17 @@ module Api
           review
         end
 
+        def create_opening_hour(restaurant)
+          opening_hour = OpeningHour.new
+          opening_hour.day = params[:day]
+          start_time = Time.iso8601(params[:start])
+          opening_hour.start = start_time
+          opening_hour.end = start_time + 60*60*params[:end].to_f
+          opening_hour.restaurant = restaurant
+          opening_hour.save!
+          opening_hour
+        end
+
       end
     end
   end

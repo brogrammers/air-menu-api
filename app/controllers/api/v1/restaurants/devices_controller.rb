@@ -19,7 +19,7 @@ module Api
           short_description 'All about devices of restaurants'
           path '/restaurants/:id/devices'
           description 'The Restaurant Devices endpoint lets you manage devices for a restaurants.' +
-                          'Only a users with the right scope can create groups.'
+                          'Only a user with the right scope can create devices.'
           error 401, 'Unauthorized, missing or invalid access token'
           error 403, 'Forbidden, valid access token, but scope is missing'
           error 404, 'Not Found, some resource could not be found'

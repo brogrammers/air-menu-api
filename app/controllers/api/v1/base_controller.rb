@@ -126,6 +126,12 @@ module Api
         param :rating, :rating, :desc => 'Rating (1-5)', :required => true
       end
 
+      def_param_group :create_opening_hour do
+        param :day, :day, :desc => 'Day', :required => true
+        param :start, :start_opening_hour, :desc => 'Time ISO8601', :required => true
+        param :end, :hour_offset, :desc => 'Hour Offset', :required => true
+      end
+
     end
   end
 end

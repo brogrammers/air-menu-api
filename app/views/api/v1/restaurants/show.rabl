@@ -13,3 +13,7 @@ end
 node :location do |restaurant|
   partial('api/v1/restaurants/_location', :object => restaurant.location)
 end
+
+node :opening_hours do |restaurant|
+  partial('api/v1/restaurants/_opening_hour', :object => restaurant.opening_hours)
+end
