@@ -72,6 +72,11 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[menus], :destroy, format }
 
       def destroy
+        restaurant = @menu.restaurant
+        if restaurant.active_menu_id == @menu.id
+          restaurant.active_menu_id = nil
+          restaurant.save!
+        end
         @menu.destroy
         respond_with @menu
       end
