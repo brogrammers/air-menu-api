@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'carrierwave'
 require "#{Rails.root}/lib/air_menu"
 
 class AvatarUploader < CarrierWave::Uploader::Base
