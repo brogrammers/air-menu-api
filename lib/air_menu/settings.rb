@@ -6,6 +6,10 @@ module AirMenu
         ENV['APN_CERT'] || ''
       end
 
+      def uploads_dir
+        ENV['UPLOADS'] || "#{Rails.root.to_s}/public"
+      end
+
     end
   end
 end

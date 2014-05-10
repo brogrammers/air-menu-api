@@ -43,6 +43,7 @@ set :env_name, "edge"
 set :deploy_to, "/home/#{fetch(:deploy_user)}/#{fetch(:application)}/#{fetch(:env_name)}"
 set :full_app_name, "#{fetch(:application)}_#{fetch(:env_name)}"
 set :rails_env, :production
+set :uploads_dir, "/var/www/air-menu.com/#{fetch(:env_name)}-api"
 
 set :postgresql_database, "airmenu_#{fetch(:env_name)}"
 

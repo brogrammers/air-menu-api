@@ -29,3 +29,6 @@ gem 'rspec-rails'
 gem 'grocer'
 gem 'geocoder'
 gem 'simplecov'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'rmagick', require: false

@@ -57,6 +57,7 @@ module Api
           identity.username = params[:username]
           identity.new_password = params[:password]
           identity.email = params[:email]
+          identity.avatar = params[:avatar]
           identity.admin = false
           identity.developer = false
           identity.save!

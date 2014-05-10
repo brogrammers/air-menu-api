@@ -20,6 +20,10 @@ server {
         add_header Cache-Control public;
     }
 
+    location /uploads {
+        root <%= fetch(:uploads_dir) %>;
+    }
+
     try_files $uri/index.html $uri @unicorn;
     location @unicorn {
         proxy_set_header X-Real-IP $remote_addr;

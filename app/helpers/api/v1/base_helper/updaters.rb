@@ -34,10 +34,17 @@ module Api
 
         def update_user(user)
           user.name = params[:name] || user.name
-          user.identity.new_password = params[:password] if params[:password]
           user.phone = params[:phone] if user.class == User
+          update_identity user.identity
           user.save!
           user
+        end
+
+        def update_identity(identity)
+          identity.new_password = params[:password] if params[:password]
+          identity.avatar = params[:avatar] if params[:avatar]
+          identity.save!
+          identity
         end
 
         def update_menu_item(menu_item, staff_kind)

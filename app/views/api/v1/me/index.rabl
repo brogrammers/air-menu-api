@@ -2,6 +2,10 @@ object @user => :me
 
 attributes :id, :name, :unread_count, :phone
 
+node :avatar do |user|
+  user.identity.avatar.relative_path_url
+end
+
 node :type do |user|
     user.type
 end

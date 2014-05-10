@@ -5,6 +5,8 @@ class Identity < ActiveRecord::Base
 
 	belongs_to :identifiable, polymorphic: true
 
+  mount_uploader :avatar, AvatarUploader
+
 	validates :username, :email, presence: true
  	validates :username, :email, uniqueness: true
  	validates :email, :format => { :with => EMAIL_REGEX }
