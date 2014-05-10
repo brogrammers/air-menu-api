@@ -96,6 +96,7 @@ module Api
           restaurant.address.city = params[:city] || restaurant.address.city
           restaurant.address.county = params[:county] || restaurant.address.county
           restaurant.address.state = params[:state] || restaurant.address.state
+          restaurant.avatar = params[:avatar] || restaurant.avatar
           restaurant.address.country = params[:country] || restaurant.address.country
           restaurant.location.latitude = params[:latitude] || restaurant.location.latitude if restaurant.location
           restaurant.location.longitude = params[:longitude] || restaurant.location.longitude if restaurant.location

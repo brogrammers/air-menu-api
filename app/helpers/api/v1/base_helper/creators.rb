@@ -29,6 +29,7 @@ module Api
           restaurant = Restaurant.new
           restaurant.address = create_address
           restaurant.name = params[:name]
+          restaurant.avatar = params[:avatar]
           restaurant.description = params[:description]
           restaurant.loyalty = false
           restaurant.remote_order = false
