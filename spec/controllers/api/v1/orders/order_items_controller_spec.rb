@@ -99,7 +99,7 @@ describe Api::V1::Orders::OrderItemsController do
 
         describe 'owning the order' do
 
-          let(:get_current_orders) { Doorkeeper::OAuth::Scopes.from_array ['get_current_orders'] }
+          let(:get_current_orders) { Doorkeeper::OAuth::Scopes.from_array ['get_orders'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => get_current_orders }
 
           before :each do
@@ -115,7 +115,7 @@ describe Api::V1::Orders::OrderItemsController do
 
         describe 'not owning the order' do
 
-          let(:get_current_orders) { Doorkeeper::OAuth::Scopes.from_array ['get_current_orders'] }
+          let(:get_current_orders) { Doorkeeper::OAuth::Scopes.from_array ['get_orders'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 10, :scopes => get_current_orders }
 
           before :each do

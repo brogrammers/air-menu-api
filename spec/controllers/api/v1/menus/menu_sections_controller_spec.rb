@@ -191,7 +191,7 @@ describe Api::V1::Menus::MenuSectionsController do
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
           before :each do
-            post :create, :menu_id => 1, :name => 'name', :staff_kind_id => 1
+            post :create, :menu_id => 1, :name => 'name', :description => 'description', :staff_kind_id => 1
           end
 
           it 'should respond with a HTTP 201 status code' do

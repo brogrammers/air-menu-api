@@ -2,9 +2,14 @@ module Api
   module V1
     module Menus
       class MenuSectionsController < BaseController
+        SCOPES = {
+            :index => [:admin, :user, :basic],
+            :create => [:admin, :owner, :add_menus, :add_active_menus]
+        }
 
-        doorkeeper_for :index, :scopes => [:admin, :user, :basic]
-        doorkeeper_for :create, :scopes => [:admin, :owner, :add_menus, :add_active_menus]
+        SCOPES.each do |action, scopes|
+          doorkeeper_for action, :scopes => scopes
+        end
 
         before_filter :set_menu, :only => [:index, :create]
         before_filter :check_ownership, :only => [:create]
@@ -22,32 +27,32 @@ module Api
           error 500, 'Internal Server Error, Something went wrong!'
         end
 
+        ################################################################################################################
+
         api :GET, '/menus/:id/menu_sections', 'All the menu sections in a menu'
-        description 'Fetches all the menu sections in a menu. ||admin user basic||'
-        formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/menus/menu_sections/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/menus/menu_sections/index.xml")
+        description "Fetches all the menu sections in a menu. ||#{SCOPES[:index].join(' ')}||"
+        formats FORMATS
+        FORMATS.each { |format| example BaseController.example_file %w[menus menu_sections], :index, format }
+
         def index
-          respond_with @menu.menu_sections
+          @menu_sections = @menu.menu_sections
+          respond_with @menu_sections
         end
 
+        ################################################################################################################
+
         api :POST, '/menus/:id/menu_sections', 'Create a menu sections for a menu'
-        description 'Creates a menu section for a menu. ||admin owner add_menus add_active_menus||'
-        formats [:json, :xml]
-        param :name, String, :desc => 'Name of Menu Section', :required => true
-        param :description, String, :desc => 'Description of Menu Section', :required => true
-        param :staff_kind_id, String, :desc => 'Staff Kind handling this menu section', :required => true
-        example File.read("#{Rails.root}/public/docs/api/v1/menus/menu_sections/create.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/menus/menu_sections/create.xml")
+        description "Creates a menu section for a menu. ||#{SCOPES[:create].join(' ')}||"
+        formats FORMATS
+        param_group :create_menu_section, Api::V1::BaseController
+        FORMATS.each { |format| example BaseController.example_file %w[menus menu_sections], :create, format }
+
         def create
-          @menu_section = MenuSection.new
-          @menu_section.name = params[:name]
-          @menu_section.description = params[:description]
-          @menu.menu_sections << @menu_section
-          @menu_section.menu = @menu
-          @menu_section.save!
+          @menu_section = create_menu_section @menu
           respond_with @menu_section, :status => :created
         end
+
+        ################################################################################################################
 
         private
 

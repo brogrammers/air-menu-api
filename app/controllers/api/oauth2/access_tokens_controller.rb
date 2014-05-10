@@ -2,7 +2,6 @@ module Api
   module Oauth2
     class AccessTokensController < BaseController
       class InvalidOAuthToken < StandardError; end
-
       include Doorkeeper::Helpers::Controller
 
       resource_description do
@@ -12,18 +11,14 @@ module Api
         description 'All about OAuth 2.0 access tokens.'
       end
 
+      ################################################################################################################
+
       api :POST, '/access_tokens', 'Create a new OAuth Access Token'
-      description 'Creates an OAuth 2.0 access token. This action does not require an access token. ||trusted||'
-      formats [:json, :xml]
-      param :grant_type, ['password', 'refresh_token'], :desc => 'How to create an access token', :required => true
-      param :username, String, :desc => 'The username', :required => true
-      param :password, String, :desc => 'The password', :required => true
-      param :refresh_token, String, :desc => 'The refresh token', :required => true
-      param :client_id, String, :desc => 'The OAuth application client_id', :required => true
-      param :client_secret, String, :desc => 'The OAuth application client_secret', :required => true
-      param :scope, ['basic', 'user', 'admin', 'create_company'], :desc => 'The scope required', :required => true
-      example File.read("#{Rails.root}/public/docs/api/oauth2/access_tokens/create.json")
-      example File.read("#{Rails.root}/public/docs/api/oauth2/access_tokens/create.xml")
+      description 'Creates an OAuth 2.0 access token. This action does not require an access token.'
+      formats FORMATS
+      param_group :create_access_token, Api::Oauth2::BaseController
+      FORMATS.each { |format| example BaseController.example_file %w[access_tokens], :create, format }
+
       def create
         response = strategy.authorize
         if response.class == Doorkeeper::OAuth::ErrorResponse
@@ -37,6 +32,8 @@ module Api
       rescue Doorkeeper::Errors::DoorkeeperError => e
         handle_token_exception e
       end
+
+      ################################################################################################################
 
       private
 

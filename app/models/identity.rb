@@ -5,6 +5,8 @@ class Identity < ActiveRecord::Base
 
 	belongs_to :identifiable, polymorphic: true
 
+  mount_uploader :avatar, AvatarUploader
+
 	validates :username, :email, presence: true
  	validates :username, :email, uniqueness: true
  	validates :email, :format => { :with => EMAIL_REGEX }
@@ -19,6 +21,13 @@ class Identity < ActiveRecord::Base
   def new_password=(password)
     @new_password = true
     self.password = password
+  end
+
+  class << self
+    def authenticate!(username, password)
+      identity = Identity.find_by_username(username)
+      identity && identity.match_password(password) ? identity : nil
+    end
   end
 
  	private

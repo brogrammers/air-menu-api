@@ -2,9 +2,14 @@ module Api
   module V1
     module Groups
       class StaffMembersController < BaseController
+        SCOPES = {
+            :index => [:admin, :owner, :get_groups],
+            :create => [:admin, :owner, :create_groups]
+        }
 
-        doorkeeper_for :index, :scopes => [:admin, :owner, :get_groups]
-        doorkeeper_for :create, :scopes => [:admin, :owner, :create_groups]
+        SCOPES.each do |action, scopes|
+          doorkeeper_for action, :scopes => scopes
+        end
 
         before_filter :set_group, :only => [:index, :create]
         before_filter :set_staff_member, :only => [:create]
@@ -22,27 +27,32 @@ module Api
           error 500, 'Internal Server Error, Something went wrong!'
         end
 
+        ################################################################################################################
+
         api :GET, '/groups/:id/staff_members', 'All the staff members in a group'
-        description 'Fetches all the staff members in a group. ||admin owner get_groups||'
-        formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/groups/staff_members/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/groups/staff_members/index.xml")
+        description "Fetches all the staff members in a group. ||#{SCOPES[:index].join(' ')}||"
+        formats FORMATS
+        FORMATS.each { |format| example BaseController.example_file %w[groups staff_members], :index, format }
+
         def index
           @staff_members = @group.staff_members
           respond_with @staff_members
         end
 
+        ################################################################################################################
+
         api :POST, '/groups/:id/staff_members', 'Add a new staff member to a group'
-        description 'Adds a staff member to a group. ||admin owner create_groups||'
-        formats [:json, :xml]
-        param :staff_member_id, String, :desc => "Staff Member Id", :required => true
-        example File.read("#{Rails.root}/public/docs/api/v1/groups/staff_members/create.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/groups/staff_members/create.xml")
+        description "Adds a staff member to a group. ||#{SCOPES[:create].join(' ')}||"
+        formats FORMATS
+        param :staff_member_id, :integer, :desc => 'Staff Member Id', :required => true
+        FORMATS.each { |format| example BaseController.example_file %w[groups staff_members], :create, format }
+
         def create
-          @group.staff_members << @staff_member
-          @staff_member.save!
+          @group.add_staff_member! @staff_member
           respond_with @staff_member, :status => :created
         end
+
+        ################################################################################################################
 
         private
 

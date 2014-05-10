@@ -2,9 +2,14 @@ module Api
   module V1
     module Restaurants
       class OrdersController < BaseController
+        SCOPES = {
+            :index => [:admin, :owner, :get_current_orders],
+            :create => [:admin, :user, :owner, :add_orders]
+        }
 
-        doorkeeper_for :index, :scopes => [:admin, :owner, :get_current_orders]
-        doorkeeper_for :create, :scopes => [:admin, :user, :owner, :add_orders]
+        SCOPES.each do |action, scopes|
+          doorkeeper_for action, :scopes => scopes
+        end
 
         before_filter :set_restaurant, :only => [:index, :create]
         before_filter :check_can_make_order, :only => [:create]
@@ -22,25 +27,31 @@ module Api
           error 500, 'Internal Server Error, Something went wrong!'
         end
 
+        ################################################################################################################
+
         api :GET, '/restaurants/:id/orders', 'All the current orders of a restaurant'
-        description 'Fetches all the current orders in of a restaurant. ||admin owner get_current_orders||'
-        formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/orders/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/orders/index.xml")
+        description "Fetches all the current orders in of a restaurant. ||#{SCOPES[:index].join(' ')}||"
+        formats FORMATS
+        FORMATS.each { |format| example BaseController.example_file %w[restaurants orders], :index, format }
+
         def index
           @orders = @restaurant.current_orders
           respond_with @orders
         end
 
+        ################################################################################################################
+
         api :POST, '/restaurants/:id/orders', 'Create an order for a restaurant'
-        description 'Creates an order for a restaurant. ||admin user owner add_orders||'
-        formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/orders/create.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/orders/create.xml")
+        description "Creates an order for a restaurant. ||#{SCOPES[:create].join(' ')}||"
+        formats FORMATS
+        FORMATS.each { |format| example BaseController.example_file %w[restaurants orders], :create, format }
+
         def create
           @order = create_order @restaurant
           respond_with @order, :status => :created
         end
+
+        ################################################################################################################
 
         private
 

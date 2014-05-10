@@ -17,6 +17,12 @@ module AirMenu
       @user.devices.each do |device|
         @strategy.dispatch(device.token, notification.content, (@user.unread_count))
       end
+    rescue NoMethodError
+      if @user.device
+        @strategy.dispatch(@user.device.token, notification.content, (@user.unread_count))
+      elsif @user.group && @user.group.device
+        @strategy.dispatch(@user.group.device.token, notification.content, (@user.unread_count))
+      end
     end
 
     def create_notification

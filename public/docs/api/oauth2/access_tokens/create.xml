@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<access-token>
-  <token>c4ec8c79989722e3f2b4b36845cdf8a8baf4189dd47c3dc3ab040dcd10aaf4b0</token>
-  <refresh-token>53b9af00b500c1aa3a6e88df93172395caed305b5f4d9c7568f4c1c03f85af3a</refresh-token>
-  <token-type>bearer</token-type>
-  <expires-in-seconds type="integer">172800</expires-in-seconds>
-  <scopes type="Doorkeeper::OAuth::Scopes">basic user</scopes>
-</access-token>

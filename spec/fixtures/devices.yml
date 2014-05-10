@@ -5,3 +5,20 @@ one:
   platform: ios
   notifiable_id: 1
   notifiable_type: User
+
+
+two:
+  id: 2
+  uuid: blah
+  token: blah
+  platform: ios
+  notifiable_id: 2
+  notifiable_type: User
+
+restaurant_device:
+  id: 3
+  uuid: blah
+  token: blah
+  platform: ios
+  notifiable_id: 1
+  notifiable_type: Restaurant

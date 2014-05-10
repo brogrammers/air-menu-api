@@ -29,18 +29,26 @@ module Api
           restaurant = Restaurant.new
           restaurant.address = create_address
           restaurant.name = params[:name]
+          restaurant.avatar = params[:avatar]
+          restaurant.description = params[:description]
           restaurant.loyalty = false
           restaurant.remote_order = false
           restaurant.conversion_rate = 0.0
           restaurant.company = company
+          restaurant.location = create_location
           restaurant.save!
           restaurant.address.save!
+          restaurant.location.save!
           restaurant
         end
 
         def create_user
           user = User.new
           user.name = params[:name]
+          user.phone = params[:phone]
+          identity = create_identity
+          user.identity = identity
+          identity.save!
           user.save!
           user
         end
@@ -50,6 +58,7 @@ module Api
           identity.username = params[:username]
           identity.new_password = params[:password]
           identity.email = params[:email]
+          identity.avatar = params[:avatar]
           identity.admin = false
           identity.developer = false
           identity.save!
@@ -58,10 +67,14 @@ module Api
 
         def create_order(restaurant)
           order = Order.new
-          order.user = @user if @user.class == User
-          order.staff_member = @user if @user.class == StaffMember
-          order.restaurant = restaurant
           order.state = :new
+          order.user = @user if @user.class == User
+          if @user.class == StaffMember
+            order.staff_member = @user
+            order.set_state
+            order.open!
+          end
+          order.restaurant = restaurant
           order.save!
           order
         end
@@ -80,6 +93,8 @@ module Api
         def create_staff_kind(restaurant)
           staff_kind = StaffKind.new
           staff_kind.name = params[:name]
+          staff_kind.accept_orders = params[:accept_orders]
+          staff_kind.accept_order_items = params[:accept_order_items]
           staff_kind.restaurant = restaurant
           staff_kind.save!
           staff_kind
@@ -114,6 +129,108 @@ module Api
           notifiable.devices << device
           device.save!
           device
+        end
+
+        def create_location
+          location = Location.new
+          location.latitude = params[:latitude]
+          location.longitude = params[:longitude]
+          location.save!
+          location
+        end
+
+        def create_credit_card(user)
+          credit_card = CreditCard.new
+          credit_card.number = params[:number]
+          credit_card.card_type = params[:card_type]
+          credit_card.month = params[:month]
+          credit_card.year = params[:year]
+          credit_card.cvc = params[:cvc]
+          credit_card.user = user
+          credit_card.save!
+          credit_card
+        end
+
+        def create_application(user)
+          application = Doorkeeper::Application.new
+          application.name = params[:name]
+          application.redirect_uri = params[:redirect_uri]
+          if scope_exists? 'admin'
+            application.trusted = params[:trusted] || false
+          else
+            application.trusted = false
+          end
+          user.applications << @application
+          application.save!
+          application
+        end
+
+        def create_menu_item(menu_section, staff_kind)
+          menu_item = MenuItem.new
+          menu_item.name = params[:name]
+          menu_item.description = params[:description]
+          menu_item.price = params[:price]
+          menu_item.currency = params[:currency]
+          menu_item.avatar = params[:avatar]
+          menu_item.menu_section = menu_section
+          menu_item.staff_kind = staff_kind if staff_kind
+          menu_section.menu_items << menu_item
+          menu_item.save!
+          menu_item
+        end
+
+        def create_menu_section(menu)
+          menu_section = MenuSection.new
+          menu_section.name = params[:name]
+          menu_section.description = params[:description]
+          menu.menu_sections << menu_section
+          menu_section.menu = menu
+          menu_section.save!
+          menu_section
+        end
+
+        def create_menu(restaurant)
+          menu = Menu.new
+          menu.name = params[:name]
+          menu.save!
+          restaurant.menus << menu
+          if params[:active] and (scope_exists? 'add_active_menus' or scope_exists? 'owner')
+            restaurant.active_menu_id = menu.id
+            restaurant.save!
+          end
+          menu
+        end
+
+        def create_payment(order, credit_card)
+          payment = Payment.new
+          payment.order = order
+          payment.credit_card = credit_card
+          order.paid!
+          payment.save!
+          payment
+        end
+
+        def create_review(reviewable, user)
+          review = Review.new
+          review.subject = params[:subject]
+          review.message = params[:message]
+          review.rating = params[:rating]
+          review.user = user
+          review.restaurant = reviewable if reviewable.class == Restaurant
+          review.menu_item = reviewable if reviewable.class == MenuItem
+          review.save!
+          review
+        end
+
+        def create_opening_hour(restaurant)
+          opening_hour = OpeningHour.new
+          opening_hour.day = params[:day]
+          start_time = Time.iso8601(params[:start])
+          opening_hour.start = start_time
+          opening_hour.end = start_time + 60*60*params[:end].to_f
+          opening_hour.restaurant = restaurant
+          opening_hour.save!
+          opening_hour
         end
 
       end

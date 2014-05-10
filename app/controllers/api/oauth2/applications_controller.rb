@@ -1,8 +1,15 @@
 module Api
   module Oauth2
     class ApplicationsController < BaseController
+      SCOPES = {
+          :index => [:developer],
+          :show => [:developer],
+          :create => [:developer]
+      }
 
-      doorkeeper_for :index, :show, :create, :scopes => [:developer]
+      SCOPES.each do |action, scopes|
+        doorkeeper_for action, :scopes => scopes
+      end
 
       before_filter :get_applications, :only => [:index]
 
@@ -13,46 +20,43 @@ module Api
         description 'An OAuth 2.0 application is needed to generate access tokens for users.'
       end
 
+      ################################################################################################################
+
       api :GET, '/applications', 'Get all OAuth applications'
-      description 'Fetches all the OAuth applications. ||developer||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/oauth2/applications/index.json")
-      example File.read("#{Rails.root}/public/docs/api/oauth2/applications/index.xml")
+      description "Fetches all the OAuth applications. ||#{SCOPES[:index].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[applications], :index, format }
+
       def index
         respond_with @applications
       end
 
+      ################################################################################################################
+
       api :GET, '/applications/:id', 'Get a certain application'
-      description 'Fetches an OAuth application. This will specify the client id & secret. ||developer||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/oauth2/applications/show.json")
-      example File.read("#{Rails.root}/public/docs/api/oauth2/applications/show.xml")
+      description "Fetches an OAuth application. This will specify the client id & secret. ||#{SCOPES[:show].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[applications], :show, format }
+
       def show
         @application = Doorkeeper::Application.find params[:id]
         respond_with @application
       end
 
+      ################################################################################################################
+
       api :POST, '/applications/:id', 'Create a new OAuth Application'
-      description 'Creates an OAuth 2.0 application. ||developer||'
-      formats [:json, :xml]
-      param :name, String, :desc => 'Application name', :required => true
-      param :redirect_uri, String, :desc => 'A redirection url', :required => true
-      param :trusted, [true, false], :desc => 'Trusted Application. ||admin||'
-      example File.read("#{Rails.root}/public/docs/api/oauth2/applications/show.json")
-      example File.read("#{Rails.root}/public/docs/api/oauth2/applications/show.xml")
+      description "Creates an OAuth 2.0 application. ||#{SCOPES[:create].join(' ')}||"
+      formats FORMATS
+      param_group :create_application, Api::Oauth2::BaseController
+      FORMATS.each { |format| example BaseController.example_file %w[applications], :create, format }
+
       def create
-        @application = Doorkeeper::Application.new
-        @application.name = params[:name]
-        @application.redirect_uri = params[:redirect_uri]
-        if scope_exists? 'admin'
-          @application.trusted = params[:trusted] || false
-        else
-          @application.trusted = false
-        end
-        @user.applications << @application
-        @application.save!
+        @application = create_application @user
         respond_with @application
       end
+
+      ################################################################################################################
 
       private
 

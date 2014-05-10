@@ -15,6 +15,18 @@ module Api
           render_conflict 'order_item_error'
         end
 
+        ActionController::Base.rescue_from Group::MismatchError do |exception|
+          render_conflict 'wrong_staff_kind'
+        end
+
+        ActionController::Base.rescue_from Apipie::ParamMissing do |exception|
+          render_bad_request [exception.param]
+        end
+
+        ActionController::Base.rescue_from Apipie::ParamInvalid do |exception|
+          render_bad_request [exception.param]
+        end
+
       end
     end
   end

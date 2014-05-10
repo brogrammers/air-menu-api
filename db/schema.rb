@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140412213929) do
+ActiveRecord::Schema.define(:version => 20140510145700) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_1"
@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(:version => 20140412213929) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "credit_cards", :force => true do |t|
+    t.string   "number"
+    t.string   "card_type"
+    t.string   "month"
+    t.string   "cvc"
+    t.integer  "user_id"
+    t.string   "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "devices", :force => true do |t|
     t.string   "name"
     t.string   "uuid"
@@ -46,8 +57,11 @@ ActiveRecord::Schema.define(:version => 20140412213929) do
   end
 
   create_table "groups", :force => true do |t|
-    t.string  "name"
-    t.integer "restaurant_id"
+    t.string   "name"
+    t.integer  "restaurant_id"
+    t.integer  "device_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "identities", :force => true do |t|
@@ -61,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20140412213929) do
     t.string   "identifiable_type"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "avatar"
   end
 
   create_table "locations", :force => true do |t|
@@ -70,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20140412213929) do
     t.string   "findable_type"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.string   "address"
   end
 
   create_table "menu_items", :force => true do |t|
@@ -80,6 +96,8 @@ ActiveRecord::Schema.define(:version => 20140412213929) do
     t.integer  "menu_section_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.integer  "staff_kind_id"
+    t.string   "avatar"
   end
 
   create_table "menu_sections", :force => true do |t|
@@ -153,6 +171,15 @@ ActiveRecord::Schema.define(:version => 20140412213929) do
   add_index "oauth_applications", ["owner_id", "owner_type"], :name => "index_oauth_applications_on_owner_id_and_owner_type"
   add_index "oauth_applications", ["uid"], :name => "index_oauth_applications_on_uid", :unique => true
 
+  create_table "opening_hours", :force => true do |t|
+    t.string   "day"
+    t.time     "start"
+    t.time     "end"
+    t.integer  "restaurant_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "order_items", :force => true do |t|
     t.string   "comment"
     t.integer  "count"
@@ -181,15 +208,35 @@ ActiveRecord::Schema.define(:version => 20140412213929) do
     t.integer  "staff_member_id"
   end
 
+  create_table "payments", :force => true do |t|
+    t.integer  "order_id"
+    t.integer  "credit_card_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "restaurants", :force => true do |t|
     t.string   "name"
     t.boolean  "loyalty"
     t.boolean  "remote_order"
     t.float    "conversion_rate"
     t.integer  "company_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.integer  "active_menu_id"
+    t.text     "description",     :limit => 255
+    t.string   "avatar"
+  end
+
+  create_table "reviews", :force => true do |t|
+    t.string   "subject"
+    t.string   "message"
+    t.integer  "rating"
+    t.integer  "user_id"
+    t.integer  "menu_item_id"
+    t.integer  "restaurant_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "scopes", :force => true do |t|
@@ -198,11 +245,9 @@ ActiveRecord::Schema.define(:version => 20140412213929) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "scopes_staff_kinds", :force => true do |t|
-    t.integer  "staff_kind_id"
-    t.integer  "scope_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+  create_table "staff_kind_scopes", :force => true do |t|
+    t.integer "staff_kind_id"
+    t.integer "scope_id"
   end
 
   create_table "staff_kinds", :force => true do |t|
@@ -221,12 +266,14 @@ ActiveRecord::Schema.define(:version => 20140412213929) do
     t.integer  "restaurant_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "device_id"
   end
 
   create_table "users", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "phone"
   end
 
 end

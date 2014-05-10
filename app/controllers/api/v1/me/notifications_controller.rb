@@ -2,8 +2,13 @@ module Api
   module V1
     module Me
       class NotificationsController < BaseController
+        SCOPES = {
+            :index => [:basic]
+        }
 
-        doorkeeper_for :index, :scopes => [:basic]
+        SCOPES.each do |action, scopes|
+          doorkeeper_for action, :scopes => scopes
+        end
 
         resource_description do
           name 'Me > Notifications'
@@ -16,15 +21,19 @@ module Api
           error 500, 'Internal Server Error, Something went wrong!'
         end
 
+        ################################################################################################################
+
         api :GET, '/me/notifications', 'All the notifications of the currently logged-in user'
-        description 'Fetches all the notifications of the currently logged-in user. ||basic||'
-        formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/me/notifications/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/me/notifications/index.xml")
+        description "Fetches all the notifications of the currently logged-in user. ||#{SCOPES[:index].join(' ')}||"
+        formats FORMATS
+        FORMATS.each { |format| example BaseController.example_file %w[me notifications], :index, format }
+
         def index
           @notifications = @user.notifications
           respond_with @notifications
         end
+
+        ################################################################################################################
 
       end
     end

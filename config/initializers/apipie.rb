@@ -4,7 +4,7 @@ Apipie.configure do |config|
   config.default_version         = "v1"
   config.api_base_url            = "/api"
   config.doc_base_url            = "/docs"
-  config.validate                = false
+  config.validate                = true
   config.api_controllers_matcher = "#{Rails.root}/app/controllers/api/**/*.rb"
   config.namespaced_resources    = true
   config.app_info                = "AirMenu REST API documentation"

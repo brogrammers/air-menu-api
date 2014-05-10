@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<menu-sections type="array">
-  <menu-section>
-    <id type="integer">1</id>
-    <name>Foods</name>
-    <description>main dishes</description>
-  </menu-section>
-</menu-sections>

@@ -57,7 +57,7 @@ class Order < ActiveRecord::Base
   end
 
   def distribute_order
-    assign!
+    assign! unless self.staff_member
     self.order_items.each do |order_item|
       order_item.assign!
     end

@@ -2,13 +2,19 @@ module Api
   module V1
     module MenuSections
       class MenuItemsController < BaseController
+        SCOPES = {
+            :index => [:admin, :user, :basic],
+            :create => [:admin, :owner, :add_menus, :add_active_menus]
+        }
 
-        doorkeeper_for :index, :scopes => [:admin, :user, :basic]
-        doorkeeper_for :create, :scopes => [:admin, :owner, :add_menus, :add_active_menus]
+        SCOPES.each do |action, scopes|
+          doorkeeper_for action, :scopes => scopes
+        end
 
         before_filter :set_menu_section, :only => [:index, :create]
         before_filter :check_active_menu_section, :only => [:index, :create]
         before_filter :check_ownership, :only => [:create]
+        before_filter :set_staff_kind, :only => [:create]
 
         resource_description do
           name 'Menu Sections > Menu Items'
@@ -21,35 +27,32 @@ module Api
           error 500, 'Internal Server Error, Something went wrong!'
         end
 
+        ################################################################################################################
+
         api :GET, '/menu_sections/:id/menu_items', 'All the menu items within a menu section'
-        description 'Fetches all the menu items within a menu section. ||admin user basic||'
-        formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/index.xml")
+        description "Fetches all the menu items within a menu section. ||#{SCOPES[:index].join(' ')}||"
+        formats FORMATS
+        FORMATS.each { |format| example BaseController.example_file %w[menu_sections menu_items], :index, format }
+
         def index
-          respond_with @menu_section.menu_items
+          @menu_items = @menu_section.menu_items
+          respond_with @menu_items
         end
 
+        ################################################################################################################
+
         api :POST, '/menu_sections/:id/menu_items', 'Create menu items within a menu section'
-        description 'Creates a menu item within a menu section. ||admin owner add_menus add_active_menus||'
-        formats [:json, :xml]
-        param :name, String, :desc => 'Name of Menu Item', :required => true
-        param :description, String, :desc => 'Description of Menu Item', :required => true
-        param :price, Float, :desc => 'Price of Menu Item', :required => true
-        param :currency, ['EUR'], :desc => 'Currency of Menu Item', :required => true
-        example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/create.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/menu_sections/menu_items/create.xml")
+        description "Creates a menu item within a menu section. ||#{SCOPES[:create].join(' ')}||"
+        formats FORMATS
+        param_group :create_menu_item, Api::V1::BaseController
+        FORMATS.each { |format| example BaseController.example_file %w[menu_sections menu_items], :create, format }
+
         def create
-          @menu_item = MenuItem.new
-          @menu_item.name = params[:name]
-          @menu_item.description = params[:description]
-          @menu_item.price = params[:price]
-          @menu_item.currency = params[:currency]
-          @menu_item.menu_section = @menu_section
-          @menu_section.menu_items << @menu_item
-          @menu_item.save!
+          @menu_item = create_menu_item @menu_section, @staff_kind
           respond_with @menu_item, :status => :created
         end
+
+        ################################################################################################################
 
         private
 
@@ -57,6 +60,12 @@ module Api
           @menu_section = MenuSection.find params[:menu_section_id]
         rescue ActiveRecord::RecordNotFound
           render_model_not_found 'MenuSection'
+        end
+
+        def set_staff_kind
+          @staff_kind = StaffKind.find params[:staff_kind_id]
+        rescue ActiveRecord::RecordNotFound
+
         end
 
         def check_active_menu_section

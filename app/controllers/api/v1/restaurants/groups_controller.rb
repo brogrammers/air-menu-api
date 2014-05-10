@@ -2,9 +2,14 @@ module Api
   module V1
     module Restaurants
       class GroupsController < BaseController
+        SCOPES = {
+            :index => [:admin, :owner, :get_groups],
+            :create => [:admin, :owner, :create_groups]
+        }
 
-        doorkeeper_for :index, :scopes => [:admin, :owner, :get_groups]
-        doorkeeper_for :create, :scopes => [:admin, :owner, :create_groups]
+        SCOPES.each do |action, scopes|
+          doorkeeper_for action, :scopes => scopes
+        end
 
         before_filter :set_restaurant, :only => [:index, :create]
         before_filter :check_ownership, :only => [:index, :create]
@@ -21,26 +26,32 @@ module Api
           error 500, 'Internal Server Error, Something went wrong!'
         end
 
+        ################################################################################################################
+
         api :GET, '/restaurants/:id/groups', 'All the groups of a restaurant'
-        description 'Fetches all the groups of a restaurant. ||admin owner get_groups||'
-        formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/groups/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/groups/index.xml")
+        description "Fetches all the groups of a restaurant. ||#{SCOPES[:index].join(' ')}||"
+        formats FORMATS
+        FORMATS.each { |format| example BaseController.example_file %w[restaurants groups], :index, format }
+
         def index
           @groups = @restaurant.groups
           respond_with @groups
         end
 
+        ################################################################################################################
+
         api :POST, '/restaurants/:id/groups', 'Create a group for a restaurant'
-        description 'Creates a group for a restaurant. ||admin owner create_groups||'
-        formats [:json, :xml]
-        param :name, String, 'Group name', :required => true
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/groups/create.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/groups/create.xml")
+        description "Creates a group for a restaurant. ||#{SCOPES[:create].join(' ')}||"
+        formats FORMATS
+        param_group :create_group, Api::V1::BaseController
+        FORMATS.each { |format| example BaseController.example_file %w[restaurants groups], :create, format }
+
         def create
           @group = create_group @restaurant
           respond_with @group, :status => :created
         end
+
+        ################################################################################################################
 
         private
 

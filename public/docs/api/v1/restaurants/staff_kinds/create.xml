@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<staff-kind>
-  <id type="integer">3</id>
-  <name>Bar Staff</name>
-  <scopes type="array"/>
-</staff-kind>

@@ -1,3 +1,3 @@
 collection @groups, :root => 'groups', :object_root => ''
 
-attributes :id, :name
+extends "api/v1/groups/show"

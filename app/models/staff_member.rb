@@ -1,7 +1,7 @@
 class StaffMember < ActiveRecord::Base
   has_one :identity, :as => :identifiable
   has_many :notifications, :as => :remindable
-  has_many :devices, :as => :notifiable
+  belongs_to :device
   belongs_to :restaurant
   belongs_to :staff_kind
   belongs_to :group
@@ -17,6 +17,8 @@ class StaffMember < ActiveRecord::Base
     return owns_order object if object.class == Order
     return owns_order_item object if object.class == OrderItem
     return owns_notification object if object.class == Notification
+    return owns_device object if object.class == Device
+    return owns_credit_card object if object.class == CreditCard
     false
   end
 
@@ -28,8 +30,28 @@ class StaffMember < ActiveRecord::Base
     15
   end
 
-  def current_orders
-    Order.where("state_cd != 4 AND staff_member_id = #{self.id}")
+  def scopes
+    staff_kind ? staff_kind.scopes : []
+  end
+
+  Order::State::STATES.each_with_index do |state, index|
+    eval(
+        <<-eos
+    def #{state}_orders
+      Order.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s)
+    end
+    eos
+    )
+  end
+
+  OrderItem::State::STATES.each_with_index do |state, index|
+    eval(
+        <<-eos
+    def #{state}_order_items
+      OrderItem.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s)
+    end
+    eos
+    )
   end
 
   def can_order?
@@ -38,6 +60,10 @@ class StaffMember < ActiveRecord::Base
 
   def has_current_orders?
     current_orders.size > 0
+  end
+
+  def current_orders
+    []
   end
 
   def unread
@@ -81,11 +107,18 @@ class StaffMember < ActiveRecord::Base
   end
 
   def owns_order_item(order_item)
-    owns_order order_item.order
+    OrderItem.where(:staff_member_id => self.id, :id => order_item.id).size > 0
   end
 
   def owns_notification(notification)
     notification.remindable_id == self.id
   end
 
+  def owns_device(device)
+    self.device_id == device.id
+  end
+
+  def owns_credit_card(credit_card)
+    false
+  end
 end

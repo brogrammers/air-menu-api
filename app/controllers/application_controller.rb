@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  FORMATS = [:json, :xml]
+
   before_filter :find_current_user
   before_filter :determine_format
   before_filter :determine_phone
@@ -25,6 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def determine_phone
+    # TODO: Check if scope is trusted!!
     if device? and @user
       device = Device.authenticate(request.headers["X-Device-UUID"], @user)
       if device
@@ -35,7 +38,7 @@ class ApplicationController < ActionController::Base
   end
 
   def device?
-    request.headers["X-Device-UUID"] and request.headers["X-Device-Token"]
+    request.headers["X-Device-UUID"] && request.headers["X-Device-Token"]
   end
 
   def scope_exists?(scope)

@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   has_many :notifications, :as => :remindable
   has_one :company
   has_many :orders
+  has_many :reviews
+  has_many :credit_cards
   has_many :applications, :class_name => 'Doorkeeper::Application', :as => :owner
   has_many :access_tokens, :class_name => 'Doorkeeper::AccessToken', :as => :owner
 
@@ -19,6 +21,8 @@ class User < ActiveRecord::Base
     return owns_order object if object.class == Order
     return owns_order_item object if object.class == OrderItem
     return owns_notification object if object.class == Notification
+    return owns_device object if object.class == Device
+    return owns_credit_card object if object.class == CreditCard
     false
   end
 
@@ -42,12 +46,20 @@ class User < ActiveRecord::Base
     current_orders.size > 0
   end
 
+  def scopes
+    ['user']
+  end
+
   def unread
     Notification.where(:remindable_id => self.id, :read => false)
   end
 
   def unread_count
     unread.count
+  end
+
+  def written_review?(restaurant)
+    !!(Review.where(:restaurant_id => restaurant.id, :user_id => self.id).first)
   end
 
   private
@@ -93,5 +105,23 @@ class User < ActiveRecord::Base
 
   def owns_notification(notification)
     notification.remindable_id == self.id
+  end
+
+  def owns_device(device)
+    self.devices.each do |owned_device|
+      return true if device.id == owned_device.id
+    end
+    if self.type == 'Owner'
+      self.company.restaurants.each do |owned_restaurant|
+        owned_restaurant.devices.each do |owned_device|
+          return true if device.id == owned_device.id
+        end
+      end
+    end
+    false
+  end
+
+  def owns_credit_card(credit_card)
+    credit_card.user_id == self.id
   end
 end

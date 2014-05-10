@@ -23,3 +23,10 @@
 # Ignore Node Modules
 node_modules/
 node_modules/*
+
+
+secrets.yml
+coverage
+public/docs
+public/uploads
+uploads

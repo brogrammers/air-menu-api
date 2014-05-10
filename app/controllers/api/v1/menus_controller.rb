@@ -1,12 +1,20 @@
 module Api
   module V1
     class MenusController < BaseController
+      SCOPES = {
+          :index => [:admin],
+          :show => [:admin, :basic, :user],
+          :update => [:admin, :owner, :update_menus],
+          :destroy => [:admin, :owner, :delete_menus]
+      }
 
-      doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:admin, :basic, :user]
+      SCOPES.each do |action, scopes|
+        doorkeeper_for action, :scopes => scopes
+      end
 
-      before_filter :set_menu, :only => [:show]
-      before_filter :check_active_menu, :only => [:show]
+      before_filter :set_menu, :only => [:show, :update, :destroy]
+      before_filter :check_active_menu, :only => [:show, :update, :destroy]
+      before_filter :check_ownership, :only => [:update, :destroy]
 
       resource_description do
         name 'Menus'
@@ -20,24 +28,60 @@ module Api
         error 500, 'Internal Server Error, Something went wrong!'
       end
 
+      ################################################################################################################
+
       api :GET, '/menus', 'All the menus in the system'
-      description 'Fetches all the menus in the system. ||admin||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/menus/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/menus/index.xml")
+      description "Fetches all the menus in the system. ||#{SCOPES[:index].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[menus], :index, format }
+
       def index
         @menus = Menu.all
         respond_with @menus
       end
 
+      ################################################################################################################
+
       api :GET, '/menus/:id', 'Get a menu in the system'
-      description 'Fetches all the menus in the system. ||admin basic user||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/menus/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/menus/show.xml")
+      description "Fetches all the menus in the system. ||#{SCOPES[:show].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[menus], :show, format }
+
       def show
         respond_with @menu
       end
+
+      ################################################################################################################
+
+      api :PUT, '/menus/:id', 'Update a menu in the system'
+      description "Updates all the menus in the system. ||#{SCOPES[:update].join(' ')}||"
+      formats FORMATS
+      param :active, :bool, :desc => 'Make menu active. ||owner add_active_menus||'
+      FORMATS.each { |format| example BaseController.example_file %w[menus], :update, format }
+
+      def update
+        @menu = update_menu @menu
+        respond_with @menu
+      end
+
+      ################################################################################################################
+
+      api :DELETE, '/menus/:id', 'Get a menu in the system'
+      description "Fetches all the menus in the system. ||#{SCOPES[:destroy].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[menus], :destroy, format }
+
+      def destroy
+        restaurant = @menu.restaurant
+        if restaurant.active_menu_id == @menu.id
+          restaurant.active_menu_id = nil
+          restaurant.save!
+        end
+        @menu.destroy
+        respond_with @menu
+      end
+
+      ################################################################################################################
 
       private
 
@@ -45,6 +89,10 @@ module Api
         @menu = Menu.find params[:id]
       rescue ActiveRecord::RecordNotFound
         render_model_not_found 'Menu'
+      end
+
+      def check_ownership
+        render_model_not_found 'Menu' if not_admin_and?(!@user.owns(@menu))
       end
 
       def check_active_menu

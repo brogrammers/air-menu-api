@@ -1,8 +1,13 @@
 module Api
   module V1
     class NotificationsController < BaseController
+      SCOPES = {
+          :update => [:basic]
+      }
 
-      doorkeeper_for :update, :scopes => [:basic]
+      SCOPES.each do |action, scopes|
+        doorkeeper_for action, :scopes => scopes
+      end
 
       before_filter :set_notification, :only => [:update]
       before_filter :check_ownership, :only => [:update]
@@ -18,17 +23,20 @@ module Api
         error 500, 'Internal Server Error, Something went wrong!'
       end
 
+      ################################################################################################################
+
       api :PUT, '/notifications/:id', 'Update a notification in the system'
-      description 'Updates a notification in the system. ||basic||'
-      formats [:json, :xml]
+      description "Updates a notification in the system. ||#{SCOPES[:update].join(' ')}||"
+      formats FORMATS
       param :read, [true, false], :desc => 'Set a notification to be read.'
-      example File.read("#{Rails.root}/public/docs/api/v1/notifications/update.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/notifications/update.xml")
+      FORMATS.each { |format| example BaseController.example_file %w[notifications], :update, format }
+
       def update
-        @notification.read = params[:read] || @notification.read
-        @notification.save!
+        @notification = update_notification @notification
         respond_with @notification
       end
+
+      ################################################################################################################
 
       private
 

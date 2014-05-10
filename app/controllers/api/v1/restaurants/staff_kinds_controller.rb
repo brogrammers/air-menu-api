@@ -2,9 +2,14 @@ module Api
   module V1
     module Restaurants
       class StaffKindsController < BaseController
+        SCOPES = {
+            :index => [:admin, :owner, :get_staff_kinds],
+            :create => [:admin, :owner, :create_staff_kinds]
+        }
 
-        doorkeeper_for :index, :scopes => [:admin, :owner, :get_staff_kinds]
-        doorkeeper_for :create, :scopes => [:admin, :owner, :create_staff_kinds]
+        SCOPES.each do |action, scopes|
+          doorkeeper_for action, :scopes => scopes
+        end
 
         before_filter :set_restaurant, :only => [:index, :create]
         before_filter :check_ownership, :only => [:index, :create]
@@ -21,26 +26,32 @@ module Api
           error 500, 'Internal Server Error, Something went wrong!'
         end
 
+        ################################################################################################################
+
         api :GET, '/restaurants/:id/staff_kinds', 'All the staff kinds of a restaurant'
-        description 'Fetches all the staff kinds of a restaurant. ||admin owner get_staff_kinds||'
-        formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_kinds/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_kinds/index.xml")
+        description "Fetches all the staff kinds of a restaurant. ||#{SCOPES[:index].join(' ')}||"
+        formats FORMATS
+        FORMATS.each { |format| example BaseController.example_file %w[restaurants staff_kinds], :index, format }
+
         def index
           @staff_kinds = @restaurant.staff_kinds
           respond_with @staff_kinds
         end
 
+        ################################################################################################################
+
         api :POST, '/restaurants/:id/staff_kinds', 'Create a staff kind for a restaurant'
-        description 'Creates a staff kind for a restaurant. ||admin owner create_staff_kinds||'
-        formats [:json, :xml]
-        param :name, String, :desc => 'Staff kind name', :required => true
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_kinds/create.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/staff_kinds/create.xml")
+        description "Creates a staff kind for a restaurant. ||#{SCOPES[:create].join(' ')}||"
+        formats FORMATS
+        param_group :create_staff_kind, Api::V1::BaseController
+        FORMATS.each { |format| example BaseController.example_file %w[restaurants staff_kinds], :create, format }
+
         def create
           @staff_kind = create_staff_kind @restaurant
           respond_with @staff_kind, :status => :created
         end
+
+        ################################################################################################################
 
         private
 

@@ -18,8 +18,10 @@ Doorkeeper.configure do
 
   resource_owner_from_credentials do |routes|
     client = Doorkeeper::Application.authenticate(params[:client_id], params[:client_secret])
-    identity = Identity.find_by_username(params[:username])
-    if client && identity && client.trusted && identity.match_password(params[:password])
+    identity = Identity.authenticate!(params[:username], params[:password])
+    if client && identity && client.trusted
+      distributor = AirMenu::ScopeDistributor.new params, identity, client && client.trusted
+      routes.params[:scope] = distributor.scope_string
       identity
     else
       nil
@@ -47,17 +49,29 @@ Doorkeeper.configure do
                   :get_menus,
                   :add_menus,
                   :add_active_menus,
-                  :get_current_orders,
+                  :update_menus,
+                  :delete_menus,
+                  :get_orders,
                   :add_orders,
                   :update_orders,
                   :get_groups,
                   :create_groups,
+                  :update_groups,
+                  :delete_groups,
                   :get_devices,
                   :create_devices,
+                  :update_devices,
+                  :delete_devices,
                   :get_staff_kinds,
                   :create_staff_kinds,
+                  :update_staff_kinds,
+                  :delete_staff_kinds,
                   :get_staff_members,
-                  :create_staff_members
+                  :create_staff_members,
+                  :update_staff_members,
+                  :delete_staff_members,
+                  :create_payments,
+                  :create_opening_hours
 
   realm 'AirMenuApi'
 end

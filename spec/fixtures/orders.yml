@@ -37,3 +37,24 @@ new_to_be_assigned_order:
   user_id: 1
   restaurant_id: 1
   state_cd: 0
+
+open_order_normal_restaurant:
+  id: 8
+  user_id: 1
+  restaurant_id: 1
+  state_cd: 1
+  staff_member_id: 1
+
+new_order:
+  id: 9
+  user_id: 1
+  restaurant_id: 1
+  state_cd: 1
+  staff_member_id: 2
+
+served_order:
+  id: 10
+  user_id: 1
+  restaurant_id: 1
+  state_cd: 3
+  staff_member_id: 2

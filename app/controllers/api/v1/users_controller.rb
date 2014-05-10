@@ -1,10 +1,15 @@
 module Api
   module V1
     class UsersController < BaseController
+      SCOPES = {
+          :index => [:admin],
+          :show => [:admin, :basic, :user],
+          :create => [:trusted]
+      }
 
-      doorkeeper_for :index, :scopes => [:admin]
-      doorkeeper_for :show, :scopes => [:admin, :basic, :user]
-      doorkeeper_for :create, :scopes => [:trusted]
+      SCOPES.each do |action, scopes|
+        doorkeeper_for action, :scopes => scopes
+      end
 
       before_filter :set_user, :only => [:show]
 
@@ -20,40 +25,43 @@ module Api
         error 500, 'Internal Server Error, Something went wrong!'
       end
 
+      ################################################################################################################
+
       api :GET, '/users', 'All the users in the system'
-      description 'Fetches all the users in the system. ||admin||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/users/index.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/users/index.xml")
+      description "Fetches all the users in the system. ||#{SCOPES[:index].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[users], :index, format }
+
       def index
         @users = User.all
         respond_with @users
       end
 
+      ################################################################################################################
+
       api :GET, '/users/:id', 'Get a users profile'
-      description 'Fetches a user profile. ||admin basic user||'
-      formats [:json, :xml]
-      example File.read("#{Rails.root}/public/docs/api/v1/users/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/users/show.xml")
+      description "Fetches a user profile. ||#{SCOPES[:show].join(' ')}||"
+      formats FORMATS
+      FORMATS.each { |format| example BaseController.example_file %w[users], :show, format }
+
       def show
         respond_with @user
       end
 
+      ################################################################################################################
+
       api :POST, '/users', 'Create a new user'
-      description 'Creates a new user. No scopes or Access Token needed to perform this action. ||trusted||'
-      formats [:json, :xml]
-      param :name, String, :desc => "Users full name", :required => true
-      param :username, String, :desc => "Desired username", :required => true
-      param :password, String, :desc => "Desired password", :required => true
-      example File.read("#{Rails.root}/public/docs/api/v1/users/show.json")
-      example File.read("#{Rails.root}/public/docs/api/v1/users/show.xml")
+      description "Creates a new user. No scopes or Access Token needed to perform this action. ||#{SCOPES[:create].join(' ')}||"
+      formats FORMATS
+      param_group :create_user, Api::V1::BaseController
+      FORMATS.each { |format| example BaseController.example_file %w[users], :create, format }
+
       def create
         @user = create_user
-        @identity = create_identity
-        @user.identity = @identity
-        @identity.save!
         respond_with @user, :status => :created
       end
+
+      ################################################################################################################
 
       private
 

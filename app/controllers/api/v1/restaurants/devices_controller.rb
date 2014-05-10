@@ -2,9 +2,14 @@ module Api
   module V1
     module Restaurants
       class DevicesController < BaseController
+        SCOPES = {
+            :index => [:admin, :owner, :get_devices],
+            :create => [:admin, :owner, :create_devices]
+        }
 
-        doorkeeper_for :index, :scopes => [:admin, :owner, :get_devices]
-        doorkeeper_for :create, :scopes => [:admin, :owner, :create_devices]
+        SCOPES.each do |action, scopes|
+          doorkeeper_for action, :scopes => scopes
+        end
 
         before_filter :set_restaurant, :only => [:index, :create]
         before_filter :check_ownership, :only => [:index, :create]
@@ -14,36 +19,39 @@ module Api
           short_description 'All about devices of restaurants'
           path '/restaurants/:id/devices'
           description 'The Restaurant Devices endpoint lets you manage devices for a restaurants.' +
-                          'Only a users with the right scope can create groups.'
+                          'Only a user with the right scope can create devices.'
           error 401, 'Unauthorized, missing or invalid access token'
           error 403, 'Forbidden, valid access token, but scope is missing'
           error 404, 'Not Found, some resource could not be found'
           error 500, 'Internal Server Error, Something went wrong!'
         end
 
+        ################################################################################################################
+
         api :GET, '/restaurants/:id/devices', 'All the devices of a restaurant'
-        description 'Fetches all the devices of a restaurant. ||admin owner get_devices||'
-        formats [:json, :xml]
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/devices/index.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/devices/index.xml")
+        description "Fetches all the devices of a restaurant. ||#{SCOPES[:index].join(' ')}||"
+        formats FORMATS
+        FORMATS.each { |format| example BaseController.example_file %w[restaurants devices], :index, format }
+
         def index
           @devices = @restaurant.devices
           respond_with @devices
         end
 
+        ################################################################################################################
+
         api :POST, '/restaurants/:id/devices', 'Create a device for a restaurant'
-        description 'Creates a device for a restaurant. ||admin owner create_devices||'
-        formats [:json, :xml]
-        param :name, String, 'Device name', :required => true
-        param :uuid, String, 'Device UUID', :required => true
-        param :token, String, 'Device token', :required => true
-        param :platform, [:ios], 'Device platform (currently only iOS)', :required => true
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/devices/create.json")
-        example File.read("#{Rails.root}/public/docs/api/v1/restaurants/devices/create.xml")
+        description "Creates a device for a restaurant. ||#{SCOPES[:create].join(' ')}||"
+        formats FORMATS
+        param_group :create_device, Api::V1::BaseController
+        FORMATS.each { |format| example BaseController.example_file %w[restaurants devices], :create, format }
+
         def create
           @device = create_device @restaurant
           respond_with @device, :status => :created
         end
+
+        ################################################################################################################
 
         private
 
