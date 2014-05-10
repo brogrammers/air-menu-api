@@ -58,6 +58,7 @@ module Api
           param :price, :price, :desc => 'Price of Menu Item', :required => required
           param :currency, :currency, :desc => 'Currency of Menu Item', :required => required
           param :staff_kind_id, String, :desc => 'Staff Kind handling this menu section'
+          param :avatar, ActionDispatch::Http::UploadedFile, :desc => 'Image file via multipart form'
         end
 
         def_param_group :"#{action}_menu_section" do

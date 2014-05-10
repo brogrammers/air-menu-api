@@ -54,6 +54,7 @@ module Api
           menu_item.description = params[:description] || menu_item.description
           menu_item.price = params[:price] || menu_item.price
           menu_item.currency = params[:currency] || menu_item.currency
+          menu_item.avatar = params[:avatar] || menu_item.avatar
           menu_item.staff_kind = staff_kind if staff_kind
           menu_item.save!
           menu_item

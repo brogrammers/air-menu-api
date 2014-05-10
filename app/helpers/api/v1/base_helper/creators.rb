@@ -171,6 +171,7 @@ module Api
           menu_item.description = params[:description]
           menu_item.price = params[:price]
           menu_item.currency = params[:currency]
+          menu_item.avatar = params[:avatar]
           menu_item.menu_section = menu_section
           menu_item.staff_kind = staff_kind if staff_kind
           menu_section.menu_items << menu_item
