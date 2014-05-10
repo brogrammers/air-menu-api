@@ -92,6 +92,7 @@ module Api
           param :password, String, 'Staff Member password', :required => required
           param :email, String, 'Staff Member email', :required => required
           param :staff_kind_id, String, 'Staff Members staff kind id', :required => required
+          param :avatar, String, :desc => 'Image file via multipart form'
         end
 
         def_param_group :"#{action}_company" do
@@ -106,6 +107,7 @@ module Api
           param :email, String, :desc => 'Users email', :required => required
           param :password, String, :desc => 'New password', :required => required
           param :phone, String, :desc => 'New phone number', :required => required
+          param :avatar, String, :desc => 'Image file via multipart form'
         end
 
       end

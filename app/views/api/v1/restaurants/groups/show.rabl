@@ -2,6 +2,10 @@ object @group => :group
 
 attributes :id, :name
 
+node :avatar do |staff_member|
+  staff_member.identity.avatar.relative_path_url
+end
+
 node :device do |group|
   partial('api/v1/restaurants/groups/_device', :object => group.device)
 end

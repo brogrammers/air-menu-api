@@ -41,7 +41,9 @@ module Api
         end
 
         def update_identity(identity)
+          identity.username = params[:username] if params[:username]
           identity.new_password = params[:password] if params[:password]
+          identity.email = params[:email] if params[:email]
           identity.avatar = params[:avatar] if params[:avatar]
           identity.save!
           identity
@@ -117,10 +119,8 @@ module Api
 
         def update_staff_member(staff_member, staff_kind)
           staff_member.name = params[:name] || staff_member.name
-          staff_member.identity.new_password = params[:password] if params[:password]
-          staff_member.identity.email = params[:email] || staff_member.identity.email
           staff_member.staff_kind = staff_kind if staff_kind
-          staff_member.identity.save!
+          update_identity staff_member.identity
           staff_member.save!
           staff_member
         end
