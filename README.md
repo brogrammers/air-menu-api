@@ -1,6 +1,6 @@
 # AirMenu API
 
-[![Build Status](http://ci.air-menu.com/buildStatus/icon?job=Air-Menu-Api v0.1.0)](http://ci.air-menu.com/job/Air-Menu-Api%20v0.1.0/)
+[![Build Status](http://ci.air-menu.com/buildStatus/icon?job=Air-Menu-Api - master)](http://ci.air-menu.com/job/Air-Menu-Api%20-%20master/)
 
 This is a 4th Year Project in DCU (Dublin City University). This is an API for a restaurant service written in Ruby on Rails.
 More information about the actual project/products and its features can be found here: https://blog.air-menu.com
@@ -58,5 +58,10 @@ So I can remotely setup new databases, nginx virtual hosts, init files, etc.
 
 The most important capistrano task is the deployment task. This will log you into the remote server and deploy the application.
 ```
- $ cap deploy
+ $ cap <environment> deploy
 ```
+
+#### Environments
+
+- edge
+- stage
