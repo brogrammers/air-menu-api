@@ -233,6 +233,19 @@ module Api
           opening_hour
         end
 
+        def create_webhook(restaurant)
+          webhook = Webhook.new
+          webhook.path = params[:path]
+          webhook.host = params[:host]
+          webhook.params = params[:params]
+          webhook.headers = params[:headers]
+          webhook.on_action = params[:on_action]
+          webhook.on_method = params[:on_method]
+          webhook.restaurant = restaurant
+          webhook.save!
+          webhook
+        end
+
       end
     end
   end

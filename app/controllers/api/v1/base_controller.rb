@@ -3,10 +3,22 @@ module Api
     class BaseController < ApplicationController
       include BaseHelper
 
+      after_filter :webhook
+
       resource_description do
         api_version 'v1'
         app_info File.read("#{Rails.root}/doc/v1.txt")
         api_base_url '/api/v1'
+      end
+
+      def webhook
+        if @restaurant && Rails.env != 'test'
+          Thread.new do
+            Webhook.where(:restaurant_id => @restaurant.id, :on_action => params[:action], :on_method => params[:controller]).each do |webhook|
+              webhook.perform!
+            end
+          end
+        end
       end
 
       def self.example_file(resources, action, format)
@@ -110,6 +122,15 @@ module Api
           param :password, String, :desc => 'New password', :required => required
           param :phone, String, :desc => 'New phone number', :required => required
           param :avatar, ActionDispatch::Http::UploadedFile, :desc => 'Image file via multipart form'
+        end
+
+        def_param_group :"#{action}_webhook" do
+          param :path, String, :desc => 'Webhook path', :required => required
+          param :host, String, :desc => 'Webhook host', :required => required
+          param :params, :json_string, :desc => 'Webhook params', :required => required
+          param :headers, :json_string, :desc => 'Webhook headers', :required => required
+          param :on_action, String, :desc => 'Webhook on action', :required => required
+          param :on_method, String, :desc => 'Webhook on method', :required => required
         end
 
       end

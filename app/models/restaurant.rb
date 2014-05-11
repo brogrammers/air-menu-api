@@ -6,6 +6,7 @@ class Restaurant < ActiveRecord::Base
   has_many :groups
   has_many :reviews
   has_many :opening_hours
+  has_many :webhooks
   has_many :devices, :as => :notifiable
   has_one :address, :as => :contactable
   has_one :location, :as => :findable

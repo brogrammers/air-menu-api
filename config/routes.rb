@@ -19,6 +19,7 @@ AirMenuApi::Application.routes.draw do
       resources :staff_members, :only => [:index, :show, :update, :destroy]
       resources :devices, :only => [:index, :show, :update, :destroy]
       resources :credit_cards, :only => [:index, :show, :update, :destroy]
+      resources :webhooks, :only => [:index, :show, :update, :destroy]
       resources :notifications, :only => [:update]
 
       resources :groups, :only => [:index, :show, :update, :destroy] do
@@ -50,6 +51,7 @@ AirMenuApi::Application.routes.draw do
         resources :groups, :controller => 'restaurants/groups', :only => [:index, :create]
         resources :devices, :controller => 'restaurants/devices', :only => [:index, :create]
         resources :reviews, :controller => 'restaurants/reviews', :only => [:index, :create]
+        resources :webhooks, :controller => 'restaurants/webhooks', :only => [:index, :create]
         resources :opening_hours, :controller => 'restaurants/opening_hours', :only => [:index, :create]
       end
 

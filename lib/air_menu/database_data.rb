@@ -768,6 +768,18 @@ DATABASE_TABLES = {
       },
       {
           :name => 'create_opening_hours'
+      },
+      {
+          :name => 'get_webhooks'
+      },
+      {
+          :name => 'create_webhooks'
+      },
+      {
+          :name => 'update_webhooks'
+      },
+      {
+          :name => 'delete_webhooks'
       }
   ],
 
@@ -799,6 +811,18 @@ DATABASE_TABLES = {
           :payload => {
               :order_id => 1
           }.to_json
+      }
+  ],
+
+  :webhook => [
+      {
+          :on_action => 'show',
+          :on_method => 'api/v1/restaurants',
+          :host => 'http://localhost:3001',
+          :path => '/api/v1/me',
+          :params => { 'key' => 'value' }.to_json,
+          :headers => { 'Content-Type' => 'application/json' }.to_json,
+          :restaurant_id => 1
       }
   ],
 

@@ -34,4 +34,9 @@ Read more about it in the POST /access_tokens route description.
 - get_staff_members,
 - create_staff_members,
 - delete_staff_members,
-- create_payments
+- create_payments,
+- create_opening_hours,
+- get_webhooks,
+- create_webhooks,
+- update_webhooks,
+- delete_webhooks

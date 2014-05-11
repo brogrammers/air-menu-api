@@ -71,7 +71,11 @@ Doorkeeper.configure do
                   :update_staff_members,
                   :delete_staff_members,
                   :create_payments,
-                  :create_opening_hours
+                  :create_opening_hours,
+                  :get_webhooks,
+                  :create_webhooks,
+                  :update_webhooks,
+                  :delete_webhooks
 
   realm 'AirMenuApi'
 end

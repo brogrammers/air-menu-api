@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140510145700) do
+ActiveRecord::Schema.define(:version => 20140510154315) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_1"
@@ -274,6 +274,18 @@ ActiveRecord::Schema.define(:version => 20140510145700) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "phone"
+  end
+
+  create_table "webhooks", :force => true do |t|
+    t.string   "host"
+    t.string   "path"
+    t.text     "params"
+    t.text     "headers"
+    t.integer  "restaurant_id"
+    t.string   "on_action"
+    t.string   "on_method"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
 end

@@ -137,6 +137,17 @@ module Api
           credit_card
         end
 
+        def update_webhook(webhook)
+          webhook.path = params[:path] || webhook.path
+          webhook.host = params[:host] || webhook.host
+          webhook.params = params[:params] || webhook.params
+          webhook.headers = params[:headers] || webhook.headers
+          webhook.on_action = params[:on_action] || webhook.on_action
+          webhook.on_method = params[:on_method] || webhook.on_method
+          webhook.save!
+          webhook
+        end
+
       end
     end
   end

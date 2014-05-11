@@ -32,3 +32,4 @@ gem 'simplecov'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'rmagick', require: false
+gem 'faraday'
