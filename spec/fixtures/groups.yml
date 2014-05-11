@@ -2,3 +2,8 @@ one:
   id: 1
   name: Bar Staff
   restaurant_id: 1
+
+two:
+  id: 2
+  name: group
+  restaurant_id: 1

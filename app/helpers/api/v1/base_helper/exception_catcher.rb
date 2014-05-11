@@ -27,6 +27,10 @@ module Api
           render_bad_request [exception.param]
         end
 
+        ActionController::Base.rescue_from StaffMember::GroupMemberError do |exception|
+          render_conflict 'group_member_conflict'
+        end
+
       end
     end
   end

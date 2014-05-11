@@ -1,4 +1,6 @@
 class StaffMember < ActiveRecord::Base
+  class GroupMemberError < StandardError; end
+
   has_one :identity, :as => :identifiable
   has_many :notifications, :as => :remindable
   belongs_to :device
@@ -20,6 +22,11 @@ class StaffMember < ActiveRecord::Base
     return owns_device object if object.class == Device
     return owns_credit_card object if object.class == CreditCard
     false
+  end
+
+  def new_staff_kind=(staff_kind)
+    raise GroupMemberError if self.group_id
+    self.staff_kind = staff_kind
   end
 
   def type

@@ -129,7 +129,7 @@ module Api
 
         def update_staff_member(staff_member, staff_kind)
           staff_member.name = params[:name] || staff_member.name
-          staff_member.staff_kind = staff_kind if staff_kind
+          staff_member.new_staff_kind = staff_kind if staff_kind
           update_identity staff_member.identity
           staff_member.save!
           staff_member

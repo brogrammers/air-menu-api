@@ -204,26 +204,47 @@ describe Api::V1::StaffMembersController do
       describe 'as an owner' do
 
         describe 'owning the staff member' do
-
           let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
-          before :each do
-            put :update, :id => 1, :name => 'new name', :password => 'password', :email => 'lkdf@lksjdf.com', :staff_kind_id => 2
+          describe 'when the staff member is a group member' do
+
+            before :each do
+              put :update, :id => 3, :name => 'new name', :password => 'password', :email => 'lkdf@lksjdf.com', :staff_kind_id => 2
+            end
+
+            it 'should respond with a HTTP 409 status code' do
+              expect(response.status).to eq(409)
+            end
+
+            it 'should return a conflict error message' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['error']['code']).to eq('conflict')
+              expect(body['error']['message']).to eq('group_member_conflict')
+            end
+
           end
 
-          it 'should respond with a HTTP 200 status code' do
-            expect(response).to be_success
-            expect(response.status).to eq(200)
-          end
+          describe 'when the staff member is not a group member' do
 
-          it 'should change the staff member attributes' do
-            body = JSON.parse(response.body) rescue { }
-            expect(body['staff_member']['name']).to eq('new name')
-          end
+            before :each do
+              put :update, :id => 1, :name => 'new name', :password => 'password', :email => 'lkdf@lksjdf.com', :staff_kind_id => 2
+            end
 
-          it 'should change the staff members password' do
-            expect {Identity.authenticate!('staff_member1', 'password')}.not_to raise_error
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+            it 'should change the staff member attributes' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['staff_member']['name']).to eq('new name')
+            end
+
+            it 'should change the staff members password' do
+              expect {Identity.authenticate!('staff_member1', 'password')}.not_to raise_error
+            end
+
           end
 
         end
