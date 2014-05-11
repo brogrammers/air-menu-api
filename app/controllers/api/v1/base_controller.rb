@@ -84,6 +84,10 @@ module Api
           param :active, String, :desc => 'Make menu active. ||owner add_active_menus||'
         end
 
+        def_param_group :"#{action}_order" do
+          param :table_number, String, :desc => 'Table number (Only for Staff Members)'
+        end
+
         def_param_group :"#{action}_order_item" do
           param :comment, String, :desc => 'Set a comment on the order item', :required => required
           param :count, :integer, :desc => 'Set how many times you want to order the menu item', :required => required

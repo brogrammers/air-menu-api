@@ -44,6 +44,7 @@ module Api
         api :POST, '/restaurants/:id/orders', 'Create an order for a restaurant'
         description "Creates an order for a restaurant. ||#{SCOPES[:create].join(' ')}||"
         formats FORMATS
+        param_group :create_order, Api::V1::BaseController
         FORMATS.each { |format| example BaseController.example_file %w[restaurants orders], :create, format }
 
         def create

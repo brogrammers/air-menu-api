@@ -82,6 +82,14 @@ module Api
           notification
         end
 
+        def update_order(order)
+          if @user.class == StaffMember
+            order.table_number = params[:table_number] || order.table_number
+            order.save!
+          end
+          order
+        end
+
         def update_order_item(order_item)
           order_item.comment = params[:comment] || order_item.comment
           order_item.count = params[:count] || order_item.count

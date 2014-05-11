@@ -191,10 +191,18 @@ describe Api::V1::Restaurants::OrdersController do
 
             let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope, :revoked? => false, :expired? => false }
 
+            before :each do
+              post :create, :restaurant_id => 1, :table_number => '3'
+            end
+
             it 'should respond with a HTTP 201 status code' do
-              post :create, :restaurant_id => 1
               expect(response).to be_success
               expect(response.status).to eq(201)
+            end
+
+            it 'should not add the table number' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['order']['table_number']).to be_nil
             end
 
           end
@@ -306,10 +314,18 @@ describe Api::V1::Restaurants::OrdersController do
 
             let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
 
+            before :each do
+              post :create, :restaurant_id => 1, :table_number => '3'
+            end
+
             it 'should respond with a HTTP 201 status code' do
-              post :create, :restaurant_id => 1
               expect(response).to be_success
               expect(response.status).to eq(201)
+            end
+
+            it 'should add the table number' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['order']['table_number']).to eq('3')
             end
 
           end
