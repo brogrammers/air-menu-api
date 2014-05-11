@@ -124,6 +124,12 @@ module Api
           param :avatar, ActionDispatch::Http::UploadedFile, :desc => 'Image file via multipart form'
         end
 
+        def_param_group :"#{action}_opening_hour" do
+          param :day, :day, :desc => 'Day', :required => required
+          param :start, :start_opening_hour, :desc => 'Time ISO8601', :required => required
+          param :end, :hour_offset, :desc => 'Hour Offset', :required => required
+        end
+
         def_param_group :"#{action}_webhook" do
           param :path, String, :desc => 'Webhook path', :required => required
           param :host, String, :desc => 'Webhook host', :required => required
@@ -149,12 +155,6 @@ module Api
         param :subject, String, :desc => 'Subject', :required => true
         param :message, String, :desc => 'Message', :required => true
         param :rating, :rating, :desc => 'Rating (1-5)', :required => true
-      end
-
-      def_param_group :create_opening_hour do
-        param :day, :day, :desc => 'Day', :required => true
-        param :start, :start_opening_hour, :desc => 'Time ISO8601', :required => true
-        param :end, :hour_offset, :desc => 'Hour Offset', :required => true
       end
 
     end

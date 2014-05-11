@@ -137,6 +137,17 @@ module Api
           credit_card
         end
 
+        def update_opening_hour(opening_hour)
+          opening_hour.day = params[:day] || opening_hour.day
+          if params[:start] && params[:end]
+            start_time = Time.iso8601(params[:start])
+            opening_hour.start = start_time
+            opening_hour.end = start_time + 60*60*params[:end].to_f
+          end
+          opening_hour.save!
+          opening_hour
+        end
+
         def update_webhook(webhook)
           webhook.path = params[:path] || webhook.path
           webhook.host = params[:host] || webhook.host

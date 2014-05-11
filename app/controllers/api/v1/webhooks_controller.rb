@@ -71,7 +71,7 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[webhooks], :destroy, format }
 
       def destroy
-        @webhook.destroy!
+        @webhook.destroy
         respond_with @webhook
       end
 

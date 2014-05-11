@@ -20,6 +20,7 @@ AirMenuApi::Application.routes.draw do
       resources :devices, :only => [:index, :show, :update, :destroy]
       resources :credit_cards, :only => [:index, :show, :update, :destroy]
       resources :webhooks, :only => [:index, :show, :update, :destroy]
+      resources :opening_hours, :only => [:index, :show, :update, :destroy]
       resources :notifications, :only => [:update]
 
       resources :groups, :only => [:index, :show, :update, :destroy] do

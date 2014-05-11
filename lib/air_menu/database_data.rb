@@ -767,7 +767,16 @@ DATABASE_TABLES = {
           :name => 'create_payments'
       },
       {
+          :name => 'get_opening_hours'
+      },
+      {
           :name => 'create_opening_hours'
+      },
+      {
+          :name => 'update_opening_hours'
+      },
+      {
+          :name => 'delete_opening_hours'
       },
       {
           :name => 'get_webhooks'
