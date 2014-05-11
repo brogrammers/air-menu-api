@@ -33,6 +33,7 @@ Read more about it in the POST /access_tokens route description.
 - delete_staff_kinds,
 - get_staff_members,
 - create_staff_members,
+- update_staff_members,
 - delete_staff_members,
 - create_payments,
 - get_opening_hours,
