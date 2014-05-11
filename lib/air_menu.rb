@@ -4,5 +4,5 @@ require File.join(File.dirname(__FILE__), 'air_menu', 'scope_distributor')
 require File.join(File.dirname(__FILE__), 'air_menu', 'webhook_helper')
 
 module AirMenu
-  VERSION = '0.2.0'
+  VERSION = '0.3.0'
 end

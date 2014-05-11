@@ -38,7 +38,7 @@ server 'air-menu.com', roles: %w{web app db}, primary: true
 #   }
 # setting per server overrides global ssh_options
 
-set :branch, "v0.2.0"
+set :branch, "v0.3.0"
 set :env_name, "edge"
 set :deploy_to, "/home/#{fetch(:deploy_user)}/#{fetch(:application)}/#{fetch(:env_name)}"
 set :full_app_name, "#{fetch(:application)}_#{fetch(:env_name)}"
