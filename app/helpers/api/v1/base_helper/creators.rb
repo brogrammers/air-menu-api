@@ -31,6 +31,7 @@ module Api
           restaurant.name = params[:name]
           restaurant.avatar = params[:avatar]
           restaurant.description = params[:description]
+          restaurant.category = params[:category]
           restaurant.loyalty = false
           restaurant.remote_order = false
           restaurant.conversion_rate = 0.0

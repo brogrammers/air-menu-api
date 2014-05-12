@@ -39,6 +39,7 @@ module Api
         def_param_group :"#{action}_restaurant" do
           param :name, String, :desc => 'Restaurant Name', :required => required
           param :description, String, :desc => 'Restaurant Description', :required => required
+          param :category, String, :desc => 'Restaurant Category', :required => required
           param :avatar, ActionDispatch::Http::UploadedFile, :desc => 'Image file via multipart form'
           param_group :"#{action}_address", Api::V1::BaseController
           param_group :"#{action}_location", Api::V1::BaseController
@@ -149,6 +150,7 @@ module Api
         param :latitude, String, :desc => 'Latitude', :required => true
         param :longitude, String, :desc => 'Longitude', :required => true
         param :offset, String, :desc => 'Offset', :required => true
+        param :category, String, :desc => 'Category'
       end
 
       def_param_group :create_payment do

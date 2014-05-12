@@ -39,7 +39,8 @@ module Api
         @locations = Location.all_within(params[:latitude].to_f || 0, params[:longitude].to_f || 0, params[:offset].to_f || 0)
         @restaurants = []
         @locations.each do |location|
-          @restaurants <<(location.findable) if location.findable.class == Restaurant
+          correct_category = params[:category] ? location.findable.category == params[:category] : true
+          @restaurants <<(location.findable) if location.findable.class == Restaurant && correct_category
         end
         respond_with @restaurants
       end
