@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :find_current_user
   before_filter :determine_format
   before_filter :determine_phone
+  before_filter :update_staff_member_last_seen
 
   respond_to :json, :xml
 
@@ -18,6 +19,13 @@ class ApplicationController < ActionController::Base
       @identity = Identity.find doorkeeper_token.resource_owner_id
       @user = @identity.identifiable
       @scopes = doorkeeper_token.scopes
+    end
+  end
+
+  def update_staff_member_last_seen
+    if @user.class == StaffMember
+      @user.last_seen = Time.now
+      @user.save!
     end
   end
 

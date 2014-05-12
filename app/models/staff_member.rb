@@ -37,6 +37,10 @@ class StaffMember < ActiveRecord::Base
     15
   end
 
+  def online?
+    self.last_seen > Time.now-(60*15)
+  end
+
   def scopes
     staff_kind ? staff_kind.scopes : []
   end
@@ -127,5 +131,11 @@ class StaffMember < ActiveRecord::Base
 
   def owns_credit_card(credit_card)
     false
+  end
+
+  class << self
+    def online(restaurant_id)
+      StaffMember.where(:last_seen => Time.now-(60*15)..Time.now, :restaurant_id => restaurant_id)
+    end
   end
 end
