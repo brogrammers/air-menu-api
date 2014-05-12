@@ -92,12 +92,15 @@ module Api
           order_item
         end
 
-        def create_staff_kind(restaurant)
+        def create_staff_kind(restaurant, staff_kind_scopes)
           staff_kind = StaffKind.new
           staff_kind.name = params[:name]
           staff_kind.accept_orders = params[:accept_orders]
           staff_kind.accept_order_items = params[:accept_order_items]
           staff_kind.restaurant = restaurant
+          staff_kind_scopes.each do |scope|
+            staff_kind.scopes << scope
+          end
           staff_kind.save!
           staff_kind
         end

@@ -13,6 +13,7 @@ module Api
 
         before_filter :set_restaurant, :only => [:index, :create]
         before_filter :check_ownership, :only => [:index, :create]
+        before_filter :set_scopes, :only => [:create]
 
         resource_description do
           name 'Restaurants > Staff Kinds'
@@ -47,7 +48,7 @@ module Api
         FORMATS.each { |format| example BaseController.example_file %w[restaurants staff_kinds], :create, format }
 
         def create
-          @staff_kind = create_staff_kind @restaurant
+          @staff_kind = create_staff_kind @restaurant, @staff_kind_scopes
           respond_with @staff_kind, :status => :created
         end
 
@@ -59,6 +60,15 @@ module Api
           @restaurant = Restaurant.find params[:restaurant_id]
         rescue ActiveRecord::RecordNotFound
           render_model_not_found 'Restaurant'
+        end
+
+        def set_scopes
+          @staff_kind_scopes = []
+          params[:scopes].split(' ').each do |scope_name|
+            scope = Scope.find_by_name(scope_name)
+            render_bad_request ['scopes'] unless scope
+            @staff_kind_scopes << scope
+          end if params[:scopes]
         end
 
         def check_ownership

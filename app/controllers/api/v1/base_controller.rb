@@ -103,6 +103,7 @@ module Api
           param :name, String, :desc => 'Staff kind name', :required => required
           param :accept_orders, :bool, :desc => 'Staff kind can accept orders', :required => required
           param :accept_order_items, :bool, :desc => 'Staff kind can accept order items', :required => required
+          param :scopes, String, :desc => 'Staff Kind scopes (Will be reset each time)'
         end
 
         def_param_group :"#{action}_staff_member" do
