@@ -56,7 +56,7 @@ module Api
       api :PUT, '/menu_items/:id', 'Update a menu item in the system'
       description "Updates a menu item in the system. ||#{SCOPES[:update].join(' ')}||"
       formats FORMATS
-      param_group :update_menu, Api::V1::BaseController
+      param_group :update_menu_item, Api::V1::BaseController
       FORMATS.each { |format| example BaseController.example_file %w[menu_items], :update, format }
 
       def update

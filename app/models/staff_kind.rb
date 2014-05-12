@@ -12,4 +12,10 @@ class StaffKind < ActiveRecord::Base
       scope.destroy
     end
   end
+
+  def scope_array
+    self.scopes.to_a.inject [] do |result, scope|
+      result << scope.name
+    end
+  end
 end

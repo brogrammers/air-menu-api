@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140511205256) do
+ActiveRecord::Schema.define(:version => 20140512114206) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_1"
@@ -227,6 +227,7 @@ ActiveRecord::Schema.define(:version => 20140511205256) do
     t.integer  "active_menu_id"
     t.text     "description",     :limit => 255
     t.string   "avatar"
+    t.string   "category"
   end
 
   create_table "reviews", :force => true do |t|
@@ -268,6 +269,7 @@ ActiveRecord::Schema.define(:version => 20140511205256) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "device_id"
+    t.datetime "last_seen"
   end
 
   create_table "users", :force => true do |t|

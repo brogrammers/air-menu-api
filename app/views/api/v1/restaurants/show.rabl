@@ -1,6 +1,6 @@
 object @restaurant => :restaurant
 
-attributes :id, :name, :description, :rating, :loyalty, :remote_order, :conversion_rate
+attributes :id, :name, :description, :rating, :loyalty, :remote_order, :conversion_rate, :category
 
 node :avatar do |restaurant|
   restaurant.avatar.relative_path_url

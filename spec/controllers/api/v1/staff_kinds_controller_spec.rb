@@ -221,7 +221,7 @@ describe Api::V1::StaffKindsController do
           it 'should change scopes' do
             put :update, :id => 1, :scopes => 'scope1'
             body = JSON.parse(response.body) rescue { }
-            expect(body['staff_kind']['scopes']).to match_array([{'id' => 1, 'name' => 'scope1'}])
+            expect(body['staff_kind']['scopes']).to match_array(['scope1'])
           end
 
           describe 'when scope does not exist' do
@@ -255,7 +255,7 @@ describe Api::V1::StaffKindsController do
 
             it 'should not change scopes' do
               body = JSON.parse(response.body) rescue { }
-              expect(body['staff_kind']['scopes']).to match_array([{'id' => 2, 'name' => 'scope2'}])
+              expect(body['staff_kind']['scopes']).to match_array(['scope2'])
             end
 
           end
