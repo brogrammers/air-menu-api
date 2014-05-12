@@ -619,8 +619,8 @@ DATABASE_TABLES = {
 
   :staff_kind_scope => [
       {
-        :staff_kind_id => 1,
-        :scope_id => 1
+          :staff_kind_id => 1,
+          :scope_id => 1
       },
       {
           :staff_kind_id => 1,
