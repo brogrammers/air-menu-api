@@ -27,4 +27,8 @@ class Restaurant < ActiveRecord::Base
     sum = review_array.inject(0) { |sum, review| sum + review.rating }
     review_array.size != 0 ? sum / review_array.size : 0.0
   end
+
+  def online_staff_members
+    StaffMember.online self.id
+  end
 end

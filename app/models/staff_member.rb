@@ -74,7 +74,7 @@ class StaffMember < ActiveRecord::Base
   end
 
   def current_orders
-    []
+    Order.where("state_cd != 4 AND state_cd != 5 AND staff_member_id = #{self.id}")
   end
 
   def unread

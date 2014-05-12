@@ -12,6 +12,7 @@ module AirMenu
     end
 
     def dispatch
+      # TODO: Remove `and` with `&&`
       return unless @message and @user
       notification = create_notification
       @user.devices.each do |device|

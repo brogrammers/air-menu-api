@@ -15,12 +15,14 @@ class OrderItem < ActiveRecord::Base
   end
 
   def assign!
-    self.menu_item.menu_section.staff_kind.staff_members.each do |staff_member|
-      if staff_member.staff_kind.accept_order_items
-        staff_member.order_items << self
-        return
+    possible_staff_members = []
+    self.order.restaurant.online_staff_members.each do |staff_member|
+      if staff_member.staff_kind && staff_member.staff_kind.accept_order_items
+        possible_staff_members << staff_member
       end
     end
+    possible_staff_members.sort! { |staff_member, next_staff_member| staff_member.current_orders.size <=> next_staff_member.current_orders.size }
+    possible_staff_members.first.orders << self unless possible_staff_members.empty?
   end
 
   def approved!

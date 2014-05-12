@@ -227,6 +227,9 @@ describe Api::V1::OrdersController do
               describe 'and set to open' do
 
                 before :each do
+                  staff_member = staff_members(:two)
+                  staff_member.last_seen = Time.now
+                  staff_member.save!
                   put :update, :id => 7, :state => 'open'
                 end
 
