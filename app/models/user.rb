@@ -35,7 +35,17 @@ class User < ActiveRecord::Base
   end
 
   def current_orders
-    Order.where("state_cd != 4 AND user_id = #{self.id}")
+    Order.where("state_cd != 4 AND state_cd != 5 AND user_id = #{self.id}")
+  end
+
+  Order::State::STATES.each_with_index do |state, index|
+    eval(
+        <<-eos
+    def #{state}_orders
+      Order.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s)
+    end
+    eos
+    )
   end
 
   def can_order?

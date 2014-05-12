@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V1::Me::OrdersController do
+describe Api::V1::Me::OrderItemsController do
   render_views
   fixtures :addresses,
            :companies,
@@ -71,7 +71,7 @@ describe Api::V1::Me::OrdersController do
       describe 'with state parameter' do
 
         before :each do
-          get :index, :state => 'open'
+          get :index, :state => 'approved'
         end
 
         it 'should respond with a HTTP 200 status code' do
