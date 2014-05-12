@@ -27,18 +27,17 @@ class ApplicationController < ActionController::Base
   end
 
   def determine_phone
-    # TODO: Check if scope is trusted!!
-    if device? and @user
-      device = Device.authenticate(request.headers["X-Device-UUID"], @user)
+    if device? && @user && scope_exists?('trusted')
+      device = Device.authenticate(request.headers['X-Device-UUID'], @user)
       if device
-        device.token = request.headers["X-Device-Token"]
+        device.token = request.headers['X-Device-Token']
         device.save! if device.changed?
       end
     end
   end
 
   def device?
-    request.headers["X-Device-UUID"] && request.headers["X-Device-Token"]
+    request.headers['X-Device-UUID'] && request.headers['X-Device-Token']
   end
 
   def scope_exists?(scope)

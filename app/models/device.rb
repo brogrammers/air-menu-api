@@ -2,7 +2,12 @@ class Device < ActiveRecord::Base
   belongs_to :notifiable, :polymorphic => true
 
   def self.authenticate(uuid, user)
-    # TODO: need to distinguish between user, staff member and group
-    Device.where(:uuid => uuid, :notifiable_id => user.id).first
+    if user.class == StaffMember
+      device = Device.where(:uuid => uuid, :id => user.group.device_id).first if user.group
+      device = Device.where(:uuid => uuid, :id => user.device_id).first if device.nil? && user.device_id
+    else
+      device = Device.where(:uuid => uuid, :notifiable_id => user.id, :notifiable_type => user.class.to_s) if user.class == User
+    end
+    device
   end
 end
