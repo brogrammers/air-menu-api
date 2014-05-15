@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
     eval(
         <<-eos
     def #{state}_orders
-      Order.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s)
+      Order.where("state_cd = #{index} AND user_id = " + self.id.to_s)
     end
     eos
     )
