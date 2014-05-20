@@ -12,7 +12,7 @@ class Restaurant < ActiveRecord::Base
   has_one :location, :as => :findable
   belongs_to :company
 
-  mount_uploader :avatar, AvatarUploader
+  mount_uploader :avatar, AvatarUploader unless ENV['CW_SKIP']
 
   def current_orders
     Order.where(:served_time => nil, :restaurant_id => self.id)
