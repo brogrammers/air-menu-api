@@ -49,7 +49,15 @@ class StaffMember < ActiveRecord::Base
     eval(
         <<-eos
     def #{state}_orders
-      Order.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s)
+      result = []
+      if self.group
+        self.group.staff_members do |staff_member|
+          result.concat(Order.where("state_cd = #{index} AND staff_member_id = " + staff_member.id.to_s))
+        end
+      else
+        result.concat(Order.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s))
+      end
+      result
     end
     eos
     )
@@ -59,7 +67,15 @@ class StaffMember < ActiveRecord::Base
     eval(
         <<-eos
     def #{state}_order_items
-      OrderItem.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s)
+      result = []
+      if self.group
+        self.group.staff_members do |staff_member|
+          result.concat(OrderItem.where("state_cd = #{index} AND staff_member_id = " + staff_member.id.to_s))
+        end
+      else
+        result.concat(OrderItem.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s))
+      end
+      result
     end
     eos
     )
