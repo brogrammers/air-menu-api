@@ -23,13 +23,13 @@ module AirMenu
         },
         {
             :name => 'Karl Roe',
-            :staff_kind_id => 2,
+            :staff_kind_id => 4,
             :restaurant_id => 1,
             :group_id => 1,
         },
         {
             :name => 'David Parsons',
-            :staff_kind_id => 2,
+            :staff_kind_id => 4,
             :restaurant_id => 1,
             :group_id => 1,
         }
