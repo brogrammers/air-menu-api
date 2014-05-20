@@ -4,17 +4,21 @@ module AirMenu
       class IOS
 
         def initialize
-          @pusher = Grocer.pusher(
-              certificate: AirMenu::Settings.ios_certificate,
-              gateway: 'gateway.sandbox.push.apple.com',
-              port: 2195,
-              retries: 3
-          )
+          @pushers = [AirMenu::Settings.ios_customer_certificate, AirMenu::Settings.ios_restaurant_certificate].inject([]) do |pushers, certificate|
+            pushers.push(Grocer.pusher(
+                certificate: certificate,
+                gateway: 'gateway.sandbox.push.apple.com',
+                port: 2195,
+                retries: 3
+            ))
+          end
         end
 
         def dispatch(token, message, count)
           new_notification = notification(token, message, count)
-          @pusher.push(new_notification) rescue false
+          @pushers.each do |pusher|
+            pusher.push(new_notification) rescue false
+          end
         end
 
         def notification(token, message, count)

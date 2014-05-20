@@ -5,8 +5,8 @@ class Device < ActiveRecord::Base
     if user.class == StaffMember
       device = Device.where(:uuid => uuid, :id => user.group.device_id).first if user.group
       device = Device.where(:uuid => uuid, :id => user.device_id).first if device.nil? && user.device_id
-    else
-      device = Device.where(:uuid => uuid, :notifiable_id => user.id, :notifiable_type => user.class.to_s) if user.class == User
+    elsif user.class == User
+      device = Device.where(:uuid => uuid, :notifiable_id => user.id, :notifiable_type => user.class.to_s).first
     end
     device
   end
