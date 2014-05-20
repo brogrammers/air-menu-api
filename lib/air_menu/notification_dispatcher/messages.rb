@@ -10,7 +10,7 @@ module AirMenu
   end
         eos
         )
-      end
+      end unless I18n.t('notifications').class == String
 
     end
   end
