@@ -26,8 +26,9 @@ module Api
           device
         end
 
-        def update_group(group)
+        def update_group(group, device)
           group.name = params[:name] || group.name
+          group.device_id = device.id if device
           group.save!
           group
         end

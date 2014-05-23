@@ -117,10 +117,11 @@ module Api
           staff_member
         end
 
-        def create_group(restaurant)
+        def create_group(restaurant, device)
           group = Group.new
           group.restaurant = restaurant
           group.name = params[:name]
+          group.device_id = device.id
           group.save!
           group
         end

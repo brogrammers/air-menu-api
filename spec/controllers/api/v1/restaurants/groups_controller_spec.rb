@@ -12,7 +12,8 @@ describe Api::V1::Restaurants::GroupsController do
            :users,
            :orders,
            :staff_kinds,
-           :staff_members
+           :staff_members,
+           :devices
 
   before :each do
     controller.stub(:doorkeeper_token) { token }
@@ -23,7 +24,7 @@ describe Api::V1::Restaurants::GroupsController do
   let(:admin_scope) { Doorkeeper::OAuth::Scopes.from_array ['admin'] }
   let(:owner_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
   let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['get_groups', 'create_groups'] }
-  let(:group_parameters) { {:name => 'group'} }
+  let(:group_parameters) { {:name => 'group', :device_id => 3} }
 
   describe 'GET #index' do
 

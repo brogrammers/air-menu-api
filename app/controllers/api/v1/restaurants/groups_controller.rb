@@ -12,6 +12,7 @@ module Api
         end
 
         before_filter :set_restaurant, :only => [:index, :create]
+        before_filter :set_device, :only => [:create]
         before_filter :check_ownership, :only => [:index, :create]
 
         resource_description do
@@ -47,7 +48,7 @@ module Api
         FORMATS.each { |format| example BaseController.example_file %w[restaurants groups], :create, format }
 
         def create
-          @group = create_group @restaurant
+          @group = create_group @restaurant, @device
           respond_with @group, :status => :created
         end
 
@@ -61,8 +62,15 @@ module Api
           render_model_not_found 'Restaurant'
         end
 
+        def set_device
+          @device = Device.find params[:device_id]
+        rescue ActiveRecord::RecordNotFound
+          render_model_not_found 'Device'
+        end
+
         def check_ownership
           render_forbidden 'ownership_failure' if not_admin_and?(!@user.owns(@restaurant))
+          render_forbidden 'ownership_failure' if @device && @device.notifiable_type == 'Restaurant' && @device.notifiable_id != @restaurant.id
         end
 
       end

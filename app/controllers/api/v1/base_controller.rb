@@ -97,6 +97,7 @@ module Api
 
         def_param_group :"#{action}_group" do
           param :name, String, 'Group name', :required => required
+          param :device_id, :integer, 'Group Device', :required => required
         end
 
         def_param_group :"#{action}_staff_kind" do
@@ -112,6 +113,7 @@ module Api
           param :password, String, 'Staff Member password', :required => required
           param :email, String, 'Staff Member email', :required => required
           param :staff_kind_id, String, 'Staff Members staff kind id', :required => required
+          param :device_id, :integer, 'Staff Member Device', :required => required
           param :avatar, ActionDispatch::Http::UploadedFile, :desc => 'Image file via multipart form'
         end
 
