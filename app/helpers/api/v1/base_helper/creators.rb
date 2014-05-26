@@ -117,11 +117,14 @@ module Api
           staff_member
         end
 
-        def create_group(restaurant, device)
+        def create_group(restaurant, device, staff_members)
           group = Group.new
           group.restaurant = restaurant
           group.name = params[:name]
           group.device_id = device.id
+          staff_members.each do |staff_member|
+            group.staff_members << staff_member
+          end
           group.save!
           group
         end

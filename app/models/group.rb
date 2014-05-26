@@ -21,4 +21,12 @@ class Group < ActiveRecord::Base
     @staff_member ||= self.staff_members.first
     @staff_member ? @staff_member.staff_kind : nil
   end
+
+  def empty_staff_members
+    self.staff_members.each do |staff_member|
+      staff_member.group_id = nil
+      staff_member.save!
+      puts staff_member.group_id
+    end
+  end
 end

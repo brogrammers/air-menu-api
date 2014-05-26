@@ -171,22 +171,44 @@ describe Api::V1::Restaurants::GroupsController do
 
       describe 'as an owner' do
 
-        before :each do
-          post :create, group_parameters.merge(:restaurant_id => 1)
-        end
-
         describe 'owning the restaurant' do
-
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope, :revoked? => false, :expired? => false }
 
-          it 'should respond with a HTTP 201 status code' do
-            expect(response).to be_success
-            expect(response.status).to eq(201)
+          describe 'without staff members' do
+            before :each do
+              post :create, group_parameters.merge(:restaurant_id => 1)
+            end
+
+            it 'should respond with a HTTP 201 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(201)
+            end
+
+          end
+
+          describe 'with staff members' do
+            before :each do
+              post :create, group_parameters.merge(:restaurant_id => 1, :staff_members => '1 2')
+            end
+
+            it 'should respond with a HTTP 201 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(201)
+            end
+
+            it 'should add staff members' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['group']['staff_members'].size).to eq(2)
+            end
+
           end
 
         end
 
         describe 'not owning the restaurant' do
+          before :each do
+            post :create, group_parameters.merge(:restaurant_id => 1)
+          end
 
           let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => owner_scope, :revoked? => false, :expired? => false }
 

@@ -13,6 +13,7 @@ module Api
 
         before_filter :set_restaurant, :only => [:index, :create]
         before_filter :set_device, :only => [:create]
+        before_filter :set_staff_members, :only => [:create]
         before_filter :check_ownership, :only => [:index, :create]
 
         resource_description do
@@ -48,7 +49,7 @@ module Api
         FORMATS.each { |format| example BaseController.example_file %w[restaurants groups], :create, format }
 
         def create
-          @group = create_group @restaurant, @device
+          @group = create_group @restaurant, @device, @staff_members
           respond_with @group, :status => :created
         end
 
@@ -66,6 +67,15 @@ module Api
           @device = Device.find params[:device_id]
         rescue ActiveRecord::RecordNotFound
           render_model_not_found 'Device'
+        end
+
+        def set_staff_members
+          @staff_members = []
+          params[:staff_members].split(' ').each do |staff_member_id|
+            staff_member = StaffMember.find_by_id(staff_member_id)
+            render_bad_request ['staff_members'] unless staff_member
+            @staff_members << staff_member
+          end if params[:staff_members]
         end
 
         def check_ownership

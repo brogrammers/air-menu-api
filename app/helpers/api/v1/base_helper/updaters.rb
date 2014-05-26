@@ -26,9 +26,13 @@ module Api
           device
         end
 
-        def update_group(group, device)
+        def update_group(group, device, staff_members)
           group.name = params[:name] || group.name
           group.device_id = device.id if device
+          group.empty_staff_members if staff_members.size > 0
+          staff_members.each do |staff_member|
+            group.staff_members << staff_member
+          end
           group.save!
           group
         end

@@ -98,13 +98,14 @@ module Api
         def_param_group :"#{action}_group" do
           param :name, String, 'Group name', :required => required
           param :device_id, :integer, 'Group Device', :required => required
+          param :staff_members, String, :desc => 'Staff member ids separated with whitespace (Will be reset each time)'
         end
 
         def_param_group :"#{action}_staff_kind" do
           param :name, String, :desc => 'Staff kind name', :required => required
           param :accept_orders, :bool, :desc => 'Staff kind can accept orders', :required => required
           param :accept_order_items, :bool, :desc => 'Staff kind can accept order items', :required => required
-          param :scopes, String, :desc => 'Staff Kind scopes (Will be reset each time)'
+          param :scopes, String, :desc => 'Staff Kind scope names separated with whitespace (Will be reset each time)'
         end
 
         def_param_group :"#{action}_staff_member" do

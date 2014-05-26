@@ -209,19 +209,51 @@ describe Api::V1::GroupsController do
           let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
-          before :each do
-            put :update, :id => 1, :name => 'new group name'
+          describe 'with staff members' do
+
+            before :each do
+              put :update, :id => 2, :name => 'new group name', :staff_members => '2'
+            end
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+            it 'should change the group name' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['group']['name']).to eq('new group name')
+            end
+
+            it 'should change staff members' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['group']['staff_members'].size).to eq(1)
+              expect(body['group']['staff_members'].first['id']).to eq(2)
+            end
+
           end
 
+          describe 'without staff members' do
 
-          it 'should respond with a HTTP 200 status code' do
-            expect(response).to be_success
-            expect(response.status).to eq(200)
-          end
+            before :each do
+              put :update, :id => 2, :name => 'new group name'
+            end
 
-          it 'should change the group name' do
-            body = JSON.parse(response.body) rescue { }
-            expect(body['group']['name']).to eq('new group name')
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+            it 'should change the group name' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['group']['name']).to eq('new group name')
+            end
+
+            it 'should not change staff members' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['group']['staff_members'].first['id']).to eq(3)
+            end
+
           end
 
         end

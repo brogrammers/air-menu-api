@@ -14,6 +14,7 @@ module Api
 
       before_filter :set_group, :only => [:show, :update, :destroy]
       before_filter :set_device, :only => [:update]
+      before_filter :set_staff_members, :only => [:update]
       before_filter :check_ownership, :only => [:show, :update, :destroy]
 
       resource_description do
@@ -60,7 +61,8 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[groups], :update, format }
 
       def update
-        @group = update_group @group, @device
+        @group = update_group @group, @device, @staff_members
+        @group.reload
         respond_with @group
       end
 
@@ -90,6 +92,15 @@ module Api
         @device = Device.find params[:device_id] if params[:device_id]
       rescue ActiveRecord::RecordNotFound
         render_model_not_found 'Device'
+      end
+
+      def set_staff_members
+        @staff_members = []
+        params[:staff_members].split(' ').each do |staff_member_id|
+          staff_member = StaffMember.find_by_id(staff_member_id)
+          render_bad_request ['staff_members'] unless staff_member
+          @staff_members << staff_member
+        end if params[:staff_members]
       end
 
       def check_ownership
