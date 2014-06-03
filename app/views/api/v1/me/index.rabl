@@ -26,6 +26,10 @@ node :scopes do |user|
     @scopes
 end
 
-node :staff_kind do |user|
-  partial('api/v1/me/_staff_kind', :object => user.staff_kind)
+
+
+node :staff_member do |user|
+  node :staff_kind do |user|
+    partial('api/v1/me/_staff_kind', :object => user.staff_kind)
+  end
 end if @user.class == StaffMember
