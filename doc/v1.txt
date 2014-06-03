@@ -19,19 +19,62 @@ like this:
   Authorization: Bearer 6a44f23504a905b17aa1bdc2682524f48cefcf24e70fb17b8bd...
 
 Now you should be able to perform API calls. Make sure that the acquired access token has the correct scopes to be able to
-invoke cerain routes.
+invoke certain routes.
 
 === Error Codes
 
-[Missing Content]
+Error Responses are given with appropriate status codes.
+
+If a request is invalid, e.g. missing a parameter or includes invalid parameters, then API returns a 400 with error message.
+For unauthorized responses with 401, the access token is missing or invalid. 403 forbidden responses are thrown when
+actions performed by users are not allowed, restricted by scope or rule.
+Conflicts 409 are usually thrown when a system rule has been broken.
+
+==== Examples
+
+Invalid request with badly formed parameters
+
+    {
+        "error": {
+            "code": "parameters",
+            "parameters": ["state"]
+        }
+    }
+
+For invalid scopes
+
+    {
+        "error": {
+            "code": "invalid_scope"
+        }
+    }
+
+For missing access tokens
+
+    {
+        "error": {
+            "code": "unauthorized"
+        }
+    }
+
+Logic errors or conflicts are usually handled like this
+
+    {
+        "error": {
+            "code": "conflict",
+            "message": "group_member_conflict"
+        }
+    }
+
 
 === Devices
 
-[Missing Content]
+The API needs to track devices and their changing device tokens.
+For this the API needs the clients to send their device uuids and tokens along.
 
-=== Location
-
-[Missing Content]
+This is important for the Push Notification service.
+For every change of the device token include the headers X-Device-UUID and X-Device-Token to ensure
+that the device token is updated on the platform.
 
 === Orders & Order Items
 
