@@ -263,6 +263,10 @@ describe Api::V1::CompaniesController do
           expect { Company.find body['company']['id'] }.to raise_error
         end
 
+        it 'should delete the restaurants' do
+          expect { Restaurant.find 1 }.to raise_error
+        end
+
       end
 
       describe 'not owning the company' do

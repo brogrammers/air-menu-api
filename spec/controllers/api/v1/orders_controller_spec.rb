@@ -425,6 +425,10 @@ describe Api::V1::OrdersController do
               expect(response.status).to eq(200)
             end
 
+            it 'should delete the order item' do
+              expect { OrderItem.find 1 }.to raise_error
+            end
+
           end
 
           describe 'when order is not new' do

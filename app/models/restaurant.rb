@@ -1,15 +1,15 @@
 class Restaurant < ActiveRecord::Base
-  has_many :menus
-  has_many :orders
-  has_many :staff_kinds
-  has_many :staff_members
-  has_many :groups
-  has_many :reviews
-  has_many :opening_hours
-  has_many :webhooks
-  has_many :devices, :as => :notifiable
-  has_one :address, :as => :contactable
-  has_one :location, :as => :findable
+  has_many :menus, :dependent => :destroy
+  has_many :orders, :dependent => :destroy
+  has_many :staff_kinds, :dependent => :destroy
+  has_many :staff_members, :dependent => :destroy
+  has_many :groups, :dependent => :destroy
+  has_many :reviews, :dependent => :destroy
+  has_many :opening_hours, :dependent => :destroy
+  has_many :webhooks, :dependent => :destroy
+  has_many :devices, :as => :notifiable, :dependent => :destroy
+  has_one :address, :as => :contactable, :dependent => :destroy
+  has_one :location, :as => :findable, :dependent => :destroy
   belongs_to :company
 
   mount_uploader :avatar, AvatarUploader unless ENV['CW_SKIP']

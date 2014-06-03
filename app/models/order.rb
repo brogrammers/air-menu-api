@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :restaurant
   belongs_to :staff_member
-  has_many :order_items
+  has_many :order_items, :dependent => :destroy
 
   after_initialize :set_state
 

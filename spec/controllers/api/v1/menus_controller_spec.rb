@@ -544,6 +544,10 @@ describe Api::V1::MenusController do
             expect(response.status).to eq(200)
           end
 
+          it 'should delete the menu sections' do
+            expect { MenuSection.find 1 }.to raise_error
+          end
+
         end
 
         describe 'on an inactive menu' do
@@ -609,6 +613,10 @@ describe Api::V1::MenusController do
             it 'should respond with a HTTP 200 status code' do
               expect(response).to be_success
               expect(response.status).to eq(200)
+            end
+
+            it 'should delete the menu sections' do
+              expect { MenuSection.find 1 }.to raise_error
             end
 
           end

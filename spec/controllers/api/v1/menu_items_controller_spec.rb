@@ -439,6 +439,10 @@ describe Api::V1::MenuItemsController do
               expect { MenuItem.find body['menu_item']['id'] }.to raise_error
             end
 
+            it 'should delete the menu items' do
+              expect { MenuItem.find 1 }.to raise_error
+            end
+
           end
 
           describe 'on an inactive menu item' do
@@ -503,6 +507,10 @@ describe Api::V1::MenuItemsController do
             it 'should delete the menu item' do
               body = JSON.parse(response.body) rescue { }
               expect { MenuItem.find body['menu_item']['id'] }.to raise_error
+            end
+
+            it 'should delete the menu items' do
+              expect { MenuItem.find 1 }.to raise_error
             end
 
           end

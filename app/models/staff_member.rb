@@ -1,13 +1,13 @@
 class StaffMember < ActiveRecord::Base
   class GroupMemberError < StandardError; end
 
-  has_one :identity, :as => :identifiable
-  has_many :notifications, :as => :remindable
+  has_one :identity, :as => :identifiable, :dependent => :destroy
+  has_many :notifications, :as => :remindable, :dependent => :destroy
   belongs_to :device
   belongs_to :restaurant
   belongs_to :staff_kind
   belongs_to :group
-  has_many :access_tokens, :class_name => 'Doorkeeper::AccessToken', :as => :owner
+  has_many :access_tokens, :class_name => 'Doorkeeper::AccessToken', :as => :owner, :dependent => :destroy
   has_many :orders
   has_many :order_items
 

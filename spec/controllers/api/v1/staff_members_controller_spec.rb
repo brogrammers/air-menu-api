@@ -350,6 +350,10 @@ describe Api::V1::StaffMembersController do
             expect { StaffMember.find body['staff_member']['id'] }.to raise_error
           end
 
+          it 'should delete the identity' do
+            expect { Identity.find 6 }.to raise_error
+          end
+
         end
 
         describe 'not owning the staff member' do
@@ -382,6 +386,10 @@ describe Api::V1::StaffMembersController do
           it 'should respond with a HTTP 200 status code' do
             expect(response).to be_success
             expect(response.status).to eq(200)
+          end
+
+          it 'should delete the identity' do
+            expect { Identity.find 6 }.to raise_error
           end
 
         end
