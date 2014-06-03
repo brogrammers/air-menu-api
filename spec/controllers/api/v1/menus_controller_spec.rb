@@ -548,6 +548,11 @@ describe Api::V1::MenusController do
             expect { MenuSection.find 1 }.to raise_error
           end
 
+          it 'should delete the active menu reference from the restaurant' do
+            restaurant = Restaurant.find 1
+            expect(restaurant.active_menu_id).to be_nil
+          end
+
         end
 
         describe 'on an inactive menu' do

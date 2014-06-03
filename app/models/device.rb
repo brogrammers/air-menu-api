@@ -1,6 +1,8 @@
 class Device < ActiveRecord::Base
   belongs_to :notifiable, :polymorphic => true
 
+  before_destroy :reassign_group_staff_member
+
   def self.authenticate(uuid, user)
     if user.class == StaffMember
       device = Device.where(:uuid => uuid, :id => user.group.device_id).first if user.group
@@ -9,5 +11,16 @@ class Device < ActiveRecord::Base
       device = Device.where(:uuid => uuid, :notifiable_id => user.id, :notifiable_type => user.class.to_s).first
     end
     device
+  end
+
+  def reassign_group_staff_member
+    StaffMember.where(:device_id => self.id).each do |staff_member|
+      staff_member.device_id = nil
+      staff_member.save!
+    end
+    Group.where(:device_id => self.id).each do |staff_member|
+      staff_member.device_id = nil
+      staff_member.save!
+    end
   end
 end

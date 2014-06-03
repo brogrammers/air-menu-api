@@ -367,7 +367,7 @@ describe Api::V1::StaffKindsController do
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
           before :each do
-            delete :destroy, :id => 1
+            delete :destroy, :id => 3
           end
 
           it 'should respond with a HTTP 200 status code' do
@@ -378,6 +378,10 @@ describe Api::V1::StaffKindsController do
           it 'should delete the staff kind' do
             body = JSON.parse(response.body) rescue { }
             expect { StaffKind.find body['staff_kind']['id'] }.to raise_error
+          end
+
+          it 'should delete any menu section references' do
+            expect(MenuSection.find(1).staff_kind).to be_nil
           end
 
         end
@@ -407,13 +411,17 @@ describe Api::V1::StaffKindsController do
           let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
 
           before :each do
-            delete :destroy, :id => 1
+            delete :destroy, :id => 3
           end
 
 
           it 'should respond with a HTTP 200 status code' do
             expect(response).to be_success
             expect(response.status).to eq(200)
+          end
+
+          it 'should delete any menu section references' do
+            expect(MenuSection.find(1).staff_kind).to be_nil
           end
 
         end
