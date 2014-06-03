@@ -212,7 +212,7 @@ describe Api::V1::GroupsController do
           describe 'with staff members' do
 
             before :each do
-              put :update, :id => 2, :name => 'new group name', :staff_members => '2'
+              put :update, :id => 2, :name => 'new group name', :staff_members => '1 2 3'
             end
 
             it 'should respond with a HTTP 200 status code' do
@@ -227,8 +227,10 @@ describe Api::V1::GroupsController do
 
             it 'should change staff members' do
               body = JSON.parse(response.body) rescue { }
-              expect(body['group']['staff_members'].size).to eq(1)
-              expect(body['group']['staff_members'].first['id']).to eq(2)
+              expect(body['group']['staff_members'].size).to eq(3)
+              [1, 2, 3].each_with_index do |id, index|
+                expect(body['group']['staff_members'][index]['id']).to eq(id)
+              end
             end
 
           end
@@ -252,6 +254,40 @@ describe Api::V1::GroupsController do
             it 'should not change staff members' do
               body = JSON.parse(response.body) rescue { }
               expect(body['group']['staff_members'].first['id']).to eq(3)
+            end
+
+          end
+
+          describe 'with a not existing staff member' do
+            before :each do
+              put :update, :id => 2, :name => 'new group name', :staff_members => '1 9999'
+            end
+
+            it 'should respond with a HTTP 400 status code' do
+              expect(response.status).to eq(400)
+            end
+
+            it 'should return a bad request error message' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['error']['code']).to eq('parameters')
+              expect(body['error']['parameters']).to eq(['staff_members'])
+            end
+
+          end
+
+          describe 'with unassociated staff member' do
+            before :each do
+              put :update, :id => 2, :name => 'new group name', :staff_members => '1 5'
+            end
+
+            xit 'should respond with a HTTP 400 status code' do
+              expect(response.status).to eq(400)
+            end
+
+            xit 'should return a bad request error message' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['error']['code']).to eq('parameters')
+              expect(body['error']['parameters']).to eq(['staff_members'])
             end
 
           end

@@ -62,7 +62,7 @@ module Api
 
       def update
         @group = update_group @group, @device, @staff_members
-        @group.reload
+        @group = Group.find params[:id]
         respond_with @group
       end
 
