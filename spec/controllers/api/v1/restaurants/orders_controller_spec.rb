@@ -200,9 +200,9 @@ describe Api::V1::Restaurants::OrdersController do
               expect(response.status).to eq(201)
             end
 
-            it 'should not add the table number' do
+            it 'should add the table number' do
               body = JSON.parse(response.body) rescue { }
-              expect(body['order']['table_number']).to be_nil
+              expect(body['order']['table_number']).to eq('3')
             end
 
           end

@@ -70,8 +70,8 @@ module Api
           order = Order.new
           order.state = :new
           order.user = @user if @user.class == User
+          order.table_number = params[:table_number]
           if @user.class == StaffMember
-            order.table_number = params[:table_number]
             order.staff_member = @user
             order.set_state
             order.open!
