@@ -19,7 +19,8 @@ class Order < ActiveRecord::Base
 
   def assign!
     possible_staff_members = []
-    self.restaurant.online_staff_members.each do |staff_member|
+    # TODO: Make online
+    self.restaurant.staff_members.each do |staff_member|
       if staff_member.staff_kind && staff_member.staff_kind.accept_orders
         possible_staff_members << staff_member
       end

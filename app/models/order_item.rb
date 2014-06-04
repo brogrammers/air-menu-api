@@ -16,7 +16,8 @@ class OrderItem < ActiveRecord::Base
 
   def assign!
     possible_staff_members = []
-    self.order.restaurant.online_staff_members.each do |staff_member|
+    # back to staff members
+    self.order.restaurant.staff_members.each do |staff_member|
       staff_kind_handler = self.menu_item.staff_kind || self.menu_item.menu_section.staff_kind
       if staff_member.staff_kind && staff_member.staff_kind.accept_order_items && staff_member.staff_kind.id == staff_kind_handler
         possible_staff_members << staff_member
