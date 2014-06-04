@@ -138,42 +138,42 @@ module AirMenu
         },
         {
             :name => 'Guinness',
-            :description => '',
+            :description => 'Perfected Guinness',
             :price => 5.20,
             :currency => 'EUR',
             :menu_section_id => 5
         },
         {
             :name => 'O\'Hara\'s Stout',
-            :description => '',
+            :description => 'Specialty here',
             :price => 5.20,
             :currency => 'EUR',
             :menu_section_id => 5
         },
         {
             :name => 'O\'Hara\'s Red Ale',
-            :description => '',
+            :description => 'O\'Hara\'s Red Ale',
             :price => 5.20,
             :currency => 'EUR',
             :menu_section_id => 5
         },
         {
             :name => 'Dark Arts Porter',
-            :description => '',
+            :description => 'porter',
             :price => 5.60,
             :currency => 'EUR',
             :menu_section_id => 5
         },
         {
             :name => 'Becks Vier',
-            :description => '',
+            :description => 'Becks Vier',
             :price => 5.80,
             :currency => 'EUR',
             :menu_section_id => 6
         },
         {
             :name => 'Stella Artois',
-            :description => '',
+            :description => 'Stella',
             :price => 5.80,
             :currency => 'EUR',
             :menu_section_id => 6
