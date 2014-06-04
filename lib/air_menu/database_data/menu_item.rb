@@ -180,70 +180,70 @@ module AirMenu
         },
         {
             :name => 'Kaiser Beer',
-            :description => '',
+            :description => 'Beer',
             :price => 6.10,
             :currency => 'EUR',
             :menu_section_id => 6
         },
         {
             :name => 'Hoegarden',
-            :description => '',
+            :description => 'Beer',
             :price => 6.10,
             :currency => 'EUR',
             :menu_section_id => 6
         },
         {
             :name => 'Franziskaner Weis',
-            :description => '',
+            :description => 'Beer',
             :price => 6.10,
             :currency => 'EUR',
             :menu_section_id => 6
         },
         {
             :name => 'Corona',
-            :description => '',
+            :description => 'Beer',
             :price => 5.70,
             :currency => 'EUR',
             :menu_section_id => 7
         },
         {
             :name => 'Corona Light',
-            :description => '',
+            :description => 'Beer',
             :price => 5.70,
             :currency => 'EUR',
             :menu_section_id => 7
         },
         {
             :name => 'Desperado',
-            :description => '',
+            :description => 'Beer',
             :price => 6.00,
             :currency => 'EUR',
             :menu_section_id => 7
         },
         {
             :name => 'Heineken',
-            :description => '',
+            :description => 'Beer',
             :price => 5.60,
             :currency => 'EUR',
             :menu_section_id => 7
         },
         {
             :name => 'Coors Light',
-            :description => '',
+            :description => 'Beer',
             :price => 5.60,
             :currency => 'EUR',
             :menu_section_id => 7
         },
         {
             :name => 'Paulaner',
-            :description => '',
+            :description => 'Beer',
             :price => 6.30,
             :currency => 'EUR',
             :menu_section_id => 7
         },
         {
             :name => 'Budweiser',
-            :description => '',
+            :description => 'Beer',
             :price => 5.60,
             :currency => 'EUR',
             :menu_section_id => 7
@@ -257,28 +257,28 @@ module AirMenu
         },
         {
             :name => '1/4 Chicken Breast',
-            :description => '',
+            :description => 'Succulent chicken breasts in crispy skin. No bones about it - pure class!',
             :price => 7.20,
             :currency => 'EUR',
             :menu_section_id => 8
         },
         {
             :name => '1/4 Chicken Leg',
-            :description => '',
+            :description => 'Succulent chicken breasts in crispy skin. No bones about it - pure class!',
             :price => 7.20,
             :currency => 'EUR',
             :menu_section_id => 8
         },
         {
             :name => '1/2 Chicken',
-            :description => '',
+            :description => 'Succulent chicken breasts in crispy skin. No bones about it - pure class!',
             :price => 9.95,
             :currency => 'EUR',
             :menu_section_id => 8
         },
         {
             :name => '5 Chicken Wings',
-            :description => '',
+            :description => 'Succulent chicken breasts in crispy skin. No bones about it - pure class!',
             :price => 8.40,
             :currency => 'EUR',
             :menu_section_id => 8
@@ -313,28 +313,28 @@ module AirMenu
         },
         {
             :name => 'Chicken Breast Fillet Burger',
-            :description => '',
+            :description => 'Succulent chicken breasts in crispy skin surrounded by buns.',
             :price => 8.90,
             :currency => 'EUR',
             :menu_section_id => 10
         },
         {
             :name => 'Chicken Breast Fillet Pitta',
-            :description => '',
+            :description => 'Succulent chicken breasts in crispy skin. No bones about it - pure class!',
             :price => 8.95,
             :currency => 'EUR',
             :menu_section_id => 10
         },
         {
             :name => 'Chicken Breast Fillet Wrap',
-            :description => '',
+            :description => 'Succulent chicken breasts in crispy skin. No bones about it - pure class!',
             :price => 9.95,
             :currency => 'EUR',
             :menu_section_id => 10
         },
         {
             :name => 'Double Chicken Breast Fillet Burger',
-            :description => '',
+            :description => 'Succulent chicken breasts in crispy skin. No bones about it - pure class!',
             :price => 12.20,
             :currency => 'EUR',
             :menu_section_id => 10
