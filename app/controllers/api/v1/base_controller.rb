@@ -114,7 +114,7 @@ module Api
           param :password, String, 'Staff Member password', :required => required
           param :email, String, 'Staff Member email', :required => required
           param :staff_kind_id, String, 'Staff Members staff kind id', :required => required
-          param :device_id, :integer, 'Staff Member Device', :required => required
+          param :device_id, :integer, 'Staff Member Device'
           param :avatar, ActionDispatch::Http::UploadedFile, :desc => 'Image file via multipart form'
         end
 
