@@ -93,6 +93,10 @@ class StaffMember < ActiveRecord::Base
     Order.where("state_cd != 4 AND state_cd != 5 AND staff_member_id = #{self.id}")
   end
 
+  def current_order_items
+    OrderItem.where("state_cd != 5 AND staff_member_id = #{self.id}")
+  end
+
   def unread
     Notification.where(:remindable_id => self.id, :read => false)
   end
