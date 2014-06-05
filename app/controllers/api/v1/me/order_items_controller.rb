@@ -29,7 +29,7 @@ module Api
         api :GET, '/me/order_items', 'All the order items of the currently logged-in staff member'
         description "Fetches all the order items of the currently logged-in staff member. ||#{SCOPES[:index].join(' ')}||"
         formats FORMATS
-        param :state, %w[open approved declined start_prepare end_prepare served], 'Get order items of certain state', :required => true
+        param :state, %w[new approved declined start_prepare end_prepare served], 'Get order items of certain state', :required => true
         FORMATS.each { |format| example BaseController.example_file %w[me order_items], :index, format }
 
         def index
