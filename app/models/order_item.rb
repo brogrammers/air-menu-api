@@ -24,12 +24,7 @@ class OrderItem < ActiveRecord::Base
       end
     end
     possible_staff_members.sort! { |staff_member, next_staff_member| staff_member.current_order_items.size <=> next_staff_member.current_order_items.size }
-    if possible_staff_members.empty?
-      puts "No staff member assigned for order item: #{self.id}"
-    else
-      possible_staff_members.first.order_items << self unless possible_staff_members.empty?
-      puts "Staff Member #{possible_staff_members.first.name} assigned for order item: #{self.id}"
-    end
+    possible_staff_members.first.orders << self unless possible_staff_members.empty?
   end
 
   def approved!
