@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   end
 
   def max_orders
-    1
+    10
   end
 
   def current_orders
