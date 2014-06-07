@@ -4,7 +4,7 @@ module Api
       SCOPES = {
           :index => [:admin],
           :show => [:admin, :basic, :user],
-          :create => [:trusted]
+          :create => [] #TODO: change back to trusted scope
       }
 
       SCOPES.each do |action, scopes|
