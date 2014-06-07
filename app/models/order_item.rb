@@ -15,16 +15,17 @@ class OrderItem < ActiveRecord::Base
   end
 
   def assign!
+    candidates = possible_staff_members
+    candidates.first.order_items << self unless candidates.empty?
+  end
+
+  def possible_staff_members
     possible_staff_members = []
-    # back to staff members
     self.order.restaurant.staff_members.each do |staff_member|
-      staff_kind_handler = self.menu_item.staff_kind || self.menu_item.menu_section.staff_kind
-      if staff_member.staff_kind && staff_member.staff_kind.accept_order_items && staff_member.staff_kind.id == staff_kind_handler
-        possible_staff_members << staff_member
-      end
+      possible_staff_members << staff_member if staff_member.staff_kind && staff_member.staff_kind.accept_order_items && accepted_staff_kind?(staff_member.staff_kind)
     end
     possible_staff_members.sort! { |staff_member, next_staff_member| staff_member.current_order_items.size <=> next_staff_member.current_order_items.size }
-    possible_staff_members.first.orders << self unless possible_staff_members.empty?
+    possible_staff_members
   end
 
   def approved!
@@ -49,5 +50,11 @@ class OrderItem < ActiveRecord::Base
   def served!
     @state_delegate.served!
     self.order.check_served
+  end
+
+  def accepted_staff_kind?(staff_kind)
+    accepted_staff_kind = self.menu_item.staff_kind || self.menu_item.menu_section.staff_kind
+    return true if accepted_staff_kind.nil?
+    staff_kind && staff_kind.id == accepted_staff_kind.id
   end
 end

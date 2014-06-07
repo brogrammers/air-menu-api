@@ -18,15 +18,17 @@ class Order < ActiveRecord::Base
   end
 
   def assign!
+    candidates = possible_staff_members
+    candidates.first.orders << self unless candidates.empty?
+  end
+
+  def possible_staff_members
     possible_staff_members = []
-    # TODO: Make online
     self.restaurant.staff_members.each do |staff_member|
-      if staff_member.staff_kind && staff_member.staff_kind.accept_orders
-        possible_staff_members << staff_member
-      end
+      possible_staff_members << staff_member if staff_member.staff_kind && staff_member.staff_kind.accept_orders
     end
     possible_staff_members.sort! { |staff_member, next_staff_member| staff_member.current_orders.size <=> next_staff_member.current_orders.size }
-    possible_staff_members.first.orders << self unless possible_staff_members.empty?
+    possible_staff_members
   end
 
   def declined!
