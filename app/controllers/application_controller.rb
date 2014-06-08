@@ -35,13 +35,8 @@ class ApplicationController < ActionController::Base
   end
 
   def determine_phone
-    logger.info "Found device headers #{device?}"
-    logger.info "Logged in user #{@user.name}" if @user
-    logger.info "Scopes #{@scopes}" if @scopes
     if device? && @user && scope_exists?('trusted')
-      logger.info "Found Device #{request.headers['X-Device-UUID'].class}"
       device = Device.authenticate(request.headers['X-Device-UUID'], @user)
-      logger.info "Found Device #{device}"
       if device
         device.token = request.headers['X-Device-Token']
         device.save! if device.changed?
@@ -50,8 +45,6 @@ class ApplicationController < ActionController::Base
   end
 
   def device?
-    logger.info "Device UUID #{request.headers['X-Device-UUID']}"
-    logger.info "Device Token #{request.headers['X-Device-Token']}"
     request.headers['X-Device-UUID'] && request.headers['X-Device-Token']
   end
 

@@ -12,10 +12,12 @@ module AirMenu
     end
 
     def dispatch
-      # TODO: Remove `and` with `&&`
-      return unless @message and @user
+      return unless @message && @user
       notification = create_notification
+      logger.info "notification #{@message}"
+      logger.info "devices count #{@user.devices}"
       @user.devices.each do |device|
+        logger.info "device token #{device.token}"
         @strategy.dispatch(device.token, notification.content, (@user.unread_count))
       end
     rescue NoMethodError
