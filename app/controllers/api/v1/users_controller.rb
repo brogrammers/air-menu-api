@@ -3,8 +3,8 @@ module Api
     class UsersController < BaseController
       SCOPES = {
           :index => [:admin],
-          :show => [:admin, :basic, :user],
-          :create => [] #TODO: change back to trusted scope
+          :show => [:admin, :basic, :user]
+          #TODO: change back to trusted scope
       }
 
       SCOPES.each do |action, scopes|
@@ -51,7 +51,7 @@ module Api
       ################################################################################################################
 
       api :POST, '/users', 'Create a new user'
-      description "Creates a new user. No scopes or Access Token needed to perform this action. ||#{SCOPES[:create].join(' ')}||"
+      description "Creates a new user. No scopes or Access Token needed to perform this action. ||||"
       formats FORMATS
       param_group :create_user, Api::V1::BaseController
       FORMATS.each { |format| example BaseController.example_file %w[users], :create, format }
