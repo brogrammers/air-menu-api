@@ -130,7 +130,7 @@ module Api
         end
 
         def create_device(notifiable)
-          device = Device.find(params[:uuid]) rescue device = Device.new
+          device = Device.new unless device = Device.find_by_uuid(params[:uuid])
           device.name = params[:name]
           device.uuid = params[:uuid]
           device.token = params[:token]
