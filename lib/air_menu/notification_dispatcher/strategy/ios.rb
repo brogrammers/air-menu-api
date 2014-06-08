@@ -15,6 +15,7 @@ module AirMenu
         end
 
         def dispatch(token, message, count)
+          return unless token.is_a?(String) && !token.empty?
           new_notification = notification(token, message, count)
           @pushers.each do |pusher|
             pusher.push(new_notification) rescue false
