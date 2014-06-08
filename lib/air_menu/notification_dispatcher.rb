@@ -14,10 +14,7 @@ module AirMenu
     def dispatch
       return unless @message && @user
       notification = create_notification
-      Rails.logger.info "notification #{@message}"
-      Rails.logger.info "devices count #{@user.devices}"
       @user.devices.each do |device|
-        Rails.logger.info "device token #{device.token}"
         @strategy.dispatch(device.token, notification.content, (@user.unread_count))
       end
     rescue NoMethodError
