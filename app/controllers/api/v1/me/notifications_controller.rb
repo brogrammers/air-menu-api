@@ -29,7 +29,7 @@ module Api
         FORMATS.each { |format| example BaseController.example_file %w[me notifications], :index, format }
 
         def index
-          @notifications = @user.notifications
+          @notifications = @user.notifications.order('created_at DESC')
           respond_with @notifications
         end
 
