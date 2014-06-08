@@ -37,7 +37,6 @@ class ApplicationController < ActionController::Base
   def determine_phone
     logger.info "Found device headers #{device?}"
     logger.info "Logged in user #{@user.name}"
-    logger.info "Trusted Scope #{scope_exists?('trusted')}"
     if device? && @user && scope_exists?('trusted')
       device = Device.authenticate(request.headers['X-Device-UUID'], @user)
       logger.info "Found Device #{device}"
