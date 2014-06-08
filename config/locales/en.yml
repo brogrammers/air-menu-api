@@ -1,6 +1,7 @@
 en:
   notifications:
     "new_order": "New Order"
+    "new_order_item": "New Order Item"
     "approved_order": "Order has been approved"
     "declined_order": "Order has been declined"
     "cancelled_order": "Order has been cancelled"

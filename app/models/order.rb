@@ -37,7 +37,7 @@ class Order < ActiveRecord::Base
 
   def cancelled!
     @state_delegate.cancelled!
-    AirMenu::NotificationDispatcher.new(self.user, :cancelled_time).dispatch
+    AirMenu::NotificationDispatcher.new(self.user, :cancelled_order).dispatch
   end
 
   def approved!
