@@ -130,12 +130,13 @@ module Api
         end
 
         def create_device(notifiable)
-          device = Device.new
+          device = Device.find(params[:uuid]) rescue device = Device.new
           device.name = params[:name]
           device.uuid = params[:uuid]
           device.token = params[:token]
           device.platform = params[:platform]
           notifiable.devices << device
+          device.reassign_group_staff_member
           device.save!
           device
         end
