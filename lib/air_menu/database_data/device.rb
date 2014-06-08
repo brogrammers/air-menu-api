@@ -13,7 +13,7 @@ module AirMenu
         },
         {
             :name => 'Waiter Phone',
-            :uuid => 'iw47b8gr376wefbr8764grb78wg9fghjgesdf',
+            :uuid => '435A8418-CEF5-4160-A5C7-026B1C3F90B9',
             :token => 'ysidf85sad76f2oq3gr6we84732423892b34234',
             :platform => 'ios',
             :notifiable_id => 1,
@@ -29,14 +29,14 @@ module AirMenu
         },
         {
             :name => 'Kitchen Phone',
-            :uuid => 'skdfgds56sdf5sds67astyudf2342df4566a',
+            :uuid => '8CCA4B55-CC85-4EDB-873F-1BA3C9B228D7',
             :token => 'ygasd4as823hg8g3846g7gwe7rgw76er76wer721',
             :platform => 'ios',
             :notifiable_id => 1,
             :notifiable_type => 'Restaurant'
         },
         {
-            :name => 'My iPhone',
+            :name => 'iphone_device',
             :uuid => 'skdfgds56sdf5ssdfghs55as332342df4566a',
             :token => 'ygasd4as823hg8g3846g7gwe7rgw76er76wer721',
             :platform => 'ios',
@@ -44,11 +44,11 @@ module AirMenu
             :notifiable_type => 'User'
         },
         {
-            :name => 'My iPhone',
-            :uuid => 'skdfgdsertdasfsdf767as55as332342df4566a',
+            :name => 'iphone_device',
+            :uuid => 'B732598E-5147-498B-958B-105A7CDD2D92',
             :token => 'ygasd4as823hg8g3846g7gwe7rgw76er76wer721',
             :platform => 'ios',
-            :notifiable_id => 2,
+            :notifiable_id => 3,
             :notifiable_type => 'User'
         }
     ]
