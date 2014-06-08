@@ -1,6 +1,8 @@
 class Device < ActiveRecord::Base
   belongs_to :notifiable, :polymorphic => true
 
+  validates :uuid, uniqueness: true
+
   before_destroy :reassign_group_staff_member
 
   def self.authenticate(uuid, user)
