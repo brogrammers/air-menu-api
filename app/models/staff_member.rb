@@ -70,8 +70,12 @@ class StaffMember < ActiveRecord::Base
       result = []
       if self.group
         self.group.staff_members do |staff_member|
+          Rails.logger.info "#{index}" + staff_member.id.to_s
+          Rails.logger.info "#{index}" + staff_member.id.to_s
+          Rails.logger.info OrderItem.where("state_cd = #{index} AND staff_member_id = " + staff_member.id.to_s).size.to_s
           result.concat(OrderItem.where("state_cd = #{index} AND staff_member_id = " + staff_member.id.to_s))
         end
+        Rails.logger.info result.size.to_s
       else
         result.concat(OrderItem.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s))
       end
