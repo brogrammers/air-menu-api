@@ -70,7 +70,7 @@ class Order
     end
 
     def check_served
-      if order_items_not_new? and order_items_served?
+      if order_items_not_new? && order_items_served?
         self.served!
       end
     end
