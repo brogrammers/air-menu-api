@@ -70,6 +70,7 @@ class StaffMember < ActiveRecord::Base
       result = []
       if self.group
         self.group.staff_members.each do |staff_member|
+          puts "state_cd = #{index} AND staff_member_id = " + staff_member.id.to_s
           result.concat(OrderItem.where("state_cd = #{index} AND staff_member_id = " + staff_member.id.to_s))
         end
       else
@@ -138,7 +139,14 @@ class StaffMember < ActiveRecord::Base
   end
 
   def owns_order_item(order_item)
-    OrderItem.where(:staff_member_id => self.id, :id => order_item.id).size > 0
+    if self.group
+      self.group.staff_members.each do |staff_member|
+        return true if OrderItem.where(:staff_member_id => staff_member.id, :id => order_item.id).size > 0
+      end
+      return false
+    else
+      return OrderItem.where(:staff_member_id => self.id, :id => order_item.id).size > 0
+    end
   end
 
   def owns_notification(notification)
