@@ -6,10 +6,12 @@ class Device < ActiveRecord::Base
   before_destroy :reassign_group_staff_member
 
   def self.authenticate(uuid, user)
+    logger.info "User Class #{user.class}"
     if user.class == StaffMember
       device = Device.where(:uuid => uuid, :id => user.group.device_id).first if user.group
       device = Device.where(:uuid => uuid, :id => user.device_id).first if device.nil? && user.device_id
     elsif user.class == User
+      logger.info "Devices #{Device.where(:uuid => uuid, :notifiable_id => user.id, :notifiable_type => user.class.to_s)}"
       device = Device.where(:uuid => uuid, :notifiable_id => user.id, :notifiable_type => user.class.to_s).first
     end
     device
