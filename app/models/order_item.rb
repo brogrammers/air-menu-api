@@ -45,6 +45,7 @@ class OrderItem < ActiveRecord::Base
 
   def end_prepare!
     @state_delegate.end_prepare!
+    self.order.staff_member.order_items << self
     AirMenu::NotificationDispatcher.new(self.order.staff_member, :order_item_prepared).dispatch
   end
 
