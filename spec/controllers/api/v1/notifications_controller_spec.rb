@@ -31,7 +31,7 @@ describe Api::V1::NotificationsController do
         let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => basic_scope, :revoked? => false, :expired? => false }
 
         before :each do
-          put :update, :id => 1, :read => true
+          put :update, :id => 1, :read => 'true'
         end
 
         it 'should respond with a HTTP 200 status code' do
@@ -50,7 +50,7 @@ describe Api::V1::NotificationsController do
         let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => basic_scope, :revoked? => false, :expired? => false }
 
         before :each do
-          put :update, :id => 1, :read => true
+          put :update, :id => 1, :read => 'true'
         end
 
         it 'should respond with a HTTP 404 status code' do

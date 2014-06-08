@@ -28,7 +28,7 @@ module Api
       api :PUT, '/notifications/:id', 'Update a notification in the system'
       description "Updates a notification in the system. ||#{SCOPES[:update].join(' ')}||"
       formats FORMATS
-      param :read, [true, false], :desc => 'Set a notification to be read.'
+      param :read, %w[true false], :desc => 'Set a notification to be read.'
       FORMATS.each { |format| example BaseController.example_file %w[notifications], :update, format }
 
       def update
