@@ -51,7 +51,7 @@ class StaffMember < ActiveRecord::Base
     def #{state}_orders
       result = []
       if self.group
-        self.group.staff_members do |staff_member|
+        self.group.staff_members.each do |staff_member|
           result.concat(Order.where("state_cd = #{index} AND staff_member_id = " + staff_member.id.to_s))
         end
       else
@@ -69,13 +69,9 @@ class StaffMember < ActiveRecord::Base
     def #{state}_order_items
       result = []
       if self.group
-        self.group.staff_members do |staff_member|
-          Rails.logger.info "#{index}" + staff_member.id.to_s
-          Rails.logger.info "#{index}" + staff_member.id.to_s
-          Rails.logger.info OrderItem.where("state_cd = #{index} AND staff_member_id = " + staff_member.id.to_s).size.to_s
+        self.group.staff_members.each do |staff_member|
           result.concat(OrderItem.where("state_cd = #{index} AND staff_member_id = " + staff_member.id.to_s))
         end
-        Rails.logger.info result.size.to_s
       else
         result.concat(OrderItem.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s))
       end
