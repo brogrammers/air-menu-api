@@ -45,8 +45,8 @@ class ApplicationController < ActionController::Base
   end
 
   def device?
-    logger.debug "Device UUID #{request.headers['X-Device-UUID']}"
-    logger.debug "Device Token #{request.headers['X-Device-Token']}"
+    logger.info "Device UUID #{request.headers['X-Device-UUID']}"
+    logger.info "Device Token #{request.headers['X-Device-Token']}"
     request.headers['X-Device-UUID'] && request.headers['X-Device-Token']
   end
 
