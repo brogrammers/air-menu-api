@@ -18,14 +18,9 @@ module AirMenu
         @strategy.dispatch(device.token, notification.content, (@user.unread_count))
       end
     rescue NoMethodError
-      Rails.logger.info "Staff Member #{@user.name} #{@user.class}"
-      Rails.logger.info "Staff Member Device #{@user.device.name}" if @user.device
-      Rails.logger.info "Staff Member Token #{@user.device.token}" if @user.device
       if @user.device
-        Rails.logger.info 'inside single device'
         @strategy.dispatch(@user.device.token, notification.content, (@user.unread_count))
       elsif @user.group && @user.group.device
-        Rails.logger.info 'inside group device'
         @strategy.dispatch(@user.group.device.token, notification.content, (@user.unread_count))
       end
     end

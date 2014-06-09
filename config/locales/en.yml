@@ -1,8 +1,7 @@
 en:
   notifications:
-    "new_order": "New Approved Order"
-    "new_order_item": "New Order Item needs your attention"
-    "approved_order": "Order has been approved"
+    "new_order_item": "New order item needs your attention"
+    "approved_order": "New approved order"
     "declined_order": "Order has been declined"
     "cancelled_order": "Order has been cancelled"
     "served_order": "Your order has been served"

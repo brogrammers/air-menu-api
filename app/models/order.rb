@@ -60,7 +60,6 @@ class Order < ActiveRecord::Base
   def open!
     @state_delegate.open!
     distribute_order
-    AirMenu::NotificationDispatcher.new(self.staff_member, :new_order).dispatch
   end
 
   def reset!
