@@ -29,7 +29,3 @@ end
 node :staff_member do |user|
   partial('api/v1/me/_staff_member', :object => user)
 end if @user.class == StaffMember
-
-node :restaurant do |user|
-  partial('api/v1/me/_restaurant', :object => user.restaurant)
-end if @user.class == StaffMember
