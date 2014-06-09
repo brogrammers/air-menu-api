@@ -9,3 +9,7 @@ end
 node :identity do |staff_member|
   partial('api/v1/restaurants/staff_kinds/_identity', :object => staff_member.identity)
 end
+
+node :device do |staff_member|
+  partial('api/v1/restaurants/staff_kinds/_device', :object => staff_member.device)
+end
