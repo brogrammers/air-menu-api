@@ -17,7 +17,7 @@ class OrderItem < ActiveRecord::Base
   def assign!
     candidates = possible_staff_members
     candidates.first.order_items << self unless candidates.empty?
-    AirMenu::NotificationDispatcher.new(self.staff_member, :new_order).dispatch
+    AirMenu::NotificationDispatcher.new(self.staff_member, :new_order_item).dispatch
   end
 
   def possible_staff_members
@@ -52,6 +52,12 @@ class OrderItem < ActiveRecord::Base
   def served!
     @state_delegate.served!
     self.order.check_served
+  end
+
+  def reset!
+    self.state_cd = 0
+    self.staff_member = nil
+    save!
   end
 
   def accepted_staff_kind?(staff_kind)

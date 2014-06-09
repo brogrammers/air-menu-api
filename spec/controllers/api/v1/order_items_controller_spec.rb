@@ -337,11 +337,11 @@ describe Api::V1::OrderItemsController do
                 expect(Order.find(id).state).to eq(:approved)
               end
 
-              it 'should keep the order in open state' do
+              it 'should reset the order back to new state' do
                 put :update, :id => 8, :state => 'declined'
                 body = JSON.parse(response.body) rescue { }
                 id = body['order_item']['order']['id']
-                expect(Order.find(id).state).to eq(:open)
+                expect(Order.find(id).state).to eq(:new)
               end
 
             end
@@ -624,11 +624,11 @@ describe Api::V1::OrderItemsController do
                 expect(Order.find(id).state).to eq(:approved)
               end
 
-              it 'should keep the order in open state' do
+              it 'should reset the order back to new state' do
                 put :update, :id => 8, :state => 'declined'
                 body = JSON.parse(response.body) rescue { }
                 id = body['order_item']['order']['id']
-                expect(Order.find(id).state).to eq(:open)
+                expect(Order.find(id).state).to eq(:new)
               end
 
             end

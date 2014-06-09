@@ -1,10 +1,10 @@
 en:
   notifications:
-    "new_order": "New Order"
-    "new_order_item": "New Order Item"
+    "new_order": "New Approved Order"
+    "new_order_item": "New Order Item needs your attention"
     "approved_order": "Order has been approved"
     "declined_order": "Order has been declined"
     "cancelled_order": "Order has been cancelled"
-    "served_order": "Order has been served"
+    "served_order": "Your order has been served"
     "successful_payment": "Payment has been successful"
-    "order_item_prepared": "Order Item has been prepared"
+    "order_item_prepared": "Order Item ready for pick up"

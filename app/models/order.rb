@@ -32,6 +32,7 @@ class Order < ActiveRecord::Base
   end
 
   def declined!
+    reset!
     AirMenu::NotificationDispatcher.new(self.user, :declined_order).dispatch
   end
 
@@ -53,12 +54,22 @@ class Order < ActiveRecord::Base
   def paid!
     @state_delegate.paid!
     AirMenu::NotificationDispatcher.new(self.user, :successful_payment).dispatch
+    AirMenu::NotificationDispatcher.new(self.staff_member, :successful_payment).dispatch
   end
 
   def open!
     @state_delegate.open!
     distribute_order
     AirMenu::NotificationDispatcher.new(self.staff_member, :new_order).dispatch
+  end
+
+  def reset!
+    self.staff_member = nil
+    self.state_cd = 0
+    save!
+    self.order_items.each do |order_item|
+      order_item.reset!
+    end
   end
 
   def distribute_order
