@@ -33,28 +33,29 @@ class Order < ActiveRecord::Base
 
   def declined!
     reset!
-    AirMenu::NotificationDispatcher.new(self.user, :declined_order).dispatch
+    AirMenu::NotificationDispatcher.new(self.user, :declined_order_user).dispatch
   end
 
   def cancelled!
     @state_delegate.cancelled!
-    AirMenu::NotificationDispatcher.new(self.user, :cancelled_order).dispatch
+    AirMenu::NotificationDispatcher.new(self.user, :cancelled_order_user).dispatch
   end
 
   def approved!
     @state_delegate.approved!
-    AirMenu::NotificationDispatcher.new(self.user, :approved_order).dispatch
+    AirMenu::NotificationDispatcher.new(self.user, :approved_order_user).dispatch
+    AirMenu::NotificationDispatcher.new(self.staff_member, :approved_order_staff_member).dispatch
   end
 
   def served!
     @state_delegate.served!
-    AirMenu::NotificationDispatcher.new(self.user, :served_order).dispatch
+    AirMenu::NotificationDispatcher.new(self.user, :served_order_user).dispatch
   end
 
   def paid!
     @state_delegate.paid!
-    AirMenu::NotificationDispatcher.new(self.user, :successful_payment).dispatch
-    AirMenu::NotificationDispatcher.new(self.staff_member, :successful_payment).dispatch
+    AirMenu::NotificationDispatcher.new(self.user, :successful_payment_user).dispatch
+    AirMenu::NotificationDispatcher.new(self.staff_member, :successful_payment_staff_member).dispatch
   end
 
   def open!

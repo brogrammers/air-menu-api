@@ -14,12 +14,11 @@ module AirMenu
           end
         end
 
-        def dispatch(token, message, count)
+        def dispatch(token, message, count, type)
           return unless token.is_a?(String) && !token.empty?
           new_notification = notification(token, message, count)
-          @pushers.each do |pusher|
-            pusher.push(new_notification) rescue false
-          end
+          @pushers.first.push(new_notification) rescue false if type == User
+          @pushers.last.push(new_notification) rescue false if type == StaffMember
         end
 
         def notification(token, message, count)
