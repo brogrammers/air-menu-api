@@ -13,3 +13,7 @@ end
 node :staff_member do |order|
   partial('api/v1/me/orders/_staff_member', :object => order.staff_member)
 end
+
+node :order_items do |order|
+  partial('api/v1/me/orders/_order_items', :object => order.order_items)
+end if @user.class == User
