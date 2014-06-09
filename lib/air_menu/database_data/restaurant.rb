@@ -11,7 +11,8 @@ module AirMenu
             :conversion_rate => 0.0,
             :company_id => 1,
             :active_menu_id => 1,
-            :avatar => '/uploads/restaurant/avatar/1/avatar.jpg'
+            :avatar => '/uploads/restaurant/avatar/1/avatar.jpg',
+            :category => 'Traditional Irish'
         },
         {
             :name => 'Nandos',
@@ -21,7 +22,8 @@ module AirMenu
             :conversion_rate => 0.0,
             :company_id => 1,
             :active_menu_id => 2,
-            :avatar => '/uploads/restaurant/avatar/2/avatar.jpg'
+            :avatar => '/uploads/restaurant/avatar/2/avatar.jpg',
+            :category => 'Portuguese'
         }
     ]
   end

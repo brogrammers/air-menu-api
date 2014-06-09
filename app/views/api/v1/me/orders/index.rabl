@@ -15,5 +15,5 @@ node :staff_member do |order|
 end
 
 node :order_items do |order|
-  partial('api/v1/me/orders/_order_items', :object => order.order_items)
+  partial('api/v1/me/orders/_order_item', :object => order.order_items)
 end if @user.class == User
