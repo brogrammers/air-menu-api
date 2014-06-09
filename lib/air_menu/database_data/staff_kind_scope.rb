@@ -426,6 +426,54 @@ module AirMenu
         {
             :staff_kind_id => 7,
             :scope_id => 26
+        },
+        {
+            :staff_kind_id => 2,
+            :scope_id => 14
+        },
+        {
+            :staff_kind_id => 2,
+            :scope_id => 15
+        },
+        {
+            :staff_kind_id => 2,
+            :scope_id => 16
+        },
+        {
+            :staff_kind_id => 2,
+            :scope_id => 2
+        },
+        {
+            :staff_kind_id => 2,
+            :scope_id => 3
+        },
+        {
+            :staff_kind_id => 2,
+            :scope_id => 5
+        },
+        {
+            :staff_kind_id => 2,
+            :scope_id => 10
+        },
+        {
+            :staff_kind_id => 2,
+            :scope_id => 11
+        },
+        {
+            :staff_kind_id => 2,
+            :scope_id => 12
+        },
+        {
+            :staff_kind_id => 2,
+            :scope_id => 13
+        },
+        {
+            :staff_kind_id => 2,
+            :scope_id => 15
+        },
+        {
+            :staff_kind_id => 2,
+            :scope_id => 16
         }
     ]
   end
