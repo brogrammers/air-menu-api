@@ -1,7 +1,7 @@
 en:
   notifications:
     "new_order_item_staff_member": "New order item needs your attention"
-    "approved_order_staff_member": "New approved order"
+    "approved_order_staff_member": "New order has been approved"
     "order_item_prepared_staff_member": "Order Item ready for pick up"
     "successful_payment_staff_member": "Customer has paid successfully"
     "approved_order_user": "Your order has been approved order"
