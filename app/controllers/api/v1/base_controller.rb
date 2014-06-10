@@ -129,7 +129,7 @@ module Api
           param :name, String, :desc => 'Users full name', :required => required
           param :email, String, :desc => 'Users email', :required => required
           param :password, String, :desc => 'New password', :required => required
-          param :phone, String, :desc => 'New phone number', :required => required
+          param :phone, String, :desc => 'New phone number'
           param :avatar, ActionDispatch::Http::UploadedFile, :desc => 'Image file via multipart form'
         end
 
