@@ -154,7 +154,11 @@ class StaffMember < ActiveRecord::Base
   end
 
   def owns_device(device)
-    self.device_id == device.id
+    if self.group
+      self.group.device_id == device.id
+    else
+      self.device_id == device.id
+    end
   end
 
   def owns_credit_card(credit_card)
