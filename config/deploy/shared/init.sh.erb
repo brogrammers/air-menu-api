@@ -14,7 +14,7 @@ set -e
 TIMEOUT=${TIMEOUT-60}
 APP_ROOT=<%= fetch(:deploy_to) %>/current
 PID=<%= fetch(:unicorn_pid) %>
-CMD="cd <%= fetch(:deploy_to) %>/current; UPLOADS=<%= fetch(:uploads_dir) %> APN_CERT=/etc/ssl/certs/ios_push_aps_development.pem bundle exec unicorn -D -c <%= fetch(:unicorn_config) %> -E production"
+CMD="cd <%= fetch(:deploy_to) %>/current; UPLOADS=<%= fetch(:uploads_dir) %> APN_CERT_CUSTOMER=/etc/ssl/certs/aps_ios_customer.pem APN_CERT_RESTAURANT=/etc/ssl/certs/aps_ios_restaurant.pem bundle exec unicorn -D -c <%= fetch(:unicorn_config) %> -E production"
 AS_USER=rails-deploy
 set -u
 

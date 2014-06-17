@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140510145700) do
+ActiveRecord::Schema.define(:version => 20140610035520) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_1"
@@ -141,13 +141,13 @@ ActiveRecord::Schema.define(:version => 20140510145700) do
 
   create_table "oauth_access_tokens", :force => true do |t|
     t.integer  "resource_owner_id"
-    t.integer  "application_id",    :null => false
-    t.string   "token",             :null => false
+    t.integer  "application_id",                   :null => false
+    t.string   "token",                            :null => false
     t.string   "refresh_token"
     t.integer  "expires_in"
     t.datetime "revoked_at"
-    t.datetime "created_at",        :null => false
-    t.string   "scopes"
+    t.datetime "created_at",                       :null => false
+    t.text     "scopes",            :limit => 255
     t.integer  "owner_id"
     t.string   "owner_type"
   end
@@ -206,6 +206,7 @@ ActiveRecord::Schema.define(:version => 20140510145700) do
     t.datetime "served_time"
     t.datetime "cancelled_time"
     t.integer  "staff_member_id"
+    t.string   "table_number"
   end
 
   create_table "payments", :force => true do |t|
@@ -226,6 +227,7 @@ ActiveRecord::Schema.define(:version => 20140510145700) do
     t.integer  "active_menu_id"
     t.text     "description",     :limit => 255
     t.string   "avatar"
+    t.string   "category"
   end
 
   create_table "reviews", :force => true do |t|
@@ -267,6 +269,7 @@ ActiveRecord::Schema.define(:version => 20140510145700) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "device_id"
+    t.datetime "last_seen"
   end
 
   create_table "users", :force => true do |t|
@@ -274,6 +277,18 @@ ActiveRecord::Schema.define(:version => 20140510145700) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "phone"
+  end
+
+  create_table "webhooks", :force => true do |t|
+    t.string   "host"
+    t.string   "path"
+    t.text     "params"
+    t.text     "headers"
+    t.integer  "restaurant_id"
+    t.string   "on_action"
+    t.string   "on_method"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
 end

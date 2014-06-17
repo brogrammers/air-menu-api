@@ -15,12 +15,18 @@ class OrderItem < ActiveRecord::Base
   end
 
   def assign!
-    self.menu_item.menu_section.staff_kind.staff_members.each do |staff_member|
-      if staff_member.staff_kind.accept_order_items
-        staff_member.order_items << self
-        return
-      end
+    candidates = possible_staff_members
+    candidates.first.order_items << self unless candidates.empty?
+    AirMenu::NotificationDispatcher.new(self.staff_member, :new_order_item_staff_member).dispatch
+  end
+
+  def possible_staff_members
+    possible_staff_members = []
+    self.order.restaurant.staff_members.each do |staff_member|
+      possible_staff_members << staff_member if staff_member.staff_kind && staff_member.staff_kind.accept_order_items && accepted_staff_kind?(staff_member.staff_kind)
     end
+    possible_staff_members.sort! { |staff_member, next_staff_member| staff_member.current_order_items.size <=> next_staff_member.current_order_items.size }
+    possible_staff_members
   end
 
   def approved!
@@ -39,11 +45,24 @@ class OrderItem < ActiveRecord::Base
 
   def end_prepare!
     @state_delegate.end_prepare!
-    AirMenu::NotificationDispatcher.new(self.staff_member, :order_item_prepared).dispatch
+    self.order.staff_member.order_items << self
+    AirMenu::NotificationDispatcher.new(self.order.staff_member, :order_item_prepared_staff_member).dispatch
   end
 
   def served!
     @state_delegate.served!
     self.order.check_served
+  end
+
+  def reset!
+    self.state_cd = 0
+    self.staff_member = nil
+    save!
+  end
+
+  def accepted_staff_kind?(staff_kind)
+    accepted_staff_kind = self.menu_item.staff_kind || self.menu_item.menu_section.staff_kind
+    return true if accepted_staff_kind.nil?
+    staff_kind && staff_kind.id == accepted_staff_kind.id
   end
 end

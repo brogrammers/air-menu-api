@@ -12,16 +12,16 @@ module AirMenu
     end
 
     def dispatch
-      return unless @message and @user
+      return unless @message && @user
       notification = create_notification
       @user.devices.each do |device|
-        @strategy.dispatch(device.token, notification.content, (@user.unread_count))
+        @strategy.dispatch(device.token, notification.content, (@user.unread_count), @user.class)
       end
     rescue NoMethodError
       if @user.device
-        @strategy.dispatch(@user.device.token, notification.content, (@user.unread_count))
+        @strategy.dispatch(@user.device.token, notification.content, (@user.unread_count), @user.class)
       elsif @user.group && @user.group.device
-        @strategy.dispatch(@user.group.device.token, notification.content, (@user.unread_count))
+        @strategy.dispatch(@user.group.device.token, notification.content, (@user.unread_count), @user.class)
       end
     end
 

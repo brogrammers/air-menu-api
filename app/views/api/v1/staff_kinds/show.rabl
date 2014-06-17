@@ -7,7 +7,7 @@ node :restaurant do |staff_kind|
 end
 
 node :scopes do |staff_kind|
-  partial('api/v1/staff_kinds/_scope', :object => staff_kind.scopes)
+  staff_kind.scope_array
 end
 
 node :staff_members do |staff_kind|

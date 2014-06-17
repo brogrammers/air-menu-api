@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :find_current_user
   before_filter :determine_format
   before_filter :determine_phone
+  before_filter :update_staff_member_last_seen
 
   respond_to :json, :xml
 
@@ -21,24 +22,30 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def update_staff_member_last_seen
+    if @user.class == StaffMember
+      @user.last_seen = Time.now
+      @user.save!
+    end
+  end
+
   def determine_format
     @format = :json
     @format = :xml if request.headers['Accept'] == /application\/xml/
   end
 
   def determine_phone
-    # TODO: Check if scope is trusted!!
-    if device? and @user
-      device = Device.authenticate(request.headers["X-Device-UUID"], @user)
+    if device? && @user && scope_exists?('trusted')
+      device = Device.authenticate(request.headers['X-Device-UUID'], @user)
       if device
-        device.token = request.headers["X-Device-Token"]
+        device.token = request.headers['X-Device-Token']
         device.save! if device.changed?
       end
     end
   end
 
   def device?
-    request.headers["X-Device-UUID"] && request.headers["X-Device-Token"]
+    request.headers['X-Device-UUID'] && request.headers['X-Device-Token']
   end
 
   def scope_exists?(scope)

@@ -107,7 +107,7 @@ describe Api::V1::Companies::RestaurantsController do
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
           before :each do
-            post :create, :company_id => 1, :name => 'Restaurant', :description => 'description', :loyalty => false, :conversion_rate => 0.0, :remote_order => false, :address_1 => 'a1', :address_2 => 'a2', :city => 'city', :county => 'county', :country => 'IE', :latitude => 56.3443, :longitude => 6.78234
+            post :create, :company_id => 1, :name => 'Restaurant', :description => 'description', :loyalty => false, :conversion_rate => 0.0, :remote_order => false, :address_1 => 'a1', :address_2 => 'a2', :city => 'city', :county => 'county', :country => 'IE', :latitude => 56.3443, :longitude => 6.78234, :category => 'blah'
           end
 
           it 'should respond with a HTTP 201 status code' do
@@ -122,6 +122,7 @@ describe Api::V1::Companies::RestaurantsController do
             expect(body['restaurant']['loyalty']).to eq(false)
             expect(body['restaurant']['conversion_rate']).to eq(0.0)
             expect(body['restaurant']['remote_order']).to eq(false)
+            expect(body['restaurant']['category']).to eq('blah')
           end
 
           it 'should create a new restaurant object' do

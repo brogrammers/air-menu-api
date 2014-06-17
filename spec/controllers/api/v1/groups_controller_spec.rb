@@ -209,19 +209,87 @@ describe Api::V1::GroupsController do
           let(:user_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
           let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => user_scope, :revoked? => false, :expired? => false }
 
-          before :each do
-            put :update, :id => 1, :name => 'new group name'
+          describe 'with staff members' do
+
+            before :each do
+              put :update, :id => 2, :name => 'new group name', :staff_members => '1 2 3'
+            end
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+            it 'should change the group name' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['group']['name']).to eq('new group name')
+            end
+
+            it 'should change staff members' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['group']['staff_members'].size).to eq(3)
+              [1, 2, 3].each_with_index do |id, index|
+                expect(body['group']['staff_members'][index]['id']).to eq(id)
+              end
+            end
+
           end
 
+          describe 'without staff members' do
 
-          it 'should respond with a HTTP 200 status code' do
-            expect(response).to be_success
-            expect(response.status).to eq(200)
+            before :each do
+              put :update, :id => 2, :name => 'new group name'
+            end
+
+            it 'should respond with a HTTP 200 status code' do
+              expect(response).to be_success
+              expect(response.status).to eq(200)
+            end
+
+            it 'should change the group name' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['group']['name']).to eq('new group name')
+            end
+
+            it 'should not change staff members' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['group']['staff_members'].first['id']).to eq(3)
+            end
+
           end
 
-          it 'should change the group name' do
-            body = JSON.parse(response.body) rescue { }
-            expect(body['group']['name']).to eq('new group name')
+          describe 'with a not existing staff member' do
+            before :each do
+              put :update, :id => 2, :name => 'new group name', :staff_members => '1 9999'
+            end
+
+            it 'should respond with a HTTP 400 status code' do
+              expect(response.status).to eq(400)
+            end
+
+            it 'should return a bad request error message' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['error']['code']).to eq('parameters')
+              expect(body['error']['parameters']).to eq(['staff_members'])
+            end
+
+          end
+
+          describe 'with unassociated staff member' do
+            before :each do
+              put :update, :id => 2, :name => 'new group name', :staff_members => '1 5'
+            end
+
+            xit 'should respond with a HTTP 400 status code' do
+              expect(response.status).to eq(400)
+            end
+
+            xit 'should return a bad request error message' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['error']['code']).to eq('parameters')
+              expect(body['error']['parameters']).to eq(['staff_members'])
+            end
+
           end
 
         end

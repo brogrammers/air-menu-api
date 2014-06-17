@@ -13,6 +13,8 @@ module Api
       end
 
       before_filter :set_group, :only => [:show, :update, :destroy]
+      before_filter :set_device, :only => [:update]
+      before_filter :set_staff_members, :only => [:update]
       before_filter :check_ownership, :only => [:show, :update, :destroy]
 
       resource_description do
@@ -59,7 +61,8 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[groups], :update, format }
 
       def update
-        @group = update_group @group
+        @group = update_group @group, @device, @staff_members
+        @group = Group.find params[:id]
         respond_with @group
       end
 
@@ -85,8 +88,24 @@ module Api
         render_model_not_found 'Group'
       end
 
+      def set_device
+        @device = Device.find params[:device_id] if params[:device_id]
+      rescue ActiveRecord::RecordNotFound
+        render_model_not_found 'Device'
+      end
+
+      def set_staff_members
+        @staff_members = []
+        params[:staff_members].split(' ').each do |staff_member_id|
+          staff_member = StaffMember.find_by_id(staff_member_id)
+          render_bad_request ['staff_members'] unless staff_member
+          @staff_members << staff_member
+        end if params[:staff_members]
+      end
+
       def check_ownership
         render_model_not_found 'Group' if not_admin_and?(!@user.owns(@group.restaurant))
+        render_forbidden 'ownership_failure' if @device && @device.notifiable_type == 'Restaurant' && @device.notifiable_id != @group.restaurant.id
       end
 
     end

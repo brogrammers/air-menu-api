@@ -26,8 +26,14 @@ module Api
           device
         end
 
-        def update_group(group)
+        def update_group(group, device, staff_members)
           group.name = params[:name] || group.name
+          group.device_id = device.id if device
+          group.empty_staff_members(params[:staff_members]) if params[:staff_members].is_a?(String) && !params[:staff_members].empty?
+          staff_members.each do |staff_member|
+            staff_member.group = group
+            staff_member.save!
+          end
           group.save!
           group
         end
@@ -82,6 +88,14 @@ module Api
           notification
         end
 
+        def update_order(order)
+          if @user.class == StaffMember
+            order.table_number = params[:table_number] || order.table_number
+            order.save!
+          end
+          order
+        end
+
         def update_order_item(order_item)
           order_item.comment = params[:comment] || order_item.comment
           order_item.count = params[:count] || order_item.count
@@ -89,6 +103,7 @@ module Api
           order_item
         end
 
+        #TODO: Break this method up to smaller method (update_address, update_location)
         def update_restaurant(restaurant)
           restaurant.name = params[:name] || restaurant.name
           restaurant.description = params[:description] || restaurant.description
@@ -98,6 +113,7 @@ module Api
           restaurant.address.county = params[:county] || restaurant.address.county
           restaurant.address.state = params[:state] || restaurant.address.state
           restaurant.avatar = params[:avatar] || restaurant.avatar
+          restaurant.category = params[:category] || restaurant.category
           restaurant.address.country = params[:country] || restaurant.address.country
           restaurant.location.latitude = params[:latitude] || restaurant.location.latitude if restaurant.location
           restaurant.location.longitude = params[:longitude] || restaurant.location.longitude if restaurant.location
@@ -121,7 +137,7 @@ module Api
 
         def update_staff_member(staff_member, staff_kind)
           staff_member.name = params[:name] || staff_member.name
-          staff_member.staff_kind = staff_kind if staff_kind
+          staff_member.new_staff_kind = staff_kind if staff_kind
           update_identity staff_member.identity
           staff_member.save!
           staff_member
@@ -135,6 +151,28 @@ module Api
           credit_card.cvc = params[:cvc] || credit_card.cvc
           credit_card.save!
           credit_card
+        end
+
+        def update_opening_hour(opening_hour)
+          opening_hour.day = params[:day] || opening_hour.day
+          if params[:start] && params[:end]
+            start_time = Time.iso8601(params[:start])
+            opening_hour.start = start_time
+            opening_hour.end = start_time + 60*60*params[:end].to_f
+          end
+          opening_hour.save!
+          opening_hour
+        end
+
+        def update_webhook(webhook)
+          webhook.path = params[:path] || webhook.path
+          webhook.host = params[:host] || webhook.host
+          webhook.params = params[:params] || webhook.params
+          webhook.headers = params[:headers] || webhook.headers
+          webhook.on_action = params[:on_action] || webhook.on_action
+          webhook.on_method = params[:on_method] || webhook.on_method
+          webhook.save!
+          webhook
         end
 
       end

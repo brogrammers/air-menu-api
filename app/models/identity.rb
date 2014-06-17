@@ -5,7 +5,7 @@ class Identity < ActiveRecord::Base
 
 	belongs_to :identifiable, polymorphic: true
 
-  mount_uploader :avatar, AvatarUploader
+  mount_uploader :avatar, AvatarUploader unless ENV['CW_SKIP']
 
 	validates :username, :email, presence: true
  	validates :username, :email, uniqueness: true

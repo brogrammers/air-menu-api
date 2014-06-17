@@ -1,0 +1,6 @@
+one:
+  id: 1
+  day: "monday"
+  start: "2000-01-01 09:00:00"
+  end: "2000-01-01 12:00:00"
+  restaurant_id: 1

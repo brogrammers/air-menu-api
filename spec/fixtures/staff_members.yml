@@ -16,6 +16,7 @@ three:
   staff_kind_id: 3
   name: Kitchen
   restaurant_id: 1
+  group_id: 2
 
 four:
   id: 4

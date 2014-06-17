@@ -12,7 +12,8 @@ describe Api::V1::Restaurants::StaffMembersController do
            :users,
            :orders,
            :staff_kinds,
-           :staff_members
+           :staff_members,
+           :devices
 
   before :each do
     controller.stub(:doorkeeper_token) { token }
@@ -23,7 +24,7 @@ describe Api::V1::Restaurants::StaffMembersController do
   let(:admin_scope) { Doorkeeper::OAuth::Scopes.from_array ['admin'] }
   let(:owner_scope) { Doorkeeper::OAuth::Scopes.from_array ['owner'] }
   let(:staff_member_scope) { Doorkeeper::OAuth::Scopes.from_array ['get_staff_members', 'create_staff_members'] }
-  let(:staff_member_parameters) { {:name => 'test staff member', :username => 'iamunique', :password => 'abc', :email => 'test@something.com', :staff_kind_id => 1} }
+  let(:staff_member_parameters) { {:name => 'test staff member', :username => 'iamunique', :password => 'abc', :email => 'test@something.com', :staff_kind_id => 1, :device_id => 3} }
 
   describe 'GET #index' do
 

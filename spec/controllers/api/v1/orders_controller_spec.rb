@@ -227,6 +227,9 @@ describe Api::V1::OrdersController do
               describe 'and set to open' do
 
                 before :each do
+                  staff_member = staff_members(:two)
+                  staff_member.last_seen = Time.now
+                  staff_member.save!
                   put :update, :id => 7, :state => 'open'
                 end
 
@@ -420,6 +423,10 @@ describe Api::V1::OrdersController do
             it 'should respond with a HTTP 200 status code' do
               expect(response).to be_success
               expect(response.status).to eq(200)
+            end
+
+            it 'should delete the order item' do
+              expect { OrderItem.find 1 }.to raise_error
             end
 
           end

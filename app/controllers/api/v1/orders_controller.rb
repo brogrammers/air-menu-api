@@ -60,6 +60,7 @@ module Api
       FORMATS.each { |format| example BaseController.example_file %w[orders], :update, format }
 
       def update
+        update_order @order
         respond_with @order
       end
 

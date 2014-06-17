@@ -3,7 +3,7 @@ module Api
     module Restaurants
       class OpeningHoursController < BaseController
         SCOPES = {
-            :index => [:admin, :user, :owner],
+            :index => [:admin, :user, :owner, :get_opening_hours],
             :create => [:admin, :owner, :create_opening_hours]
         }
 

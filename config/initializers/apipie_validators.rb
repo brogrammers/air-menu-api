@@ -287,3 +287,67 @@ class StartOpeningHourValidator < Apipie::Validator::BaseValidator
   end
 
 end
+
+class HourOffsetValidator < Apipie::Validator::BaseValidator
+
+  def initialize(param_description, argument)
+    super(param_description)
+    @type = argument
+  end
+
+  def validate(value)
+    return false if value.nil? || !value.is_a?(String)
+    valid_float = value == value.to_f.to_s
+    valid_size = value.to_f < 24.0 && value.to_f > 0.0
+    valid_float && valid_size
+  end
+
+  def self.build(param_description, argument, options, block)
+    if argument == :hour_offset
+      self.new(param_description, argument)
+    end
+  end
+
+  def description
+    "#{@param_description}"
+  end
+
+  def expected_type
+    'float [0.0..24.0]'
+  end
+
+end
+
+class JSONStringValidator < Apipie::Validator::BaseValidator
+
+  def initialize(param_description, argument)
+    super(param_description)
+    @type = argument
+  end
+
+  def validate(value)
+    return false if value.nil? || !value.is_a?(String) && !value.is_a?(Hash)
+    if value.is_a?(Hash)
+      !!(JSON.parse(value.to_json))
+    else
+      !!(JSON.parse(value))
+    end
+  rescue JSON::ParserError
+    false
+  end
+
+  def self.build(param_description, argument, options, block)
+    if argument == :json_string
+      self.new(param_description, argument)
+    end
+  end
+
+  def description
+    "#{@param_description}"
+  end
+
+  def expected_type
+    'JSON string'
+  end
+
+end

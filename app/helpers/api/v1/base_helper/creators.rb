@@ -31,6 +31,7 @@ module Api
           restaurant.name = params[:name]
           restaurant.avatar = params[:avatar]
           restaurant.description = params[:description]
+          restaurant.category = params[:category]
           restaurant.loyalty = false
           restaurant.remote_order = false
           restaurant.conversion_rate = 0.0
@@ -69,6 +70,7 @@ module Api
           order = Order.new
           order.state = :new
           order.user = @user if @user.class == User
+          order.table_number = params[:table_number]
           if @user.class == StaffMember
             order.staff_member = @user
             order.set_state
@@ -90,12 +92,15 @@ module Api
           order_item
         end
 
-        def create_staff_kind(restaurant)
+        def create_staff_kind(restaurant, staff_kind_scopes)
           staff_kind = StaffKind.new
           staff_kind.name = params[:name]
           staff_kind.accept_orders = params[:accept_orders]
           staff_kind.accept_order_items = params[:accept_order_items]
           staff_kind.restaurant = restaurant
+          staff_kind_scopes.each do |scope|
+            staff_kind.scopes << scope
+          end
           staff_kind.save!
           staff_kind
         end
@@ -112,21 +117,26 @@ module Api
           staff_member
         end
 
-        def create_group(restaurant)
+        def create_group(restaurant, device, staff_members)
           group = Group.new
           group.restaurant = restaurant
           group.name = params[:name]
+          group.device_id = device.id
+          staff_members.each do |staff_member|
+            group.staff_members << staff_member
+          end
           group.save!
           group
         end
 
         def create_device(notifiable)
-          device = Device.new
+          device = Device.new unless device = Device.find_by_uuid(params[:uuid])
           device.name = params[:name]
           device.uuid = params[:uuid]
           device.token = params[:token]
           device.platform = params[:platform]
           notifiable.devices << device
+          device.reassign_group_staff_member
           device.save!
           device
         end
@@ -231,6 +241,19 @@ module Api
           opening_hour.restaurant = restaurant
           opening_hour.save!
           opening_hour
+        end
+
+        def create_webhook(restaurant)
+          webhook = Webhook.new
+          webhook.path = params[:path]
+          webhook.host = params[:host]
+          webhook.params = params[:params]
+          webhook.headers = params[:headers]
+          webhook.on_action = params[:on_action]
+          webhook.on_method = params[:on_method]
+          webhook.restaurant = restaurant
+          webhook.save!
+          webhook
         end
 
       end

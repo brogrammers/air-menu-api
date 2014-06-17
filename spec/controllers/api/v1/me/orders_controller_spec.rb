@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V1::Me::OrderItemsController do
+describe Api::V1::Me::OrdersController do
   render_views
   fixtures :addresses,
            :companies,
@@ -31,17 +31,12 @@ describe Api::V1::Me::OrderItemsController do
       let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
 
       before :each do
-        get :index
+        get :index, :state => 'paid'
       end
 
-      it 'should respond with a HTTP 403 status code' do
-        expect(response).to be_forbidden
-        expect(response.status).to eq(403)
-      end
-
-      it 'should return a forbidden error message' do
-        body = JSON.parse(response.body) rescue { }
-        expect(body['error']['code']).to eq('invalid_scope')
+      it 'should respond with a HTTP 200 status code' do
+        expect(response).to be_success
+        expect(response.status).to eq(200)
       end
 
     end
@@ -71,7 +66,7 @@ describe Api::V1::Me::OrderItemsController do
       describe 'with state parameter' do
 
         before :each do
-          get :index, :state => 'approved'
+          get :index, :state => 'open'
         end
 
         it 'should respond with a HTTP 200 status code' do

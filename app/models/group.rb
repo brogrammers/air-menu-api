@@ -21,4 +21,12 @@ class Group < ActiveRecord::Base
     @staff_member ||= self.staff_members.first
     @staff_member ? @staff_member.staff_kind : nil
   end
+
+  def empty_staff_members(exceptions)
+    self.staff_members.each do |staff_member|
+      next if exceptions.split(' ').include? staff_member.id.to_s
+      staff_member.group = nil
+      staff_member.save!
+    end
+  end
 end

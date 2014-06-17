@@ -336,6 +336,11 @@ describe Api::V1::DevicesController do
             expect { Device.find body['device']['id'] }.to raise_error
           end
 
+          it 'should delete the device reference from the restaurant' do
+            staff_member = StaffMember.find 3
+            expect(staff_member.device_id).to be_nil
+          end
+
         end
 
         describe 'owning the device' do

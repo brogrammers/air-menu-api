@@ -9,3 +9,7 @@ end
 node :menu_item do |order_item|
   partial('api/v1/me/order_items/_menu_item', :object => order_item.menu_item)
 end
+
+node :staff_member do |order_item|
+  partial('api/v1/me/orders/_staff_member', :object => order_item.staff_member)
+end

@@ -1,11 +1,13 @@
 class StaffMember < ActiveRecord::Base
-  has_one :identity, :as => :identifiable
-  has_many :notifications, :as => :remindable
+  class GroupMemberError < StandardError; end
+
+  has_one :identity, :as => :identifiable, :dependent => :destroy
+  has_many :notifications, :as => :remindable, :dependent => :destroy
   belongs_to :device
   belongs_to :restaurant
   belongs_to :staff_kind
   belongs_to :group
-  has_many :access_tokens, :class_name => 'Doorkeeper::AccessToken', :as => :owner
+  has_many :access_tokens, :class_name => 'Doorkeeper::AccessToken', :as => :owner, :dependent => :destroy
   has_many :orders
   has_many :order_items
 
@@ -22,12 +24,21 @@ class StaffMember < ActiveRecord::Base
     false
   end
 
+  def new_staff_kind=(staff_kind)
+    raise GroupMemberError if self.group_id
+    self.staff_kind = staff_kind
+  end
+
   def type
     'StaffMember'
   end
 
   def max_orders
     15
+  end
+
+  def online?
+    self.last_seen > Time.now-(60*15)
   end
 
   def scopes
@@ -38,7 +49,15 @@ class StaffMember < ActiveRecord::Base
     eval(
         <<-eos
     def #{state}_orders
-      Order.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s)
+      result = []
+      if self.group
+        self.group.staff_members.each do |staff_member|
+          result.concat(Order.where("state_cd = #{index} AND staff_member_id = " + staff_member.id.to_s))
+        end
+      else
+        result.concat(Order.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s))
+      end
+      result
     end
     eos
     )
@@ -48,7 +67,16 @@ class StaffMember < ActiveRecord::Base
     eval(
         <<-eos
     def #{state}_order_items
-      OrderItem.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s)
+      result = []
+      if self.group
+        self.group.staff_members.each do |staff_member|
+          puts "state_cd = #{index} AND staff_member_id = " + staff_member.id.to_s
+          result.concat(OrderItem.where("state_cd = #{index} AND staff_member_id = " + staff_member.id.to_s))
+        end
+      else
+        result.concat(OrderItem.where("state_cd = #{index} AND staff_member_id = " + self.id.to_s))
+      end
+      result
     end
     eos
     )
@@ -63,7 +91,11 @@ class StaffMember < ActiveRecord::Base
   end
 
   def current_orders
-    []
+    Order.where("state_cd != 4 AND state_cd != 5 AND staff_member_id = #{self.id}")
+  end
+
+  def current_order_items
+    OrderItem.where("state_cd != 5 AND staff_member_id = #{self.id}")
   end
 
   def unread
@@ -107,7 +139,14 @@ class StaffMember < ActiveRecord::Base
   end
 
   def owns_order_item(order_item)
-    OrderItem.where(:staff_member_id => self.id, :id => order_item.id).size > 0
+    if self.group
+      self.group.staff_members.each do |staff_member|
+        return true if OrderItem.where(:staff_member_id => staff_member.id, :id => order_item.id).size > 0
+      end
+      return false
+    else
+      return OrderItem.where(:staff_member_id => self.id, :id => order_item.id).size > 0
+    end
   end
 
   def owns_notification(notification)
@@ -115,10 +154,20 @@ class StaffMember < ActiveRecord::Base
   end
 
   def owns_device(device)
-    self.device_id == device.id
+    if self.group
+      self.group.device_id == device.id
+    else
+      self.device_id == device.id
+    end
   end
 
   def owns_credit_card(credit_card)
     false
+  end
+
+  class << self
+    def online(restaurant_id)
+      StaffMember.where(:last_seen => Time.now-(60*15)..Time.now, :restaurant_id => restaurant_id)
+    end
   end
 end

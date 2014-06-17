@@ -12,7 +12,8 @@ describe Api::V1::RestaurantsController do
            :users,
            :orders,
            :staff_kinds,
-           :staff_members
+           :staff_members,
+           :devices
 
   before :each do
     controller.stub(:doorkeeper_token) { token }
@@ -292,6 +293,42 @@ describe Api::V1::RestaurantsController do
           it 'should respond with a HTTP 200 status code' do
             expect(response).to be_success
             expect(response.status).to eq(200)
+          end
+
+          it 'should delete the menus' do
+            expect { Menu.find 1 }.to raise_error
+          end
+
+          it 'should delete the orders' do
+            expect { Order.find 1 }.to raise_error
+          end
+
+          it 'should delete the staff kinds' do
+            expect { StaffKind.find 1 }.to raise_error
+          end
+
+          it 'should delete the staff members' do
+            expect { StaffMember.find 1 }.to raise_error
+          end
+
+          it 'should delete the groups' do
+            expect { Group.find 1 }.to raise_error
+          end
+
+          it 'should delete the reviews' do
+            expect { Review.find 1 }.to raise_error
+          end
+
+          it 'should delete the opening hours' do
+            expect { OpeningHour.find 1 }.to raise_error
+          end
+
+          it 'should delete the webhooks' do
+            expect { Webhook.find 1 }.to raise_error
+          end
+
+          it 'should delete the device' do
+            expect { Device.find 3 }.to raise_error
           end
 
         end

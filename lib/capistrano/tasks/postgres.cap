@@ -28,7 +28,7 @@ namespace :postgresql do
   desc 'Fill Database with base data'
   task :fill do
     on roles(:all) do
-      execute "cd #{release_path}; RAILS_ENV=production bundle exec rake db:fill"
+      execute "cd #{release_path}; RAILS_ENV=production CW_SKIP=true bundle exec rake db:fill"
     end
   end
 

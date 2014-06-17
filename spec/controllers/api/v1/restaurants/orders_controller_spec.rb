@@ -157,15 +157,9 @@ describe Api::V1::Restaurants::OrdersController do
 
           let(:token) { double :accessible? => true, :resource_owner_id => 1, :scopes => user_scope, :revoked? => false, :expired? => false }
 
-          it 'should respond with a HTTP 403 status code' do
-            expect(response).to be_forbidden
-            expect(response.status).to eq(403)
-          end
-
-          it 'should return a forbidden error message' do
-            body = JSON.parse(response.body) rescue { }
-            expect(body['error']['code']).to eq('forbidden')
-            expect(body['error']['message']).to eq('too_many_orders')
+          it 'should respond with a HTTP 201 status code' do
+            expect(response).to be_succes
+            expect(response.status).to eq(201)
           end
 
         end
@@ -191,10 +185,18 @@ describe Api::V1::Restaurants::OrdersController do
 
             let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope, :revoked? => false, :expired? => false }
 
+            before :each do
+              post :create, :restaurant_id => 1, :table_number => '3'
+            end
+
             it 'should respond with a HTTP 201 status code' do
-              post :create, :restaurant_id => 1
               expect(response).to be_success
               expect(response.status).to eq(201)
+            end
+
+            it 'should add the table number' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['order']['table_number']).to eq('3')
             end
 
           end
@@ -237,17 +239,14 @@ describe Api::V1::Restaurants::OrdersController do
 
             let(:token) { double :accessible? => true, :resource_owner_id => 2, :scopes => owner_scope, :revoked? => false, :expired? => false }
 
-            it 'should respond with a HTTP 403 status code' do
+            it 'should respond with a HTTP 201 status code' do
               post :create, :restaurant_id => 2
-              expect(response).to be_forbidden
-              expect(response.status).to eq(403)
+              expect(response).to be_success
+              expect(response.status).to eq(201)
             end
 
-            it 'should return a forbidden error message' do
-              post :create, :restaurant_id => 2
-              body = JSON.parse(response.body) rescue { }
-              expect(body['error']['code']).to eq('forbidden')
-              expect(body['error']['message']).to eq('too_many_orders')
+            it 'should add an order' do
+              expect {post :create, :restaurant_id => 2}.to change{Order.all.size}.by(1)
             end
 
           end
@@ -256,19 +255,14 @@ describe Api::V1::Restaurants::OrdersController do
 
             let(:token) { double :accessible? => true, :resource_owner_id => 3, :scopes => owner_scope, :revoked? => false, :expired? => false }
 
-            before :each do
+            it 'should respond with a HTTP 201 status code' do
               post :create, :restaurant_id => 1
+              expect(response).to be_success
+              expect(response.status).to eq(201)
             end
 
-            it 'should respond with a HTTP 403 status code' do
-              expect(response).to be_forbidden
-              expect(response.status).to eq(403)
-            end
-
-            it 'should return a forbidden error message' do
-              body = JSON.parse(response.body) rescue { }
-              expect(body['error']['code']).to eq('forbidden')
-              expect(body['error']['message']).to eq('too_many_orders')
+            it 'should add an order' do
+              expect {post :create, :restaurant_id => 1}.to change{Order.all.size}.by(1)
             end
 
           end
@@ -277,19 +271,14 @@ describe Api::V1::Restaurants::OrdersController do
 
             let(:token) { double :accessible? => true, :resource_owner_id => 4, :scopes => owner_scope, :revoked? => false, :expired? => false }
 
-            before :each do
+            it 'should respond with a HTTP 201 status code' do
               post :create, :restaurant_id => 1
+              expect(response).to be_success
+              expect(response.status).to eq(201)
             end
 
-            it 'should respond with a HTTP 403 status code' do
-              expect(response).to be_forbidden
-              expect(response.status).to eq(403)
-            end
-
-            it 'should return a forbidden error message' do
-              body = JSON.parse(response.body) rescue { }
-              expect(body['error']['code']).to eq('forbidden')
-              expect(body['error']['message']).to eq('too_many_orders')
+            it 'should add an order' do
+              expect {post :create, :restaurant_id => 1}.to change{Order.all.size}.by(1)
             end
 
           end
@@ -306,10 +295,18 @@ describe Api::V1::Restaurants::OrdersController do
 
             let(:token) { double :accessible? => true, :resource_owner_id => 6, :scopes => staff_member_scope, :revoked? => false, :expired? => false }
 
+            before :each do
+              post :create, :restaurant_id => 1, :table_number => '3'
+            end
+
             it 'should respond with a HTTP 201 status code' do
-              post :create, :restaurant_id => 1
               expect(response).to be_success
               expect(response.status).to eq(201)
+            end
+
+            it 'should add the table number' do
+              body = JSON.parse(response.body) rescue { }
+              expect(body['order']['table_number']).to eq('3')
             end
 
           end

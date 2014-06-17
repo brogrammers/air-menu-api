@@ -1,17 +1,18 @@
 class Restaurant < ActiveRecord::Base
-  has_many :menus
-  has_many :orders
-  has_many :staff_kinds
-  has_many :staff_members
-  has_many :groups
-  has_many :reviews
-  has_many :opening_hours
-  has_many :devices, :as => :notifiable
-  has_one :address, :as => :contactable
-  has_one :location, :as => :findable
+  has_many :menus, :dependent => :destroy
+  has_many :orders, :dependent => :destroy
+  has_many :staff_kinds, :dependent => :destroy
+  has_many :staff_members, :dependent => :destroy
+  has_many :groups, :dependent => :destroy
+  has_many :reviews, :dependent => :destroy
+  has_many :opening_hours, :dependent => :destroy
+  has_many :webhooks, :dependent => :destroy
+  has_many :devices, :as => :notifiable, :dependent => :destroy
+  has_one :address, :as => :contactable, :dependent => :destroy
+  has_one :location, :as => :findable, :dependent => :destroy
   belongs_to :company
 
-  mount_uploader :avatar, AvatarUploader
+  mount_uploader :avatar, AvatarUploader unless ENV['CW_SKIP']
 
   def current_orders
     Order.where(:served_time => nil, :restaurant_id => self.id)
@@ -25,5 +26,9 @@ class Restaurant < ActiveRecord::Base
     review_array = self.reviews.to_a
     sum = review_array.inject(0) { |sum, review| sum + review.rating }
     review_array.size != 0 ? sum / review_array.size : 0.0
+  end
+
+  def online_staff_members
+    StaffMember.online self.id
   end
 end
